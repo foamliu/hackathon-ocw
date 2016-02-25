@@ -775,3 +775,7 @@ Sending msg to client play-fork-run-185ff2cf-2193-4ea1-861e-5c04d7458c57: Detach
 Sending msg to client play-fork-run-185ff2cf-2193-4ea1-861e-5c04d7458c57: ExecutionSuccess(8)
 Sending msg to client play-fork-run-185ff2cf-2193-4ea1-861e-5c04d7458c57: DetachedLogEvent(LogMessage(debug,> server-handle-next-server-request))
 Sending msg to client play-fork-run-185ff2cf-2193-4ea1-861e-5c04d7458c57: BackgroundJobLogEvent(1,LogMessage(info,- play.api.Play - Application started (Dev)))
+Client play-fork-run-185ff2cf-2193-4ea1-861e-5c04d7458c57 closed, java.net.SocketException: Socket closed, shutting down
+Client play-fork-run-185ff2cf-2193-4ea1-861e-5c04d7458c57 thread exiting.
+Dropping message (0,ReceivedResponse()) to dead client play-fork-run-185ff2cf-2193-4ea1-861e-5c04d7458c57
+Closing the 28104@foamliu-desk-01 logs at Thu Feb 25 15:18:22 CST 2016, goodbye.

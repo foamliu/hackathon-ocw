@@ -18515,3 +18515,10 @@ Copy resource mappings:
 Total time: 14 s, completed Feb 24, 2016 1:51:58 PM
 > server-post-command-cleanup
 > server-handle-next-server-request
+Done executing sbt server engine, result Right(Exit(0))
+Closing listening server socket
+Waiting for socket thread
+Waiting for request processor thread
+Waiting for command engine result
+Returning control to sbt launcher with result Exit(0)
+Closing the 28104@foamliu-desk-01 logs at Thu Feb 25 15:18:22 CST 2016, goodbye.
