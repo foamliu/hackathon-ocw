@@ -4,11 +4,14 @@ import org.hackathon_ocw.ocw4.Download_data.download_complete;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,7 +25,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, download_complete {
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_TEACHER = "teacher";
     static final String KEY_DESCRIPTION = "description";
     static final String KEY_THUMB_URL = "thumb_url";
+    static final String KEY_URL = "url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,21 @@ public class MainActivity extends AppCompatActivity
 
         Download_data download_data = new Download_data((download_complete) this);
         download_data.download_data_from_link("http://40.83.121.223/Candidates");
+
+        list.setItemsCanFocus(true);
+        list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        list.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String url = MainActivity.this.adapter.getUrlbyPosition(position);
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
+            }
+
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,8 +109,8 @@ public class MainActivity extends AppCompatActivity
                 map.put(KEY_TEACHER,obj.getString("teacher"));
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
                 map.put(KEY_THUMB_URL,obj.getString("pic_link"));
+                map.put(KEY_URL,obj.getString("course_link"));
                 courseList.add(map);
-
 
             }
             adapter.notifyDataSetChanged();
