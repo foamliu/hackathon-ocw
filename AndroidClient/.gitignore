@@ -32,5 +32,11 @@ proguard/
 # Android Studio captures folder
 captures/
 
+<<<<<<< HEAD
 # Intellij
 *.iml
+=======
+
+#NDK
+obj/
+>>>>>>> refs/remotes/foamliu/master
