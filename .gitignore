@@ -1,4 +1,9 @@
 *.log
 FeedAPI/RUNNING_PID
 *.log
+<<<<<<< HEAD
 *.sbtserver
+=======
+
+*.pyc
+>>>>>>> cf52846f1a2fb25240a941dadc07a17dd1efa646
