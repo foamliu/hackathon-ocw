@@ -1,0 +1,1106 @@
+title 量子力學
+author 易富國 
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S221.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S221
+description  易富國主講的量子力學
+
+title 狹義相對論的意義
+author 張海潮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S222.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S222
+description  
+
+title 化學鍵
+author 鄭原忠 、王瑜、陳竹亭
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S223.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S223
+description  由原子基本性質與原子與分子軌域介紹化學鍵結的形成 ...
+
+title 微分幾何及其在物理的應用
+author 蘇武沛
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S224.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S224
+description  Introduction to tensor a ...
+
+title  
+author Chau-Ti Ting
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S225.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S225
+description  This course is designed  ...
+
+title 《新百家學堂》中華文化薪傳講座
+author 張  亨等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S227.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S227
+description  本課程邀請到數年來致力耕耘於文學、語言、經濟領域 ...
+
+title 分析化學實驗 - 儀器分析
+author 臺大化學系教師群
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S228.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S228
+description  本影片由台大化學系製作，內容集合「分析化學實驗  ...
+
+title 《新百家學堂》全球經濟與傳統儒學
+author 孫震
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S229.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S229
+description  
+
+title  
+author Fort San Domingo, etc.
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S230.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S230
+description  本課程聚集文化、自然、科技三大領域單位與學者深度 ...
+
+title  
+author Sun Chen
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S231.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S231
+description  
+
+title 傳統文化與21世紀
+author 黃俊傑
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S123.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S123
+description  本課程從21世紀觀點探討傳統文化之內涵、價值及其 ...
+
+title 大學之理念：傳統與現代
+author 黃俊傑
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S124.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S124
+description  本課程旨在探討現代大學之起源、發展及其當前問題， ...
+
+title 普通化學
+author 化學系教師群
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S125.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S125
+description  本課程內容主要分為：化學及化學反應概述、原子結構 ...
+
+title 化學實驗 
+author 化學系教師
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S126.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S126
+description  本課程內容集合「基礎化學實驗技能」、「有機化學基 ...
+
+title  
+author Lan-Hung Chiang
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S127.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S127
+description  台灣大學為了推動國際化，近年來招收許多來自各地的 ...
+
+title 《新百家學堂》崑曲新美學
+author 白先勇等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S128.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S128
+description  本課程邀請到白先勇先生擔任白先勇文學講座主講人， ...
+
+title 普通物理學
+author 易富國
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S129.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S129
+description  本課程講授範圍涵蓋1543年哥白尼出版《天體運行 ...
+
+title 供應鏈管理
+author 郭瑞祥、蔣明晃
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S131.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S131
+description  本課程針對電子化企業與其核心之供應鏈管理作深入而 ...
+
+title 策略管理
+author 湯明哲
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S132.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S132
+description  「策略管理」（Strategic Managem ...
+
+title 法學入門
+author 林明昕
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S133.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S133
+description   學習法律知識　提昇法學素養
+  生活中處處可見 ...
+
+title 微積分
+author 朱樺
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S111.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S111
+description  讓學生了解微積分的理論, 計算與應用。
+
+有 ...
+
+title 電磁學
+author 易富國
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S112.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S112
+description  易富國教授主講的「電磁學」，帶您從費曼的《The ...
+
+title 基礎普通化學選論
+author 蔡蘊明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S113.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S113
+description  這是一個極為特殊的課，本課程內容乃原先於 200 ...
+
+title 水的科學
+author 王根樹
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S114.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S114
+description  本課程從「水的使用」為出發點，探討當世關於水的使 ...
+
+title  
+author Horn-Jiunn Sheen
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S115.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S115
+description  This course is specially ...
+
+title  
+author Larry Vanderhoef
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S116.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S116
+description  本課程特邀請美國加州大學戴維斯分校榮譽校長暨傑出 ...
+
+title 《新百家學堂》氣候變遷對臺灣總體安全之衝擊
+author 陳泰然等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S117.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S117
+description  有鑑於全球暖化與氣候變遷對人類與臺灣社會之衝擊， ...
+
+title  
+author Sakai Takashi
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S118.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S118
+description  Generally the Southeast  ...
+
+title 《新百家學堂》臺灣文學在臺大
+author 齊邦媛等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S119.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S119
+description  由臺大孕育而生的作家群們在臺灣文學領域佔有一席之 ...
+
+title 有機化學
+author 蔡蘊明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S120.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S120
+description  講述基礎有機化學，適合化工、農化、生化、藥學等科 ...
+
+title 自然科學概論
+author 張文亮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S211.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S211
+description  自然科學概論是非典型的科學教育，不完全要依靠高等 ...
+
+title  
+author Chang-Chuan Chan
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S212.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S212
+description  This introduction of glo ...
+
+title  
+author Rong-Bin Chen
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S213.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S213
+description  Concentrating on intensi ...
+
+title  
+author Yee-San Teoh
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S214.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S214
+description  Psychology is a science  ...
+
+title 戰爭之外的軍事史
+author 方震華
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S215.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S215
+description  自古以來，軍隊就是中國社會中不可或缺的部分。軍事 ...
+
+title 統計與生活
+author 洪永泰 等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S216.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S216
+description  「本課程為臺灣大學共同教育中心個別型通識教育改進 ...
+
+title 細胞,分子與人類
+author 莊榮輝
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S217.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S217
+description  一、讓非主修自然學科的同學能夠瞭解生命現象。 
+ ...
+
+title 西方文明史
+author 劉慧
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S218.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S218
+description  本課程將介紹西方文明在公元 1500 年之前上古 ...
+
+title 佛學概論
+author 蔡耀明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S219.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S219
+description  〔課程大綱〕： 
+本課程主要在於對佛學建立有系統 ...
+
+title 生態建築學
+author 韓選棠
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S220.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S220
+description  第一章	規劃要素與規畫作業的層次階段 
+前言 
+ ...
+
+title  
+author Pang-yuan Chi
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S121.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S121
+description  
+
+title  
+author Tai-Jen George Chen
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S122.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S122
+description  
+
+title 稼軒詞
+author 方瑜
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S201.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S201
+description  辛棄疾 (1140 - 1207) 與蘇軾齊名， ...
+
+title 東坡詞
+author 劉少雄
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S202.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S202
+description  東坡詞，是宋詞的奇葩，也是東坡文學中最動人心弦的 ...
+
+title  
+author Francesca Pierini
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S203.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S203
+description  The aim of the course is ...
+
+title 《易經》解讀
+author 林義正
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S204.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S204
+description  《易經》解讀課程是以現存經、傳合篇的通行本《易經 ...
+
+title 自我知識
+author 梁益堉
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S205.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S205
+description  本課程是要探討自我知識的主要特性。修課同學不須具 ...
+
+title 法文一 (下)
+author 歐德尼
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S206.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S206
+description  Alter Ego 1 offers inter ...
+
+title 《新百家學堂》臺灣民俗與民間文化
+author 洪淑苓
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S207.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S207
+description  1.為引導學生認識台灣民俗與民間文化的傳統，並引 ...
+
+title 孟子思想的現代探索
+author 黃俊傑
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S210.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S210
+description  本課程以教師講授及舉辦辯論會，引導學生進入孟子與 ...
+
+title 現代文學與文化
+author 梅家玲
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S112.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S112
+description  本通識課程旨在將文學與文化研究相結合，引導學生就 ...
+
+title 現代生物學之應用
+author 李心予
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S113.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S113
+description  「現代生物學」是生命科學的基礎, 而「現代生物學 ...
+
+title 生命的探索
+author 齊肖琪
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S114.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S114
+description  本課程乃藉由生命知識的分享 ﹐重新觀察生命的特質 ...
+
+title 生命科學與人類生活
+author 羅竹芳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S115.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S115
+description  本課程將生命科學領域分為數個主題，如基因工程、分 ...
+
+title 科學在文化中的定位和挑戰
+author 江才健
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S117.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S117
+description  希望彙整從事多年科學新聞報導的經驗，與走訪影響中 ...
+
+title 科技及其人文社會議題
+author 陳竹亭
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S118.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S118
+description  本課程由近代科學、科技的觀點及知識切入，從宇宙與 ...
+
+title 細胞,分子與生命
+author 莊榮輝
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S119.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S119
+description  一、讓非主修自然學科的同學能夠瞭解生命現象。
+二 ...
+
+title 自由主義
+author 林火旺
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S120.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S120
+description  我國的憲政體制是一個自由主義式的民主政治 (li ...
+
+title 醫學與人文
+author 陳彥元
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S121.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S121
+description  這門課程中，我們將醫學中與人文相關的概念以及涉及 ...
+
+title 中國傳統生命禮俗
+author 葉國良
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S101.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S101
+description  中國生命禮俗，有其悠久之傳統，從可考的西周時期傳 ...
+
+title 哲學概論
+author 苑舉正
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S103.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S103
+description  主要的上課內容將以哲學中之各學門為介紹的對象。授 ...
+
+title 多元文化與媒體再現
+author 李紋霞
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S104.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S104
+description  本課程以多元文化與媒體識讀基本理論介紹出發，藉由 ...
+
+title 太平洋島嶼世界
+author 童元昭
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S105.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S105
+description  這門課的目的，在於介紹學生熟悉太平洋群島的人與文 ...
+
+title 從現代生物學看人類行為
+author 謝豐舟等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S106.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S106
+description  本課程主要藉由對生物領域的介紹，以及生命科學和日 ...
+
+title 東亞文化：傳統與現代
+author 黃俊傑
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S107.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S107
+description  本課程在 21 世紀全球化時代語境中，引導學生從 ...
+
+title 植物與糧食
+author 劉麗飛
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S108.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S108
+description  本課程是依據通識課程的精神開設，課程是由各種不同 ...
+
+title 海洋環境概論
+author 范光龍
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S109.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S109
+description  1.每次上課方式是第一小時講解海洋環境的課程內容 ...
+
+title 演化、宇宙、人
+author 侯維恕
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S110.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S110
+description  人能認知自身的存在，實是一大奧秘。人類受好奇心驅 ...
+
+title 猶太文化
+author 曾宗盛
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S111.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S111
+description  歷經猶太宗教傳統的薰陶，猶太文化發展出豐富而多元 ...
+
+title 鯨豚保育生物學
+author 周蓮香
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S122.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S122
+description  你是否曾為海底下那黑色龐大的鯨魚身軀覺得驚奇？或 ...
+
+title 相對論
+author 高涌泉
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/099S134.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/099S134
+description  本課程帶您深入20世紀百年風雲人物－愛因斯坦，所 ...
+
+title 傳統中國的國家與皇權
+author 甘懷真
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S102.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S102
+description  本課程的核心課題是探究傳統中國的皇帝制度。所謂傳 ...
+
+title 莊子
+author 金嘉錫
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S103.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S103
+description  本課程分上下兩學期講授，以內七篇為主綱，各配以一 ...
+
+title 漢書
+author 宋淑萍
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S104.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S104
+description  論中國史書，史記、漢書無人不曉。史記為通史，然而 ...
+
+title 邏輯
+author 傅皓政
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S105.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S105
+description  本課程是以學習初階邏輯 (First-order ...
+
+title 地球的奧秘
+author 宋聖榮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S106.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S106
+description  人類生存在地球上，需要對於孕育生命及提供我們生活 ...
+
+title 生態工程導論
+author 張文亮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S107.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S107
+description  以對生物生命的尊重、生物行為的探究、生物棲地的特 ...
+
+title  
+author Jer-Ming Hu
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S108.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S108
+description    This course is part of ...
+
+title  
+author Masayuki Sato
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S109.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S109
+description  The course provides a co ...
+
+title  
+author I-Wen Su
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/100S110.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/100S110
+description  Conducted in English, th ...
+
+title 莊子寓言文學
+author 金嘉錫
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S121.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S121
+description  多數人提到莊子都會想到內篇，以為外篇和雜篇較不可 ...
+
+title 中文系國文：先秦兩漢文選
+author 李隆獻
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S122.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S122
+description  本課程選讀篇章為先秦至兩漢文章，與二年級的《歷代 ...
+
+title 智慧財產權法導論
+author 謝銘洋
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S123.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S123
+description  對於智慧財產權的類型、相關國際條約、權利之取得與 ...
+
+title 東亞儒家人文精神
+author 黃俊傑
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S124.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S124
+description  本課程從現代觀點探討東亞儒家人文傳統之核心價值及 ...
+
+title 希伯來經典與世界文明
+author 曾宗盛
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S125.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S125
+description  兩希（希伯來、希臘）文化影響世界文明相當深遠，在 ...
+
+title 數學與文化:以數學小說閱讀為進路
+author 洪萬生
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S126.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S126
+description  作家創作數學小說的主要目的，多半想向閱聽者證明數 ...
+
+title 工程數學 - 微分方程
+author 丁建均
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S127.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S127
+description  (1) 一階微分方程的解法和應用 
+(2) 高階 ...
+
+title 音樂、演化與大腦
+author 蔡振家
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S128.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S128
+description  生物音樂學 (biomusicology) 包含 ...
+
+title 自然、環境與永續文明
+author 陳竹亭
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S129.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S129
+description  本課程雖然關心台灣的環境與文化發展，但是觀照的問 ...
+
+title 高等微積分
+author 陳金次
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S130.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S130
+description  高等微積分之授課內容主要為現代數學的基礎，建立微 ...
+
+title 政治學
+author 王業立
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S111.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S111
+description  本課程為政治學的入門課程，教學目的主要著重於介紹 ...
+
+title 計算機程式
+author 廖婉君
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S112.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S112
+description  1. Intro. to computers a ...
+
+title 西洋哲學史
+author 苑舉正
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S113.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S113
+description  本課程的主要方向在於，為哲學系的學生，在有關西洋 ...
+
+title 哲學概論
+author 王榮麟
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S114.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S114
+description  人生在世，俯仰於天地之間，對於眼見耳聞之諸多現象 ...
+
+title 社會學 
+author 孫中興 
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S115.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S115
+description  這門課是社會學的導論課程，雖然是以社會工作學系、 ...
+
+title 愛情社會學
+author 孫中興 
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S116.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S116
+description  上課的內容大體分成幾個部份：第一部份是檢討愛情社 ...
+
+title 中華民國憲法及政府
+author 陳淳文
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S117.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S117
+description  本課程為一年之課程，上學期以政府體制為中心，下學 ...
+
+title 義大利文(二)
+author Antonella Tulli 圖莉
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S118.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S118
+description  本課程是為中級學義大利文者所設計的課程，首重建立 ...
+
+title 園藝學原理
+author 張育森、陳右人、杜宜殷、吳俊達、李國譚、羅筱鳳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S119.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S119
+description   1.引言。 
+2.植物分類。 
+3.植物構造。 ...
+
+title 紅樓夢
+author 歐麗娟
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S120.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S120
+description  本課程以《紅樓夢》為範圍，區分為文化與人物論兩大 ...
+
+title 日本近代文學選讀
+author 川合康三
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S206.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S206
+description  閱讀日本近代短篇小說
+
+title 《新百家學堂》白先勇人文講座 ─ 中國的詩學
+author 川合康三
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S207.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S207
+description  分析中國古典詩的結構。
+
+title 《新百家學堂》古典抒情文學
+author 林宏佳 
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S208.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S208
+description  「抒情」，是中國文學的核心傳統。人生天地間，隨應 ...
+
+title 工程數學 - 複變
+author 陳士元
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S209.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S209
+description  Complex numbers, complex ...
+
+title 計算機概論
+author 于天立
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S210.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S210
+description  這是專門設計給電機系一年級同學修習的計算機概論課 ...
+
+title 機械製造
+author 楊宏智
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S211.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S211
+description  1. General Introduction  ...
+
+title 量子化學
+author 鄭原忠
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S212.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S212
+description  
+
+title 英語語音學 (含發音練習) 二
+author Karen Steffen Chung 史嘉琳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S213.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S213
+description  This course is designed  ...
+
+title 幽默社會學
+author 孫中興
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S101.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S101
+description  這門課是希望把幽默〔或是笑、(冷) 笑話、搞笑、 ...
+
+title 歐盟法與生命文化
+author 陳志龍
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S102.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S102
+description  作為台大學生的您，可曾經仔細思考過「生命」的含意 ...
+
+title 《新百家學堂》全球化的挑戰與因應
+author 包宗和
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S101.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S101
+description  全球化為當今國際發展趨勢，其所涵括的範圍包括經濟 ...
+
+title 英語語音學 (含發音練習) 一
+author Karen Steffen Chung 史嘉琳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S102.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S102
+description  This course is designed  ...
+
+title 法文一 (上)
+author 歐德尼
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S103.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S103
+description  Alter Ego 1 offers inter ...
+
+title 《新百家學堂》白先勇人文講座 ─ 世界文學中的中國古典文學
+author 川合康三
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S104.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S104
+description  中國古典文學不是特殊的文學而是世界文學中的重要的 ...
+
+title 日本近代文學細讀
+author 川合康三
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S105.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S105
+description  從新的角度分析日本近代經典文學作品，希望讓修課學 ...
+
+title 臺灣現代主義小說
+author 柯慶明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S106.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S106
+description  本課程講授的重點以崛起於六○年代前後受現代主義影 ...
+
+title 《新百家學堂》機遇：臺灣當代抒情文學的異彩
+author 席慕蓉等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S107.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S107
+description  本課程邀請到當代文學創作詩人：席慕蓉、瘂弦、商禽 ...
+
+title 《新百家學堂》殷海光與自由主義
+author 苑舉正
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S108.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S108
+description  本課程以介紹殷海光先生之生平及其自由主義思想為主 ...
+
+title 電磁波
+author 江簡富
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S109.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S109
+description  以系統漸進的方式解說基本電磁波現象及原理，為認識 ...
+
+title 財務管理
+author 陳明賢
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S110.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S110
+description  本課程著重在闡述財務理論之基本架構與內涵，及企業 ...
+
+title 經濟學原理
+author 林明仁
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S116.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S116
+description  做為經濟學的入門課程，介紹經濟學的基本觀念。
+
+title  
+author Rong-Bin Chen
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S117.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S117
+description  本課程之重點在大量閱讀戰後臺灣小說之英文譯本，期 ...
+
+title 新生專題：人生意義的追尋
+author 張文亮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S118.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S118
+description  學生切身相關的主題，教師提出主題文章與學生共同思 ...
+
+title 古典社會學理論
+author 孫中興
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S201.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S201
+description  這門課是以社會學研究所博士班同學為開課對象。今年 ...
+
+title 宗教哲學
+author 傅佩榮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S202.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S202
+description  本課程由哲學角度省思宗教問題，試圖借助哲學的運作 ...
+
+title 歐盟法與生命對話
+author 陳志龍
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S203.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S203
+description  作為台大學生的您，可曾經仔細思考過「生命」的含意 ...
+
+title 新生講座
+author 郭鴻基
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S204.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S204
+description  本課程為大一新生所規劃之基本能力養成課程，目的為 ...
+
+title 《新百家學堂》白先勇人文講座 ─ 紅樓夢導讀
+author 白先勇
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S206.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S206
+description  本課為通識課程，對象為本校大學部學生，其宗旨在於 ...
+
+title 線性代數
+author 蘇柏青
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S207.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S207
+description  本課程是線性代數的入門課程。線性代數係以「向量空 ...
+
+title 基礎普通化學
+author 蔡蘊明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S208.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S208
+description  本課程主要為園藝系和生機系所開，內容同等於普通化 ...
+
+title 中國文學史
+author 歐麗娟
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S104.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S104
+description  本課程從遠古神話開始，一方面沿著歷史時間軸進入文 ...
+
+title 日本文化史
+author 徐興慶
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S105.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S105
+description  本課程教材分古代、中世、近世、近現代共四篇十六章 ...
+
+title 日語文學選讀
+author 山口守
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S106.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S106
+description  閱讀日語文學
+
+title 《新百家學堂》白先勇人文講座 ─ 中文文學的世界：中國‧臺灣‧華人‧族群
+author 山口守
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S107.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S107
+description  從思想‧歷史‧語言的視角來探討中文文學 
+
+title 《新百家學堂》臺灣語言概論
+author 楊秀芳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S108.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S108
+description  臺灣地區通行以北京方言為主體的國語，而由於臺灣擁 ...
+
+title 古代基督教歷史與文化
+author 鄭仰恩
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S109.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S109
+description  藉由歷史文獻，以及社會學、考古學的幫助，研究古代 ...
+
+title 《新百家學堂》西洋經典掃描
+author 梁欣榮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S110.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S110
+description  This course is made up o ...
+
+title  統計力學特論
+author 黃克孫 (Kerson Huang)
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S112.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S112
+description  
+
+title 統計學
+author 劉仁沛 
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S113.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S113
+description  本課程由具有統計學博士學位，並在 SCI 統計與 ...
+
+title 食品營養與安全概論
+author 蕭寧馨
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S114.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S114
+description  因應近年國人對食物營養與安全性的重視，消費者意志 ...
+
+title 從案例演練中學習 BIM 建模：建築篇
+author 謝尚賢、郭榮欽
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S209.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S209
+description  本課程「從案例演練中學習BIM建模」採用勞動部勞 ...
+
+title 《新百家學堂》葉嘉瑩古典詩詞講座
+author 葉嘉瑩
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S211.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S211
+description  
+
+title 英文寫作基礎
+author 李維晏
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/102S212.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/102S212
+description  This course aims to fami ...
+
+title 宋詞之美
+author 劉少雄
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S102.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S102
+description  詞，原屬配合音樂而能歌唱的詩，是中國韻文中最婉麗 ...
+
+title 義大利文一
+author 圖莉
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S103.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S103
+description  此為基礎義大利語課程，以活潑、生活化的方式，強調 ...
+
+title 《新百家學堂》白先勇人文講座 ─ 明清時期章回小說選讀：問題和方法
+author 商偉
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S105.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S105
+description  「章回小說」這個概念出現於二十世紀初年，試圖將本 ...
+
+title 先秦儒家哲學
+author 傅佩榮
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S106.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S106
+description  本課程將依序探討《論語》、《孟子》、《荀子》、《 ...
+
+title 當代美學
+author 楊植勝
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S107.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S107
+description  本課程依循哲學的進路來介紹當代的美學，內容從德國 ...
+
+title 愛情與社會理論
+author 孫中興
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S108.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S108
+description  這門課的教學理念是：看似枯燥嚴肅的學術絕對可以用 ...
+
+title 《新百家學堂》臺灣競爭力的尋索與創發
+author 趙永茂
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S109.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S109
+description  中華民國在臺灣已經成長茁壯為民主的已開發國家。在 ...
+
+title 大氣科學概論
+author 周仲島
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S131.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S131
+description  本課程講授內容包括地球大氣的緣起、組成成份與結構 ...
+
+title 臺灣文學與文化
+author 梅家玲
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S133.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S133
+description      本通識課程旨在引導學生就台灣當代文學與文 ...
+
+title 《新百家學堂》中國文學的美感
+author 柯慶明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S134.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S134
+description  本課程主要經由歷代的文類發展來探討中國文學的諸文 ...
+
+title  
+author Jeu-Jenq Yuann
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S135.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S135
+description  
+
+title  
+author Tzong-Ho Bau
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S136.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S136
+description  
+
+title 愛情歷史社會學
+author 孫中興
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S201.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S201
+description  本課程的主要內容是檢討愛情歷史社會學所面對的基本 ...
+
+title 園藝療法
+author 張育森
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S202.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S202
+description  人類自古即與植物密不可分，綠化及園景對人有安定及 ...
+
+title 臺灣現代詩
+author 柯慶明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S203.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S203
+description  具有現代主義色彩的新詩，先後於日治時期與戰後引進 ...
+
+title 農產運銷學
+author 雷立芬
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S204.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S204
+description  本課程融合行銷理論與經營農產品實務，並且搭配課堂 ...
+
+title 作業管理
+author 黃崇興 
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/101S205.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S205
+description  生產作業管理是為了有效地利用生產資源，對生產作業 ...
+
+title 樹木學
+author 鍾國芳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S110.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S110
+description  本課程內容將涵蓋植物分類學的發展歷史、分類學基本 ...
+
+title 民法總則
+author 陳聰富
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S112.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S112
+description  本課程上課內容為民法第一編總則的規定。民法總則為 ...
+
+title 工程及專業倫理
+author 陳琪芳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S113.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S113
+description  1.課程概述與課程目標
+本課程教學目標在探討工 ...
+
+title 普通物理學
+author 張寶棣
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S114.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S114
+description  課程主要包含力學，波動學，相對論，熱力學
+教科 ...
+
+title 普通化學
+author 蔡蘊明
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S115.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S115
+description  本課程主要為化工系所開，預期修課學生已具有適當的 ...
+
+title 經典導讀 ─ 史記
+author 呂世浩
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S116.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S116
+description  史記系列課程將透過對《史記》一書的導讀，引領同學 ...
+
+title 線性代數與行列生活算計
+author 連豊力
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S117.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S117
+description  在日常生活中，我們常面對多重選擇，而每種選擇的背 ...
+
+title 蔬菜產業講座
+author 羅筱鳳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S119.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S119
+description  邀請公部門專家講授臺灣重要蔬菜問題與未來前景，包 ...
+
+title 微積分 (非理工科)
+author 翁秉仁
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S121.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S121
+description  第一學期：
+1.基本函數與極限。2.微分及其應 ...
+
+title 正是時候讀莊子
+author 蔡璧名
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S123.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S123
+description  他這麼活過他的一生，留下一本書，《莊子》。這本書 ...
+
+title 熱力學
+author 牟中原
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/104S112.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/104S112
+description  This course aims to prov ...
+
+title 《新百家學堂》閩南語
+author 楊秀芳
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/104S114.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/104S114
+description  本課程以 Southern Hokkien: A ...
+
+title 《新百家學堂》臺灣當代小說的光影
+author 司馬中原等
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S124.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S124
+description  本課程邀請到當代文學創作人：司馬中原、李喬、鄭清 ...
+
+title 廿世紀美國社會學理論
+author 孫中興
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S202.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S202
+description  本課程這學期選定成為「台大開放式課程」的錄影計畫 ...
+
+title 《新百家學堂》白先勇人文講座 ─ 史詩時代的抒情聲音
+author 王德威
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S205.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S205
+description  本課程探討中國知識分子、文人、藝術家面對歷史風暴 ...
+
+title 臨床試驗
+author 簡國龍、劉仁沛
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S206.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S206
+description  以臨床試驗研究設計及實際進行時處理的問題作一通盤 ...
+
+title 《新百家學堂》白先勇崑曲之美講座
+author 白先勇
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S208.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S208
+description  本課程邀請白先勇先生擔任崑曲講座主講人，由王安祈 ...
+
+title 《新百家學堂》亞洲共同體：東亞文學與文化
+author 梅家玲
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S209.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S209
+description  東亞的「跨地域」研究視角，是當前人文學界的共識之 ...
+
+title 《新百家學堂》白先勇的藝文世界
+author 新百家學堂
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S210.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S210
+description  
+
+title 《新百家學堂》臺大文學講座
+author 
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/103S211.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/103S211
+description  
+
+title 孔子：社會學的研究
+author 孫中興
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/104S102.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/104S102
+description  這門課程希望從社會學的觀點來探討有關孔子的記載的 ...
+
+title 從案例演練中學習BIM建模：機電篇
+author 謝尚賢
+piclink http://ocw.aca.ntu.edu.tw/ntu-ocw/files/110px/104S109.jpg
+courselink http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/104S109
+description  本課程「從案例演練中學習BIM建模：機電篇」延續 ...
+
