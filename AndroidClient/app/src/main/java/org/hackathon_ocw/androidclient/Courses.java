@@ -1,4 +1,4 @@
-package org.hackathon_ocw.ocw4;
+package org.hackathon_ocw.androidclient;
 
 /**
  * Created by dianyang on 2016/2/28.

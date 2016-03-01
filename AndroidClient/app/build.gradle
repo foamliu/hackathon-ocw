@@ -4,7 +4,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
     defaultConfig {
-        applicationId "org.hackathon_ocw.ocw4"
+        applicationId "org.hackathon_ocw.androidclient"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

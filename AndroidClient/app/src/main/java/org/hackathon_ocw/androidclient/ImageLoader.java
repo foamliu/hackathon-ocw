@@ -1,4 +1,4 @@
-package org.hackathon_ocw.ocw4;
+package org.hackathon_ocw.androidclient;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

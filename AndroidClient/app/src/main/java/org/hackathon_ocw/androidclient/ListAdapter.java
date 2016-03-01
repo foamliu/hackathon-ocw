@@ -1,6 +1,6 @@
-package org.hackathon_ocw.ocw4;
+package org.hackathon_ocw.androidclient;
 
-import org.hackathon_ocw.ocw4.R;
+import org.hackathon_ocw.androidclient.R;
 
 import android.app.Activity;
 import android.content.Context;
