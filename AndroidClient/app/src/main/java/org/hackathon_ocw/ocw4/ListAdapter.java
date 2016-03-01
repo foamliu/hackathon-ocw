@@ -46,7 +46,9 @@ public class ListAdapter extends BaseAdapter {
         return position;
     }
 
-
+    public String getUrlbyPosition(int position) {
+        return data.get(position).get("url");
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
