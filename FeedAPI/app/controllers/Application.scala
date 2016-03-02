@@ -52,7 +52,7 @@ class Application extends Controller {
           (JsPath \\ "courselink").read[String]
         )(Course.apply _)
 
-        val source: String = Source.fromFile("app/assets/jsons/items.json")("UTF-8").getLines.mkString
+        val source: String = Source.fromFile("app/assets/jsons/items_ref.json")("UTF-8").getLines.mkString
         val json: JsValue = Json.parse(source)
         
         var courses = json.as[Seq[Course]]
