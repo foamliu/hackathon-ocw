@@ -54,21 +54,10 @@ class Application extends Controller {
 
         val source: String = Source.fromFile("app/assets/jsons/items.json")("UTF-8").getLines.mkString
         val json: JsValue = Json.parse(source)
-        json.validate[Course] match {
-            case c: JsSuccess[Course] => {
-                val cource: Course = c.get
-                // do something with place
-                println(cource)
-            }
-            case e: JsError => {
-                // error handling flow
-                println(e)
-            }
-
-        }
         
+        var courses = json.as[Seq[Course]]
         
-        
+        println(courses)
         
         Ok("Ok")
   }
