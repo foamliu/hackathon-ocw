@@ -1,7 +1,12 @@
 package controllers
 
+import java.io._
+
 import play.api._
 import play.api.mvc._
+import play.api.libs.json._ // JSON library
+import play.api.libs.json.Reads._ // Custom validation helpers
+import play.api.libs.functional.syntax._ // Combinator syntax
 
 class Application extends Controller {
 
@@ -51,6 +56,26 @@ class Application extends Controller {
 }
 """)
   }
-
+  
+  def addPreference = Action(parse.json) { request =>
+    {
+        val json: JsValue = request.body
+        
+        val user_id = (json \ "user id").as[Long]
+        val item_id = (json \ "item id").as[Long]
+        val pref = (json \ "pref").as[Float]
+      
+        val file = new File("prefs.csv")
+        val bw = new BufferedWriter(new FileWriter(file, true))
+        bw.write("%d,%d,%f".format(user_id,item_id,pref))
+        bw.newLine()
+        bw.close()
+      
+        Ok(user_id.toString)
+    }
+  }
 
 }
+
+
+
