@@ -23,8 +23,10 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     public ListView list;
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
     public ListAdapter adapter;
+    private SwipeRefreshLayout swipeContainer;
 
     static final String KEY_ID = "0";
     static final String KEY_TITLE = "title";
@@ -61,6 +64,33 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //fetchTimeLineAsync(0);
+                Toast.makeText(getApplicationContext(), "正在刷新... ",Toast.LENGTH_SHORT).show();
+                adapter.clear();
+
+                Download_data download_data = new Download_data((download_complete)MainActivity.this);
+                download_data.download_data_from_link(Url);
+                adapter.addAll(courseList);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "刷新完成!",Toast.LENGTH_SHORT).show();
+                        swipeContainer.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_green_dark,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light,
+                android.R.color.holo_blue_bright);
 
         list = (ListView) findViewById(R.id.list);
         adapter = new ListAdapter(this, courseList);
@@ -82,11 +112,11 @@ public class MainActivity extends AppCompatActivity
                 //Send post to server
                 String courseId = MainActivity.this.adapter.getIdbyPosition(position);
                 String ipAddress = getLocalIPAddress();
-                try{
-                    SendPostRequest(ipAddress, courseId, rating);
-                }catch (Exception e)
-                {
-                    Toast.makeText(getApplicationContext(), e.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), ipAddress, Toast.LENGTH_SHORT).show();
+                try {
+                    //SendPostRequest(ipAddress, courseId, rating);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                 }
                 //Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
             }
@@ -163,7 +193,7 @@ public class MainActivity extends AppCompatActivity
                 JSONObject obj=new JSONObject(data_array.get(i).toString());
 
                 HashMap<String, String>map = new HashMap<String,String>();
-                map.put(KEY_ID,obj.getString("id"));
+                //map.put(KEY_ID,obj.getString("id"));
                 map.put(KEY_TITLE,obj.getString("title"));
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
                 map.put(KEY_THUMB_URL,obj.getString("pic_link"));
