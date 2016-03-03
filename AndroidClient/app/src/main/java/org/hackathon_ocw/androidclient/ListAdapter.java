@@ -50,6 +50,10 @@ public class ListAdapter extends BaseAdapter {
         return data.get(position).get("url");
     }
 
+    public String getIdbyPosition(int position) {
+        return data.get(position).get("id");
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View vi = convertView;
@@ -59,7 +63,7 @@ public class ListAdapter extends BaseAdapter {
         }
 
         TextView title = (TextView) vi.findViewById(R.id.title);
-        TextView teacher = (TextView) vi.findViewById(R.id.teacher);
+        //TextView teacher = (TextView) vi.findViewById(R.id.teacher);
         TextView description = (TextView) vi.findViewById(R.id.description);
         ImageView thumb_image = (ImageView) vi.findViewById(R.id.pic_link);
 
@@ -68,7 +72,7 @@ public class ListAdapter extends BaseAdapter {
         course = data.get(position);
 
         title.setText(course.get(MainActivity.KEY_TITLE));
-        teacher.setText(course.get(MainActivity.KEY_TEACHER));
+        //teacher.setText(course.get(MainActivity.KEY_TEACHER));
         description.setText(course.get(MainActivity.KEY_DESCRIPTION));
         imageLoader.DisplayImage(course.get(MainActivity.KEY_THUMB_URL), thumb_image);
 

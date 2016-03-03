@@ -2,9 +2,19 @@ package org.hackathon_ocw.androidclient;
 
 import org.hackathon_ocw.androidclient.Download_data.download_complete;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.net.URL;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +40,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, download_complete {
 
@@ -37,11 +48,14 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
     public ListAdapter adapter;
 
+    static final String KEY_ID = "0";
     static final String KEY_TITLE = "title";
-    static final String KEY_TEACHER = "teacher";
     static final String KEY_DESCRIPTION = "description";
     static final String KEY_THUMB_URL = "thumb_url";
     static final String KEY_URL = "url";
+    static final String Url = "http://40.83.121.223/Candidates";
+    static final String postUrl = "http://40.83.121.223/Preferences";
+    static final float rating = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +66,8 @@ public class MainActivity extends AppCompatActivity
         adapter = new ListAdapter(this, courseList);
         list.setAdapter(adapter);
 
-        Download_data download_data = new Download_data((download_complete) this);
-        download_data.download_data_from_link("http://40.83.121.223/Candidates");
+        final Download_data download_data = new Download_data((download_complete) this);
+        download_data.download_data_from_link(Url);
 
         list.setItemsCanFocus(true);
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -65,6 +79,15 @@ public class MainActivity extends AppCompatActivity
                 Uri uri = Uri.parse(url);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+                //Send post to server
+                String courseId = MainActivity.this.adapter.getIdbyPosition(position);
+                String ipAddress = getLocalIPAddress();
+                try{
+                    SendPostRequest(ipAddress, courseId, rating);
+                }catch (Exception e)
+                {
+                    Toast.makeText(getApplicationContext(), e.toString(),Toast.LENGTH_SHORT).show();
+                }
                 //Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
             }
 
@@ -91,7 +114,42 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+    }
 
+    public void SendPostRequest(String userId, String itemId, float rating) throws Exception
+    {
+        String encoding="UTF-8";
+        String params = "{\"user id\":" + userId + ",\"item id\"" + itemId + ",\"pref\"" + Double.toString(rating) + "\"}";
+        URL url = new URL(postUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setRequestProperty("Content-Type", "application/x-javascript; charset=" + encoding);
+        conn.setConnectTimeout(10000);
+        byte[] data = params.toString().getBytes();
+        OutputStream outputStream = conn.getOutputStream();
+        outputStream.write(data);
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    public String getLocalIPAddress()
+    {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        // return inetAddress.getAddress().toString();
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            Log.e("BaseScanTvDeviceClient", "Fetch ip false =" +  ex.toString());
+        }
+        return null;
     }
 
     public void get_data(String data)
@@ -105,8 +163,8 @@ public class MainActivity extends AppCompatActivity
                 JSONObject obj=new JSONObject(data_array.get(i).toString());
 
                 HashMap<String, String>map = new HashMap<String,String>();
+                map.put(KEY_ID,obj.getString("id"));
                 map.put(KEY_TITLE,obj.getString("title"));
-                map.put(KEY_TEACHER,obj.getString("teacher"));
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
                 map.put(KEY_THUMB_URL,obj.getString("pic_link"));
                 map.put(KEY_URL,obj.getString("course_link"));
