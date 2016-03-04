@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     public ListAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
 
-    static final String KEY_ID = "0";
+    static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
     static final String KEY_DESCRIPTION = "description";
     static final String KEY_THUMB_URL = "thumb_url";
@@ -193,11 +193,11 @@ public class MainActivity extends AppCompatActivity
                 JSONObject obj=new JSONObject(data_array.get(i).toString());
 
                 HashMap<String, String>map = new HashMap<String,String>();
-                //map.put(KEY_ID,obj.getString("id"));
+                map.put(KEY_ID,String.valueOf(obj.getInt("item_id")));
                 map.put(KEY_TITLE,obj.getString("title"));
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
-                map.put(KEY_THUMB_URL,obj.getString("pic_link"));
-                map.put(KEY_URL,obj.getString("course_link"));
+                map.put(KEY_THUMB_URL,obj.getString("piclink"));
+                map.put(KEY_URL,obj.getString("courselink"));
                 courseList.add(map);
 
             }
