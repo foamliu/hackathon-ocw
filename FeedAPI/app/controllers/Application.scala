@@ -81,7 +81,9 @@ object Application {
             //items.foreach(i => {bw.write("%d,%d,%f".format(0, i.itemID, 1.0));bw.newLine()})
             bw.write("%d,%d,%f".format(1, 1, 1.0))
             bw.newLine()
-            bw.close()
+            bw.close
+            
+            file = new File(pref_file)
         }
 
         file
