@@ -11,6 +11,7 @@ import play.api.mvc._
 import play.api.libs.json._ // JSON library
 import play.api.libs.json.Reads._ // Custom validation helpers
 import play.api.libs.functional.syntax._ // Combinator syntax
+import play.api.Play.current
 
 import org.apache.mahout.cf.taste.impl.model._
 import org.apache.mahout.cf.taste.impl.model.file._
@@ -51,7 +52,7 @@ object Application {
     
     private val howMany = 5
     private val n = 5 // Nearest N User Neighborhood
-    private val pref_file = "prefs.csv"
+    private val pref_file = Play.application.path + "prefs.csv"
     private val item_file = "app/assets/jsons/items.json"
 
     private var courses: Seq[Course] = null
@@ -94,7 +95,7 @@ object Application {
         println("UserID: " + userID)
         
         val file: File = getPrefFile()
-        println("Pref file's absolute path = ", file.getAbsolutePath)
+        println("Pref file's absolute path = " + file.getAbsolutePath)
         println("Pref file exists: " + file.exists)
         
         var model: GenericBooleanPrefDataModel = new GenericBooleanPrefDataModel(
