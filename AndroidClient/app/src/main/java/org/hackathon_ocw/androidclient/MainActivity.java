@@ -42,6 +42,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.SendAuth;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, download_complete {
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
     public ListAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
+    private IWXAPI api;
 
     static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
@@ -64,6 +69,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
@@ -246,8 +253,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_login) {
+            final SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = "wechat_sdk_demo_test";
+            api.sendReq(req);
+            finish();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
