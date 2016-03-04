@@ -52,7 +52,7 @@ object Application {
     private val howMany = 5
     private val n = 5 // Nearest N User Neighborhood
     private val pref_file = "prefs.csv"
-    private val item_file = "app/assets/jsons/items_ref.json"
+    private val item_file = "app/assets/jsons/items.json"
 
     private var courses: Seq[Course] = null
 
@@ -69,11 +69,28 @@ object Application {
         courses
 
     }
+    
+    private def getPrefFile() : File = {
+        
+        var file: File = new File(pref_file)
+
+        if (!file.exists())
+        {
+            val bw = new BufferedWriter(new FileWriter(file))
+            //val items: Seq[Course]  = getCourses
+            //items.foreach(i => {bw.write("%d,%d,%f".format(0, i.itemID, 1.0));bw.newLine()})
+            bw.write("%d,%d,%f".format(1, 1, 1.0))
+            bw.newLine()
+            bw.close()
+        }
+
+        file
+    }
 
     private def recommend(userID: Long) : List[Long] = {
         
         var model: GenericBooleanPrefDataModel = new GenericBooleanPrefDataModel(
-				GenericBooleanPrefDataModel.toDataMap(new FileDataModel(new File(pref_file))))
+				GenericBooleanPrefDataModel.toDataMap(new FileDataModel(getPrefFile())))
 
 		var similarity: UserSimilarity = new LogLikelihoodSimilarity(model)
 		var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, similarity, model);
