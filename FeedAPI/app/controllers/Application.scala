@@ -79,7 +79,7 @@ object Application {
             val bw = new BufferedWriter(new FileWriter(file))
             //val items: Seq[Course]  = getCourses
             //items.foreach(i => {bw.write("%d,%d,%f".format(0, i.itemID, 1.0));bw.newLine()})
-            bw.write("%d,%d,%f".format(1, 1, 1.0))
+            bw.write("1,1,1.0")
             bw.newLine()
             bw.close
             
@@ -91,14 +91,24 @@ object Application {
 
     private def recommend(userID: Long) : List[Long] = {
         
+        println("UserID: " + userID)
+        
+        val file: File = getPrefFile()
+        println("Pref file's absolute path = ", file.getAbsolutePath)
+        println("Pref file exists: " + file.exists)
+        
         var model: GenericBooleanPrefDataModel = new GenericBooleanPrefDataModel(
-				GenericBooleanPrefDataModel.toDataMap(new FileDataModel(getPrefFile())))
+				GenericBooleanPrefDataModel.toDataMap(new FileDataModel(file)))
+				
+		println("NumItems = " + model.getNumItems + " NumUsers = " + model.getNumUsers)
+		println("UserIDs: " + model.getUserIDs)
 
 		var similarity: UserSimilarity = new LogLikelihoodSimilarity(model)
 		var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, similarity, model);
 	
 		var recommender: Recommender = new GenericUserBasedRecommender(model, neighborhood, similarity)
 		var recommendations = recommender.recommend(userID, howMany)
+		println("NumRecommendations: " + recommendations.size)
 
         for (r <- recommendations) yield r.getItemID
 
@@ -107,9 +117,14 @@ object Application {
     private def getCandidates(userID: Long) : Seq[Course] = {
         
         val items: Seq[Course]  = getCourses
+        println (items.size + " items are loaded successfully.")
+        
         val itemIDs: List[Long] = recommend(userID)
+        println("NumItemIDs: " + itemIDs.size)
+        println("ItemIDs: " + itemIDs)
         
         val candidates: Seq[Course] = items.filter(i => itemIDs.contains(i.itemID))
+        println("NumCandidates: " + candidates.size)
         
         if (candidates.size > 0)
         {
