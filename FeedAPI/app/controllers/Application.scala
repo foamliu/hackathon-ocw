@@ -52,7 +52,7 @@ object Application {
     
     private val howMany = 5
     private val n = 5 // Nearest N User Neighborhood
-    private val pref_file = Play.application.path + "prefs.csv"
+    private val pref_file = Play.application.path + "/" + "prefs.csv"
     private val item_file = "app/assets/jsons/items.json"
 
     private var courses: Seq[Course] = null
@@ -95,8 +95,8 @@ object Application {
         println("UserID: " + userID)
         
         val file: File = getPrefFile()
-        println("Pref file's absolute path = " + file.getAbsolutePath)
-        println("Pref file exists: " + file.exists)
+        //println("Pref file's absolute path = " + file.getAbsolutePath)
+        //println("Pref file exists: " + file.exists)
         
         var model: GenericBooleanPrefDataModel = new GenericBooleanPrefDataModel(
 				GenericBooleanPrefDataModel.toDataMap(new FileDataModel(file)))
@@ -150,9 +150,10 @@ class Application extends Controller {
         val userID: Long = 1L //TODO
         
         val candidates: Seq[Course] = Application.getCandidates(userID)
-        val jsonArray = Json.toJson(candidates)
+
+        val json: JsValue = Json.obj("courses" -> candidates)
         
-        Ok(Json.stringify(jsonArray))
+        Ok(Json.stringify(json))
     }
   
     def addPreference = Action(parse.json) {
