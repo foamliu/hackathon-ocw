@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_THUMB_URL = "thumb_url";
     static final String KEY_URL = "url";
     static final String Url = "http://jieko.cc/Candidates";
-    static final String postUrl = "http://jieko.cc/Preferences";
-    static final float rating = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,15 +116,12 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 //Send post to server
                 String courseId = MainActivity.this.adapter.getIdbyPosition(position);
-                String ipAddress = getLocalIPAddress();
-                Toast.makeText(getApplicationContext(), ipAddress, Toast.LENGTH_SHORT).show();
-                try {
-                    //SendPostRequest(ipAddress, courseId, rating);
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
-                }
+                Runnable networkTask = new NetworkThread(courseId);
+                new Thread(networkTask).start();
+
                 //Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
             }
+
 
         });
 
@@ -151,42 +146,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-    }
-
-    public void SendPostRequest(String userId, String itemId, float rating) throws Exception
-    {
-        String encoding="UTF-8";
-        String params = "{\"user id\":" + userId + ",\"item id\"" + itemId + ",\"pref\"" + Double.toString(rating) + "\"}";
-        URL url = new URL(postUrl);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Content-Type", "application/x-javascript; charset=" + encoding);
-        conn.setConnectTimeout(10000);
-        byte[] data = params.toString().getBytes();
-        OutputStream outputStream = conn.getOutputStream();
-        outputStream.write(data);
-        outputStream.flush();
-        outputStream.close();
-    }
-
-    public String getLocalIPAddress()
-    {
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
-                        // return inetAddress.getAddress().toString();
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (SocketException ex) {
-            Log.e("BaseScanTvDeviceClient", "Fetch ip false =" +  ex.toString());
-        }
-        return null;
     }
 
     public void get_data(String data)
