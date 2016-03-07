@@ -170,6 +170,7 @@ class Application extends Controller {
           
             val file = new File(Application.pref_file)
             println("Pref file exists: " + file.exists)
+            println("Pref file AbsolutePath: " + file.getAbsolutePath)
             val bw = new BufferedWriter(new FileWriter(file, true))
             bw.write("%d,%d,%f".format(user_id,item_id,pref))
             bw.newLine()
