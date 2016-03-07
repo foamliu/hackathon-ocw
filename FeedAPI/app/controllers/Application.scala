@@ -151,9 +151,10 @@ class Application extends Controller {
         Ok("Your new application is ready.")
     }
   
-    def getCandidates = Action {
+    def getCandidates(id: Long) = Action {
         
-        val userID: Long = 1L //TODO
+        val userID: Long = id
+        //println(userID)
         
         val candidates: Seq[Course] = Application.getCandidates(userID)
 
@@ -162,8 +163,11 @@ class Application extends Controller {
         Ok(Json.stringify(json))
     }
   
-    def addPreference = Action(parse.json) {
-        
+    def addPreference(id: Long) = Action(parse.json) {
+
+        val userID: Long = id
+        //println(userID)
+
         request =>
         {
             val json: JsValue = request.body
@@ -171,7 +175,7 @@ class Application extends Controller {
             val user_id = (json \ "user_id").as[Long]
             val item_id = (json \ "item_id").as[Long]
             val pref = (json \ "pref").as[Float]
-            println("%d,%d,%f".format(user_id,item_id,pref))
+            //println("%d,%d,%f".format(user_id,item_id,pref))
           
             val file = Application.getPrefFile
             val bw = new BufferedWriter(new FileWriter(file, true))
