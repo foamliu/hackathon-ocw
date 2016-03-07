@@ -1,6 +1,7 @@
 package org.hackathon_ocw.androidclient;
 
 import org.hackathon_ocw.androidclient.Download_data.download_complete;
+import org.hackathon_ocw.androidclient.NetworkThread;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_DESCRIPTION = "description";
     static final String KEY_THUMB_URL = "thumb_url";
     static final String KEY_URL = "url";
-    static final String Url = "http://jieko.cc/Candidates";
+    static final String Url = "http://api.jieko.cc/user/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
                 adapter.clear();
 
                 Download_data download_data = new Download_data((download_complete)MainActivity.this);
-                download_data.download_data_from_link(Url);
+                download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
                 adapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         list.setAdapter(adapter);
 
         final Download_data download_data = new Download_data((download_complete) this);
-        download_data.download_data_from_link(Url);
+        download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
 
         list.setItemsCanFocus(true);
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
