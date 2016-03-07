@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 public class NetworkThread implements Runnable{
 
-    static final String postUrl = "http://jieko.cc/Preferences";
+    static final String postUrl = "http://api.jieko.cc/user/";
 
     static final float rating = 5;
 
@@ -33,11 +33,8 @@ public class NetworkThread implements Runnable{
 
     @Override
     public void run() {
-        // 在这里进行 http request.网络请求相关操作
-        String ipAddress = getLocalIPAddress();
-        //Hash ipAddress to a long
-        long ipAddrLong = ipToLong(ipAddress) % 100 + 1;
 
+        long ipAddrLong = new GetUserId().getUserId();
         //Toast.makeText(getApplicationContext(), ipAddress, Toast.LENGTH_SHORT).show();
         try {
             SendPostRequest(ipAddrLong, courseId, rating);
@@ -46,41 +43,12 @@ public class NetworkThread implements Runnable{
         }
     }
 
-    public long ipToLong(String ipString){
-        long result = 0;
-        java.util.StringTokenizer token = new java.util.StringTokenizer(ipString,".");
-        result += Long.parseLong(token.nextToken())<<24;
-        result += Long.parseLong(token.nextToken())<<16;
-        result += Long.parseLong(token.nextToken())<<8;
-        result += Long.parseLong(token.nextToken());
-        return result;
-    }
-
-    public String getLocalIPAddress()
-    {
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
-                        // return inetAddress.getAddress().toString();
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (SocketException ex) {
-            Log.e("BaseScanTvDeviceClient", "Fetch ip false =" + ex.toString());
-        }
-        return null;
-    }
-
     public void SendPostRequest(Long userId, String itemId, float rating) throws Exception
     {
 
         String encoding="UTF-8";
         String params = "{\"user_id\":" + Long.toString(userId) + ",\"item_id\":" + itemId + ",\"pref\":" + Double.toString(rating) + "}";
-        URL url = new URL(postUrl);
+        URL url = new URL(postUrl + Long.toString(userId) + "/Preferences");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
