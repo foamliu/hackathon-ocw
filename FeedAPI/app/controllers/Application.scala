@@ -167,8 +167,8 @@ class Application extends Controller {
         {
             val json: JsValue = request.body
             
-            val user_id = (json \ "user id").as[Long]
-            val item_id = (json \ "item id").as[Long]
+            val user_id = (json \ "user_id").as[Long]
+            val item_id = (json \ "item_id").as[Long]
             val pref = (json \ "pref").as[Float]
             println("%d,%d,%f".format(user_id,item_id,pref))
           
