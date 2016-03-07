@@ -75,10 +75,10 @@ object Application {
         
         var file: File = new File(pref_file)
         
-        println("Pref file's absolute path = " + file.getAbsolutePath)
-        println("Pref file exists: " + file.exists)
-        println("Play.application.path: " + Play.application.path)
-        println("Play.application.getFile.getAbsolutePath: " + Play.application.getFile("/").getAbsolutePath)
+        //println("Pref file's absolute path = " + file.getAbsolutePath)
+        //println("Pref file exists: " + file.exists)
+        //println("Play.application.path: " + Play.application.path)
+        //println("Play.application.getFile.getAbsolutePath: " + Play.application.getFile("/").getAbsolutePath)
 
         if (!file.exists())
         {
