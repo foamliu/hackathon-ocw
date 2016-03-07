@@ -16,16 +16,24 @@ class Global @Inject() (
 
   val users = List(
     Json.obj(
-      "text" -> "Have you heard about the Web Components revolution?",
-      "username" -> "Eric",
-      "avatar" -> "../images/avatar-01.svg",
-      "favorite" -> false
+      "userid" -> 88,
+      "openid" -> "OPENID",
+      "nickname" -> "foamliu",
+      "sex" -> "1",
+      "province" -> "Shanghai",
+      "city" -> "Shanghai",
+      "country" -> "CN",
+      "headimgurl" -> "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46"
     ),
     Json.obj(
-      "text" -> "Loving this Polymer thing.",
-      "username" -> "Rob",
-      "avatar" -> "../images/avatar-02.svg",
-      "favorite" -> false
+      "userid" -> 15,
+      "openid" -> "OPENID",
+      "nickname" -> "diyan",
+      "sex" -> "1",
+      "province" -> "Shanghai",
+      "city" -> "Shanghai",
+      "country" -> "CN",
+      "headimgurl" -> "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46"
     )
   )
 
