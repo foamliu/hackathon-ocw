@@ -92,7 +92,7 @@ object Application {
 
     private def recommend(userID: Long) : List[Long] = {
         
-        println("UserID: " + userID)
+        //println("UserID: " + userID)
         
         val file: File = getPrefFile()
         //println("Pref file's absolute path = " + file.getAbsolutePath)
@@ -101,15 +101,15 @@ object Application {
         var model: GenericBooleanPrefDataModel = new GenericBooleanPrefDataModel(
 				GenericBooleanPrefDataModel.toDataMap(new FileDataModel(file)))
 				
-		println("NumItems = " + model.getNumItems + " NumUsers = " + model.getNumUsers)
-		println("UserIDs: " + model.getUserIDs)
+		//println("NumItems = " + model.getNumItems + " NumUsers = " + model.getNumUsers)
+		//println("UserIDs: " + model.getUserIDs)
 
 		var similarity: UserSimilarity = new LogLikelihoodSimilarity(model)
 		var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, similarity, model);
 	
 		var recommender: Recommender = new GenericUserBasedRecommender(model, neighborhood, similarity)
 		var recommendations = recommender.recommend(userID, howMany)
-		println("NumRecommendations: " + recommendations.size)
+		//println("NumRecommendations: " + recommendations.size)
 
         for (r <- recommendations) yield r.getItemID
 
@@ -118,14 +118,14 @@ object Application {
     private def getCandidates(userID: Long) : Seq[Course] = {
         
         val items: Seq[Course]  = getCourses
-        println (items.size + " items are loaded successfully.")
+        //println (items.size + " items are loaded successfully.")
         
         val itemIDs: List[Long] = recommend(userID)
-        println("NumItemIDs: " + itemIDs.size)
-        println("ItemIDs: " + itemIDs)
+        //println("NumItemIDs: " + itemIDs.size)
+        //println("ItemIDs: " + itemIDs)
         
         val candidates: Seq[Course] = items.filter(i => itemIDs.contains(i.itemID))
-        println("NumCandidates: " + candidates.size)
+        //println("NumCandidates: " + candidates.size)
         
         if (candidates.size > 0)
         {
