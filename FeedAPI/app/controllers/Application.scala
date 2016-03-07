@@ -3,11 +3,14 @@ package controllers
 import java.io._
 import java.util._
 
+import javax.inject.Inject
+
 import scala.collection.JavaConversions._
 import scala.io._
 
 import play.api._
 import play.api.mvc._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._ // JSON library
 import play.api.libs.json.Reads._ // Custom validation helpers
 import play.api.libs.functional.syntax._ // Combinator syntax
@@ -22,6 +25,14 @@ import org.apache.mahout.cf.taste.model._
 import org.apache.mahout.cf.taste.neighborhood._
 import org.apache.mahout.cf.taste.recommender._
 import org.apache.mahout.cf.taste.similarity._
+
+import reactivemongo.bson.{ BSONObjectID, BSONDocument }
+import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
+import reactivemongo.api.commands.WriteResult
+
+import play.modules.reactivemongo.{
+  MongoController, ReactiveMongoApi, ReactiveMongoComponents
+}
 
 case class Course(itemID: Long, title: String, description: String, piclink: String, courselink: String)
 
@@ -144,11 +155,20 @@ object Application {
     }
 }
 
-class Application extends Controller {
+class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi)
+    extends Controller with MongoController with ReactiveMongoComponents {
+
+    def userRepo = new backend.UserMongoRepo(reactiveMongoApi)
 
     def index = Action {
         //Ok(views.html.index("Your new application is ready."))
         Ok("Your new application is ready.")
+    }
+    
+    def list = Action.async {implicit request =>
+        userRepo.find()
+            .map(users => Ok(Json.toJson(users.reverse)))
+            .recover {case PrimaryUnavailableException => InternalServerError("Please install MongoDB")}
     }
   
     def getCandidates(id: Long) = Action {
