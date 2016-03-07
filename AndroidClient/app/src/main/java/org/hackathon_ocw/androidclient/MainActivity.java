@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_DESCRIPTION = "description";
     static final String KEY_THUMB_URL = "thumb_url";
     static final String KEY_URL = "url";
-    static final String Url = "http://40.83.121.223/Candidates";
-    static final String postUrl = "http://40.83.121.223/Preferences";
+    static final String Url = "http://jieko.cc/Candidates";
+    static final String postUrl = "http://jieko.cc/Preferences";
     static final float rating = 5;
 
     @Override
