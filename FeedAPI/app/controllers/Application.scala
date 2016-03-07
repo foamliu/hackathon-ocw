@@ -172,7 +172,7 @@ class Application extends Controller {
             val pref = (json \ "pref").as[Float]
             println("%d,%d,%f".format(user_id,item_id,pref))
           
-            val file = new File(Application.pref_file)
+            val file = Application.getPrefFile
             val bw = new BufferedWriter(new FileWriter(file, true))
             bw.write("%d,%d,%f".format(user_id,item_id,pref))
             bw.newLine()
