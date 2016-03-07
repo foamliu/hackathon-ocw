@@ -74,6 +74,10 @@ object Application {
     private def getPrefFile() : File = {
         
         var file: File = new File(pref_file)
+        
+        println("Pref file's absolute path = " + file.getAbsolutePath)
+        println("Pref file exists: " + file.exists)
+        println("Play.application.path: " + Play.application.path)
 
         if (!file.exists())
         {
@@ -95,7 +99,7 @@ object Application {
         //println("UserID: " + userID)
         
         val file: File = getPrefFile()
-        //println("Pref file's absolute path = " + file.getAbsolutePath)
+        
         //println("Pref file exists: " + file.exists)
         
         var model: GenericBooleanPrefDataModel = new GenericBooleanPrefDataModel(
@@ -168,9 +172,7 @@ class Application extends Controller {
             val pref = (json \ "pref").as[Float]
             println("%d,%d,%f".format(user_id,item_id,pref))
           
-            val file = Application.getPrefFile
-            println("Pref file exists: " + file.exists)
-            println("Pref file AbsolutePath: " + file.getAbsolutePath)
+            val file = new File(Application.pref_file)
             val bw = new BufferedWriter(new FileWriter(file, true))
             bw.write("%d,%d,%f".format(user_id,item_id,pref))
             bw.newLine()
