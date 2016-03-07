@@ -149,7 +149,7 @@ object Application {
         }
         else
         {
-            scala.util.Random.shuffle(items).take(n)
+            scala.util.Random.shuffle(items).take(howMany)
         }
 
     }
