@@ -169,6 +169,7 @@ class Application extends Controller {
             println("%d,%d,%f".format(user_id,item_id,pref))
           
             val file = new File(Application.pref_file)
+            println("Pref file exists: " + file.exists)
             val bw = new BufferedWriter(new FileWriter(file, true))
             bw.write("%d,%d,%f".format(user_id,item_id,pref))
             bw.newLine()
