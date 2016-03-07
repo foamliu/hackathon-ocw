@@ -166,6 +166,7 @@ class Application extends Controller {
             val user_id = (json \ "user id").as[Long]
             val item_id = (json \ "item id").as[Long]
             val pref = (json \ "pref").as[Float]
+            println("%d,%d,%f".format(user_id,item_id,pref))
           
             val file = new File(Application.pref_file)
             val bw = new BufferedWriter(new FileWriter(file, true))
