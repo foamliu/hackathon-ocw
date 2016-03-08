@@ -111,10 +111,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String url = MainActivity.this.adapter.getUrlbyPosition(position);
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                //Show subpage
+                Intent intent = new Intent();
+                intent.putExtra("id",adapter.getIdbyPosition(position));
+                intent.putExtra("title",adapter.getTitlebyPosition(position));
+                intent.putExtra("description",adapter.getDiscriptionbyPosition(position));
+
+                intent.setClass(MainActivity.this,DetailActivity.class);
                 startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), "Click to subpage! ",Toast.LENGTH_SHORT).show();
+
                 //Send post to server
                 String courseId = MainActivity.this.adapter.getIdbyPosition(position);
                 Runnable networkTask = new NetworkThread(courseId);

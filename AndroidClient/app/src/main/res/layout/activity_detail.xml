@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        layout="@layout/app_bar_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="50dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="5dp"
+            android:id="@+id/titleDetail"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="2.0"
+            android:isIndicator="false"
+            style="?android:attr/ratingBarStyleSmall"
+            />
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="5dp"
+            android:id="@+id/descriptionDetail"
+            android:textSize="15dp"
+            />
+
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>

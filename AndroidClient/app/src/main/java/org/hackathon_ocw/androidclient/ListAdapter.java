@@ -50,8 +50,16 @@ public class ListAdapter extends BaseAdapter {
         return data.get(position).get("url");
     }
 
+    public String getTitlebyPosition(int position) {
+        return data.get(position).get("title");
+    }
+
     public String getIdbyPosition(int position) {
         return data.get(position).get("id");
+    }
+
+    public String getDiscriptionbyPosition(int position) {
+        return data.get(position).get("description");
     }
 
     public void clear()
