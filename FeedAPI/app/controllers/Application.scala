@@ -34,7 +34,7 @@ import play.modules.reactivemongo.{
   MongoController, ReactiveMongoApi, ReactiveMongoComponents
 }
 
-case class Course(itemID: Long, title: String, description: String, piclink: String, courselink: String)
+case class Course(itemID: Long, var title: String, description: String, piclink: String, courselink: String)
 
 object Course {
     
@@ -149,7 +149,9 @@ object Application {
         }
         else
         {
-            scala.util.Random.shuffle(items).take(howMany)
+            var randomItems = scala.util.Random.shuffle(items).take(howMany)
+            randomItems.foreach(c => c.title = "*" + c.title)
+            randomItems
         }
 
     }
