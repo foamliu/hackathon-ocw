@@ -106,6 +106,9 @@ public class DetailActivity extends AppCompatActivity {
                 //txtRatingValue.setText(String.valueOf(rating));
 
                 //Send the ratings to server...
+                //Send post to server
+                Runnable networkTask = new NetworkThread(courseId, rating);
+                new Thread(networkTask).start();
             }
         });
     }

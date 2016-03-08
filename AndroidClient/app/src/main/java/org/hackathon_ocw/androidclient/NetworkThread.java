@@ -22,13 +22,14 @@ public class NetworkThread implements Runnable{
 
     static final String postUrl = "http://api.jieko.cc/user/";
 
-    static final float rating = 5;
+    private float rating = 5;
 
-    public String courseId;
+    private String courseId;
 
-    public NetworkThread(String courseId)
+    public NetworkThread(String courseId, float rating)
     {
         this.courseId = courseId;
+        this.rating = rating;
     }
 
     @Override
