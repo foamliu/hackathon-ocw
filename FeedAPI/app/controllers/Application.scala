@@ -62,7 +62,7 @@ object Course {
 object Application {
     
     private val howMany = 5
-    private val n = 1 // Nearest N User Neighborhood
+    private val n = 2 // Nearest N User Neighborhood
     private val pref_file = Play.application.path + "/" + "prefs.csv"
     private val item_file = "app/assets/jsons/items.json"
 
