@@ -14,6 +14,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._ // JSON library
 import play.api.libs.json.Reads._ // Custom validation helpers
 import play.api.libs.functional.syntax._ // Combinator syntax
+import play.api.Logger
 import play.api.Play.current
 
 import org.apache.mahout.cf.taste.impl.model._
@@ -25,39 +26,6 @@ import org.apache.mahout.cf.taste.model._
 import org.apache.mahout.cf.taste.neighborhood._
 import org.apache.mahout.cf.taste.recommender._
 import org.apache.mahout.cf.taste.similarity._
-
-import reactivemongo.bson.{ BSONObjectID, BSONDocument }
-import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
-import reactivemongo.api.commands.WriteResult
-
-import play.modules.reactivemongo.{
-  MongoController, ReactiveMongoApi, ReactiveMongoComponents
-}
-
-case class Course(itemID: Long, var title: String, description: String, piclink: String, courselink: String)
-
-object Course {
-    
-    implicit val courseReads: Reads[Course] = (
-      (JsPath \\ "item_id").read[Long] and 
-      (JsPath \\ "title").read[String] and 
-      (JsPath \\ "description").read[String] and 
-      (JsPath \\ "piclink").read[String] and 
-      (JsPath \\ "courselink").read[String]
-    )(Course.apply _)
-            
-    implicit val courseWrites = new Writes[Course] {
-        def writes(c: Course): JsValue = 
-            Json.obj(
-                "item_id" -> c.itemID,
-                "title" -> c.title,
-                "description" -> c.description,
-                "piclink" -> c.piclink,
-                "courselink" -> c.courselink
-            ) 
-    } 
-}
-
 
 object Application {
     
@@ -82,14 +50,14 @@ object Application {
 
     }
     
-    private def getPrefFile() : File = {
+    def getPrefFile() : File = {
         
         var file: File = new File(pref_file)
         
-        //println("Pref file's absolute path = " + file.getAbsolutePath)
-        //println("Pref file exists: " + file.exists)
-        //println("Play.application.path: " + Play.application.path)
-        //println("Play.application.getFile.getAbsolutePath: " + Play.application.getFile("/").getAbsolutePath)
+        Logger.debug ("Pref file's absolute path = " + file.getAbsolutePath)
+        Logger.debug ("Pref file exists: " + file.exists)
+        Logger.debug ("Play.application.path: " + Play.application.path)
+        Logger.debug ("Play.application.getFile.getAbsolutePath: " + Play.application.getFile("/").getAbsolutePath)
 
         if (!file.exists())
         {
@@ -108,24 +76,24 @@ object Application {
 
     private def recommend(userID: Long) : List[Long] = {
         
-        //println("UserID: " + userID)
+        Logger.debug ("UserID: " + userID)
         
         val file: File = getPrefFile()
         
-        //println("Pref file exists: " + file.exists)
+        Logger.debug ("Pref file exists: " + file.exists)
         
         var model: GenericBooleanPrefDataModel = new GenericBooleanPrefDataModel(
 				GenericBooleanPrefDataModel.toDataMap(new FileDataModel(file)))
 				
-		//println("NumItems = " + model.getNumItems + " NumUsers = " + model.getNumUsers)
-		//println("UserIDs: " + model.getUserIDs)
+		Logger.debug ("NumItems = " + model.getNumItems + " NumUsers = " + model.getNumUsers)
+		Logger.debug ("UserIDs: " + model.getUserIDs)
 
 		var similarity: UserSimilarity = new LogLikelihoodSimilarity(model)
 		var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, similarity, model);
 	
 		var recommender: Recommender = new GenericUserBasedRecommender(model, neighborhood, similarity)
 		var recommendations = recommender.recommend(userID, howMany)
-		//println("NumRecommendations: " + recommendations.size)
+		Logger.debug ("NumRecommendations: " + recommendations.size)
 
         for (r <- recommendations) yield r.getItemID
 
@@ -134,14 +102,14 @@ object Application {
     private def getCandidates(userID: Long) : Seq[Course] = {
         
         val items: Seq[Course]  = getCourses
-        //println (items.size + " items are loaded successfully.")
+        Logger.debug (items.size + " items are loaded successfully.")
         
         val itemIDs: List[Long] = recommend(userID)
-        //println("NumItemIDs: " + itemIDs.size)
-        //println("ItemIDs: " + itemIDs)
+        Logger.debug ("NumItemIDs: " + itemIDs.size)
+        Logger.debug ("ItemIDs: " + itemIDs)
         
         val candidates: Seq[Course] = items.filter(i => itemIDs.contains(i.itemID))
-        //println("NumCandidates: " + candidates.size)
+        Logger.debug ("NumCandidates: " + candidates.size)
         
         if (candidates.size > 0)
         {
@@ -157,26 +125,17 @@ object Application {
     }
 }
 
-class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi)
-    extends Controller with MongoController with ReactiveMongoComponents {
-
-    def userRepo = new backend.UserMongoRepo(reactiveMongoApi)
+class Application extends Controller {
 
     def index = Action {
         //Ok(views.html.index("Your new application is ready."))
         Ok("Your new application is ready.")
     }
-    
-    def list = Action.async {implicit request =>
-        userRepo.find()
-            .map(users => Ok(Json.toJson(users.reverse)))
-            .recover {case PrimaryUnavailableException => InternalServerError("Please install MongoDB")}
-    }
   
     def getCandidates(id: Long) = Action {
         
         val userID: Long = id
-        //println(userID)
+        Logger.debug (userID toString)
         
         val candidates: Seq[Course] = Application.getCandidates(userID)
 
@@ -188,7 +147,7 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     def addPreference(id: Long) = Action(parse.json) {
 
         val userID: Long = id
-        //println(userID)
+        Logger.debug (userID toString)
 
         request =>
         {
@@ -197,7 +156,7 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi)
             val user_id = (json \ "user_id").as[Long]
             val item_id = (json \ "item_id").as[Long]
             val pref = (json \ "pref").as[Float]
-            println("%d,%d,%f".format(user_id,item_id,pref))
+            Logger.info("%d,%d,%f".format(user_id,item_id,pref))
           
             val file = Application.getPrefFile
             val bw = new BufferedWriter(new FileWriter(file, true))
