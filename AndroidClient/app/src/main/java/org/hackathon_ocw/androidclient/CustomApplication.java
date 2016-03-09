@@ -14,7 +14,7 @@ import org.acra.annotation.ReportsCrashes;
  * Created by dianyang on 2016/3/9.
  */
 @ReportsCrashes(
-        formUri = "http://api.jieko.cc//crashReport",
+        formUri = "http://api.jieko.cc/crashReport",
         mode = ReportingInteractionMode.TOAST,
         resToastText = R.string.crash_toast_text)
 public class CustomApplication extends Application {
