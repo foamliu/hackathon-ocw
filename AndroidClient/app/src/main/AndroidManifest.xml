@@ -12,7 +12,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="CustomApplication">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -30,5 +31,10 @@
             >
         </activity>
     </application>
+
+    <service
+        android:name="org.acra.sender.SenderService"
+        android:exported="false"
+        android:process=":acra" />
 
 </manifest>
