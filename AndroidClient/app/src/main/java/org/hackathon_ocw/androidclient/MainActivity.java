@@ -41,6 +41,8 @@ import android.util.Log;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -51,10 +53,13 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, download_complete {
 
-    public ListView list;
+    public ListView mListView;
+    public View footerLayout;
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
-    public ListAdapter adapter;
-    private SwipeRefreshLayout swipeContainer;
+    public ListAdapter mAdapter;
+    private RefreshLayout mRefreshLayout;
+    private TextView textMore;
+    private ProgressBar progressBar;
     private IWXAPI api;
 
     static final String KEY_ID = "id";
@@ -71,51 +76,72 @@ public class MainActivity extends AppCompatActivity
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        mListView = (ListView) findViewById(R.id.list);
+        mRefreshLayout = (RefreshLayout) findViewById(R.id.swipeContainer);
 
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        footerLayout = getLayoutInflater().inflate(R.layout.listview_footer, null);
+        textMore = (TextView)footerLayout.findViewById(R.id.text_more);
+        progressBar = (ProgressBar) footerLayout.findViewById(R.id.load_progress_bar);
+        textMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadData();
+            }
+        });
+
+        mListView.addFooterView(footerLayout);
+        mRefreshLayout.setChildView(mListView);
+        mAdapter = new ListAdapter(this, courseList);
+        mListView.setAdapter(mAdapter);
+
+        mRefreshLayout.setColorSchemeResources(android.R.color.holo_green_dark,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light,
+                android.R.color.holo_blue_bright);
+
+
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //fetchTimeLineAsync(0);
-                Toast.makeText(getApplicationContext(), "正在刷新... ",Toast.LENGTH_SHORT).show();
-                adapter.clear();
+                Toast.makeText(getApplicationContext(), "正在刷新... ", Toast.LENGTH_SHORT).show();
+                mAdapter.clear();
 
-                Download_data download_data = new Download_data((download_complete)MainActivity.this);
+                Download_data download_data = new Download_data((download_complete) MainActivity.this);
                 download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
-                adapter.addAll(courseList);
+                mAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "刷新完成!",Toast.LENGTH_SHORT).show();
-                        swipeContainer.setRefreshing(false);
+                        Toast.makeText(getApplicationContext(), "刷新完成!", Toast.LENGTH_SHORT).show();
+                        mRefreshLayout.setRefreshing(false);
                     }
                 }, 4000);
             }
         });
 
-        swipeContainer.setColorSchemeResources(android.R.color.holo_green_dark,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light,
-                android.R.color.holo_blue_bright);
+        mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                LoadData();
+            }
+        });
 
-        list = (ListView) findViewById(R.id.list);
-        adapter = new ListAdapter(this, courseList);
-        list.setAdapter(adapter);
 
         final Download_data download_data = new Download_data((download_complete) this);
         download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
 
-        list.setItemsCanFocus(true);
-        list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        list.setOnItemClickListener(new ListView.OnItemClickListener() {
+        mListView.setItemsCanFocus(true);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //Show subpage
                 Intent intent = new Intent();
-                intent.putExtra("id",adapter.getIdbyPosition(position));
-                intent.putExtra("title",adapter.getTitlebyPosition(position));
-                intent.putExtra("description",adapter.getDiscriptionbyPosition(position));
+                intent.putExtra("id",mAdapter.getIdbyPosition(position));
+                intent.putExtra("title",mAdapter.getTitlebyPosition(position));
+                intent.putExtra("description",mAdapter.getDiscriptionbyPosition(position));
 
                 intent.setClass(MainActivity.this,DetailActivity.class);
                 startActivity(intent);
@@ -123,8 +149,8 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Click to subpage! ",Toast.LENGTH_SHORT).show();
 
                 //Send post to server
-                String courseId = MainActivity.this.adapter.getIdbyPosition(position);
-                Runnable networkTask = new NetworkThread(courseId);
+                String courseId = MainActivity.this.mAdapter.getIdbyPosition(position);
+                Runnable networkTask = new NetworkThread(courseId, 3);
                 new Thread(networkTask).start();
 
                 //Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
@@ -156,6 +182,32 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void LoadData()
+    {
+        // start to load
+        Toast.makeText(getApplicationContext(), "加载更多", Toast.LENGTH_SHORT).show();
+
+        textMore.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+
+        Download_data download_data = new Download_data((download_complete) MainActivity.this);
+        download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
+        mAdapter.addAll(courseList);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(getApplicationContext(), "刷新完成!", Toast.LENGTH_SHORT).show();
+                //swipeContainer.setRefreshing(false);
+                mRefreshLayout.setLoading(false);
+                mAdapter.notifyDataSetChanged();
+                textMore.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+        }, 4000);
+
+    }
+
     public void get_data(String data)
     {
         try {
@@ -175,7 +227,7 @@ public class MainActivity extends AppCompatActivity
                 courseList.add(map);
 
             }
-            adapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
 
         } catch (JSONException e) {
             e.printStackTrace();

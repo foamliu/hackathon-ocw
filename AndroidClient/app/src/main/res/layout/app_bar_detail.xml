@@ -16,15 +16,35 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:orientation="horizontal"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <Button
-                android:id="@+id/backToMain"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:id="@+id/backBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@android:drawable/ic_menu_revert"
                 android:gravity="center"
                 android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="130dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:id="@+id/titleToolBar"
+                android:gravity="center_vertical"
+                />
+
+            <Button
+                android:id="@+id/shareBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="60dp"
+                android:background="@android:drawable/ic_menu_share"
+                android:layout_alignParentRight="true"
+                 />
 
         </android.support.v7.widget.Toolbar>
 
