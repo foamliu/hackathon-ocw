@@ -18,9 +18,6 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.acra.collector.CrashReportData;
 import org.acra.sender.HttpSender;
-import org.acra.sender.ReportSender;
-import org.acra.sender.ReportSenderException;
-
 
 /**
  * Created by dianyang on 2016/3/9.
@@ -28,6 +25,7 @@ import org.acra.sender.ReportSenderException;
 @ReportsCrashes(
         formUri = "http://api.jieko.cc/crashes",
         mode = ReportingInteractionMode.TOAST,
+        customReportContent = { ReportField.ANDROID_VERSION, ReportField.APP_VERSION_NAME, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE },
         reportType = org.acra.sender.HttpSender.Type.JSON,
         httpMethod = HttpSender.Method.POST,
         resToastText = R.string.crash_toast_text)
@@ -40,16 +38,13 @@ public class CustomApplication extends Application {
     {
         super.onCreate();
 
-        if(checkNetworkState() == true)
+        if(checkNetworkState())
         {
-            //initial acra
+            //only initial acra with wift
             ACRA.init(this);
         }
-        else
-        {
-            //Remove all report without wifi
-            ACRA.getErrorReporter().removeAllReportSenders();
-        }
+        //Remove all report without wifi
+        //ACRA.getErrorReporter().removeAllReportSenders();
     }
 
     public boolean checkNetworkState() {
