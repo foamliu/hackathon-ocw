@@ -59,7 +59,7 @@ public class DetailActivity extends AppCompatActivity{
     private IWXAPI api;
     private VideoView videoView;
     private MediaController mediaController;
-    private Uri uri = Uri.parse("http://mov.bn.netease.com/movie/2012/7/P/C/S854ATOPC.mp4");
+    private Uri uri;
     private TextView titleDetail;
     private TextView titleToolBar;
     private TextView descriptionDetail;
@@ -83,6 +83,7 @@ public class DetailActivity extends AppCompatActivity{
         title = intent.getStringExtra("title");
         description = intent.getStringExtra("description");
         courseId = intent.getStringExtra("id");
+        uri = Uri.parse(intent.getStringExtra("videoUrl"));
 
         titleDetail=(TextView)findViewById(R.id.titleDetail);
         titleDetail.setText(title);

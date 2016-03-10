@@ -46,8 +46,8 @@ public class ListAdapter extends BaseAdapter {
         return position;
     }
 
-    public String getUrlbyPosition(int position) {
-        return data.get(position).get("url");
+    public String getVideoUrlbyPosition(int position) {
+        return data.get(position).get("videoUrl");
     }
 
     public String getTitlebyPosition(int position) {
@@ -71,6 +71,12 @@ public class ListAdapter extends BaseAdapter {
     public void addAll(ArrayList<HashMap<String, String>> d)
     {
         data = d;
+        notifyDataSetChanged();
+    }
+
+    public void append(ArrayList<HashMap<String, String>> d)
+    {
+        data.addAll(d);
         notifyDataSetChanged();
     }
 
