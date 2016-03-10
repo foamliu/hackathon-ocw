@@ -144,6 +144,20 @@ class Application extends Controller {
         Ok(Json.stringify(json))
     }
 
+    def addCrashReport = Action(parse.json) {
+        
+        request =>
+        {
+            val json: JsValue = request.body
+            
+            val jsonString: String = Json.stringify(json)
+            
+            Logger.warn(jsonString);
+            
+            Ok("Ok")
+        }
+    }
+
 }
 
 
