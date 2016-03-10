@@ -25,7 +25,7 @@ import org.acra.sender.HttpSender;
 @ReportsCrashes(
         formUri = "http://api.jieko.cc/crashes",
         mode = ReportingInteractionMode.TOAST,
-        customReportContent = { ReportField.ANDROID_VERSION, ReportField.APP_VERSION_NAME, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE },
+        customReportContent = { ReportField.USER_CRASH_DATE,ReportField.ANDROID_VERSION, ReportField.APP_VERSION_NAME, ReportField.PHONE_MODEL, ReportField.STACK_TRACE },
         reportType = org.acra.sender.HttpSender.Type.JSON,
         httpMethod = HttpSender.Method.POST,
         resToastText = R.string.crash_toast_text)
