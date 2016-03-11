@@ -10,7 +10,9 @@ import reactivemongo.bson.{BSONObjectID, BSONDocument}
 import scala.concurrent.{ExecutionContext, Future}
 
 trait UserRepo {
-  def find()(implicit ec: ExecutionContext): Future[List[JsObject]]
+  def list()(implicit ec: ExecutionContext): Future[List[JsObject]]
+  
+  def find(query: JsObject)(implicit ec: ExecutionContext): Future[List[JsObject]]
 
   def update(selector: BSONDocument, update: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult]
 
@@ -20,19 +22,22 @@ trait UserRepo {
 }
 
 class UserMongoRepo(reactiveMongoApi: ReactiveMongoApi) extends UserRepo {
-  // BSON-JSON conversions
-  import play.modules.reactivemongo.json._
+    // BSON-JSON conversions
+    import play.modules.reactivemongo.json._
 
-  protected def collection =
-    reactiveMongoApi.db.collection[JSONCollection]("users")
+    protected def collection =
+        reactiveMongoApi.db.collection[JSONCollection]("users")
 
-  def find()(implicit ec: ExecutionContext): Future[List[JsObject]] =
-    collection.find(Json.obj()).cursor[JsObject](ReadPreference.Primary).collect[List]()
+    def list()(implicit ec: ExecutionContext): Future[List[JsObject]] =
+        collection.find(Json.obj()).cursor[JsObject](ReadPreference.Primary).collect[List]()
+    
+    def find(query: JsObject)(implicit ec: ExecutionContext): Future[List[JsObject]] =
+        collection.find(query).cursor[JsObject](ReadPreference.Primary).collect[List]()
 
-  def update(selector: BSONDocument, update: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] = collection.update(selector, update)
+    def update(selector: BSONDocument, update: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] = collection.update(selector, update)
 
-  def remove(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] = collection.remove(document)
+    def remove(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] = collection.remove(document)
 
-  def save(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] =
-    collection.update(BSONDocument("_id" -> document.get("_id").getOrElse(BSONObjectID.generate)), document, upsert = true)
+    def save(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] =
+        collection.update(BSONDocument("_id" -> document.get("_id").getOrElse(BSONObjectID.generate)), document, upsert = true)
 }

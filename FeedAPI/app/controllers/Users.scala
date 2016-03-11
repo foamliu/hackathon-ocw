@@ -23,22 +23,26 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     def userRepo = new backend.UserMongoRepo(reactiveMongoApi)    
     
     def list = Action.async {implicit request =>
-        userRepo.find()
+        userRepo.list()
             .map(users => Ok(Json.toJson(users.reverse)))
             .recover {case PrimaryUnavailableException => InternalServerError("Please install MongoDB")}
     }
     
-    def add = Action.async(BodyParsers.parse.json) { implicit request =>
-        val id = (request.body \ DeviceId).as[Long]
-        val userid = (request.body \ UserID).as[String]
+    def auth = Action.async(BodyParsers.parse.json) { implicit request =>
+        val deviceid = (request.body \ DeviceID).as[String]
+        var userID = 0
+        
+        val users = userRepo.find(Json.obj(DeviceID -> deviceid))
+            .map(users => Ok(Json.toJson(users.reverse)))
+            .recover {case PrimaryUnavailableException => InternalServerError("Please install MongoDB")}
 
         userRepo.save(BSONDocument(
-                DeviceId -> id,
-                UserID -> userid
+                UserID -> userID,
+                DeviceID -> deviceid
             )).map(le => Redirect(routes.Users.list()))
     }
     
-    def update(id: String) = Action.async(BodyParsers.parse.json) { implicit request =>
+    def update(id: Long) = Action.async(BodyParsers.parse.json) { implicit request =>
         val openid = (request.body \ OpenID).as[String]
         val nickname = (request.body \ Nickname).as[String]
         val sex = (request.body \ Sex).as[String]
@@ -47,7 +51,7 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         val country = (request.body \ Country).as[String]
         val headimgurl = (request.body \ HeadImgUrl).as[String]
         
-        userRepo.update(BSONDocument(DeviceId -> BSONObjectID(id)), BSONDocument("$set" -> BSONDocument(
+        userRepo.update(BSONDocument(UserID -> BSONObjectID(id toString)), BSONDocument("$set" -> BSONDocument(
                 OpenID -> openid,
                 Nickname -> nickname,
                 Sex -> sex,
@@ -61,8 +65,8 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
 }
 
 object UserFields {
-  val DeviceId = "_id"
-  val UserID = "userid"
+  val UserID = "_id"
+  val DeviceID = "deviceid"
   val OpenID = "openid"
   val Nickname = "nickname"
   val Sex = "sex"
