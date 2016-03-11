@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.widget.Toast;
 import android.net.NetworkInfo.State;
 
@@ -23,6 +25,8 @@ import org.acra.annotation.ReportsCrashes;
 import org.acra.collector.CrashReportData;
 import org.acra.sender.HttpSender;
 
+import java.util.UUID;
+
 /**
  * Created by dianyang on 2016/3/9.
  */
@@ -35,7 +39,9 @@ import org.acra.sender.HttpSender;
         resToastText = R.string.crash_toast_text)
 public class CustomApplication extends Application {
 
+    public String uniqueId;
     public ConnectivityManager manager;
+
     private Tracker mTracker;
 
     @Override
@@ -127,6 +133,20 @@ public class CustomApplication extends Application {
             return false;
         }
     }
+
+    public void getUUID()
+    {
+        final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+        final String tmDevice, tmSerial, tmPhone, androidId;
+        tmDevice = "" + tm.getDeviceId();
+        tmSerial = "" + tm.getSimSerialNumber();
+        androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+
+        UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+        uniqueId = deviceUuid.toString();
+    }
+
 }
 
 

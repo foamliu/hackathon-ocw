@@ -143,7 +143,7 @@ public class DetailActivity extends AppCompatActivity{
                 sendIntent.putExtra(Intent.EXTRA_TEXT, text);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
-                
+
                 /*
                 Toast.makeText(getApplicationContext(), "Share to Wechat",Toast.LENGTH_SHORT).show();
 
