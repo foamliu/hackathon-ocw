@@ -22,9 +22,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -146,15 +150,15 @@ public class MainActivity extends AppCompatActivity
 
                 //Show subpage
                 Intent intent = new Intent();
-                intent.putExtra("id",mAdapter.getIdbyPosition(position));
-                intent.putExtra("title",mAdapter.getTitlebyPosition(position));
-                intent.putExtra("videoUrl",mAdapter.getVideoUrlbyPosition(position));
-                intent.putExtra("description",mAdapter.getDiscriptionbyPosition(position));
+                intent.putExtra("id", mAdapter.getIdbyPosition(position));
+                intent.putExtra("title", mAdapter.getTitlebyPosition(position));
+                intent.putExtra("videoUrl", mAdapter.getVideoUrlbyPosition(position));
+                intent.putExtra("description", mAdapter.getDiscriptionbyPosition(position));
 
-                intent.setClass(MainActivity.this,DetailActivity.class);
+                intent.setClass(MainActivity.this, DetailActivity.class);
                 startActivity(intent);
 
-                Toast.makeText(getApplicationContext(), "Click to subpage! ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Click to subpage! ", Toast.LENGTH_SHORT).show();
 
                 //Send post to server
                 String courseId = MainActivity.this.mAdapter.getIdbyPosition(position);
@@ -175,8 +179,14 @@ public class MainActivity extends AppCompatActivity
 
         });
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +207,17 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
     }
+
+    // A method to find height of the status bar
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
 
     private void LoadData()
     {
