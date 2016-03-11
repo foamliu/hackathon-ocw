@@ -8,7 +8,7 @@ GET     /user/:id/Candidates        controllers.Application.getCandidates(id: Lo
 POST    /crashes                    controllers.Application.addCrashReport
 POST    /user/:id/Preferences       controllers.Preferences.add(id: Long)
 GET     /users                      controllers.Users.list
-POST    /user                       controllers.Users.auth
+POST    /user                       controllers.Users.register
 PATCH   /user/:id                   controllers.Users.update(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
