@@ -98,6 +98,10 @@ public class DetailActivity extends AppCompatActivity{
 
         titleToolBar=(TextView)findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
+        titleToolBar.setPadding(0, getStatusBarHeight(), 0, 0);
+        //SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        //tintManager.setStatusBarTintEnabled(true);
+        //tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
         descriptionDetail=(TextView)findViewById(R.id.descriptionDetail);
         descriptionDetail.setText(description);
@@ -117,6 +121,16 @@ public class DetailActivity extends AppCompatActivity{
         sendScreenImageName();
     }
         // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+
+    // A method to find height of the status bar
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     public void addListenerOnBackButton()
     {

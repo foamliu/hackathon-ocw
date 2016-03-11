@@ -2,11 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:/Users/dianyang/Desktop/0305/hackathon-ocw-master (1)/hackathon-ocw-master/AndroidClient/debug.keystore')
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "org.hackathon_ocw.androidclient"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

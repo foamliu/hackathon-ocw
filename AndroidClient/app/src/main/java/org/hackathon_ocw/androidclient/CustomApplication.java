@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
@@ -70,6 +71,8 @@ public class CustomApplication extends Application {
         }
         return mTracker;
     }
+
+
 
     public boolean checkNetworkState() {
         boolean flag = false;
