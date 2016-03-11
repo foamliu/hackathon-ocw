@@ -136,6 +136,15 @@ public class DetailActivity extends AppCompatActivity{
         shareBtn = (Button)findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                String text = "我正在学啥的公开课: " + title ;
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                
+                /*
                 Toast.makeText(getApplicationContext(), "Share to Wechat",Toast.LENGTH_SHORT).show();
 
                 final EditText editor = new EditText(DetailActivity.this);
@@ -173,6 +182,7 @@ public class DetailActivity extends AppCompatActivity{
                         finish();
                     }
                 }, null);
+                */
             }
         });
     }
