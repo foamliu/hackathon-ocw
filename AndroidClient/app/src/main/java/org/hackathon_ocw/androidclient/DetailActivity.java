@@ -19,6 +19,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
@@ -71,9 +74,14 @@ public class DetailActivity extends AppCompatActivity{
     private String description;
     private String title;
 
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CustomApplication application = (CustomApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -105,6 +113,8 @@ public class DetailActivity extends AppCompatActivity{
         addListenerOnBackButton();
         addListenerOnShareButton();
         addListenerOnRatingBar();
+
+        sendScreenImageName();
     }
         // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
@@ -119,12 +129,22 @@ public class DetailActivity extends AppCompatActivity{
         });
     }
 
+
     public void addListenerOnShareButton()
     {
         //Share to Wechat
         shareBtn = (Button)findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                String text = "我正在学啥的公开课: " + title ;
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+                /*
                 Toast.makeText(getApplicationContext(), "Share to Wechat",Toast.LENGTH_SHORT).show();
 
                 final EditText editor = new EditText(DetailActivity.this);
@@ -162,6 +182,7 @@ public class DetailActivity extends AppCompatActivity{
                         finish();
                     }
                 }, null);
+                */
             }
         });
     }
@@ -189,5 +210,15 @@ public class DetailActivity extends AppCompatActivity{
             }
         });
     }
+
+    private void sendScreenImageName() {
+        String name = title;
+        // [START screen_view_hit]
+        //Log.i(TAG, "Setting screen name: " + name);
+        mTracker.setScreenName("Screen~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        // [END screen_view_hit]
+    }
+
 
 }

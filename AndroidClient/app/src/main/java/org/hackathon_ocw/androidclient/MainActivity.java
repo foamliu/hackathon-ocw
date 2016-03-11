@@ -45,6 +45,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendAuth;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     private TextView textMore;
     private ProgressBar progressBar;
     private IWXAPI api;
+    private Tracker mTracker;
 
     static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
@@ -75,6 +78,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
+
+        // Obtain the shared Tracker instance.
+        CustomApplication application = (CustomApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         mListView = (ListView) findViewById(R.id.list);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.swipeContainer);
@@ -108,7 +115,7 @@ public class MainActivity extends AppCompatActivity
                 mAdapter.clear();
 
                 Download_data download_data = new Download_data((download_complete) MainActivity.this);
-                download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
+                download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
                 mAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -129,7 +136,7 @@ public class MainActivity extends AppCompatActivity
 
 
         final Download_data download_data = new Download_data((download_complete) this);
-        download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
+        download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
 
         mListView.setItemsCanFocus(true);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -153,6 +160,14 @@ public class MainActivity extends AppCompatActivity
                 String courseId = MainActivity.this.mAdapter.getIdbyPosition(position);
                 Runnable networkTask = new NetworkThread(courseId, 3);
                 new Thread(networkTask).start();
+
+                //Send event to Google Analytics
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Mainpage")
+                        .setAction("Click the ocw item")
+                        .setLabel(mAdapter.getIdbyPosition(position))
+                        .setValue(1)
+                        .build());
 
                 //Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
             }
@@ -192,7 +207,7 @@ public class MainActivity extends AppCompatActivity
         progressBar.setVisibility(View.VISIBLE);
 
         Download_data download_data = new Download_data((download_complete) MainActivity.this);
-        download_data.download_data_from_link(Url + Long.toString(new GetUserId().getUserId()) + "/Candidates");
+        download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
         mAdapter.addAll(courseList);
 
         new Handler().postDelayed(new Runnable() {
