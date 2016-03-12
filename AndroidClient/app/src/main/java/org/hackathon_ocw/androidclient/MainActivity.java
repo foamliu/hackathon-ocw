@@ -44,6 +44,7 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -59,15 +60,23 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, download_complete {
 
-    public ListView mListView;
+    //Views of the page
     public View footerLayout;
-    public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
+    public ListView mListView;
+    private TextView titleMainToolBar;
+    private TextView textMore;
+
+    //Toolbars
+    private Toolbar toolbar;
+    private ProgressBar progressBar;
+
     public ListAdapter mAdapter;
     private RefreshLayout mRefreshLayout;
-    private TextView textMore;
-    private ProgressBar progressBar;
+
     private IWXAPI api;
     private Tracker mTracker;
+
+    public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
 
     static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
@@ -81,12 +90,38 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Wechat call
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
 
         // Obtain the shared Tracker instance.
         CustomApplication application = (CustomApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
+        titleMainToolBar=(TextView)findViewById(R.id.titleMainToolBar);
+        titleMainToolBar.setText("学啥");
+
+        toolbarInit();
+        listViewInit();
+        floatingButtonInit();
+        drawerInit();
+        naviViewInit();
+
+    }
+
+    public void naviViewInit(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void drawerInit(){
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    public void listViewInit() {
         mListView = (ListView) findViewById(R.id.list);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.swipeContainer);
 
@@ -173,21 +208,13 @@ public class MainActivity extends AppCompatActivity
                         .setValue(1)
                         .build());
 
-                //Toast.makeText(getApplicationContext(), url,Toast.LENGTH_SHORT).show();
             }
 
 
         });
+    }
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
-
-
+    public void floatingButtonInit() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,19 +223,17 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
     }
 
-    // A method to find height of the status bar
+    public void toolbarInit() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+    }
+
     public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -218,9 +243,7 @@ public class MainActivity extends AppCompatActivity
         return result;
     }
 
-
-    private void LoadData()
-    {
+    private void LoadData() {
         // start to load
         Toast.makeText(getApplicationContext(), "加载更多", Toast.LENGTH_SHORT).show();
 
@@ -245,8 +268,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void get_data(String data)
-    {
+    public void get_data(String data) {
         try {
             //JSONArray data_array=new JSONArray(data);
             JSONObject object = new JSONObject(data);
@@ -281,12 +303,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -302,6 +326,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+    */
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

@@ -93,26 +93,24 @@ public class DetailActivity extends AppCompatActivity{
         courseId = intent.getStringExtra("id");
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
 
+        Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
+        setSupportActionBar(detailToolbar);
+        detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+
+
         titleDetail=(TextView)findViewById(R.id.titleDetail);
         titleDetail.setText(title);
 
         titleToolBar=(TextView)findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
-        titleToolBar.setPadding(0, getStatusBarHeight(), 0, 0);
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
         descriptionDetail=(TextView)findViewById(R.id.descriptionDetail);
         descriptionDetail.setText(description);
 
-        videoView=(VideoView)findViewById(R.id.videoView);
-        mediaController=new MediaController(this);
-        videoView.setMediaController(mediaController);
-        mediaController.setMediaPlayer(videoView);
-        videoView.setVideoURI(uri);
-        videoView.start();
-        videoView.requestFocus();
+        videoInit();
 
         addListenerOnBackButton();
         addListenerOnShareButton();
@@ -121,6 +119,16 @@ public class DetailActivity extends AppCompatActivity{
         sendScreenImageName();
     }
         // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+
+    public void videoInit(){
+        videoView=(VideoView)findViewById(R.id.videoView);
+        mediaController=new MediaController(this);
+        videoView.setMediaController(mediaController);
+        mediaController.setMediaPlayer(videoView);
+        videoView.setVideoURI(uri);
+        videoView.start();
+        videoView.requestFocus();
+    }
 
     // A method to find height of the status bar
     public int getStatusBarHeight() {
@@ -142,7 +150,6 @@ public class DetailActivity extends AppCompatActivity{
             }
         });
     }
-
 
     public void addListenerOnShareButton()
     {
