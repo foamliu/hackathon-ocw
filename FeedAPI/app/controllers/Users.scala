@@ -32,6 +32,12 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
             .map(users => Ok(Json.toJson(users.reverse)))
             .recover { case PrimaryUnavailableException => InternalServerError("Please install MongoDB") }
     }
+    
+    def get(id: Long) = Action.async { implicit request =>
+        userRepo.find(Json.obj(UserID -> id))
+            .map(users => Ok(Json.toJson(users.reverse)))
+            .recover { case PrimaryUnavailableException => InternalServerError("Please install MongoDB") }
+    }
 
     def register = Action.async(BodyParsers.parse.json) { implicit request =>
         val deviceid = (request.body \ DeviceID).as[String]

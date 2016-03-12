@@ -22,12 +22,13 @@ import play.modules.reactivemongo.json.BSONFormats
 import play.modules.reactivemongo.ReactiveMongoApi
 import java.util.Date
 import javax.inject.Inject
+import reactivemongo.bson.BSONDocumentReader
 
 case class Comment(itemID: Long, authorID: Long, authorName: String, posted: Date, text: String, like: Int)
 
 object Comment {
     
-    implicit val courseReads: Reads[Comment] = (
+    implicit val commentReads: Reads[Comment] = (
       (JsPath \\ "item_id").read[Long] and 
       (JsPath \\ "author_id").read[Long] and 
       (JsPath \\ "author_name").read[String] and 
@@ -36,7 +37,7 @@ object Comment {
       (JsPath \\ "like").read[Int]
     )(Comment.apply _)
             
-    implicit val courseWrites = new Writes[Comment] {
+    implicit val commentWrites = new Writes[Comment] {
         def writes(c: Comment): JsValue = 
             Json.obj(
                 "item_id" -> c.itemID,
@@ -57,10 +58,6 @@ class Comments @Inject()(val reactiveMongoApi: ReactiveMongoApi) extends Control
     def commentRepo = new backend.CommentMongoRepo(reactiveMongoApi)
     
     def add(id: Long) = Action(parse.json) {
-
-        val userID: Long = id
-        Logger.debug (userID.toString())
-
         request =>
         {         
             val json: JsValue = request.body            
@@ -68,6 +65,7 @@ class Comments @Inject()(val reactiveMongoApi: ReactiveMongoApi) extends Control
             
             commentRepo
                 .save(BSONDocument(
+                        "_id" -> BSONObjectID.generate,
                         "item_id" -> c.itemID,
                         "author_id" -> c.authorID,
                         "author_name" -> c.authorName,
@@ -78,5 +76,18 @@ class Comments @Inject()(val reactiveMongoApi: ReactiveMongoApi) extends Control
                 
             Ok(json)
         }
+    }
+    
+    def get(id: Long) = Action.async { implicit request =>
+        val itemID: Long = id
+        Logger.debug (itemID.toString())
+        
+        commentRepo.find(Json.obj("item_id" -> id))
+            .map(comments => Ok(Json.toJson(comments.reverse)))
+            
+    }
+    
+    def like(id: String) = Action { 
+        Ok(commentRepo.like(id))
     }
 }
