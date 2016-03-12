@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private IWXAPI api;
     private Tracker mTracker;
+    private TextView titleMainToolBar;
 
     static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity
         // Obtain the shared Tracker instance.
         CustomApplication application = (CustomApplication) getApplication();
         mTracker = application.getDefaultTracker();
+
+        titleMainToolBar=(TextView)findViewById(R.id.titleMainToolBar);
+        titleMainToolBar.setText("学啥");
 
         mListView = (ListView) findViewById(R.id.list);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.swipeContainer);
