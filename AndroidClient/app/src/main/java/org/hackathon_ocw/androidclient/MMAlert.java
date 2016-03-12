@@ -131,7 +131,7 @@ public final class MMAlert {
 	}
 
 	public static AlertDialog showAlert(final Context context, final int msg, final int title, final int yes, final int no, final DialogInterface.OnClickListener lOk,
-			final DialogInterface.OnClickListener lCancel) {
+										final DialogInterface.OnClickListener lCancel) {
 		if (context instanceof Activity && ((Activity) context).isFinishing()) {
 			return null;
 		}
@@ -166,7 +166,7 @@ public final class MMAlert {
 	}
 
 	public static AlertDialog showAlert(final Context context, final String msg, final String title, final String yes, final String no, final DialogInterface.OnClickListener lOk,
-			final DialogInterface.OnClickListener lCancel) {
+										final DialogInterface.OnClickListener lCancel) {
 		if (context instanceof Activity && ((Activity) context).isFinishing()) {
 			return null;
 		}
@@ -199,7 +199,7 @@ public final class MMAlert {
 	}
 
 	public static AlertDialog showAlert(final Context context, final String title, final View view, final String ok, final String cancel, final DialogInterface.OnClickListener lOk,
-			final DialogInterface.OnClickListener lCancel) {
+										final DialogInterface.OnClickListener lCancel) {
 		if (context instanceof Activity && ((Activity) context).isFinishing()) {
 			return null;
 		}
@@ -231,7 +231,7 @@ public final class MMAlert {
 	}
 
 	public static AlertDialog showAlert(final Context context, final String title, final String msg, final View view, final DialogInterface.OnClickListener lOk,
-			final DialogInterface.OnClickListener lCancel) {
+										final DialogInterface.OnClickListener lCancel) {
 		if (context instanceof Activity && ((Activity) context).isFinishing()) {
 			return null;
 		}

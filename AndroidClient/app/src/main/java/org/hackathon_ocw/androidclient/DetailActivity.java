@@ -13,7 +13,9 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -63,9 +65,11 @@ public class DetailActivity extends AppCompatActivity{
     private VideoView videoView;
     private MediaController mediaController;
     private Uri uri;
+    private Toolbar detailToolbar;
     private TextView titleDetail;
     private TextView titleToolBar;
-    private TextView descriptionDetail;
+    //private TextView descriptionDetail;
+    private ViewPager viewPager;
     private RatingBar ratingBar;
     private Button backBtn;
     private Button shareBtn;
@@ -84,7 +88,6 @@ public class DetailActivity extends AppCompatActivity{
         mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
@@ -93,32 +96,47 @@ public class DetailActivity extends AppCompatActivity{
         courseId = intent.getStringExtra("id");
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
 
-        Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
+
+        detailToolBarInit();
+
+        titleDetail=(TextView)findViewById(R.id.titleDetail);
+        titleDetail.setText(title);
+
+        videoInit();
+
+        viewPagerInit();
+
+        addListenerOnBackButton();
+        addListenerOnShareButton();
+        addListenerOnRatingBar();
+
+        //Google Analytics tracker
+        sendScreenImageName();
+    }
+        // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+
+    public void viewPagerInit(){
+        viewPager = (ViewPager) findViewById(R.id.detailPager);
+        viewPager.setAdapter(new PageFragmentAdapter(getSupportFragmentManager(),
+                DetailActivity.this));
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.detailTabs);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+    }
+
+    public void detailToolBarInit(){
+        detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
         detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
-
-        titleDetail=(TextView)findViewById(R.id.titleDetail);
-        titleDetail.setText(title);
-
         titleToolBar=(TextView)findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
-
-        descriptionDetail=(TextView)findViewById(R.id.descriptionDetail);
-        descriptionDetail.setText(description);
-
-        videoInit();
-
-        addListenerOnBackButton();
-        addListenerOnShareButton();
-        addListenerOnRatingBar();
-
-        sendScreenImageName();
     }
-        // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
     public void videoInit(){
         videoView=(VideoView)findViewById(R.id.videoView);
@@ -140,8 +158,7 @@ public class DetailActivity extends AppCompatActivity{
         return result;
     }
 
-    public void addListenerOnBackButton()
-    {
+    public void addListenerOnBackButton() {
         backBtn = (Button)findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -151,8 +168,7 @@ public class DetailActivity extends AppCompatActivity{
         });
     }
 
-    public void addListenerOnShareButton()
-    {
+    public void addListenerOnShareButton() {
         //Share to Wechat
         shareBtn = (Button)findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
