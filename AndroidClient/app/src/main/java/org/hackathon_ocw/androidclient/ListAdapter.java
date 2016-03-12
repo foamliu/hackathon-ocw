@@ -89,7 +89,8 @@ public class ListAdapter extends BaseAdapter {
         }
 
         TextView title = (TextView) vi.findViewById(R.id.title);
-        //TextView description = (TextView) vi.findViewById(R.id.description);
+        TextView videoDurationText = (TextView) vi.findViewById(R.id.videoDurationText);
+        TextView videoWatchedText = (TextView) vi.findViewById(R.id.videoWatchedText);
         ImageView thumb_image = (ImageView) vi.findViewById(R.id.pic_link);
 
 
@@ -97,8 +98,11 @@ public class ListAdapter extends BaseAdapter {
         course = data.get(position);
 
         title.setText(course.get(MainActivity.KEY_TITLE));
-        //description.setText(course.get(MainActivity.KEY_DESCRIPTION));
         imageLoader.DisplayImage(course.get(MainActivity.KEY_THUMB_URL), thumb_image);
+
+        //Will be replaced by real data
+        videoDurationText.setText("03:59");
+        videoWatchedText.setText("123");
 
         return vi;
     }

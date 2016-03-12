@@ -110,13 +110,7 @@ public class DetailActivity extends AppCompatActivity{
         descriptionDetail=(TextView)findViewById(R.id.descriptionDetail);
         descriptionDetail.setText(description);
 
-        videoView=(VideoView)findViewById(R.id.videoView);
-        mediaController=new MediaController(this);
-        videoView.setMediaController(mediaController);
-        mediaController.setMediaPlayer(videoView);
-        videoView.setVideoURI(uri);
-        videoView.start();
-        videoView.requestFocus();
+        videoInit();
 
         addListenerOnBackButton();
         addListenerOnShareButton();
@@ -125,6 +119,16 @@ public class DetailActivity extends AppCompatActivity{
         sendScreenImageName();
     }
         // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+
+    public void videoInit(){
+        videoView=(VideoView)findViewById(R.id.videoView);
+        mediaController=new MediaController(this);
+        videoView.setMediaController(mediaController);
+        mediaController.setMediaPlayer(videoView);
+        videoView.setVideoURI(uri);
+        videoView.start();
+        videoView.requestFocus();
+    }
 
     // A method to find height of the status bar
     public int getStatusBarHeight() {
@@ -146,7 +150,6 @@ public class DetailActivity extends AppCompatActivity{
             }
         });
     }
-
 
     public void addListenerOnShareButton()
     {
