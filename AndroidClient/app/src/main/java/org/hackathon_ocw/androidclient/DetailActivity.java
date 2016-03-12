@@ -107,12 +107,6 @@ public class DetailActivity extends AppCompatActivity{
         titleToolBar=(TextView)findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
 
-
-        //titleToolBar.setPadding(0, getStatusBarHeight(), 0, 0);
-        //SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        //tintManager.setStatusBarTintEnabled(true);
-        //tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
-
         descriptionDetail=(TextView)findViewById(R.id.descriptionDetail);
         descriptionDetail.setText(description);
 

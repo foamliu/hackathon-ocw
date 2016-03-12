@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity
 
         });
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -285,12 +284,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -306,6 +307,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+    */
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

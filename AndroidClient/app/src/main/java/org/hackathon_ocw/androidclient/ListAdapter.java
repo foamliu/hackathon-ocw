@@ -89,7 +89,7 @@ public class ListAdapter extends BaseAdapter {
         }
 
         TextView title = (TextView) vi.findViewById(R.id.title);
-        TextView description = (TextView) vi.findViewById(R.id.description);
+        //TextView description = (TextView) vi.findViewById(R.id.description);
         ImageView thumb_image = (ImageView) vi.findViewById(R.id.pic_link);
 
 
@@ -97,7 +97,7 @@ public class ListAdapter extends BaseAdapter {
         course = data.get(position);
 
         title.setText(course.get(MainActivity.KEY_TITLE));
-        description.setText(course.get(MainActivity.KEY_DESCRIPTION));
+        //description.setText(course.get(MainActivity.KEY_DESCRIPTION));
         imageLoader.DisplayImage(course.get(MainActivity.KEY_THUMB_URL), thumb_image);
 
         return vi;
