@@ -20,7 +20,7 @@ class CommentMongoRepo(reactiveMongoApi: ReactiveMongoApi) {
     protected def collection = reactiveMongoApi.db.collection[JSONCollection]("comments")
 
     def find(selector: JsObject)(implicit ec: ExecutionContext): Future[List[JsObject]] =
-        collection.find(selector).cursor[JsObject](ReadPreference.Primary).collect[List]()
+        collection.find(selector).sort(Json.obj("like" -> -1)).cursor[JsObject](ReadPreference.Primary).collect[List](25)
         
     def update(selector: BSONDocument, update: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] = collection.update(selector, update)
 
