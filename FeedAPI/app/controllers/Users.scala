@@ -18,6 +18,7 @@ import scala.util.Success
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.concurrent.Future
+import backend.CounterRepo
 
 class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         extends Controller with MongoController with ReactiveMongoComponents {
@@ -40,7 +41,7 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         val userIDFuture: Future[Long] = userRepo
             .find(Json.obj(DeviceID -> deviceid))
             .map(users => users.size match {
-                    case 0 => userRepo.nextID
+                    case 0 => CounterRepo.nextID(reactiveMongoApi)
                     case _ => found = true; (users(0) \ UserID).as[Long] 
                 })
         

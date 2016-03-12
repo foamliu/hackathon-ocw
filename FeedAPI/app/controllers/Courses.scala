@@ -1,20 +1,16 @@
 package controllers
 
-import java.io._
-import java.util._
-
-import javax.inject.Inject
-
-import scala.collection.JavaConversions._
-import scala.io._
-
-import play.api._
-import play.api.mvc._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json._ // JSON library
-import play.api.libs.json.Reads._ // Custom validation helpers
-import play.api.libs.functional.syntax._ // Combinator syntax
-import play.api.Play.current
+import play.api.libs.functional.syntax.functionalCanBuildApplicative
+import play.api.libs.functional.syntax.toFunctionalBuilderOps
+import play.api.libs.json.JsPath
+import play.api.libs.json.JsValue
+import play.api.libs.json.Json
+import play.api.libs.json.Json.toJsFieldJsValueWrapper
+import play.api.libs.json.Reads
+import play.api.libs.json.Reads.LongReads
+import play.api.libs.json.Reads.StringReads
+import play.api.libs.json.Reads.functorReads
+import play.api.libs.json.Writes
 
 case class Course(itemID: Long, var title: String, description: String, piclink: String, courselink: String)
 
