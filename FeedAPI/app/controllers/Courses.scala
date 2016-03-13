@@ -15,23 +15,21 @@ import play.api.libs.json.Writes
 case class Course(itemID: Long, var title: String, description: String, piclink: String, courselink: String)
 
 object Course {
-    
+
     implicit val courseReads: Reads[Course] = (
-      (JsPath \\ "item_id").read[Long] and 
-      (JsPath \\ "title").read[String] and 
-      (JsPath \\ "description").read[String] and 
-      (JsPath \\ "piclink").read[String] and 
-      (JsPath \\ "courselink").read[String]
-    )(Course.apply _)
-            
+        (JsPath \\ "item_id").read[Long] and
+        (JsPath \\ "title").read[String] and
+        (JsPath \\ "description").read[String] and
+        (JsPath \\ "piclink").read[String] and
+        (JsPath \\ "courselink").read[String])(Course.apply _)
+
     implicit val courseWrites = new Writes[Course] {
-        def writes(c: Course): JsValue = 
+        def writes(c: Course): JsValue =
             Json.obj(
                 "item_id" -> c.itemID,
                 "title" -> c.title,
                 "description" -> c.description,
                 "piclink" -> c.piclink,
-                "courselink" -> c.courselink
-            ) 
-    } 
+                "courselink" -> c.courselink)
+    }
 }

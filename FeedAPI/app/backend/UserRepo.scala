@@ -1,13 +1,10 @@
 package backend
 
-import scala.concurrent.Await
+import scala.annotation.implicitNotFound
 import scala.concurrent.ExecutionContext
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.concurrent.duration.Duration
 
 import play.api.libs.json.JsObject
-import play.api.libs.json.JsValue.jsValueToJsLookup
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
 import play.modules.reactivemongo.json.JsObjectDocumentWriter
