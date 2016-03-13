@@ -7,14 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.os.Build;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
 import android.net.NetworkInfo.State;
 
 import com.google.android.gms.analytics.Tracker;
-import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 
 import org.acra.*;

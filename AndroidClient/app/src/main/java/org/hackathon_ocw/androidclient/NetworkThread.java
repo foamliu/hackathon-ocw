@@ -1,19 +1,10 @@
 package org.hackathon_ocw.androidclient;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.URL;
-import java.util.Enumeration;
-import java.util.Objects;
 
 /**
  * Created by dianyang on 2016/3/7.

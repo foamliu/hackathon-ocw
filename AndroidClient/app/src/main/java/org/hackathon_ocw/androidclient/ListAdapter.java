@@ -1,7 +1,5 @@
 package org.hackathon_ocw.androidclient;
 
-import org.hackathon_ocw.androidclient.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
