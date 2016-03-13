@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:paddingLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/titleDetail"
             android:textColor="@color/black"
             android:textSize="20dp"
@@ -32,9 +32,9 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
-            android:layout_width="85dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:numStars="5"
             android:stepSize="1.0"
             android:rating="2.0"
@@ -48,6 +48,29 @@
             android:layout_width="match_parent"
             android:layout_height="260dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/detailTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/colorTab"
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/detailPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!--
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -57,6 +80,7 @@
             android:textColor="@color/black"
             android:textSize="15dp"
             />
+         -->
 
     </LinearLayout>
 
