@@ -69,12 +69,13 @@
             />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:id="@+id/likeImg"
             android:src="@drawable/ic_thumb_up_black_18dp"
             android:alpha="0.2"
             android:layout_gravity="center"
+            android:tint="@color/lightblue"
             />
 
         <TextView

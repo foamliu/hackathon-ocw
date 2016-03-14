@@ -3,6 +3,7 @@ package org.hackathon_ocw.androidclient;
 import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 /**
  * Created by dianyang on 2016/3/14.
@@ -65,10 +70,35 @@ public class CommentAdapter extends BaseAdapter {
 
         userName.setText(comments.get(TabComment.KEY_USERNAME));
         comment.setText(comments.get(TabComment.KEY_COMMENT));
-        commentTime.setText(comments.get(TabComment.KEY_COMMENTTIME));
+
         like.setText(comments.get(TabComment.KEY_LIKE));
         //imageLoader.DisplayImage(comments.get(TabComment.KEY_USERIMAGE), userImage);
 
+        //TODO: convert the time
+        String commentTimeStr = comments.get(TabComment.KEY_COMMENTTIME);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Calendar commentTimeCal = Calendar.getInstance();
+        try{
+            commentTimeCal.setTime(simpleDateFormat.parse(commentTimeStr));
+        }catch (Exception e)
+        {
+
+            commentTimeCal = Calendar.getInstance();
+        }
+
+        Calendar currentTimeCal = Calendar.getInstance();
+        long diffDate = currentTimeCal.get(Calendar.HOUR) - commentTimeCal.get(Calendar.HOUR);
+        if(diffDate < 24 && diffDate != 0)
+        {
+            commentTime.setText(diffDate + "小时前");
+        }
+        else
+        {
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd HH:mm");
+            commentTime.setText(simpleDateFormat1.format(commentTimeCal.getTime()));
+        }
 
         return vi;
     }
