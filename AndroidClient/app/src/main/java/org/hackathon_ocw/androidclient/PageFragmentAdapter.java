@@ -30,8 +30,11 @@ public class PageFragmentAdapter extends FragmentPagerAdapter {
 
         switch (position){
             case 0:
-                TabFragmentDescription tabDescription = new TabFragmentDescription();
+                TabDescription tabDescription = new TabDescription();
                 return tabDescription;
+            case 1:
+                TabComment tabComment = new TabComment();
+                return tabComment;
             default:
                 return PageFragment.newInstance(position + 1);
         }

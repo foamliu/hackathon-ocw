@@ -10,7 +10,7 @@ import android.widget.TextView;
 /**
  * Created by dianyang on 2016/3/12.
  */
-public class TabFragmentDescription extends Fragment {
+public class TabDescription extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

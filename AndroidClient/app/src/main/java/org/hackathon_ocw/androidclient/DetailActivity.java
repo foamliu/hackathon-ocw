@@ -4,14 +4,19 @@ package org.hackathon_ocw.androidclient;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +26,15 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 
-public class DetailActivity extends AppCompatActivity{
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+public class DetailActivity extends AppCompatActivity   {
 
     private IWXAPI api;
     private VideoView videoView;
@@ -65,15 +78,15 @@ public class DetailActivity extends AppCompatActivity{
         titleDetail.setText(title);
 
         videoInit();
-
+        //commentDataReq();
         viewPagerInit();
-
         addListenerOnBackButton();
         addListenerOnShareButton();
         addListenerOnRatingBar();
 
         //Google Analytics tracker
         sendScreenImageName();
+
     }
         // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
@@ -210,6 +223,7 @@ public class DetailActivity extends AppCompatActivity{
         });
     }
 
+    //Google Analytics
     private void sendScreenImageName() {
         String name = title;
         // [START screen_view_hit]
@@ -218,6 +232,4 @@ public class DetailActivity extends AppCompatActivity{
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         // [END screen_view_hit]
     }
-
-
 }

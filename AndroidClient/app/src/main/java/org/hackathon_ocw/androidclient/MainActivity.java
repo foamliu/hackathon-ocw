@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private ProgressBar progressBar;
 
-    public ListAdapter mAdapter;
+    public ListAdapter mListAdapter;
     private RefreshLayout mRefreshLayout;
 
     private IWXAPI api;
@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity
 
         mListView.addFooterView(footerLayout);
         mRefreshLayout.setChildView(mListView);
-        mAdapter = new ListAdapter(this, courseList);
-        mListView.setAdapter(mAdapter);
+        mListAdapter = new ListAdapter(this, courseList);
+        mListView.setAdapter(mListAdapter);
 
         mRefreshLayout.setColorSchemeResources(android.R.color.holo_green_dark,
                 android.R.color.holo_orange_light,
@@ -130,11 +130,11 @@ public class MainActivity extends AppCompatActivity
             public void onRefresh() {
                 //fetchTimeLineAsync(0);
                 Toast.makeText(getApplicationContext(), "正在刷新... ", Toast.LENGTH_SHORT).show();
-                mAdapter.clear();
+                mListAdapter.clear();
 
                 Download_data download_data = new Download_data((download_complete) MainActivity.this);
                 download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
-                mAdapter.addAll(courseList);
+                mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -164,10 +164,10 @@ public class MainActivity extends AppCompatActivity
 
                 //Show subpage
                 Intent intent = new Intent();
-                intent.putExtra("id", mAdapter.getIdbyPosition(position));
-                intent.putExtra("title", mAdapter.getTitlebyPosition(position));
-                intent.putExtra("videoUrl", mAdapter.getVideoUrlbyPosition(position));
-                intent.putExtra("description", mAdapter.getDiscriptionbyPosition(position));
+                intent.putExtra("id", mListAdapter.getIdbyPosition(position));
+                intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
+                intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
+                intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
 
                 intent.setClass(MainActivity.this, DetailActivity.class);
                 startActivity(intent);
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Click to subpage! ", Toast.LENGTH_SHORT).show();
 
                 //Send post to server
-                String courseId = MainActivity.this.mAdapter.getIdbyPosition(position);
+                String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
                 Runnable networkTask = new NetworkThread(courseId, 3);
                 new Thread(networkTask).start();
 
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory("Mainpage")
                         .setAction("Click the ocw item")
-                        .setLabel(mAdapter.getIdbyPosition(position))
+                        .setLabel(mListAdapter.getIdbyPosition(position))
                         .setValue(1)
                         .build());
 
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Foam like it!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity
 
         Download_data download_data = new Download_data((download_complete) MainActivity.this);
         download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
-        mAdapter.addAll(courseList);
+        mListAdapter.addAll(courseList);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity
                 //Toast.makeText(getApplicationContext(), "刷新完成!", Toast.LENGTH_SHORT).show();
                 //swipeContainer.setRefreshing(false);
                 mRefreshLayout.setLoading(false);
-                mAdapter.notifyDataSetChanged();
+                mListAdapter.notifyDataSetChanged();
                 textMore.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
             }
@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
     public void get_data(String data) {
         try {
             //JSONArray data_array=new JSONArray(data);
@@ -265,7 +266,7 @@ public class MainActivity extends AppCompatActivity
                 courseList.add(map);
 
             }
-            mAdapter.notifyDataSetChanged();
+            mListAdapter.notifyDataSetChanged();
 
         } catch (JSONException e) {
             e.printStackTrace();
