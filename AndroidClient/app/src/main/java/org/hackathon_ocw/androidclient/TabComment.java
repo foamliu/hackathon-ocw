@@ -29,6 +29,7 @@ public class TabComment extends Fragment implements Download_data.download_compl
 
     static final String KEY_USERNAME = "userName";
     static final String KEY_COMMENT = "comment";
+    static final String KEY_COMMENT_ID = "commentId";
     static final String KEY_COMMENTTIME = "commentTime";
     static final String KEY_LIKE = "like";
     static final String KEY_USERIMAGE = "thumb_url";

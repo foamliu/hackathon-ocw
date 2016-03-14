@@ -68,14 +68,12 @@
             android:paddingLeft="5dp"
             />
 
-        <ImageView
+        <ImageButton
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:id="@+id/likeImg"
+            android:id="@+id/likeBtn"
             android:src="@drawable/ic_thumb_up_black_18dp"
-            android:alpha="0.2"
             android:layout_gravity="center"
-            android:tint="@color/lightblue"
             />
 
         <TextView

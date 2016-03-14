@@ -2,14 +2,28 @@ package org.hackathon_ocw.androidclient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Image;
 import android.text.format.Time;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,13 +82,22 @@ public class CommentAdapter extends BaseAdapter {
         HashMap<String, String> comments = new HashMap<String, String>();
         comments = data.get(position);
 
+        //Add a null hint
+        if(comments == null)
+        {
+            TextView tv=(TextView)vi;
+            tv.setText("还没有评论，赶快来评论吧");
+            tv.setGravity(Gravity.CENTER);
+        }
+
+        addListenerOnLikeButton(vi, comments);
+
         userName.setText(comments.get(TabComment.KEY_USERNAME));
         comment.setText(comments.get(TabComment.KEY_COMMENT));
-
         like.setText(comments.get(TabComment.KEY_LIKE));
         //imageLoader.DisplayImage(comments.get(TabComment.KEY_USERIMAGE), userImage);
 
-        //TODO: convert the time
+        //convert the time
         String commentTimeStr = comments.get(TabComment.KEY_COMMENTTIME);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -84,7 +107,6 @@ public class CommentAdapter extends BaseAdapter {
             commentTimeCal.setTime(simpleDateFormat.parse(commentTimeStr));
         }catch (Exception e)
         {
-
             commentTimeCal = Calendar.getInstance();
         }
 
@@ -102,6 +124,53 @@ public class CommentAdapter extends BaseAdapter {
 
         return vi;
     }
+
+    public void addListenerOnLikeButton(final View vi,final HashMap<String, String> comments){
+        final ImageButton likeBtn = (ImageButton)vi.findViewById(R.id.likeBtn);
+        likeBtn.setColorFilter(Color.parseColor("#64B5F6"));
+        likeBtn.setAlpha((float) 0.5);
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Toast.makeText(getApplicationContext(), "Back",Toast.LENGTH_SHORT).show();
+
+                //Update the like num
+                TextView like = (TextView)vi.findViewById(R.id.like);
+                int comment = Integer.parseInt(comments.get(TabComment.KEY_LIKE)) + 1;
+                like.setText(String.valueOf(comment));
+
+                //Send GET request
+                String id = comments.get(TabComment.KEY_COMMENT_ID);
+
+                RequestQueue queue = Volley.newRequestQueue(vi.getContext());
+                String url ="http://jieko.cc/item/Comments/" + id + "/like";
+
+                JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>()
+                        {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // display response
+                                Log.d("Response", response.toString());
+                            }
+                        },
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("Error.Response", error.toString());
+                            }
+                        }
+                );
+
+                //Change the color
+                likeBtn.setColorFilter(Color.parseColor("#1565C0"));
+
+            }
+        });
+
+    }
+
+
 
 
 }
