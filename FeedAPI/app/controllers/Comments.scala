@@ -1,7 +1,5 @@
 package controllers
 
-import java.util.Date
-
 import javax.inject.Inject
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -22,20 +20,28 @@ import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.ReactiveMongoApi
 import play.modules.reactivemongo.ReactiveMongoComponents
 import play.modules.reactivemongo.json.JsObjectDocumentWriter
+import reactivemongo.bson.BSONDateTime
 import reactivemongo.bson.BSONDocument
 import reactivemongo.bson.BSONObjectID
+import reactivemongo.bson.BSONReader
+import reactivemongo.bson.BSONWriter
 import reactivemongo.bson.Producer.nameValue2Producer
+import java.time.Duration
+import java.util.Date
+import reactivemongo.bson.BSONString
+import play.api.libs.json.JsString
 
-case class Comment(itemID: Long, authorID: Long, authorName: String, posted: Date, text: String, like: Int)
+case class Comment(itemID: Long, authorID: Long, authorName: String, posted: Date, text: String, timeline_ms: Long, like: Int)
 
 object Comment {
-
+    
     implicit val commentReads: Reads[Comment] = (
         (JsPath \\ "item_id").read[Long] and
         (JsPath \\ "author_id").read[Long] and
         (JsPath \\ "author_name").read[String] and
         (JsPath \\ "posted").read[Date] and
         (JsPath \\ "text").read[String] and
+        (JsPath \\ "timeline").read[Long] and
         (JsPath \\ "like").read[Int])(Comment.apply _)
 
     implicit val commentWrites = new Writes[Comment] {
@@ -46,8 +52,10 @@ object Comment {
                 "author_name" -> c.authorName,
                 "posted" -> c.posted,
                 "text" -> c.text,
+                "timeline_ms" -> c.timeline_ms,
                 "like" -> c.like)
-    }
+    }   
+
 }
 
 class Comments @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Controller
@@ -62,18 +70,13 @@ class Comments @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Contro
             {
                 val json: JsValue = request.body
                 val c = json.as[Comment]
+                
+                var bson: BSONDocument = json.as[BSONDocument];
+                bson  ++= "_id" -> BSONObjectID.generate
 
-                commentRepo
-                    .save(BSONDocument(
-                        "_id" -> BSONObjectID.generate,
-                        "item_id" -> c.itemID,
-                        "author_id" -> c.authorID,
-                        "author_name" -> c.authorName,
-                        "posted" -> c.posted,
-                        "text" -> c.text,
-                        "like" -> c.like))
+                commentRepo.save(bson)
 
-                Ok(json)
+                Ok(Json.toJson(bson))
             }
     }
 
@@ -82,7 +85,7 @@ class Comments @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Contro
         Logger.debug(itemID.toString())
 
         commentRepo.find(Json.obj("item_id" -> id))
-            .map(comments => Ok(Json.toJson(comments.reverse)))
+            .map(comments => Ok(Json.toJson(comments)))
 
     }
 
