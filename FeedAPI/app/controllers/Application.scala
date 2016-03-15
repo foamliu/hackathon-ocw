@@ -154,6 +154,10 @@ class Application extends Controller {
                 Ok("Ok")
             }
     }
+    
+    def echo(message: String) = Action {
+        Ok(message)
+    }
 
 }
 
