@@ -22,14 +22,26 @@
             android:orientation="horizontal"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
+            <!--
             <Button
-                android:id="@+id/WriteCommentBtn"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="写评论"
+                android:id="@+id/EditCommentBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
-                android:drawableLeft="@drawable/ic_create_black_18dp"
+                android:background="@drawable/ic_create_black_18dp"
                 android:alpha="0.5"/>
+                -->
+
+            <EditText
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:id="@+id/EditComment"
+                android:hint="写评论..."
+                android:background="@drawable/edittext"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="15dp"
+                android:paddingLeft="10dp" />
 
             <Button
                 android:id="@+id/ReadCommentBtn"
@@ -40,11 +52,11 @@
                 android:alpha="0.5"/>
 
             <Button
-                android:id="@+id/VideoLikeBtn"
+                android:id="@+id/FavoritesBtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="40dp"
-                android:background="@drawable/ic_thumb_up_black_18dp"
+                android:background="@drawable/ic_grade_black_18dp"
                 android:alpha="0.5"/>
 
             <Button
