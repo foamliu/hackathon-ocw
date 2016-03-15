@@ -73,14 +73,12 @@ public class DetailActivity extends AppCompatActivity   {
         courseId = intent.getStringExtra("id");
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
 
-
         detailToolBarInit();
 
         titleDetail=(TextView)findViewById(R.id.titleDetail);
         titleDetail.setText(title);
 
         videoInit();
-        //commentDataReq();
         viewPagerInit();
         addListenerOnBackButton();
         addListenerOnShareButton();

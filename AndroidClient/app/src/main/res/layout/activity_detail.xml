@@ -19,7 +19,6 @@
         android:layout_height="match_parent"
         android:paddingTop="70dp">
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -70,18 +69,11 @@
 
         </LinearLayout>
 
-        <!--
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:paddingLeft="5dp"
-            android:id="@+id/descriptionDetail"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            />
-         -->
-
     </LinearLayout>
+
+    <include
+        layout="@layout/comment_bar_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.v4.widget.DrawerLayout>

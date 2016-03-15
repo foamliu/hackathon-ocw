@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="bottom">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/commentToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/lightgrey"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <Button
+                android:id="@+id/WriteCommentBtn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="写评论"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@drawable/ic_create_black_18dp"
+                android:alpha="0.5"/>
+
+            <Button
+                android:id="@+id/ReadCommentBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/ic_chat_black_18dp"
+                android:alpha="0.5"/>
+
+            <Button
+                android:id="@+id/VideoLikeBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/ic_thumb_up_black_18dp"
+                android:alpha="0.5"/>
+
+            <Button
+                android:id="@+id/VideoShareBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/ic_launch_black_18dp"
+                android:alpha="0.5"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
