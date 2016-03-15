@@ -2,6 +2,7 @@ package org.hackathon_ocw.androidclient;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -121,6 +123,37 @@ public class DetailActivity extends AppCompatActivity   {
         videoView.setVideoURI(uri);
         videoView.start();
         videoView.requestFocus();
+
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            public void onPrepared(MediaPlayer mp) {
+                final boolean running = true;
+                final int duration = videoView.getDuration();
+                final TextView textView = (TextView)findViewById(R.id.titleDetail);
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        do {
+                            textView.post(new Runnable() {
+                                public void run() {
+                                    int time = (videoView.getCurrentPosition()) / 1000;
+                                    textView.setText(time + "");
+                                }
+                            });
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (!running) break;
+                        }
+                        while (videoView.getCurrentPosition() < duration);
+                    }
+                }).start();
+            }
+        });
+
+
+
     }
 
     // A method to find height of the status bar
