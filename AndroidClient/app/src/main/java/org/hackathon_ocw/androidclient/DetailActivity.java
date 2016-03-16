@@ -298,7 +298,7 @@ public class DetailActivity extends AppCompatActivity   {
         });
     }
 
-    public void commentShowPopup(View parent){
+    public void commentShowPopup(final View parent){
 
         if(popWindow == null)
         {
@@ -321,6 +321,7 @@ public class DetailActivity extends AppCompatActivity   {
         popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
+                popDownInputMethodWindow(parent);
             }
         });
 
@@ -337,6 +338,16 @@ public class DetailActivity extends AppCompatActivity   {
             public void run() {
                 imm = (InputMethodManager) editText.getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }, 0);
+    }
+
+    private void popDownInputMethodWindow(final View view){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                imm = (InputMethodManager) editText.getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }, 0);
     }
@@ -433,7 +444,7 @@ public class DetailActivity extends AppCompatActivity   {
                 PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter)viewPager.getAdapter();
                 pageFragmentAdapter.getTabComment().mCommentAdapter.AddComments(map);
 
-
+                popWindow.dismiss();
             }
         });
 
