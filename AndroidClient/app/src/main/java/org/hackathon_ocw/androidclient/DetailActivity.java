@@ -35,6 +35,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -43,8 +50,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
 
 
 public class DetailActivity extends AppCompatActivity   {
@@ -98,7 +109,7 @@ public class DetailActivity extends AppCompatActivity   {
         addListenerOnShareButton();
         addListenerOnRatingBar();
         addListenerOnCommentButton();
-        addListenerOnSendCommentButton();
+        //addListenerOnSendCommentButton();
 
         //Google Analytics tracker
         sendScreenImageName();
@@ -142,8 +153,9 @@ public class DetailActivity extends AppCompatActivity   {
             public void onPrepared(MediaPlayer mp) {
                 final boolean running = true;
                 final int duration = videoView.getDuration();
-                final TextView textView = (TextView) findViewById(R.id.titleDetail);
 
+                /*
+                final TextView textView = (TextView) findViewById(R.id.titleDetail);
                 new Thread(new Runnable() {
                     public void run() {
                         do {
@@ -163,6 +175,7 @@ public class DetailActivity extends AppCompatActivity   {
                         while (videoView.getCurrentPosition() < duration);
                     }
                 }).start();
+                */
             }
         });
 
@@ -196,7 +209,7 @@ public class DetailActivity extends AppCompatActivity   {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                String text = "我正在学啥的公开课: " + title ;
+                String text = "我正在学啥的公开课: " + title;
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, text);
@@ -292,7 +305,10 @@ public class DetailActivity extends AppCompatActivity   {
             LayoutInflater layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(R.layout.comment_popwindow, null);
             popWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, 80, true);
-
+        }
+        else
+        {
+            popWindow.update();
         }
         //popWindow.setAnimationStyle(R.style.pop);
         popWindow.setFocusable(true);
@@ -300,14 +316,14 @@ public class DetailActivity extends AppCompatActivity   {
         popWindow.setBackgroundDrawable(new BitmapDrawable());
         popWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+        addListenerOnSendCommentButton();
 
-        /*
         popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
             }
         });
-        */
+
         popWindow.setTouchInterceptor(new View.OnTouchListener() {
             public boolean onTouch(View view, MotionEvent event) {
                 return false;
@@ -326,19 +342,88 @@ public class DetailActivity extends AppCompatActivity   {
     }
 
     private void addListenerOnSendCommentButton(){
-        ImageButton sendCommentBtn = (ImageButton)findViewById(R.id.SendBtn);
-        if(sendCommentBtn != null)
-        {
-            sendCommentBtn.setColorFilter(Color.parseColor("#64B5F6"));
-            sendCommentBtn.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    //TODO:Add action
-                }
-            });
+        ImageButton sendCommentBtn = (ImageButton)popWindow.getContentView().findViewById(R.id.SendBtn);
+        sendCommentBtn.setColorFilter(Color.parseColor("#64B5F6"));
+        sendCommentBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Get item_id
+                int item_id = Integer.valueOf(courseId);
 
-        }
+                //Get author_id (faked)
+                int author_id = 1;
+                String author_name = "习近平";
+                int like = 0;
+
+                //Get post time
+                Calendar currentTime = Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                String currentTimeStr = simpleDateFormat.format(currentTime.getTime());
+
+                //Get text
+                EditText editText = (EditText)popWindow.getContentView().findViewById(R.id.WriteCommentPopWin);
+                String comment = editText.getText().toString();
+
+                //Get current timeline
+                VideoView videoView = (VideoView)findViewById(R.id.videoView);
+                int timeline = (videoView.getCurrentPosition()) / 1000;
+
+                //Get Url
+                //String httpurl = "http://jieko.cc/item/" + courseId + "/Comments";
+                //For debug
+                String httpurl = "http://jieko.cc/item/1/Comments";
+
+                //Send a POST message
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+                JSONObject jsonObject = new JSONObject();
+                try
+                {
+                    jsonObject.put("item_id", item_id);
+                    jsonObject.put("author_id", author_id);
+                    jsonObject.put("author_name", author_name);
+                    jsonObject.put("posted", currentTimeStr);
+                    jsonObject.put("text", comment);
+                    jsonObject.put("timeline", timeline);
+                    jsonObject.put("like", like);
+
+                }catch (Exception e)
+                {
+                    Log.e("Json Error",e.toString());
+                }
+                JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST,httpurl, jsonObject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("Response", response.toString());
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                })
+                {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Accept", "application/json");
+                        headers.put("Content-Type", "application/json; charset=UTF-8");
+
+                        return headers;
+                    }
+                };
+                requestQueue.add(jsonRequest);
+
+                //Update the comment list
+                
+
+            }
+        });
 
     }
+
 
     //Google Analytics
     private void sendScreenImageName() {
