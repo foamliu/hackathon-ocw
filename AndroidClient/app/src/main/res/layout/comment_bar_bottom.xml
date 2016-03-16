@@ -41,6 +41,7 @@
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="15dp"
+                android:imeOptions="actionSend"
                 android:paddingLeft="10dp" />
 
             <Button

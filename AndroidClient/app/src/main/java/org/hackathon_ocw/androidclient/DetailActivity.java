@@ -1,7 +1,10 @@
 package org.hackathon_ocw.androidclient;
 
 
+import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,12 +15,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.MediaController;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -50,6 +61,9 @@ public class DetailActivity extends AppCompatActivity   {
     private RatingBar ratingBar;
     private Button backBtn;
     private Button shareBtn;
+    private PopupWindow popWindow;
+    private InputMethodManager imm;
+    private EditText editText;
 
     private String courseId;
     private String description;
@@ -83,6 +97,8 @@ public class DetailActivity extends AppCompatActivity   {
         addListenerOnBackButton();
         addListenerOnShareButton();
         addListenerOnRatingBar();
+        addListenerOnCommentButton();
+        addListenerOnSendCommentButton();
 
         //Google Analytics tracker
         sendScreenImageName();
@@ -126,7 +142,7 @@ public class DetailActivity extends AppCompatActivity   {
             public void onPrepared(MediaPlayer mp) {
                 final boolean running = true;
                 final int duration = videoView.getDuration();
-                final TextView textView = (TextView)findViewById(R.id.titleDetail);
+                final TextView textView = (TextView) findViewById(R.id.titleDetail);
 
                 new Thread(new Runnable() {
                     public void run() {
@@ -252,6 +268,76 @@ public class DetailActivity extends AppCompatActivity   {
                 new Thread(networkTask).start();
             }
         });
+    }
+
+    public void addListenerOnCommentButton(){
+        editText = (EditText)findViewById(R.id.EditComment);
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    commentShowPopup(v);
+                    //popUpInputMethodWindow();
+                } else {
+
+                }
+            }
+        });
+    }
+
+    public void commentShowPopup(View parent){
+
+        if(popWindow == null)
+        {
+            LayoutInflater layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(R.layout.comment_popwindow, null);
+            popWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, 80, true);
+
+        }
+        //popWindow.setAnimationStyle(R.style.pop);
+        popWindow.setFocusable(true);
+        popWindow.setOutsideTouchable(false);
+        popWindow.setBackgroundDrawable(new BitmapDrawable());
+        popWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+
+        /*
+        popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+            }
+        });
+        */
+        popWindow.setTouchInterceptor(new View.OnTouchListener() {
+            public boolean onTouch(View view, MotionEvent event) {
+                return false;
+            }
+        });
+    }
+
+    private void popUpInputMethodWindow(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                imm = (InputMethodManager) editText.getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }, 0);
+    }
+
+    private void addListenerOnSendCommentButton(){
+        ImageButton sendCommentBtn = (ImageButton)findViewById(R.id.SendBtn);
+        if(sendCommentBtn != null)
+        {
+            sendCommentBtn.setColorFilter(Color.parseColor("#64B5F6"));
+            sendCommentBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //TODO:Add action
+                }
+            });
+
+        }
+
     }
 
     //Google Analytics
