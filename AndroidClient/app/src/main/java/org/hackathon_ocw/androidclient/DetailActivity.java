@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -109,7 +110,6 @@ public class DetailActivity extends AppCompatActivity   {
         addListenerOnShareButton();
         addListenerOnRatingBar();
         addListenerOnCommentButton();
-        //addListenerOnSendCommentButton();
 
         //Google Analytics tracker
         sendScreenImageName();
@@ -349,6 +349,9 @@ public class DetailActivity extends AppCompatActivity   {
                 //Get item_id
                 int item_id = Integer.valueOf(courseId);
 
+                //Fake the item_id
+                item_id = 1;
+
                 //Get author_id (faked)
                 int author_id = 1;
                 String author_name = "习近平";
@@ -417,7 +420,19 @@ public class DetailActivity extends AppCompatActivity   {
                 requestQueue.add(jsonRequest);
 
                 //Update the comment list
-                
+
+                HashMap<String, String>map = new HashMap<String, String>();
+                map.put("commentId", String.valueOf(item_id));
+                //map.put("author_id", String.valueOf(author_id));
+                map.put("userName", author_name);
+                map.put("commentTime", currentTimeStr);
+                map.put("comment", comment);
+                map.put("timeline", String.valueOf(timeline));
+                map.put("like", String.valueOf(like));
+
+                PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter)viewPager.getAdapter();
+                pageFragmentAdapter.getTabComment().mCommentAdapter.AddComments(map);
+
 
             }
         });

@@ -14,10 +14,15 @@ public class PageFragmentAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
     private String tabTitles[] = new String[] { "简介", "评论", "相关课程" };
     private Context context;
+    public TabComment tabComment;
 
     public PageFragmentAdapter(FragmentManager fm, Context context){
         super(fm);
         this.context = context;
+    }
+
+    public TabComment getTabComment(){
+        return tabComment;
     }
 
     @Override
@@ -33,7 +38,7 @@ public class PageFragmentAdapter extends FragmentPagerAdapter {
                 TabDescription tabDescription = new TabDescription();
                 return tabDescription;
             case 1:
-                TabComment tabComment = new TabComment();
+                tabComment = new TabComment();
                 return tabComment;
             default:
                 return PageFragment.newInstance(position + 1);

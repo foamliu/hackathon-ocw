@@ -64,6 +64,12 @@ public class CommentAdapter extends BaseAdapter {
         return position;
     }
 
+    //Add new comments to front
+    public void AddComments(HashMap<String, String> d){
+        data.add(0, d);
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View vi = convertView;
@@ -99,7 +105,7 @@ public class CommentAdapter extends BaseAdapter {
 
         //convert the time
         String commentTimeStr = comments.get(TabComment.KEY_COMMENTTIME);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         Calendar commentTimeCal = Calendar.getInstance();

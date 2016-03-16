@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class TabComment extends Fragment implements Download_data.download_complete {
 
-    private ListView mCommentView;
+    public ListView mCommentView;
     public CommentAdapter mCommentAdapter;
 
     static final String KEY_USERNAME = "userName";
