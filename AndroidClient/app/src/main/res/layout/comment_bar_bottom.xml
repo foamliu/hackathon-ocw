@@ -45,14 +45,14 @@
                 android:paddingLeft="10dp" />
 
             <Button
-                android:id="@+id/ReadCommentBtn"
+                android:id="@+id/ViewCommentBtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="40dp"
                 android:background="@drawable/ic_chat_black_18dp"
                 android:alpha="0.5"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/FavoritesBtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

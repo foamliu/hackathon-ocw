@@ -127,7 +127,6 @@ public class CommentAdapter extends BaseAdapter {
             SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd HH:mm");
             commentTime.setText(simpleDateFormat1.format(commentTimeCal.getTime()));
         }
-
         return vi;
     }
 
@@ -167,16 +166,9 @@ public class CommentAdapter extends BaseAdapter {
                             }
                         }
                 );
-
                 //Change the color
                 likeBtn.setColorFilter(Color.parseColor("#1565C0"));
-
             }
         });
-
     }
-
-
-
-
 }

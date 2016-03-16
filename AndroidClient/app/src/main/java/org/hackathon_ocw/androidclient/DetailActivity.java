@@ -2,6 +2,7 @@ package org.hackathon_ocw.androidclient;
 
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -51,6 +52,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -108,8 +111,10 @@ public class DetailActivity extends AppCompatActivity   {
         viewPagerInit();
         addListenerOnBackButton();
         addListenerOnShareButton();
-        addListenerOnRatingBar();
         addListenerOnCommentButton();
+        addListenerOnViewCommentButton();
+        addListenerOnFavoritesButton();
+        addListenerOnRatingBar();
 
         //Google Analytics tracker
         sendScreenImageName();
@@ -205,7 +210,7 @@ public class DetailActivity extends AppCompatActivity   {
 
     public void addListenerOnShareButton() {
         //Share to Wechat
-        shareBtn = (Button)findViewById(R.id.shareBtn);
+        shareBtn = (Button)findViewById(R.id.VideoShareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -257,6 +262,58 @@ public class DetailActivity extends AppCompatActivity   {
                 */
             }
         });
+    }
+
+    public void addListenerOnViewCommentButton(){
+        //Change view
+        Button viewComment = (Button)findViewById(R.id.ViewCommentBtn);
+        viewComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1, true);
+            }
+        });
+    }
+
+    public void addListenerOnFavoritesButton(){
+        //TODO: Add this course to favorites
+        final ImageButton favorites = (ImageButton)findViewById(R.id.FavoritesBtn);
+        favorites.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //Format jsonObject
+                JSONObject jsonObject = new JSONObject();
+                try
+                {
+                    jsonObject.put("courseId", courseId);
+                    jsonObject.put("title", title);
+                }catch (Exception e)
+                {
+                    Log.e("Local file Error",e.toString());
+                }
+                //Save to local stroage
+                try {
+                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("favorites.json", Context.MODE_PRIVATE));
+                    outputStreamWriter.write(jsonObject.toString());
+                    outputStreamWriter.close();
+                }
+                catch (IOException e) {
+                    Log.e("Exception", "File write failed: " + e.toString());
+                }
+            }
+        });
+        favorites.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE) {
+                    //Change Favorites icon color
+                    favorites.setColorFilter(Color.YELLOW);
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     private String buildTransaction(final String type) {
