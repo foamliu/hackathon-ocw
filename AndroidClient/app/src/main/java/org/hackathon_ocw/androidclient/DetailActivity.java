@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -276,8 +277,9 @@ public class DetailActivity extends AppCompatActivity   {
     }
 
     public void addListenerOnFavoritesButton(){
-        //TODO: Add this course to favorites
-        final ImageButton favorites = (ImageButton)findViewById(R.id.FavoritesBtn);
+        //Add this course to favorites
+        ImageButton favorites = (ImageButton)this.findViewById(R.id.FavoritesBtn);
+        favorites.setColorFilter(Color.YELLOW);
         favorites.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -302,6 +304,7 @@ public class DetailActivity extends AppCompatActivity   {
                 }
             }
         });
+        /*
         favorites.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -313,6 +316,7 @@ public class DetailActivity extends AppCompatActivity   {
                 return false;
             }
         });
+        */
 
     }
 
