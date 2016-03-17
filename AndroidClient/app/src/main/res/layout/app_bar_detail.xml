@@ -27,28 +27,31 @@
                 android:background="@drawable/ic_keyboard_backspace_white_24dp"
                 android:layout_alignParentLeft="true"/>
 
+            <!--
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_import_contacts_white_24dp"
                 android:layout_marginLeft="110dp"
                 />
+             -->
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="130dp"
                 android:textSize="20dp"
                 android:textColor="@color/white"
                 android:id="@+id/titleToolBar"
                 android:gravity="center_vertical"
+
                 />
 
             <Button
                 android:id="@+id/shareBtn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="90dp"
+                android:layout_marginLeft="110dp"
                 android:background="@drawable/ic_share_white_24dp"
                 android:layout_alignParentRight="true"
                  />

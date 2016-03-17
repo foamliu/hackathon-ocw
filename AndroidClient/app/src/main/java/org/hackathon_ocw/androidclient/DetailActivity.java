@@ -114,7 +114,7 @@ public class DetailActivity extends AppCompatActivity   {
         addListenerOnShareButton();
         addListenerOnCommentButton();
         addListenerOnViewCommentButton();
-        addListenerOnFavoritesButton();
+        //addListenerOnFavoritesButton();
         addListenerOnRatingBar();
 
         //Google Analytics tracker
@@ -137,6 +137,7 @@ public class DetailActivity extends AppCompatActivity   {
     public void detailToolBarInit(){
         detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
@@ -211,7 +212,7 @@ public class DetailActivity extends AppCompatActivity   {
 
     public void addListenerOnShareButton() {
         //Share to Wechat
-        shareBtn = (Button)findViewById(R.id.VideoShareBtn);
+        shareBtn = (Button)findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -276,6 +277,7 @@ public class DetailActivity extends AppCompatActivity   {
         });
     }
 
+    /*
     public void addListenerOnFavoritesButton(){
         //Add this course to favorites
         ImageButton favorites = (ImageButton)this.findViewById(R.id.FavoritesBtn);
@@ -316,9 +318,10 @@ public class DetailActivity extends AppCompatActivity   {
                 return false;
             }
         });
-        */
+
 
     }
+    */
 
     private String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();

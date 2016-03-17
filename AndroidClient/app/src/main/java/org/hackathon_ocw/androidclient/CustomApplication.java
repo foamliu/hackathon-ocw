@@ -125,7 +125,7 @@ public class CustomApplication extends Application {
 
         State wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
         if(wifi == State.CONNECTED || wifi == State.CONNECTING){
-            Toast.makeText(this, "wifi is open! wifi", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "wifi is open! wifi", Toast.LENGTH_SHORT).show();
             return true;
         }
         else
