@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
 
         toolbarInit();
         listViewInit();
-        floatingButtonInit();
+        //floatingButtonInit();
         drawerInit();
         naviViewInit();
 
@@ -172,8 +172,6 @@ public class MainActivity extends AppCompatActivity
                 intent.setClass(MainActivity.this, DetailActivity.class);
                 startActivity(intent);
 
-                Toast.makeText(getApplicationContext(), "Click to subpage! ", Toast.LENGTH_SHORT).show();
-
                 //Send post to server
                 String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
                 Runnable networkTask = new NetworkThread(courseId, 3);
@@ -193,6 +191,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    /*
     public void floatingButtonInit() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -203,10 +202,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+    */
 
     public void toolbarInit() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);

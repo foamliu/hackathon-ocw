@@ -11,8 +11,8 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class PageFragmentAdapter extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "简介", "评论", "相关课程" };
+    final int PAGE_COUNT = 2;
+    private String tabTitles[] = new String[] { "简介", "评论"};
     private Context context;
     public TabComment tabComment;
 
@@ -38,13 +38,10 @@ public class PageFragmentAdapter extends FragmentPagerAdapter {
                 TabDescription tabDescription = new TabDescription();
                 return tabDescription;
             case 1:
-                if(tabComment == null)
-                {
-                    tabComment = new TabComment();
-                }
+                tabComment = new TabComment();
                 return tabComment;
             default:
-                return PageFragment.newInstance(position + 1);
+                return new TabDescription();
         }
     }
 
