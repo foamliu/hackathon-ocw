@@ -41,11 +41,17 @@
             style="?android:attr/ratingBarStyleSmall"
             />
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_marginTop="15dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="260dp" />
+            android:layout_height="250dp"
+            android:layout_gravity="center">
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

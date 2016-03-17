@@ -155,39 +155,6 @@ public class DetailActivity extends AppCompatActivity   {
         videoView.setVideoURI(uri);
         videoView.start();
         videoView.requestFocus();
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            public void onPrepared(MediaPlayer mp) {
-                final boolean running = true;
-                final int duration = videoView.getDuration();
-
-                /*
-                final TextView textView = (TextView) findViewById(R.id.titleDetail);
-                new Thread(new Runnable() {
-                    public void run() {
-                        do {
-                            textView.post(new Runnable() {
-                                public void run() {
-                                    int time = (videoView.getCurrentPosition()) / 1000;
-                                    textView.setText(time + "");
-                                }
-                            });
-                            try {
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            if (!running) break;
-                        }
-                        while (videoView.getCurrentPosition() < duration);
-                    }
-                }).start();
-                */
-            }
-        });
-
-
-
     }
 
     // A method to find height of the status bar
