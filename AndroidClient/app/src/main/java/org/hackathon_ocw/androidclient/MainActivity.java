@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_DESCRIPTION = "description";
     static final String KEY_THUMB_URL = "thumb_url";
     static final String KEY_VIDEOURL = "videoUrl";
+    static final String KEY_DURATION = "videoDuration";
     static final String Url = "http://api.jieko.cc/user/";
 
     @Override
@@ -264,6 +265,7 @@ public class MainActivity extends AppCompatActivity
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
                 map.put(KEY_THUMB_URL,obj.getString("piclink"));
                 map.put(KEY_VIDEOURL,obj.getString("courselink"));
+                map.put(KEY_DURATION,obj.getString("duration"));
                 courseList.add(map);
 
             }
