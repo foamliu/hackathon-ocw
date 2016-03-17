@@ -31,7 +31,7 @@ import java.util.Date
 import reactivemongo.bson.BSONString
 import play.api.libs.json.JsString
 
-case class Comment(itemID: Long, authorID: Long, authorName: String, posted: Date, text: String, timeline_ms: Long, like: Int)
+case class Comment(itemID: Long, authorID: Long, authorName: String, posted: Date, text: String, timeline: Long, like: Int)
 
 object Comment {
     
@@ -52,7 +52,7 @@ object Comment {
                 "author_name" -> c.authorName,
                 "posted" -> c.posted,
                 "text" -> c.text,
-                "timeline_ms" -> c.timeline_ms,
+                "timeline" -> c.timeline,
                 "like" -> c.like)
     }   
 
