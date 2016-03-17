@@ -118,9 +118,12 @@ public class CommentAdapter extends BaseAdapter {
 
         Calendar currentTimeCal = Calendar.getInstance();
         long diffDate = currentTimeCal.get(Calendar.HOUR) - commentTimeCal.get(Calendar.HOUR);
-        if(diffDate < 24 && diffDate != 0)
+        if(currentTimeCal.get(Calendar.DATE) == commentTimeCal.get(Calendar.DATE))
         {
-            commentTime.setText(diffDate + "小时前");
+            if(diffDate < 24 && diffDate > 0)
+            {
+                commentTime.setText(diffDate + "小时前");
+            }
         }
         else
         {
