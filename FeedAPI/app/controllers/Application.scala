@@ -114,9 +114,7 @@ object Application {
         if (candidates.size > 0) {
             candidates
         } else {
-            var randomItems = scala.util.Random.shuffle(items).take(howMany)
-            randomItems.foreach(c => c.title = "*" + c.title)
-            randomItems
+            scala.util.Random.shuffle(items).take(howMany)
         }
 
     }
