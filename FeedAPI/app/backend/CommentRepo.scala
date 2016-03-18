@@ -1,18 +1,22 @@
 package backend
 
-import play.modules.reactivemongo.ReactiveMongoApi
-import play.modules.reactivemongo.json.collection.JSONCollection
-import play.api.libs.json.JsObject
+import scala.annotation.implicitNotFound
+import scala.concurrent.Await
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
-import reactivemongo.api.ReadPreference
-import reactivemongo.bson.BSONDocument
-import reactivemongo.api.commands.WriteResult
-import reactivemongo.bson.BSONObjectID
-import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import play.api.libs.json.JsNull
+
+import play.api.libs.json.JsObject
 import play.api.libs.json.Json
+import play.api.libs.json.Json.toJsFieldJsValueWrapper
+import play.modules.reactivemongo.ReactiveMongoApi
+import play.modules.reactivemongo.json.JsObjectDocumentWriter
+import play.modules.reactivemongo.json.collection.JSONCollection
+import reactivemongo.api.ReadPreference
+import reactivemongo.api.commands.WriteResult
+import reactivemongo.bson.BSONDocument
+import reactivemongo.bson.BSONObjectID
+import reactivemongo.bson.Producer.nameValue2Producer
 
 class CommentMongoRepo(reactiveMongoApi: ReactiveMongoApi) {
     // BSON-JSON conversions
