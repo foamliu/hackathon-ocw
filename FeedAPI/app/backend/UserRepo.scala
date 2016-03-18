@@ -44,6 +44,6 @@ class UserMongoRepo(reactiveMongoApi: ReactiveMongoApi) extends UserRepo {
     def remove(document: JsObject)(implicit ec: ExecutionContext): Future[WriteResult] = collection.remove(document)
 
     def save(document: JsObject)(implicit ec: ExecutionContext): Future[WriteResult] =
-        collection.update(Json.obj("_id" -> (document \ "_id").as[String]), document, upsert = true)
+        collection.update(Json.obj("_id" -> (document \ "_id").as[Long]), document, upsert = true)
 
 }

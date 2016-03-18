@@ -70,9 +70,7 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     }
 
     def update(id: Long) = Action.async(BodyParsers.parse.json) { implicit request =>
-        userRepo.update(
-                Json.obj(UserID -> id.toString()), 
-                Json.obj("$set" -> request.body))
+        userRepo.save(request.body.as[JsObject])
 
         Future(Ok(request.body))
     }
