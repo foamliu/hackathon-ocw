@@ -20,11 +20,11 @@ trait UserRepo {
 
     def find(selector: JsObject)(implicit ec: ExecutionContext): Future[List[JsObject]]
 
-    def update(selector: BSONDocument, update: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult]
+    def update(selector: JsObject, update: JsObject)(implicit ec: ExecutionContext): Future[WriteResult]
 
-    def remove(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult]
+    def remove(document: JsObject)(implicit ec: ExecutionContext): Future[WriteResult]
 
-    def save(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult]
+    def save(document: JsObject)(implicit ec: ExecutionContext): Future[WriteResult]
 }
 
 class UserMongoRepo(reactiveMongoApi: ReactiveMongoApi) extends UserRepo {
@@ -39,11 +39,11 @@ class UserMongoRepo(reactiveMongoApi: ReactiveMongoApi) extends UserRepo {
     def find(selector: JsObject)(implicit ec: ExecutionContext): Future[List[JsObject]] =
         collection.find(selector).cursor[JsObject](ReadPreference.Primary).collect[List]()
 
-    def update(selector: BSONDocument, update: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] = collection.update(selector, update)
+    def update(selector: JsObject, update: JsObject)(implicit ec: ExecutionContext): Future[WriteResult] = collection.update(selector, update)
 
-    def remove(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] = collection.remove(document)
+    def remove(document: JsObject)(implicit ec: ExecutionContext): Future[WriteResult] = collection.remove(document)
 
-    def save(document: BSONDocument)(implicit ec: ExecutionContext): Future[WriteResult] =
-        collection.update(BSONDocument("_id" -> document.get("_id").getOrElse(BSONObjectID.generate)), document, upsert = true)
+    def save(document: JsObject)(implicit ec: ExecutionContext): Future[WriteResult] =
+        collection.update(Json.obj("_id" -> (document \ "_id").as[String]), document, upsert = true)
 
 }

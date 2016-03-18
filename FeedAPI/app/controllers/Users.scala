@@ -58,7 +58,7 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         if (!found)
         {
             userRepo
-                .save(BSONDocument(
+                .save(Json.obj(
                     UserID -> userID,
                     DeviceID -> deviceid))
                 .map(_ => Ok(Json.obj("userid" -> userID)))
@@ -70,25 +70,11 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
     }
 
     def update(id: Long) = Action.async(BodyParsers.parse.json) { implicit request =>
-        val openid = (request.body \ OpenID).as[String]
-        val nickname = (request.body \ Nickname).as[String]
-        val sex = (request.body \ Sex).as[String]
-        val province = (request.body \ Province).as[String]
-        val city = (request.body \ City).as[String]
-        val country = (request.body \ Country).as[String]
-        val headimgurl = (request.body \ HeadImgUrl).as[String]
-
         userRepo.update(
-                BSONDocument(UserID -> BSONObjectID(id toString)), 
-                BSONDocument("$set" -> BSONDocument(
-                    OpenID -> openid,
-                    Nickname -> nickname,
-                    Sex -> sex,
-                    Province -> province,
-                    City -> city,
-                    Country -> country,
-                    HeadImgUrl -> headimgurl))).map(le => Ok(Json.obj("success" -> le.ok)))
+                Json.obj(UserID -> id.toString()), 
+                Json.obj("$set" -> request.body))
 
+        Future(Ok(request.body))
     }
 }
 
