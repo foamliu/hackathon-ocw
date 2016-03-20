@@ -4,6 +4,7 @@ package org.hackathon_ocw.androidclient;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
@@ -49,6 +50,8 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 
+import org.hackathon_ocw.androidclient.FullscreenVideoLayout;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +71,9 @@ public class DetailActivity extends AppCompatActivity   {
     private IWXAPI api;
     private VideoView videoView;
     private MediaController mediaController;
+
+    private FullscreenVideoLayout videoLayout;
+
     private Uri uri;
     private Toolbar detailToolbar;
     private TextView titleDetail;
@@ -112,9 +118,13 @@ public class DetailActivity extends AppCompatActivity   {
         viewPagerInit();
         addListenerOnBackButton();
         addListenerOnShareButton();
-        addListenerOnCommentButton();
-        addListenerOnViewCommentButton();
+
+
+        //addListenerOnCommentButton();
+        //addListenerOnViewCommentButton();
         //addListenerOnFavoritesButton();
+
+
         addListenerOnRatingBar();
 
         //Google Analytics tracker
@@ -148,6 +158,7 @@ public class DetailActivity extends AppCompatActivity   {
     }
 
     public void videoInit(){
+        /*
         videoView=(VideoView)findViewById(R.id.videoView);
         mediaController=new MediaController(this);
         videoView.setMediaController(mediaController);
@@ -155,6 +166,26 @@ public class DetailActivity extends AppCompatActivity   {
         videoView.setVideoURI(uri);
         videoView.start();
         videoView.requestFocus();
+        */
+
+        videoLayout = (FullscreenVideoLayout)findViewById(R.id.videoView);
+        videoLayout.setActivity(this);
+        videoLayout.setShouldAutoplay(false);
+        try{
+            videoLayout.setVideoURI(uri);
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+            Log.e("videoLayout", e.toString());
+        }
+
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        videoLayout.resize();
     }
 
     // A method to find height of the status bar
@@ -320,7 +351,7 @@ public class DetailActivity extends AppCompatActivity   {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    commentShowPopup(v);
+                    //commentShowPopup(v);
                     //popUpInputMethodWindow();
                 } else {
 

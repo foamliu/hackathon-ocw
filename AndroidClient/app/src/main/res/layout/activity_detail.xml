@@ -43,13 +43,13 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="220dp"
             android:layout_gravity="center">
-            <VideoView
+            <org.hackathon_ocw.androidclient.FullscreenVideoLayout
                 android:id="@+id/videoView"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="match_parent" />
         </RelativeLayout>
 
 
@@ -77,9 +77,11 @@
 
     </LinearLayout>
 
+    <!--
     <include
         layout="@layout/comment_bar_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+        -->
 
 </android.support.v4.widget.DrawerLayout>
