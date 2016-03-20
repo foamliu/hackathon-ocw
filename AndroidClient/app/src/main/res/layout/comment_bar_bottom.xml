@@ -20,7 +20,10 @@
             android:background="@color/lightgrey"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            >
 
             <EditText
                 android:layout_width="270dp"

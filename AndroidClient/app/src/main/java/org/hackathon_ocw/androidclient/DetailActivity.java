@@ -69,7 +69,7 @@ import java.util.TimeZone;
 public class DetailActivity extends AppCompatActivity   {
 
     private IWXAPI api;
-    private VideoView videoView;
+    //private VideoView videoView;
     private MediaController mediaController;
 
     private FullscreenVideoLayout videoLayout;
@@ -120,8 +120,8 @@ public class DetailActivity extends AppCompatActivity   {
         addListenerOnShareButton();
 
 
-        //addListenerOnCommentButton();
-        //addListenerOnViewCommentButton();
+        addListenerOnCommentButton();
+        addListenerOnViewCommentButton();
         //addListenerOnFavoritesButton();
 
 
@@ -158,19 +158,9 @@ public class DetailActivity extends AppCompatActivity   {
     }
 
     public void videoInit(){
-        /*
-        videoView=(VideoView)findViewById(R.id.videoView);
-        mediaController=new MediaController(this);
-        videoView.setMediaController(mediaController);
-        mediaController.setMediaPlayer(videoView);
-        videoView.setVideoURI(uri);
-        videoView.start();
-        videoView.requestFocus();
-        */
-
         videoLayout = (FullscreenVideoLayout)findViewById(R.id.videoView);
         videoLayout.setActivity(this);
-        videoLayout.setShouldAutoplay(false);
+        videoLayout.setShouldAutoplay(true);
         try{
             videoLayout.setVideoURI(uri);
         }catch (IOException e)
@@ -178,8 +168,6 @@ public class DetailActivity extends AppCompatActivity   {
             e.printStackTrace();
             Log.e("videoLayout", e.toString());
         }
-
-
     }
 
     @Override
@@ -351,7 +339,7 @@ public class DetailActivity extends AppCompatActivity   {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    //commentShowPopup(v);
+                    commentShowPopup(v);
                     //popUpInputMethodWindow();
                 } else {
 
@@ -441,8 +429,11 @@ public class DetailActivity extends AppCompatActivity   {
                 String comment = editText.getText().toString();
 
                 //Get current timeline
-                VideoView videoView = (VideoView)findViewById(R.id.videoView);
-                int timeline = (videoView.getCurrentPosition()) / 1000;
+                //VideoView videoView = (VideoView)findViewById(R.id.videoView);
+                //int timeline = (videoView.getCurrentPosition()) / 1000;
+
+                int timeline = videoLayout.getCurrentPosition() / 1000;
+
 
                 //Get Url
                 //String httpurl = "http://jieko.cc/item/" + courseId + "/Comments";
