@@ -7,7 +7,8 @@ import scala.io.Source
 import org.apache.mahout.cf.taste.common.NoSuchUserException
 import org.apache.mahout.cf.taste.impl.model.mongodb.MongoDBDataModel
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood
-import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender
+import org.apache.mahout.cf.taste.impl.recommender.GenericBooleanPrefUserBasedRecommender
+import org.apache.mahout.cf.taste.impl.similarity.CachingUserSimilarity
 import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood
 import org.apache.mahout.cf.taste.recommender.Recommender
@@ -27,10 +28,10 @@ object Application {
     private val howMany = 10
     private val n = 2 // Nearest N User Neighborhood
     private val item_file = "app/assets/jsons/items.json"
-    
-    private val ip = Play.current.configuration.getString("mongodb.ip")
-    private val port = Play.current.configuration.getInt("mongodb.port")
-    private val db = Play.current.configuration.getString("mongodb.db")
+
+    private val mongoHost = Play.current.configuration.getString("mongodb.ip")
+    private val mongoPort = Play.current.configuration.getInt("mongodb.port")
+    private val mongoDBName = Play.current.configuration.getString("mongodb.db")
 
     private var courses: Seq[Course] = null
     private var recommender: Recommender = null
@@ -46,27 +47,28 @@ object Application {
 
         courses
     }
-            
-    private def getRecommender(): Recommender = {
-        
-        if (recommender == null) {
-            val model = new MongoDBDataModel(ip.get, port.get, db.get, "ratings", true, true, null)
-            
-            var similarity: UserSimilarity = new LogLikelihoodSimilarity(model)
-            var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, similarity, model);    
 
-            recommender = new GenericUserBasedRecommender(model, neighborhood, similarity)
+    private def getRecommender(): Recommender = {
+
+        if (recommender == null) {
+            val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", true, true, null)
+
+            var similarity: UserSimilarity = new CachingUserSimilarity(new LogLikelihoodSimilarity(model), model)
+            var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, Double.NegativeInfinity, similarity, model, 1.0);
+
+            recommender = new GenericBooleanPrefUserBasedRecommender(model, neighborhood, similarity)
         }
 
         recommender
     }
 
     private def recommend(userID: Long): List[Long] = {
-
+        Logger.info("userID=%d".format(userID))
         var list = List[Long]()
 
         try {
             var recommendations = getRecommender.recommend(userID, howMany)
+            Logger.info("recommendations.size=%d".format(recommendations.size))
 
             for (r <- recommendations) list = r.getItemID :: list
 
