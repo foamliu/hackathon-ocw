@@ -6,13 +6,15 @@ import scala.io.Source
 
 import org.apache.mahout.cf.taste.common.NoSuchUserException
 import org.apache.mahout.cf.taste.impl.model.mongodb.MongoDBDataModel
-import org.apache.mahout.cf.taste.impl.recommender.svd.ALSWRFactorizer
-import org.apache.mahout.cf.taste.impl.recommender.svd.SVDRecommender
+import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood
+import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender
+import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity
+import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood
 import org.apache.mahout.cf.taste.recommender.Recommender
+import org.apache.mahout.cf.taste.similarity.UserSimilarity
 
 import play.api.Logger
 import play.api.Play
-import play.api.Play.current
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
@@ -24,8 +26,11 @@ object Application {
 
     private val howMany = 10
     private val n = 2 // Nearest N User Neighborhood
-    private val pref_file = Play.application.path + "/" + "prefs.csv"
     private val item_file = "app/assets/jsons/items.json"
+    
+    private val ip = Play.current.configuration.getString("mongodb.ip")
+    private val port = Play.current.configuration.getInt("mongodb.port")
+    private val db = Play.current.configuration.getString("mongodb.db")
 
     private var courses: Seq[Course] = null
     private var recommender: Recommender = null
@@ -41,19 +46,16 @@ object Application {
 
         courses
     }
-
-    val ip = Play.current.configuration.getString("mongodb.ip")
-    val port = Play.current.configuration.getInt("mongodb.port")
-    val db = Play.current.configuration.getString("mongodb.db")
-    val numFeatures = 3
-    val lambda = 0.05f
-    val numIterations = 50
             
     private def getRecommender(): Recommender = {
         
         if (recommender == null) {
-            var model = new MongoDBDataModel(ip.get, port.get, db.get, "ratings", true, true, null)
-            recommender = new SVDRecommender(model, new ALSWRFactorizer(model, numFeatures, lambda, numIterations))
+            val model = new MongoDBDataModel(ip.get, port.get, db.get, "ratings", true, true, null)
+            
+            var similarity: UserSimilarity = new LogLikelihoodSimilarity(model)
+            var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, similarity, model);    
+
+            recommender = new GenericUserBasedRecommender(model, neighborhood, similarity)
         }
 
         recommender
