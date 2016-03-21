@@ -32,7 +32,7 @@ public class TabComment extends Fragment implements Download_data.download_compl
     static final String KEY_COMMENT_ID = "commentId";
     static final String KEY_COMMENTTIME = "commentTime";
     static final String KEY_LIKE = "like";
-    static final String KEY_USERIMAGE = "thumb_url";
+    static final String KEY_USERIMAGE = "headimgurl";
     static final String KEY_TIMELINE = "timeline";
     static final String getCommentUrl = "http://jieko.cc/item/";
 
@@ -46,9 +46,19 @@ public class TabComment extends Fragment implements Download_data.download_compl
         download_data.download_data_from_link(getCommentUrl + "1" + "/Comments");
 
         mCommentView = (ListView) inflatedView.findViewById(R.id.commentList);
-
         mCommentAdapter = new CommentAdapter(getActivity(), commentList);
         mCommentView.setAdapter(mCommentAdapter);
+
+        /*
+        mCommentView.setOnScrollListener(new ListView.OnScrollChangeListener(){
+
+            @Override
+            public void OnScrollChange(View v, int l, int t, int oldl, int oldt){
+
+
+            }
+        });
+        */
 
         return inflatedView;
     }

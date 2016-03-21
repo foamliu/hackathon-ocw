@@ -14,10 +14,10 @@
         android:orientation="vertical"
         android:layout_centerVertical="true">
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:id="@+id/userImage"
+        <org.hackathon_ocw.androidclient.CircularImage
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/userCommentHeadImage"
             android:src="@drawable/ic_account_circle_black_24dp"
             android:alpha="0.5"
             android:layout_gravity="center"/>

@@ -10,7 +10,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.view.View;
 
-import com.tencent.mm.sdk.MMAppMgr;
+//import com.tencent.mm.sdk.MMAppMgr;
 
 public final class MMAlert {
 
@@ -261,7 +261,7 @@ public final class MMAlert {
 
 	public static ProgressDialog showProgressDlg(final Context context, final String title, final String message, final boolean indeterminate, final boolean cancelable, final OnCancelListener lCancel) {
 
-		MMAppMgr.activate(true);
+		//MMAppMgr.activate(true);
 
 		return ProgressDialog.show(context, title, message, indeterminate, cancelable, new DialogInterface.OnCancelListener() {
 
@@ -270,7 +270,7 @@ public final class MMAlert {
 				if (lCancel != null) {
 					lCancel.onCancel(dialog);
 				}
-				MMAppMgr.activate(false);
+				//MMAppMgr.activate(false);
 			}
 		});
 	}

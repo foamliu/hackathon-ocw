@@ -309,13 +309,13 @@ public class FullscreenVideoLayout extends FullscreenVideoView implements View.O
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        Log.d(TAG, "onProgressChanged");
+        //Log.d(TAG, "onProgressChanged");
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         stopCounter();
-        Log.d(TAG, "onStartTrackingTouch");
+        //Log.d(TAG, "onStartTrackingTouch");
 
     }
 
@@ -323,7 +323,7 @@ public class FullscreenVideoLayout extends FullscreenVideoView implements View.O
     public void onStopTrackingTouch(SeekBar seekBar) {
         int progress = seekBar.getProgress();
         seekTo(progress);
-        Log.d(TAG, "onStopTrackingTouch");
+        //Log.d(TAG, "onStopTrackingTouch");
 
     }
 }
