@@ -55,20 +55,20 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         switch (resp.errCode){
             case BaseResp.ErrCode.ERR_OK:
                 mResp = resp;
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                Toast.makeText(this, "User Cancel", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "User Cancel", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                Toast.makeText(this, "Auth Denied", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Auth Denied", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             default:
                 mResp = resp;
-                Toast.makeText(this, "User Return", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "User Return", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }

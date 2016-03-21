@@ -2,6 +2,8 @@ package org.hackathon_ocw.androidclient;
 
 import org.hackathon_ocw.androidclient.Download_data.download_complete;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,16 +29,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -113,6 +118,10 @@ public class MainActivity extends AppCompatActivity
         //floatingButtonInit();
         drawerInit();
         naviViewInit();
+        //ImageView imageView = (ImageView)findViewById(R.id.userImage);
+        //ImageLoader imageLoader = new ImageLoader(getApplicationContext());
+
+        //imageLoader.DisplayImage("http://img2.imgtn.bdimg.com/it/u=1457437487,655486635&fm=11&gp=0.jpg", imageView);
 
     }
 
@@ -396,9 +405,8 @@ public class MainActivity extends AppCompatActivity
                 wechatCode = ((SendAuth.Resp)resp).code;
                 get_access_token = getCodeRequest(wechatCode);
 
-                //TODO:Send Request here
+                //Send Request here
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                JSONObject jsonObject = new JSONObject();
                 JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, get_access_token, null,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -429,19 +437,18 @@ public class MainActivity extends AppCompatActivity
     public void WXGetUserInfo(String url)
     {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(url,
-                new Response.Listener<String>() {
+        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            nickname = (String)jsonObject.get("nickname");
-                            sex = (Integer)jsonObject.get("sex");
-                            city = (String)jsonObject.get("city");
-                            country = (String)jsonObject.get("country");
-                            headimgurl = (String)jsonObject.get("headimgurl");
-                            Toast.makeText(getApplicationContext(), nickname + " " + country , Toast.LENGTH_SHORT).show();
-
+                            nickname = (String)response.get("nickname");
+                            sex = (Integer)response.get("sex");
+                            city = (String)response.get("city");
+                            country = (String)response.get("country");
+                            headimgurl = (String)response.get("headimgurl");
+                            //Toast.makeText(getApplicationContext(), nickname + " " + country , Toast.LENGTH_SHORT).show();
+                            UpdateUserProfile();
                         }catch(Exception e)
                         {
                             e.printStackTrace();
@@ -452,8 +459,26 @@ public class MainActivity extends AppCompatActivity
             public void onErrorResponse(VolleyError error) {
                 Log.e("TAG", error.getMessage(), error);
             }
-        });
-        requestQueue.add(stringRequest);
+        }) {
+
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(
+                    NetworkResponse arg0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(new String(
+                            arg0.data, "UTF-8"));
+                    return Response.success(jsonObject,
+                            HttpHeaderParser.parseCacheHeaders(arg0));
+                } catch (UnsupportedEncodingException e) {
+                    return Response.error(new ParseError(e));
+                } catch (Exception je) {
+                    return Response.error(new ParseError(je));
+                }
+            }
+
+        };
+
+        requestQueue.add(jsonRequest);
     }
 
     public static String getUserInfo(String access_token,String openid){
@@ -488,9 +513,22 @@ public class MainActivity extends AppCompatActivity
         return result;
     }
 
+    public void UpdateUserProfile()
+    {
+        //ImageView imageView = (ImageView)this.findViewById(R.id.userImage);
+        CircularImage imageView = (CircularImage) findViewById(R.id.userImage);
+        RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
+        com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
+        com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);
+        imageLoader.get(headimgurl, listener);
+
+        TextView textView = (TextView)findViewById(R.id.userName);
+        textView.setText(nickname);
 
 
 
+
+    }
 
 
 }
