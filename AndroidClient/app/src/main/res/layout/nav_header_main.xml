@@ -12,7 +12,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <org.hackathon_ocw.androidclient.CircularImage
-        android:id="@+id/userImage"
+        android:id="@+id/userHeadImage"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"

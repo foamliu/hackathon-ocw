@@ -206,6 +206,12 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
                 intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
                 intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
+                if(nickname != null) {
+                    intent.putExtra("nickname", nickname);
+                }
+                if(headimgurl != null){
+                    intent.putExtra("headimgurl", headimgurl);
+                }
 
                 intent.setClass(MainActivity.this, DetailActivity.class);
                 startActivity(intent);
@@ -356,13 +362,17 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_login) {
             WXLogin();
-        } else if (id == R.id.nav_gallery) {
+        }
+        /*
+        else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        }
+        */
+        else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
@@ -516,7 +526,7 @@ public class MainActivity extends AppCompatActivity
     public void UpdateUserProfile()
     {
         //ImageView imageView = (ImageView)this.findViewById(R.id.userImage);
-        CircularImage imageView = (CircularImage) findViewById(R.id.userImage);
+        CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
         com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);

@@ -82,7 +82,7 @@ public class CommentAdapter extends BaseAdapter {
 
         //Username, UserImage, Comments, Timestamp, Like
         TextView userName = (TextView)vi.findViewById(R.id.userName);
-        //ImageView userImage = (ImageView) vi.findViewById(R.id.userImage);
+        CircularImage userImageView = (CircularImage) vi.findViewById(R.id.userCommentHeadImage);
         TextView comment = (TextView)vi.findViewById(R.id.comment);
         TextView commentTime = (TextView)vi.findViewById(R.id.commentTime);
         TextView like = (TextView)vi.findViewById(R.id.like);
@@ -103,7 +103,15 @@ public class CommentAdapter extends BaseAdapter {
         userName.setText(comments.get(TabComment.KEY_USERNAME));
         comment.setText(comments.get(TabComment.KEY_COMMENT));
         like.setText(comments.get(TabComment.KEY_LIKE));
-        //imageLoader.DisplayImage(comments.get(TabComment.KEY_USERIMAGE), userImage);
+        String headimgurl = comments.get(TabComment.KEY_USERIMAGE);
+
+        if(headimgurl != null)
+        {
+            RequestQueue mQueue = Volley.newRequestQueue(activity.getApplicationContext());
+            com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
+            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(userImageView,R.drawable.no_image, R.drawable.no_image);
+            imageLoader.get(headimgurl, listener);
+        }
 
         //convert the time
         String commentTimeStr = comments.get(TabComment.KEY_COMMENTTIME);

@@ -32,7 +32,7 @@ public class TabComment extends Fragment implements Download_data.download_compl
     static final String KEY_COMMENT_ID = "commentId";
     static final String KEY_COMMENTTIME = "commentTime";
     static final String KEY_LIKE = "like";
-    static final String KEY_USERIMAGE = "thumb_url";
+    static final String KEY_USERIMAGE = "headimgurl";
     static final String KEY_TIMELINE = "timeline";
     static final String getCommentUrl = "http://jieko.cc/item/";
 

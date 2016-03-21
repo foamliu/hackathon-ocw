@@ -93,6 +93,10 @@ public class DetailActivity extends AppCompatActivity {
     private String description;
     private String title;
 
+    //User info
+    private String nickname;
+    private String headimgurl;
+
     private Tracker mTracker;
 
     private NestedScrollingChildHelper mChildHelper;
@@ -113,6 +117,8 @@ public class DetailActivity extends AppCompatActivity {
         description = intent.getStringExtra("description");
         courseId = intent.getStringExtra("id");
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
+        nickname = intent.getStringExtra("nickname");
+        headimgurl = intent.getStringExtra("headimgurl");
 
         detailToolBarInit();
 
@@ -419,7 +425,13 @@ public class DetailActivity extends AppCompatActivity {
 
                 //Get author_id (faked)
                 int author_id = 1;
-                String author_name = "习近平";
+                String author_name;
+                if(nickname != null) {
+                    author_name = nickname;
+                }
+                else {
+                    author_name = "匿名用户";
+                }
                 int like = 0;
 
                 //Get post time
@@ -457,7 +469,6 @@ public class DetailActivity extends AppCompatActivity {
                     jsonObject.put("text", comment);
                     jsonObject.put("timeline", timeline);
                     jsonObject.put("like", like);
-
                 }catch (Exception e)
                 {
                     Log.e("Json Error",e.toString());
@@ -492,11 +503,16 @@ public class DetailActivity extends AppCompatActivity {
                 HashMap<String, String>map = new HashMap<String, String>();
                 map.put("commentId", String.valueOf(item_id));
                 //map.put("author_id", String.valueOf(author_id));
+
                 map.put("userName", author_name);
                 map.put("commentTime", currentTimeStr);
                 map.put("comment", comment);
                 map.put("timeline", String.valueOf(timeline));
                 map.put("like", String.valueOf(like));
+                if(headimgurl != null)
+                {
+                    map.put("headimgurl", headimgurl);
+                }
 
                 PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter)viewPager.getAdapter();
                 pageFragmentAdapter.getTabComment().mCommentAdapter.AddComments(map);
