@@ -4,7 +4,10 @@ apply plugin: 'com.google.gms.google-services'
 android {
     signingConfigs {
         debug {
-            storeFile file('C:/Users/dianyang/Desktop/0305/hackathon-ocw-master (1)/hackathon-ocw-master/AndroidClient/debug.keystore')
+            storeFile file('C:/Users/dianyang/Documents/GitHub/hackathon-ocw/AndroidClient/keystore.jks')
+            storePassword "#Bugsfor\$" //你的store密码
+            keyAlias "keystore"  //别名
+            keyPassword "#Bugsfor\$"  //别名密码
         }
     }
     compileSdkVersion 23

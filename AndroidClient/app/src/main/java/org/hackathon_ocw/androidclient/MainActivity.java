@@ -2,9 +2,11 @@ package org.hackathon_ocw.androidclient;
 
 import org.hackathon_ocw.androidclient.Download_data.download_complete;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.hackathon_ocw.androidclient.wxapi.WXEntryActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,10 +32,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+
+import com.tencent.mm.sdk.constants.ConstantsAPI;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.SendAuth;
+import com.tencent.mm.sdk.openapi.*;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 
@@ -52,7 +69,21 @@ public class MainActivity extends AppCompatActivity
     public ListAdapter mListAdapter;
     private RefreshLayout mRefreshLayout;
 
-    private IWXAPI api;
+    //Wechat login
+    private IWXAPI WXapi;
+    private String wechatCode;
+    private static String get_access_token = "";
+    private String access_token;
+    private String openid;
+
+    //User info
+    private String nickname;
+    private int sex;
+    private String province;
+    private String city;
+    private String country;
+    private String headimgurl;
+
     private Tracker mTracker;
 
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
@@ -69,9 +100,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Wechat call
-        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
 
         // Obtain the shared Tracker instance.
         CustomApplication application = (CustomApplication) getApplication();
@@ -318,12 +346,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_login) {
-            final SendAuth.Req req = new SendAuth.Req();
-            req.scope = "snsapi_userinfo";
-            req.state = "wechat_sdk_demo_test";
-            api.sendReq(req);
-            finish();
-
+            WXLogin();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -340,4 +363,134 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //Append Wechat login function
+
+    public static String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+    //获取用户个人信息
+    public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+
+    private void WXLogin() {
+        WXapi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
+        if(!WXapi.isWXAppInstalled())
+        {
+            Toast.makeText(getApplicationContext(), "请先安装微信应用", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        WXapi.registerApp(Constants.APP_ID);
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "hackathon_ocw";
+        boolean res = WXapi.sendReq(req);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        BaseResp resp = WXEntryActivity.mResp;
+
+        if(resp != null)
+        {
+            if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+                wechatCode = ((SendAuth.Resp)resp).code;
+                get_access_token = getCodeRequest(wechatCode);
+
+                //TODO:Send Request here
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                JSONObject jsonObject = new JSONObject();
+                JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, get_access_token, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+
+                                    access_token = (String) response.get("access_token");
+                                    openid = (String) response.get("openid");
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                String get_user_info_url = getUserInfo(access_token, openid);
+                                WXGetUserInfo(get_user_info_url);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                });
+                requestQueue.add(jsonRequest);
+            }
+        }
+
+    }
+
+    public void WXGetUserInfo(String url)
+    {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            nickname = (String)jsonObject.get("nickname");
+                            sex = (Integer)jsonObject.get("sex");
+                            city = (String)jsonObject.get("city");
+                            country = (String)jsonObject.get("country");
+                            headimgurl = (String)jsonObject.get("headimgurl");
+                            Toast.makeText(getApplicationContext(), nickname + " " + country , Toast.LENGTH_SHORT).show();
+
+                        }catch(Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+            }
+        });
+        requestQueue.add(stringRequest);
+    }
+
+    public static String getUserInfo(String access_token,String openid){
+        String result = null;
+        GetUserInfo = GetUserInfo.replace("ACCESS_TOKEN",
+                urlEnodeUTF8(access_token));
+        GetUserInfo = GetUserInfo.replace("OPENID",
+                urlEnodeUTF8(openid));
+        result = GetUserInfo;
+        return result;
+    }
+
+    public static String getCodeRequest(String code) {
+        String result = null;
+        GetCodeRequest = GetCodeRequest.replace("APPID",
+                urlEnodeUTF8(Constants.APP_ID));
+        GetCodeRequest = GetCodeRequest.replace("SECRET",
+                urlEnodeUTF8(Constants.APP_SECRET));
+        GetCodeRequest = GetCodeRequest.replace("CODE",urlEnodeUTF8(code));
+        result = GetCodeRequest;
+        return result;
+    }
+
+
+    public static String urlEnodeUTF8(String str) {
+        String result = str;
+        try {
+            result = URLEncoder.encode(str, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+
+
+
 }

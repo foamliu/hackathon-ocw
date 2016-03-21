@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.NestedScrollingChild;
+import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -66,7 +68,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 
-public class DetailActivity extends AppCompatActivity   {
+public class DetailActivity extends AppCompatActivity {
 
     private IWXAPI api;
     //private VideoView videoView;
@@ -92,6 +94,9 @@ public class DetailActivity extends AppCompatActivity   {
     private String title;
 
     private Tracker mTracker;
+
+    private NestedScrollingChildHelper mChildHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,16 +124,15 @@ public class DetailActivity extends AppCompatActivity   {
         addListenerOnBackButton();
         addListenerOnShareButton();
 
-
         addListenerOnCommentButton();
         addListenerOnViewCommentButton();
         //addListenerOnFavoritesButton();
-
-
         addListenerOnRatingBar();
 
         //Google Analytics tracker
         sendScreenImageName();
+
+        //mChildHelper = new NestedScrollingChildHelper(findViewById(R.layout.activity_detail));
 
     }
         // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
