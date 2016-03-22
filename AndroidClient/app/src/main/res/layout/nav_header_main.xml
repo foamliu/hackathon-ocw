@@ -13,18 +13,20 @@
 
     <org.hackathon_ocw.androidclient.CircularImage
         android:id="@+id/userHeadImage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/ic_account_circle_black_24dp" />
+        android:src="@drawable/ic_account_circle_black_48dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/userName"
         android:text="请登陆"
+        android:textSize="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>
