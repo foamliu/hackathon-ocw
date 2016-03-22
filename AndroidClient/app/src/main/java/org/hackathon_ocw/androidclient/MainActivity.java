@@ -121,9 +121,6 @@ public class MainActivity extends AppCompatActivity
 
         getUserProfileFromFile();
 
-        //CustomApplication customApplication = (CustomApplication)getApplication();
-        //userProfile = customApplication.getUserProfile();
-
         // Obtain the shared Tracker instance.
         CustomApplication application = (CustomApplication) getApplication();
         mTracker = application.getDefaultTracker();

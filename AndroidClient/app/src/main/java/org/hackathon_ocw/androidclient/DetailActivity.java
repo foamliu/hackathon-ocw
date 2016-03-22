@@ -25,6 +25,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -37,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.MediaController;
+import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -78,10 +81,9 @@ import java.util.Map;
 import java.util.TimeZone;
 
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private IWXAPI api;
-    //private VideoView videoView;
     private MediaController mediaController;
 
     private FullscreenVideoLayout videoLayout;
@@ -152,13 +154,9 @@ public class DetailActivity extends AppCompatActivity {
         //addListenerOnFavoritesButton();
         addListenerOnRatingBar();
 
-
-
         //Google Analytics tracker
         sendScreenImageName();
-
         //mChildHelper = new NestedScrollingChildHelper(findViewById(R.layout.activity_detail));
-
     }
         // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
@@ -250,6 +248,11 @@ public class DetailActivity extends AppCompatActivity {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                PopupMenu popupMenu = new PopupMenu(DetailActivity.this, v);
+                popupMenu.setOnMenuItemClickListener(DetailActivity.this);
+                popupMenu.inflate(R.menu.main);
+                popupMenu.show();
+
                 /*
                 String text = "我正在学啥的公开课: " + title;
                 Intent sendIntent = new Intent();
@@ -258,25 +261,6 @@ public class DetailActivity extends AppCompatActivity {
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 */
-
-                WXVideoObject videoObject = new WXVideoObject();
-                videoObject.videoUrl = uri.toString();
-
-                WXMediaMessage msg = new WXMediaMessage(videoObject);
-                msg.title = title;
-                msg.description = description;
-                videoImage.getHeight();
-                Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
-                //videoImage.recycle();
-                //Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_import_contacts_white_24dp);
-                msg.thumbData = bmpToByteArray(thumb, true);
-
-                SendMessageToWX.Req req = new SendMessageToWX.Req();
-                req.transaction = buildTransaction("video");
-                req.message = msg;
-                req.scene = SendMessageToWX.Req.WXSceneSession;
-                api.sendReq(req);
-
 
                 /*
                 WXTextObject textObject = new WXTextObject();
@@ -292,49 +276,41 @@ public class DetailActivity extends AppCompatActivity {
                 req.scene = SendMessageToWX.Req.WXSceneSession;
                 api.sendReq(req);
                 */
-                /*
-                Toast.makeText(getApplicationContext(), "Share to Wechat",Toast.LENGTH_SHORT).show();
-
-                final EditText editor = new EditText(DetailActivity.this);
-                editor.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                editor.setText("我正在学啥的公开课: " + title);
-
-                MMAlert.showAlert(DetailActivity.this, "send text", editor, "分享", "取消", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String text = editor.getText().toString();
-                        if (text == null || text.length() == 0) {
-                            return;
-                        }
-
-                        WXTextObject textObj = new WXTextObject();
-                        textObj.text = text;
-
-                        WXMediaMessage msg = new WXMediaMessage();
-                        msg.mediaObject = textObj;
-
-                        // msg.title = "Will be ignored";
-                        msg.description = text;
-
-
-                        SendMessageToWX.Req req = new SendMessageToWX.Req();
-                        req.transaction = buildTransaction("text");
-                        req.message = msg;
-
-                        //Share to friend
-                        req.scene = 1;
-                        //req.scene = isTimelineCb.isChecked() ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
-
-                        api.sendReq(req);
-                        finish();
-                    }
-                }, null);
-                */
             }
         });
     }
 
+    public boolean onMenuItemClick(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.shareWXSession:
+                WXShare(true);
+                return true;
+            case R.id.shareWXTimeline:
+                WXShare(false);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public void WXShare(boolean isTimelineCb){
+        WXVideoObject videoObject = new WXVideoObject();
+        videoObject.videoUrl = uri.toString();
+
+        WXMediaMessage msg = new WXMediaMessage(videoObject);
+        msg.title = title;
+        msg.description = description;
+        videoImage.getHeight();
+        Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
+        videoImage.recycle();
+        msg.thumbData = bmpToByteArray(thumb, true);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("video");
+        req.message = msg;
+        req.scene = isTimelineCb ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
+        api.sendReq(req);
+    }
 
 
     private byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
