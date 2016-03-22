@@ -2,11 +2,20 @@ package org.hackathon_ocw.androidclient;
 
 import org.hackathon_ocw.androidclient.Download_data.download_complete;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.hackathon_ocw.androidclient.wxapi.WXEntryActivity;
 import org.json.JSONArray;
@@ -16,6 +25,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -82,12 +92,15 @@ public class MainActivity extends AppCompatActivity
     private String openid;
 
     //User info
+    private UserProfile userProfile;
+    /*
     private String nickname;
     private int sex;
     private String province;
     private String city;
     private String country;
     private String headimgurl;
+    */
 
     private Tracker mTracker;
 
@@ -106,6 +119,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getUserProfileFromFile();
+
+        //CustomApplication customApplication = (CustomApplication)getApplication();
+        //userProfile = customApplication.getUserProfile();
+
         // Obtain the shared Tracker instance.
         CustomApplication application = (CustomApplication) getApplication();
         mTracker = application.getDefaultTracker();
@@ -118,10 +136,6 @@ public class MainActivity extends AppCompatActivity
         //floatingButtonInit();
         drawerInit();
         naviViewInit();
-        //ImageView imageView = (ImageView)findViewById(R.id.userImage);
-        //ImageLoader imageLoader = new ImageLoader(getApplicationContext());
-
-        //imageLoader.DisplayImage("http://img2.imgtn.bdimg.com/it/u=1457437487,655486635&fm=11&gp=0.jpg", imageView);
 
     }
 
@@ -206,11 +220,9 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
                 intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
                 intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
-                if(nickname != null) {
-                    intent.putExtra("nickname", nickname);
-                }
-                if(headimgurl != null){
-                    intent.putExtra("headimgurl", headimgurl);
+                if(userProfile.getNickname() != null) {
+                    intent.putExtra("nickname", userProfile.getNickname());
+                    intent.putExtra("headimgurl", userProfile.getHeadimgurl());
                 }
 
                 intent.setClass(MainActivity.this, DetailActivity.class);
@@ -228,10 +240,7 @@ public class MainActivity extends AppCompatActivity
                         .setLabel(mListAdapter.getIdbyPosition(position))
                         .setValue(1)
                         .build());
-
             }
-
-
         });
     }
 
@@ -384,7 +393,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     //Append Wechat login function
-
     public static String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
     //获取用户个人信息
     public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
@@ -452,11 +460,13 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
-                            nickname = (String)response.get("nickname");
-                            sex = (Integer)response.get("sex");
-                            city = (String)response.get("city");
-                            country = (String)response.get("country");
-                            headimgurl = (String)response.get("headimgurl");
+                            userProfile.setNickname((String)response.get("nickname"));
+                            userProfile.setSex((Integer) response.get("sex"));
+                            userProfile.setCity((String) response.get("city"));
+                            userProfile.setProvince((String) response.get("province"));
+                            userProfile.setCountry((String) response.get("country"));
+                            userProfile.setHeadimgurl((String) response.get("headimgurl"));
+
                             //Toast.makeText(getApplicationContext(), nickname + " " + country , Toast.LENGTH_SHORT).show();
                             UpdateUserProfile();
                         }catch(Exception e)
@@ -525,20 +535,164 @@ public class MainActivity extends AppCompatActivity
 
     public void UpdateUserProfile()
     {
-        //ImageView imageView = (ImageView)this.findViewById(R.id.userImage);
         CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
         com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);
-        imageLoader.get(headimgurl, listener);
+        imageLoader.get(userProfile.getHeadimgurl(), listener);
 
         TextView textView = (TextView)findViewById(R.id.userName);
-        textView.setText(nickname);
+        textView.setText(userProfile.getNickname());
 
+        //TODO:Update local user profile
+        JSONObject jsonObject = new JSONObject();
+        try
+        {
+            jsonObject.put("userid", userProfile.getUserid());
+            jsonObject.put("nickname", userProfile.getNickname());
+            jsonObject.put("sex", userProfile.getSex());
+            jsonObject.put("city", userProfile.getCity());
+            jsonObject.put("province", userProfile.getProvince());
+            jsonObject.put("country", userProfile.getCountry());
+            jsonObject.put("headimgurl", userProfile.getHeadimgurl());
+            if(userProfile.getDeviceid() == null)
+            {
+                userProfile.setDeviceid(Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+            }
+            jsonObject.put("deviceid", userProfile.getDeviceid());
+        }catch (Exception e)
+        {
+            Log.e("Json Error",e.toString());
+        }
 
+        String fileName = "userProfile.json";
+        File userProfileFile = new File(getApplicationContext().getFilesDir(), fileName);
+        try {
+            FileWriter fw = new FileWriter(userProfileFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(jsonObject.toString());
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            userProfileFile = null;
+        }
+    }
 
+    public void getUserProfileFromFile()
+    {
+        userProfile = new UserProfile();
+        String str;
+        //Read from local user profile
+        try {
+            InputStream inputStream = openFileInput("userProfile.json");
+
+            if (inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                str = stringBuilder.toString();
+
+                if(!str.contains("userid"))
+                {
+                    getUserId();
+                    return;
+                }
+                //Parse
+                try{
+                    JSONObject jsonObject = new JSONObject(str);
+                    userProfile.setUserid(jsonObject.getString("userid"));
+                    userProfile.setDeviceid(jsonObject.getString("deviceid"));
+                    userProfile.setNickname(jsonObject.getString("nickname"));
+                    userProfile.setSex(jsonObject.getInt("sex"));
+                    userProfile.setCity(jsonObject.getString("city"));
+                    userProfile.setProvince(jsonObject.getString("province"));
+                    userProfile.setCountry(jsonObject.getString("country"));
+                    userProfile.setHeadimgurl(jsonObject.getString("headimgurl"));
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+    }
+
+    public void setUserProfile() {
+        JSONObject jsonObject = new JSONObject();
+        try
+        {
+            jsonObject.put("userid", userProfile.getUserid());
+            Toast.makeText(getApplicationContext(),  userProfile.getUserid(), Toast.LENGTH_SHORT).show();
+        }catch (Exception e)
+        {
+            Log.e("Json Error",e.toString());
+        }
+
+        String fileName = "userProfile.json";
+        File userProfileFile = new File(getApplicationContext().getFilesDir(), fileName);
+        try {
+            FileWriter fw = new FileWriter(userProfileFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(jsonObject.toString());
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            userProfileFile = null;
+        }
 
     }
 
-
+    public void getUserId(){
+        String url = "http://jieko.cc/user";
+        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        userProfile.setDeviceid(android_id);
+        //Send POST request
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JSONObject jsonObject = new JSONObject();
+        try
+        {
+            jsonObject.put("deviceid", android_id);
+        }catch (Exception e)
+        {
+            Log.e("Json Error",e.toString());
+        }
+        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            userProfile.setUserid(String.valueOf((Long)response.getLong("userid")));
+                            setUserProfile();
+                        }catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+                return headers;
+            }
+        };
+        requestQueue.add(jsonRequest);
+    }
 }

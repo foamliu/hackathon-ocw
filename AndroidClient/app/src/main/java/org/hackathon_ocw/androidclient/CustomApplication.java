@@ -7,10 +7,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.os.Environment;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 import android.net.NetworkInfo.State;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
 
@@ -22,7 +32,19 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 import org.acra.collector.CrashReportData;
 import org.acra.sender.HttpSender;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.UUID;
 
 /**
@@ -41,11 +63,15 @@ public class CustomApplication extends Application {
     public ConnectivityManager manager;
 
     private Tracker mTracker;
+    private final static String TAG = "CustomApplication";
+    //private UserProfile userProfile;
 
     @Override
     public void onCreate()
     {
         super.onCreate();
+
+
 
         if(checkNetworkState())
         {
@@ -68,8 +94,6 @@ public class CustomApplication extends Application {
         }
         return mTracker;
     }
-
-
 
     public boolean checkNetworkState() {
         boolean flag = false;
@@ -134,8 +158,9 @@ public class CustomApplication extends Application {
         }
     }
 
-    public void getUUID()
-    {
+
+    /*
+    public String getUUID() {
         final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
 
         final String tmDevice, tmSerial, tmPhone, androidId;
@@ -145,8 +170,9 @@ public class CustomApplication extends Application {
 
         UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
         uniqueId = deviceUuid.toString();
+        return uniqueId;
     }
-
+    */
 }
 
 
