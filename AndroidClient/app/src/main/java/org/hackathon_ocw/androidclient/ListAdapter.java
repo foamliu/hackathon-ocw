@@ -60,6 +60,10 @@ public class ListAdapter extends BaseAdapter {
         return data.get(position).get("description");
     }
 
+    public String getVideoImgbyPosition(int position){
+        return data.get(position).get("thumb_url");
+    }
+
     public void clear()
     {
         data.clear();

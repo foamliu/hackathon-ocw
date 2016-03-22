@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
                 intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
                 intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
+                intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
                 if(userProfile.getNickname() != null) {
                     intent.putExtra("nickname", userProfile.getNickname());
                     intent.putExtra("headimgurl", userProfile.getHeadimgurl());
@@ -298,7 +299,6 @@ public class MainActivity extends AppCompatActivity
                 progressBar.setVisibility(View.GONE);
             }
         }, 4000);
-
     }
 
     @Override
@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity
         TextView textView = (TextView)findViewById(R.id.userName);
         textView.setText(userProfile.getNickname());
 
-        //TODO:Update local user profile
+        //Update local user profile
         JSONObject jsonObject = new JSONObject();
         try
         {

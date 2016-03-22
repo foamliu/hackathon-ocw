@@ -5,6 +5,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.MediaController;
@@ -45,12 +48,18 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.modelmsg.WXVideoObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.hackathon_ocw.androidclient.FullscreenVideoLayout;
 
@@ -58,6 +67,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
@@ -88,10 +98,12 @@ public class DetailActivity extends AppCompatActivity {
     private PopupWindow popWindow;
     private InputMethodManager imm;
     private EditText editText;
+    private Bitmap videoImage;
 
     private String courseId;
     private String description;
     private String title;
+    private String videoUrl;
 
     //User info
     private String nickname;
@@ -112,6 +124,8 @@ public class DetailActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_detail);
 
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
+
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         description = intent.getStringExtra("description");
@@ -119,11 +133,14 @@ public class DetailActivity extends AppCompatActivity {
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
         nickname = intent.getStringExtra("nickname");
         headimgurl = intent.getStringExtra("headimgurl");
+        videoUrl = intent.getStringExtra("videoImg");
 
         detailToolBarInit();
 
         titleDetail=(TextView)findViewById(R.id.titleDetail);
         titleDetail.setText(title);
+
+        getVideoImage(videoUrl);
 
         videoInit();
         viewPagerInit();
@@ -134,6 +151,8 @@ public class DetailActivity extends AppCompatActivity {
         addListenerOnViewCommentButton();
         //addListenerOnFavoritesButton();
         addListenerOnRatingBar();
+
+
 
         //Google Analytics tracker
         sendScreenImageName();
@@ -180,6 +199,25 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    public void getVideoImage(String url) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                //给imageView设置图片
+                videoImage = response;
+            }
+        }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueue.add(request);
+
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -212,13 +250,48 @@ public class DetailActivity extends AppCompatActivity {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                /*
                 String text = "我正在学啥的公开课: " + title;
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, text);
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
+                */
 
+                WXVideoObject videoObject = new WXVideoObject();
+                videoObject.videoUrl = uri.toString();
+
+                WXMediaMessage msg = new WXMediaMessage(videoObject);
+                msg.title = title;
+                msg.description = description;
+                videoImage.getHeight();
+                Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
+                //videoImage.recycle();
+                //Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_import_contacts_white_24dp);
+                msg.thumbData = bmpToByteArray(thumb, true);
+
+                SendMessageToWX.Req req = new SendMessageToWX.Req();
+                req.transaction = buildTransaction("video");
+                req.message = msg;
+                req.scene = SendMessageToWX.Req.WXSceneSession;
+                api.sendReq(req);
+
+
+                /*
+                WXTextObject textObject = new WXTextObject();
+                textObject.text = description;
+
+                WXMediaMessage msg = new WXMediaMessage();
+                msg.mediaObject = textObject;
+                msg.description = title;
+
+                SendMessageToWX.Req req = new SendMessageToWX.Req();
+                req.transaction = buildTransaction("text");
+                req.message = msg;
+                req.scene = SendMessageToWX.Req.WXSceneSession;
+                api.sendReq(req);
+                */
                 /*
                 Toast.makeText(getApplicationContext(), "Share to Wechat",Toast.LENGTH_SHORT).show();
 
@@ -260,6 +333,24 @@ public class DetailActivity extends AppCompatActivity {
                 */
             }
         });
+    }
+
+
+
+    private byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, output);
+        if (needRecycle) {
+            bmp.recycle();
+        }
+        byte[] result = output.toByteArray();
+        try {
+            output.close();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public void addListenerOnViewCommentButton(){
