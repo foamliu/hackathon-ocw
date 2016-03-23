@@ -101,12 +101,8 @@ public class CustomApplication extends Application {
             flag = manager.getActiveNetworkInfo().isAvailable();
         }
         if (!flag) {
-<<<<<<< HEAD
             //No network
             networkStatus = 0;
-=======
-            //setNetwork();
->>>>>>> 91d7e7b0d579d3948d4cb426bde024f8d9d8d2bf
         } else {
             //Wifi or 4G
             networkStatus = isNetworkAvailable();
