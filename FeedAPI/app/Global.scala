@@ -25,7 +25,8 @@ object Global extends GlobalSettings {
     def refreshDaemon(app: Application) = {
         Logger.info("Scheduling the data model refresh daemon")
         Akka.system(app).scheduler.schedule(0 seconds, 1 hours) {
-            Logger.info("refreshing data model")
+            Logger.info("Refreshing data model")
+            controllers.Application.refresh()
         }
     }
 
