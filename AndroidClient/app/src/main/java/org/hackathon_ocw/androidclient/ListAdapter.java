@@ -53,7 +53,14 @@ public class ListAdapter extends BaseAdapter {
     }
 
     public String getIdbyPosition(int position) {
-        return data.get(position).get("id");
+        if(data.size() <= position)
+        {
+            return  data.get(position-1).get("id");
+        }
+        else
+        {
+            return data.get(position).get("id");
+        }
     }
 
     public String getDiscriptionbyPosition(int position) {

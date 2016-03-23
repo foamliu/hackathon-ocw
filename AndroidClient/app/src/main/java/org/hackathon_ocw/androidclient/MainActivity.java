@@ -256,27 +256,31 @@ public class MainActivity extends AppCompatActivity
         mListView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    //Show subpage
+                    Intent intent = new Intent();
+                    intent.putExtra("id", mListAdapter.getIdbyPosition(position));
+                    intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
+                    intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
+                    intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
+                    intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
+                    intent.putExtra("userid", userProfile.getUserid());
+                    if(userProfile.getNickname() != null) {
+                        intent.putExtra("nickname", userProfile.getNickname());
+                        intent.putExtra("headimgurl", userProfile.getHeadimgurl());
+                    }
 
-                //Show subpage
-                Intent intent = new Intent();
-                intent.putExtra("id", mListAdapter.getIdbyPosition(position));
-                intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
-                intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
-                intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
-                intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
-                intent.putExtra("userid", userProfile.getUserid());
-                if(userProfile.getNickname() != null) {
-                    intent.putExtra("nickname", userProfile.getNickname());
-                    intent.putExtra("headimgurl", userProfile.getHeadimgurl());
+                    intent.setClass(MainActivity.this, DetailActivity.class);
+                    startActivity(intent);
+
+                    //Send post to server
+                    String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
+                    Runnable networkTask = new NetworkThread(courseId, 3);
+                    new Thread(networkTask).start();
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
                 }
-
-                intent.setClass(MainActivity.this, DetailActivity.class);
-                startActivity(intent);
-
-                //Send post to server
-                String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
-                Runnable networkTask = new NetworkThread(courseId, 3);
-                new Thread(networkTask).start();
 
                 //Send event to Google Analytics
                 mTracker.send(new HitBuilders.EventBuilder()
