@@ -218,6 +218,7 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
                 intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
                 intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
+                intent.putExtra("userid", userProfile.getUserid());
                 if(userProfile.getNickname() != null) {
                     intent.putExtra("nickname", userProfile.getNickname());
                     intent.putExtra("headimgurl", userProfile.getHeadimgurl());
@@ -463,7 +464,6 @@ public class MainActivity extends AppCompatActivity
                             userProfile.setProvince((String) response.get("province"));
                             userProfile.setCountry((String) response.get("country"));
                             userProfile.setHeadimgurl((String) response.get("headimgurl"));
-
                             //Toast.makeText(getApplicationContext(), nickname + " " + country , Toast.LENGTH_SHORT).show();
                             UpdateUserProfile();
                         }catch(Exception e)

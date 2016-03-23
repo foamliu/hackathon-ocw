@@ -42,8 +42,11 @@ public class TabComment extends Fragment implements Download_data.download_compl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.tab_comment_detail, container, false);
 
+        Bundle b = getActivity().getIntent().getExtras();
+        String courseid = b.getString("id");
+
         final Download_data download_data = new Download_data((Download_data.download_complete) this);
-        download_data.download_data_from_link(getCommentUrl + "1" + "/Comments");
+        download_data.download_data_from_link(getCommentUrl + courseid + "/Comments");
 
         mCommentView = (ListView) inflatedView.findViewById(R.id.commentList);
         mCommentAdapter = new CommentAdapter(getActivity(), commentList);

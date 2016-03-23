@@ -108,8 +108,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private String videoUrl;
 
     //User info
-    private String nickname;
-    private String headimgurl;
+    private UserProfile userProfile;
 
     private Tracker mTracker;
 
@@ -128,13 +127,16 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
 
+        userProfile = new UserProfile();
+
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         description = intent.getStringExtra("description");
         courseId = intent.getStringExtra("id");
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
-        nickname = intent.getStringExtra("nickname");
-        headimgurl = intent.getStringExtra("headimgurl");
+        userProfile.setNickname(intent.getStringExtra("nickname"));
+        userProfile.setHeadimgurl(intent.getStringExtra("headimgurl"));
+        userProfile.setUserid(intent.getStringExtra("userid"));
         videoUrl = intent.getStringExtra("videoImg");
 
         detailToolBarInit();
@@ -158,7 +160,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         sendScreenImageName();
         //mChildHelper = new NestedScrollingChildHelper(findViewById(R.layout.activity_detail));
     }
-        // Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
     public void viewPagerInit(){
         viewPager = (ViewPager) findViewById(R.id.detailPager);
@@ -487,14 +488,11 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 //Get item_id
                 int item_id = Integer.valueOf(courseId);
 
-                //Fake the item_id
-                item_id = 1;
-
-                //Get author_id (faked)
-                int author_id = 1;
+                //Get author_id
+                int author_id = Integer.valueOf(userProfile.getUserid());
                 String author_name;
-                if(nickname != null) {
-                    author_name = nickname;
+                if(userProfile.getNickname() != null) {
+                    author_name = userProfile.getNickname();
                 }
                 else {
                     author_name = "匿名用户";
@@ -512,16 +510,13 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 String comment = editText.getText().toString();
 
                 //Get current timeline
-                //VideoView videoView = (VideoView)findViewById(R.id.videoView);
-                //int timeline = (videoView.getCurrentPosition()) / 1000;
 
                 int timeline = videoLayout.getCurrentPosition() / 1000;
 
-
                 //Get Url
-                //String httpurl = "http://jieko.cc/item/" + courseId + "/Comments";
+                String httpurl = "http://jieko.cc/item/" + courseId + "/Comments";
                 //For debug
-                String httpurl = "http://jieko.cc/item/1/Comments";
+                //String httpurl = "http://jieko.cc/item/1/Comments";
 
                 //Send a POST message
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -570,15 +565,14 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 HashMap<String, String>map = new HashMap<String, String>();
                 map.put("commentId", String.valueOf(item_id));
                 //map.put("author_id", String.valueOf(author_id));
-
                 map.put("userName", author_name);
                 map.put("commentTime", currentTimeStr);
                 map.put("comment", comment);
                 map.put("timeline", String.valueOf(timeline));
                 map.put("like", String.valueOf(like));
-                if(headimgurl != null)
+                if(userProfile.getHeadimgurl() != null)
                 {
-                    map.put("headimgurl", headimgurl);
+                    map.put("headimgurl", userProfile.getHeadimgurl());
                 }
 
                 PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter)viewPager.getAdapter();
