@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -400,13 +403,23 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     commentShowPopup(v);
-                    Toast.makeText(getApplicationContext(), "Get Focus",Toast.LENGTH_SHORT).show();
+                    editText.clearFocus();
+                    popUpInputMethodWindow();
                     //popUpInputMethodWindow();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Lose Focus",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(popWindow != null && popWindow.isShowing()) {
+            popWindow.dismiss();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     public void commentShowPopup(final View parent){
@@ -415,16 +428,16 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         {
             LayoutInflater layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(R.layout.comment_popwindow, null);
-            popWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, 80, true);
+            popWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, 80);
         }
         else
         {
             popWindow.update();
         }
         //popWindow.setAnimationStyle(R.style.pop);
+        popWindow.setBackgroundDrawable(new ShapeDrawable());
         popWindow.setFocusable(true);
-        popWindow.setOutsideTouchable(false);
-        popWindow.setBackgroundDrawable(new BitmapDrawable());
+        popWindow.setOutsideTouchable(true);
         popWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
         addListenerOnSendCommentButton();
