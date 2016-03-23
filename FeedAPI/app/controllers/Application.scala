@@ -93,6 +93,13 @@ object Application {
         }
 
     }
+    
+    def refresh() = {
+        if (null != recommender)
+        {
+            recommender.refresh(null);
+        }
+    }
 }
 
 class Application extends Controller {
