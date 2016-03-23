@@ -280,7 +280,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         msg.description = description;
         videoImage.getHeight();
         Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
-        videoImage.recycle();
+        //videoImage.recycle();
         msg.thumbData = bmpToByteArray(thumb, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -394,9 +394,10 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     commentShowPopup(v);
+                    Toast.makeText(getApplicationContext(), "Get Focus",Toast.LENGTH_SHORT).show();
                     //popUpInputMethodWindow();
                 } else {
-
+                    Toast.makeText(getApplicationContext(), "Lose Focus",Toast.LENGTH_SHORT).show();
                 }
             }
         });
