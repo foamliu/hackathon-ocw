@@ -61,7 +61,7 @@ public class RefreshLayout extends SwipeRefreshLayout {
     }
 
     private boolean isBottom() {
-        if (mListView.getCount() > 1) {
+        if (mListView != null && mListView.getCount() > 1) {
             if (mListView.getLastVisiblePosition() == mListView.getAdapter().getCount() - 1 &&
                     mListView.getChildAt(mListView.getChildCount() - 1).getBottom() <= mListView.getHeight()) {
                 return true;
@@ -81,17 +81,18 @@ public class RefreshLayout extends SwipeRefreshLayout {
     }
 
     public void setLoading(boolean loading) {
-        if (mListView == null) return;
-        isLoading = loading;
-        if (loading) {
-            if (isRefreshing()) {
-                setRefreshing(false);
+        if (mListView != null) {
+            isLoading = loading;
+            if (loading) {
+                if (isRefreshing()) {
+                    setRefreshing(false);
+                }
+                mListView.setSelection(mListView.getAdapter().getCount() - 1);
+                mOnLoadListener.onLoad();
+            } else {
+                firstTouchY = 0;
+                lastTouchY = 0;
             }
-            mListView.setSelection(mListView.getAdapter().getCount() - 1);
-            mOnLoadListener.onLoad();
-        } else {
-            firstTouchY = 0;
-            lastTouchY = 0;
         }
     }
 
