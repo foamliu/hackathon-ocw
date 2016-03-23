@@ -61,6 +61,7 @@ import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXTextObject;
 import com.tencent.mm.sdk.modelmsg.WXVideoObject;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
@@ -272,10 +273,14 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     }
 
     public void WXShare(boolean isTimelineCb){
-        WXVideoObject videoObject = new WXVideoObject();
-        videoObject.videoUrl = uri.toString();
+        //WXVideoObject videoObject = new WXVideoObject();
+        //videoObject.videoUrl = uri.toString();
 
-        WXMediaMessage msg = new WXMediaMessage(videoObject);
+        WXWebpageObject webpageObject = new WXWebpageObject();
+        webpageObject.webpageUrl = uri.toString();
+
+        //WXMediaMessage msg = new WXMediaMessage(videoObject);
+        WXMediaMessage msg = new WXMediaMessage(webpageObject);
         msg.title = title;
         msg.description = description;
         videoImage.getHeight();
@@ -284,10 +289,11 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         msg.thumbData = bmpToByteArray(thumb, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = buildTransaction("video");
+        req.transaction = buildTransaction("webpage");
         req.message = msg;
         req.scene = isTimelineCb ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         api.sendReq(req);
+
     }
 
     private byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {

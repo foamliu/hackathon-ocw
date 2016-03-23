@@ -22,7 +22,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -119,21 +124,62 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getUserProfileFromFile();
+        if(checkNetworkStatus())
+        {
+            getUserProfileFromFile();
 
-        // Obtain the shared Tracker instance.
-        CustomApplication application = (CustomApplication) getApplication();
-        mTracker = application.getDefaultTracker();
+            // Obtain the shared Tracker instance.
+            CustomApplication application = (CustomApplication) getApplication();
+            mTracker = application.getDefaultTracker();
 
-        titleMainToolBar=(TextView)findViewById(R.id.titleMainToolBar);
-        titleMainToolBar.setText("学啥");
+            titleMainToolBar=(TextView)findViewById(R.id.titleMainToolBar);
+            titleMainToolBar.setText("学啥");
 
-        toolbarInit();
-        listViewInit();
-        //floatingButtonInit();
-        drawerInit();
-        naviViewInit();
+            toolbarInit();
+            listViewInit();
+            //floatingButtonInit();
+            drawerInit();
+            naviViewInit();
+        }
+    }
 
+    public boolean checkNetworkStatus(){
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (manager.getActiveNetworkInfo() == null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                //builder.setIcon(R.drawable.ic_launcher);
+                builder.setTitle("网络提示信息");
+                builder.setMessage("网络不可用，如果继续，请先设置网络！");
+                builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = null;
+                        if (android.os.Build.VERSION.SDK_INT > 10) {
+                            intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                        } else {
+                            intent = new Intent();
+                            ComponentName component = new ComponentName(
+                                    "com.android.settings",
+                                    "com.android.settings.WirelessSettings");
+                            intent.setComponent(component);
+                            intent.setAction("android.intent.action.VIEW");
+                        }
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.create();
+                builder.show();
+                return false;
+            }
+        return true;
     }
 
     public void naviViewInit(){
