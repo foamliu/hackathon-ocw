@@ -254,29 +254,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 popupMenu.inflate(R.menu.main);
                 popupMenu.show();
 
-                /*
-                String text = "我正在学啥的公开课: " + title;
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, text);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-                */
-
-                /*
-                WXTextObject textObject = new WXTextObject();
-                textObject.text = description;
-
-                WXMediaMessage msg = new WXMediaMessage();
-                msg.mediaObject = textObject;
-                msg.description = title;
-
-                SendMessageToWX.Req req = new SendMessageToWX.Req();
-                req.transaction = buildTransaction("text");
-                req.message = msg;
-                req.scene = SendMessageToWX.Req.WXSceneSession;
-                api.sendReq(req);
-                */
             }
         });
     }
@@ -312,7 +289,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         req.scene = isTimelineCb ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         api.sendReq(req);
     }
-
 
     private byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();

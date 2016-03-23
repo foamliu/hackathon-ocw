@@ -289,23 +289,6 @@ public class FullscreenVideoView extends RelativeLayout implements SurfaceHolder
         layoutParams.addRule(CENTER_IN_PARENT);
         this.loadingView.setLayoutParams(layoutParams);
         addView(this.loadingView);
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//            this.addOnLayoutChangeListener(new OnLayoutChangeListener() {
-//                @Override
-//                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                    Log.i(TAG, "onLayoutChange");
-//
-//                    Handler handler = new Handler(Looper.getMainLooper());
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            resize();
-//                        }
-//                    });
-//                }
-//            });
-//        }
     }
 
     /**
