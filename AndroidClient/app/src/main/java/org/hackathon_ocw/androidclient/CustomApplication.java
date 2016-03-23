@@ -102,7 +102,7 @@ public class CustomApplication extends Application {
             flag = manager.getActiveNetworkInfo().isAvailable();
         }
         if (!flag) {
-            setNetwork();
+            //setNetwork();
         } else {
             flag = isNetworkAvailable();
         }
