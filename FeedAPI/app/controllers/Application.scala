@@ -63,12 +63,12 @@ object Application {
     }
 
     private def recommend(userID: Long): List[Long] = {
-        Logger.info("userID=%d".format(userID))
+        Logger.debug("userID=%d".format(userID))
         var list = List[Long]()
 
         try {
             var recommendations = getRecommender.recommend(userID, howMany)
-            Logger.info("recommendations.size=%d".format(recommendations.size))
+            Logger.debug("recommendations.size=%d".format(recommendations.size))
 
             for (r <- recommendations) list = r.getItemID :: list
 
