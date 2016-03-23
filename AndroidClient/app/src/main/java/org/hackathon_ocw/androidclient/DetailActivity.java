@@ -387,7 +387,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
                 //Send the ratings to server...
                 //Send post to server
-                Runnable networkTask = new NetworkThread(courseId, rating);
+                Runnable networkTask = new NetworkThread(userProfile.getUserid(), courseId, rating);
                 new Thread(networkTask).start();
             }
         });

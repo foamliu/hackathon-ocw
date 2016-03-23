@@ -17,8 +17,11 @@ public class NetworkThread implements Runnable{
 
     private String courseId;
 
-    public NetworkThread(String courseId, float rating)
+    private String userid;
+
+    public NetworkThread(String userid, String courseId, float rating)
     {
+        this.userid = userid;
         this.courseId = courseId;
         this.rating = rating;
     }
@@ -29,7 +32,7 @@ public class NetworkThread implements Runnable{
         long ipAddrLong = new GetUserIdFromIP().getUserId();
         //Toast.makeText(getApplicationContext(), ipAddress, Toast.LENGTH_SHORT).show();
         try {
-            SendPostRequest(ipAddrLong, courseId, rating);
+            SendPostRequest(Long.valueOf(userid), courseId, rating);
         } catch (Exception e) {
             //Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }

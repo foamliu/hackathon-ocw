@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity
 
                     //Send post to server
                     String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
-                    Runnable networkTask = new NetworkThread(courseId, 3);
+                    Runnable networkTask = new NetworkThread(userProfile.getUserid(), courseId, 3);
                     new Thread(networkTask).start();
                 }catch (Exception e)
                 {
