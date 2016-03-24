@@ -68,7 +68,10 @@ object Application {
 
         try {
             var recommendations = getRecommender.recommend(userID, howMany)
-            Logger.debug("recommendations.size=%d".format(recommendations.size))
+            if (recommendations.size > 0)
+            {
+                Logger.info("userID=%d recommendations.size=%d".format(userID, recommendations.size))
+            }
 
             for (r <- recommendations) list = r.getItemID :: list
 
