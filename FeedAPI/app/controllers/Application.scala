@@ -100,7 +100,11 @@ object Application {
     def refresh() = {
         if (null != recommender)
         {
+            val t0 = System.nanoTime()
             recommender.refresh(null);
+            val t1 = System.nanoTime()
+
+            Logger.info("Data model refreshment is done, elapsed time: %f sec, number of users: %ld, number of items: %ld.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
         }
     }
 }
