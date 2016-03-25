@@ -4,11 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +35,7 @@ public class TabComment extends Fragment implements Download_data.download_compl
     public ListView mCommentView;
     public CommentAdapter mCommentAdapter;
 
+    static final String KEY_AUTHORID = "author_id";
     static final String KEY_USERNAME = "userName";
     static final String KEY_COMMENT = "comment";
     static final String KEY_COMMENT_ID = "commentId";
@@ -33,7 +43,9 @@ public class TabComment extends Fragment implements Download_data.download_compl
     static final String KEY_LIKE = "like";
     static final String KEY_USERIMAGE = "headimgurl";
     static final String KEY_TIMELINE = "timeline";
+    static final String KEY_HEADIMGURL = "headimgurl";
     static final String getCommentUrl = "http://jieko.cc/item/";
+    int iterator;
 
     public ArrayList<HashMap<String, String>> commentList = new ArrayList<HashMap<String, String>>();
 
@@ -65,21 +77,51 @@ public class TabComment extends Fragment implements Download_data.download_compl
                 JSONObject obj=new JSONObject(data_array.get(i).toString());
 
                 HashMap<String, String> map = new HashMap<String,String>();
-                //map.put(KEY_USERNAME,obj.getString("userName"));
+                map.put(KEY_AUTHORID, String.valueOf(obj.getInt("author_id")));
                 map.put(KEY_USERNAME,obj.getString("author_name"));
                 map.put(KEY_COMMENT,obj.getString("text"));
                 map.put(KEY_LIKE, obj.getString("like"));
                 map.put(KEY_COMMENTTIME, obj.getString("posted"));
-                map.put(KEY_TIMELINE,obj.getString("timeline"));
-                //map.put(KEY_USERIMAGE,obj.getString("courselink"));
+                map.put(KEY_TIMELINE, obj.getString("timeline"));
                 commentList.add(map);
             }
             mCommentAdapter.notifyDataSetChanged();
+            GetHeadImage(commentList);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public void GetHeadImage(final ArrayList<HashMap<String, String>> list) {
+        //Send Get request
+        for(iterator = 0; iterator < list.size(); iterator++)
+        {
+            final String author_id = list.get(iterator).get("author_id");
+            String url = "http://jieko.cc/user/" + author_id;
+
+            //Send Request here
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                //String headimgurl = (String) response.get("headimgurl");
+                                list.get(iterator).put(KEY_HEADIMGURL, (String) response.get("headimgurl"));
+                                mCommentAdapter.notifyDataSetChanged();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("Error.Response", error.toString());
+                }
+            });
+            requestQueue.add(jsonRequest);
+        }
+    }
 
 }
