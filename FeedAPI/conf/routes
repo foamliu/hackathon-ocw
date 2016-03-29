@@ -9,7 +9,7 @@ POST    /crashes                    controllers.Application.addCrashReport
 POST    /user/:id/Preferences       controllers.Ratings.add(id: Long)
 GET     /users                      controllers.Users.list
 POST    /user                       controllers.Users.register
-PATCH   /user/:id                   controllers.Users.update(id: Long)
+POST    /user/:id                   controllers.Users.update(id: Long)
 GET     /user/:id                   controllers.Users.get(id: Long)
 POST    /item/:id/Comments			controllers.Comments.add(id: Long)
 GET     /item/:id/Comments          controllers.Comments.get(id: Long)
