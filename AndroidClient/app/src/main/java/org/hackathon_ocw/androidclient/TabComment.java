@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
@@ -102,13 +103,13 @@ public class TabComment extends Fragment implements Download_data.download_compl
 
             //Send Request here
             RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-            JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONObject>() {
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
+                    new Response.Listener<JSONArray>() {
                         @Override
-                        public void onResponse(JSONObject response) {
+                        public void onResponse(JSONArray response) {
                             try {
-                                //String headimgurl = (String) response.get("headimgurl");
-                                list.get(iterator).put(KEY_HEADIMGURL, (String) response.get("headimgurl"));
+                                JSONObject jsonObject = new JSONObject(response.getString(0));
+                                list.get(iterator-1).put(KEY_HEADIMGURL, (String) jsonObject.get("headimgurl"));
                                 mCommentAdapter.notifyDataSetChanged();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -120,7 +121,7 @@ public class TabComment extends Fragment implements Download_data.download_compl
                     Log.d("Error.Response", error.toString());
                 }
             });
-            requestQueue.add(jsonRequest);
+            requestQueue.add(jsonArrayRequest);
         }
     }
 
