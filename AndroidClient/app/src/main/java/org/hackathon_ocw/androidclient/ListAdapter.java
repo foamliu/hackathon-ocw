@@ -112,7 +112,8 @@ public class ListAdapter extends BaseAdapter {
 
         //Will be replaced by real data
         //videoDurationText.setText("03:59");
-        videoWatchedText.setText("网易公开课");
+        //videoWatchedText.setText("网易公开课");
+        videoWatchedText.setText(course.get(MainActivity.KEY_SOURCE));
 
         return vi;
     }
