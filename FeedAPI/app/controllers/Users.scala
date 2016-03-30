@@ -1,24 +1,63 @@
 package controllers
 
-import javax.inject.Inject
-import play.api._
-import play.api.mvc._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json._
-import reactivemongo.bson.{ BSONObjectID, BSONDocument }
-import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
-import reactivemongo.api.commands.WriteResult
-import play.modules.reactivemongo.{
-    MongoController,
-    ReactiveMongoApi,
-    ReactiveMongoComponents
-}
-import scala.util.Failure
-import scala.util.Success
 import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+
 import backend.CounterRepo
+import javax.inject.Inject
+import play.api.Logger
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.functional.syntax.functionalCanBuildApplicative
+import play.api.libs.functional.syntax.toFunctionalBuilderOps
+import play.api.libs.json.JsObject
+import play.api.libs.json.JsPath
+import play.api.libs.json.JsValue
+import play.api.libs.json.JsValue.jsValueToJsLookup
+import play.api.libs.json.Json
+import play.api.libs.json.Json.toJsFieldJsValueWrapper
+import play.api.libs.json.Reads
+import play.api.libs.json.Reads.LongReads
+import play.api.libs.json.Reads.functorReads
+import play.api.libs.json.Writes
+import play.api.mvc.Action
+import play.api.mvc.BodyParsers
+import play.api.mvc.Controller
+import play.modules.reactivemongo.MongoController
+import play.modules.reactivemongo.ReactiveMongoApi
+import play.modules.reactivemongo.ReactiveMongoComponents
+import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
+
+case class User(userID: Long, deviceID: String, openID: String, nickname: String, sex: String, province: String, city: String, country: String, headimgurl: String)
+
+object User {
+    import controllers.UserFields._
+
+    implicit val userReads: Reads[User] = (
+        (JsPath \\ UserID).read[Long] and
+        (JsPath \\ DeviceID).read[String] and
+        (JsPath \\ OpenID).read[String] and
+        (JsPath \\ Nickname).read[String] and
+        (JsPath \\ Sex).read[String] and
+        (JsPath \\ Province).read[String] and
+        (JsPath \\ City).read[String] and
+        (JsPath \\ Country).read[String] and
+        (JsPath \\ HeadImgUrl).read[String])(User.apply _)
+
+    implicit val userWrites = new Writes[User] {
+        def writes(c: User): JsValue =
+            Json.obj(
+                UserID -> c.userID,
+                DeviceID -> c.deviceID,
+                OpenID -> c.openID,
+                Nickname -> c.nickname,
+                Sex -> c.sex,
+                Province -> c.province,
+                City -> c.city,
+                Country -> c.country,
+                HeadImgUrl -> c.headimgurl)
+    }
+}
 
 class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         extends Controller with MongoController with ReactiveMongoComponents {
@@ -69,7 +108,7 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         }
     }
 
-    def update(id: Long) = Action.async(BodyParsers.parse.json) { implicit request =>
+    def update(id: Long) = Action.async(BodyParsers.parse.json) { implicit request =>        
         userRepo.save(request.body.as[JsObject])
 
         Future(Ok(request.body))
