@@ -405,7 +405,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                     commentShowPopup(v);
                     editText.clearFocus();
                     popUpInputMethodWindow();
-                    //popUpInputMethodWindow();
                 } else {
                 }
             }

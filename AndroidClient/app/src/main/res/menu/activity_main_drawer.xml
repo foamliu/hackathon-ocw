@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_face_black_24dp"
-            android:title="登陆" />
+            android:title="登录" />
         <!--
         <item
             android:id="@+id/nav_gallery"
@@ -22,6 +22,7 @@
             -->
     </group>
 
+    <!--
     <item android:title="Communicate">
         <menu>
             <item
@@ -34,5 +35,6 @@
                 android:title="发送反馈" />
         </menu>
     </item>
+    -->
 
 </menu>
