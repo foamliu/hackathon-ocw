@@ -25,9 +25,25 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath)
         
         let course = courses[indexPath.row] as Course
-        cell.textLabel?.text = course.name
-        cell.detailTextLabel?.text = course.description
+        
+        if let nameLabel = cell.viewWithTag(100) as? UILabel {
+            nameLabel.text = course.name
+        }
+        
+        if let descriptionLabel = cell.viewWithTag(101) as? UILabel {
+            descriptionLabel.text = course.description
+        }
+        
+        if let ratingImageView = cell.viewWithTag(102) as? UIImageView {
+            ratingImageView.image = self.imageForRating(course.rating)
+        }
+
         return cell
+    }
+    
+    func imageForRating(rating:Int) -> UIImage? {
+        let imageName = "\(rating)Stars"
+        return UIImage(named: imageName)
     }
     
     override func viewDidLoad() {
