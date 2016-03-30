@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  DetailViewController.swift
 //  iosclient
 //
 //  Created by 典 杨 on 16/3/30.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
 
+class DetailViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
-
