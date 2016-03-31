@@ -56,6 +56,12 @@ class TableViewController: UITableViewController {
             descriptionLabel.text = courses[indexPath.row].valueForKey("description") as! String
         }
         
+        if let courseImageView = cell.viewWithTag(102) as? UIImageView {
+            let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
+            courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
+        }
+
+        
         return cell
     }
     
