@@ -16,9 +16,33 @@ class TableViewController: UITableViewController {
     //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
     
+    var customRefreshControl = UIRefreshControl()
+    var dateFormatter = NSDateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         jsonParsingFromUrl()
+        
+        self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        
+        self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
+        self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView?.addSubview(customRefreshControl)
+    }
+    
+    func refresh(customRefreshControl: UIRefreshControl){
+        jsonParsingFromUrl()
+        
+        let now = NSDate()
+        let updateString = "更新于 " + self.dateFormatter.stringFromDate(now)
+        self.customRefreshControl.attributedTitle = NSAttributedString(string: updateString)
+        
+        courses.removeAllObjects()
+        self.tableView.reloadData()
+        self.customRefreshControl.endRefreshing()
+        
+        
     }
     
     func jsonParsingFromUrl(){
@@ -49,18 +73,17 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell") as! TableViewCell
         
         if let nameLabel = cell.viewWithTag(100) as? UILabel {
-            nameLabel.text = courses[indexPath.row].valueForKey("title") as! String
+            nameLabel.text = courses[indexPath.row].valueForKey("title") as? String
         }
         
         if let descriptionLabel = cell.viewWithTag(101) as? UILabel {
-            descriptionLabel.text = courses[indexPath.row].valueForKey("description") as! String
+            descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
         }
         
         if let courseImageView = cell.viewWithTag(102) as? UIImageView {
             let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
             courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
         }
-
         
         return cell
     }
