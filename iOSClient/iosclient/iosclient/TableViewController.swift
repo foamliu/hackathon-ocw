@@ -8,11 +8,12 @@
 
 import UIKit
 import Alamofire
-
+import SDWebImage
 
 
 class TableViewController: UITableViewController {
     
+    //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
     
     override func viewDidLoad() {
@@ -23,15 +24,13 @@ class TableViewController: UITableViewController {
     func jsonParsingFromUrl(){
         let url = NSURL(string: "http://api.jieko.cc/user/15/Candidates")
         let request = NSURLRequest(URL: url!)
-        
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
         }
     }
     
     func startParsing(data: NSData){
         let dict: NSDictionary!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
-        for (var i = 0; i < (dict.valueForKey("courses") as! NSArray).count; i++)
-        {
+        for i in 0...((dict.valueForKey("courses") as! NSArray).count - 1){
             courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
         }
         tableView.reloadData()
@@ -49,8 +48,6 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell") as! TableViewCell
         
-        //let course = courses[indexPath.row] as Course
-        
         if let nameLabel = cell.viewWithTag(100) as? UILabel {
             nameLabel.text = courses[indexPath.row].valueForKey("title") as! String
         }
@@ -59,18 +56,14 @@ class TableViewController: UITableViewController {
             descriptionLabel.text = courses[indexPath.row].valueForKey("description") as! String
         }
         
-        /*
-        if let ratingImageView = cell.viewWithTag(102) as? UIImageView {
-            ratingImageView.image = self.imageForRating(course.rating)
-        }
-         */
-
         return cell
     }
     
+    /*
     func imageForRating(rating:Int) -> UIImage? {
         let imageName = "\(rating)Stars"
         return UIImage(named: imageName)
     }
+     */
     
 }
