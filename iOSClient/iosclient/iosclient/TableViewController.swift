@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+
 
 
 class TableViewController: UITableViewController {
@@ -45,16 +47,5 @@ class TableViewController: UITableViewController {
         let imageName = "\(rating)Stars"
         return UIImage(named: imageName)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
 }

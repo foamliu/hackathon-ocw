@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="232" y="399"/>
         </scene>
-        <!--Learn!-->
+        <!--学啥-->
         <scene sceneID="xz2-E2-Mpl">
             <objects>
                 <tableViewController id="oHY-9l-1N7" customClass="TableViewController" customModule="iosclient" sceneMemberID="viewController">
@@ -44,13 +44,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="n0l-mo-huc">
                                                     <rect key="frame" x="0.0" y="8" width="0.0" height="48"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNh-wn-M2g" userLabel="Name">
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNh-wn-M2g" userLabel="Name">
                                                             <rect key="frame" x="0.0" y="0.0" width="0.0" height="22"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXC-kb-bMG" userLabel="Description">
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXC-kb-bMG" userLabel="Description">
                                                             <rect key="frame" x="0.0" y="34" width="0.0" height="14"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -84,7 +84,7 @@
                             <outlet property="delegate" destination="oHY-9l-1N7" id="PIH-Tj-eKW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Learn!" id="Lut-H0-IFJ"/>
+                    <navigationItem key="navigationItem" title="学啥" id="Lut-H0-IFJ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqY-hV-qa7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
