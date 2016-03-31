@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_THUMB_URL = "thumb_url";
     static final String KEY_VIDEOURL = "videoUrl";
     static final String KEY_DURATION = "videoDuration";
+    static final String KEY_SOURCE = "source";
     static final String Url = "http://api.jieko.cc/user/";
 
     @Override
@@ -275,7 +276,7 @@ public class MainActivity extends AppCompatActivity
 
                     //Send post to server
                     String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
-                    Runnable networkTask = new NetworkThread(courseId, 3);
+                    Runnable networkTask = new NetworkThread(userProfile.getUserid(), courseId, 3);
                     new Thread(networkTask).start();
                 }catch (Exception e)
                 {
@@ -366,6 +367,7 @@ public class MainActivity extends AppCompatActivity
                 map.put(KEY_THUMB_URL,obj.getString("piclink"));
                 map.put(KEY_VIDEOURL,obj.getString("courselink"));
                 map.put(KEY_DURATION,obj.getString("duration"));
+                map.put(KEY_SOURCE,obj.getString("source"));
                 courseList.add(map);
 
             }
@@ -428,12 +430,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         }
-        */
         else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }
+        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -508,6 +510,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
+                            userProfile.setOpenid((String)response.get("openid"));
                             userProfile.setNickname((String)response.get("nickname"));
                             userProfile.setSex((Integer) response.get("sex"));
                             userProfile.setCity((String) response.get("city"));
@@ -596,6 +599,7 @@ public class MainActivity extends AppCompatActivity
         try
         {
             jsonObject.put("userid", userProfile.getUserid());
+            jsonObject.put("openid", userProfile.getOpenid());
             jsonObject.put("nickname", userProfile.getNickname());
             jsonObject.put("sex", userProfile.getSex());
             jsonObject.put("city", userProfile.getCity());
@@ -612,6 +616,8 @@ public class MainActivity extends AppCompatActivity
             Log.e("Json Error",e.toString());
         }
 
+
+        //Write to local file
         String fileName = "userProfile.json";
         File userProfileFile = new File(getApplicationContext().getFilesDir(), fileName);
         try {
@@ -621,8 +627,47 @@ public class MainActivity extends AppCompatActivity
             bw.close();
         } catch (Exception e) {
             e.printStackTrace();
-            userProfileFile = null;
         }
+
+
+        //Send PATCH to server
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        jsonObject.remove("userid");
+        jsonObject.remove("sex");
+        try{
+            jsonObject.put("_id", Integer.valueOf(userProfile.getUserid()));
+            jsonObject.put("sex", Integer.valueOf(userProfile.getSex()));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        String httpurl = "http://jieko.cc/user/" + userProfile.getUserid();
+
+        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, httpurl, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Response", response.toString());
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+
+                return headers;
+            }
+        };
+        requestQueue.add(jsonRequest);
+
     }
 
     public void getUserProfileFromFile()
@@ -655,6 +700,7 @@ public class MainActivity extends AppCompatActivity
                     JSONObject jsonObject = new JSONObject(str);
                     userProfile.setUserid(jsonObject.getString("userid"));
                     userProfile.setDeviceid(jsonObject.getString("deviceid"));
+                    userProfile.setOpenid(jsonObject.getString("openid"));
                     userProfile.setNickname(jsonObject.getString("nickname"));
                     userProfile.setSex(jsonObject.getInt("sex"));
                     userProfile.setCity(jsonObject.getString("city"));

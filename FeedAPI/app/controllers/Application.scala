@@ -68,7 +68,10 @@ object Application {
 
         try {
             var recommendations = getRecommender.recommend(userID, howMany)
-            Logger.debug("recommendations.size=%d".format(recommendations.size))
+            if (recommendations.size > 0)
+            {
+                Logger.info("userID=%d recommendations.size=%d".format(userID, recommendations.size))
+            }
 
             for (r <- recommendations) list = r.getItemID :: list
 
@@ -97,7 +100,11 @@ object Application {
     def refresh() = {
         if (null != recommender)
         {
+            val t0 = System.nanoTime()
             recommender.refresh(null);
+            val t1 = System.nanoTime()
+
+            Logger.debug("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
         }
     }
 }

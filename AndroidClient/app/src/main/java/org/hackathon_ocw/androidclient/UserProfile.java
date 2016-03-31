@@ -14,6 +14,16 @@ public class UserProfile {
     private String country;
     private String headimgurl;
 
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    private String openid;
+
     public String getDeviceid() {
         return deviceid;
     }

@@ -67,7 +67,6 @@
                     app:tabGravity="fill"
                     app:tabMode="scrollable" />
 
-
                 <android.support.v4.view.ViewPager
                     android:id="@+id/detailPager"
                     android:layout_width="match_parent"
@@ -77,8 +76,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
 
     <include
         layout="@layout/comment_bar_bottom"
