@@ -19,17 +19,22 @@ class YixiSpider(scrapy.Spider):
     def parse(self, response):
         base_url = "http://yixi.tv/lectures/all?page="
         page = 1
-
+        
         while (page <= 27):
             url = base_url + str(page)
             self.driver.get(url)
           
             hxs = scrapy.Selector(text = self.driver.page_source)
-
-            for info in hxs.xpath('//div[@class="mainBody"]/section/ul/li'):
-              item = YixiItem()
-              item['title'] = info.xpath('div/span[@class="videoTitle"]/text()').extract()
-              yield item
-
+            
+            for sel in hxs.xpath('//div[@class="mainBody"]/section/ul/li'):
+				item = YixiItem()
+ 				item['title'] = sel.xpath('div/span[@class="videoTitle"]/text()').extract()
+	            item['description'] = sel.xpath('//div/span[@class="speakerDescription"]/text()').extract()
+ 				item['piclink'] = sel.xpath('//div[@class="videoContent"]/@style').extract()
+	            item['courselink'] = sel.xpath('//div[@class="videoCover"]/a/@href').extract()
+	            item['duration'] = sel.xpath('li[@class="playTime"]').extract()
+				item['source'] = "yixi"
+                yield item
+            
             page = page + 1        
 		
