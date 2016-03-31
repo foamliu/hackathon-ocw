@@ -9,12 +9,12 @@
 import UIKit
 
 struct Course {
-    var name: String?
+    var title: String?
     var description: String?
     var rating: Int
     
-    init(name: String?, description:String?, rating:Int){
-        self.name = name
+    init(title: String?, description:String?, rating:Int){
+        self.title = title
         self.description = description
         self.rating = rating
     }

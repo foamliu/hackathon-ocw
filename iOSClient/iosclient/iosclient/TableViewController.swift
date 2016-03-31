@@ -13,7 +13,30 @@ import Alamofire
 
 class TableViewController: UITableViewController {
     
-    var courses:[Course] = coursesData
+    var courses: NSMutableArray = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        jsonParsingFromUrl()
+    }
+    
+    func jsonParsingFromUrl(){
+        let url = NSURL(string: "http://api.jieko.cc/user/15/Candidates")
+        let request = NSURLRequest(URL: url!)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
+        }
+    }
+    
+    func startParsing(data: NSData){
+        let dict: NSDictionary!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+        for (var i = 0; i < (dict.valueForKey("courses") as! NSArray).count; i++)
+        {
+            courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
+        }
+        tableView.reloadData()
+    }
+    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -24,21 +47,23 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell") as! TableViewCell
         
-        let course = courses[indexPath.row] as Course
+        //let course = courses[indexPath.row] as Course
         
         if let nameLabel = cell.viewWithTag(100) as? UILabel {
-            nameLabel.text = course.name
+            nameLabel.text = courses[indexPath.row].valueForKey("title") as! String
         }
         
         if let descriptionLabel = cell.viewWithTag(101) as? UILabel {
-            descriptionLabel.text = course.description
+            descriptionLabel.text = courses[indexPath.row].valueForKey("description") as! String
         }
         
+        /*
         if let ratingImageView = cell.viewWithTag(102) as? UIImageView {
             ratingImageView.image = self.imageForRating(course.rating)
         }
+         */
 
         return cell
     }
