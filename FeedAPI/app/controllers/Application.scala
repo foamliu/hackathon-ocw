@@ -51,7 +51,7 @@ object Application {
     private def getRecommender(): Recommender = {
 
         if (recommender == null) {
-            val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", true, true, null)
+            val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", false, false, null)
 
             var similarity: UserSimilarity = new CachingUserSimilarity(new LogLikelihoodSimilarity(model), model)
             var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, Double.NegativeInfinity, similarity, model, 1.0);
@@ -98,11 +98,11 @@ object Application {
     }
     
     def refresh() = {
-        if (null != recommender)
+        if (null != getRecommender)
         {
             val t0 = System.nanoTime()
-            recommender.refresh(null);
-            recommender.getDataModel.refresh(null);
+            getRecommender.getDataModel.refresh(null);
+            getRecommender.refresh(null);            
             val t1 = System.nanoTime()
 
             Logger.info("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
