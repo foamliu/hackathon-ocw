@@ -48,16 +48,18 @@ object Application {
         courses
     }
 
+    private def createNewRecommender: Recommender = {
+        val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", false, false, null)
+        var similarity: UserSimilarity = new CachingUserSimilarity(new LogLikelihoodSimilarity(model), model)
+        var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, Double.NegativeInfinity, similarity, model, 1.0)
+        new GenericBooleanPrefUserBasedRecommender(model, neighborhood, similarity)
+    }
+
     private def getRecommender(): Recommender = {
 
-        //if (recommender == null) {
-            val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", false, false, null)
-
-            var similarity: UserSimilarity = new CachingUserSimilarity(new LogLikelihoodSimilarity(model), model)
-            var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, Double.NegativeInfinity, similarity, model, 1.0);
-
-            recommender = new GenericBooleanPrefUserBasedRecommender(model, neighborhood, similarity)
-        //}
+        if (recommender == null) {
+            recommender = createNewRecommender
+        }
 
         recommender
     }
@@ -68,8 +70,7 @@ object Application {
 
         try {
             var recommendations = getRecommender.recommend(userID, howMany)
-            if (recommendations.size > 0)
-            {
+            if (recommendations.size > 0) {
                 Logger.info("userID=%d recommendations.size=%d".format(userID, recommendations.size))
             }
 
@@ -96,13 +97,11 @@ object Application {
         }
 
     }
-    
+
     def refresh() = {
-        if (null != getRecommender)
-        {
+        if (null != getRecommender) {
             val t0 = System.nanoTime()
-            //getRecommender.getDataModel.refresh(null);
-            getRecommender.refresh(null);            
+            recommender = createNewRecommender
             val t1 = System.nanoTime()
 
             Logger.info("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
