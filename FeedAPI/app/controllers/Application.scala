@@ -50,14 +50,14 @@ object Application {
 
     private def getRecommender(): Recommender = {
 
-        if (recommender == null) {
+        //if (recommender == null) {
             val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", false, false, null)
 
             var similarity: UserSimilarity = new CachingUserSimilarity(new LogLikelihoodSimilarity(model), model)
             var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, Double.NegativeInfinity, similarity, model, 1.0);
 
             recommender = new GenericBooleanPrefUserBasedRecommender(model, neighborhood, similarity)
-        }
+        //}
 
         recommender
     }
@@ -101,7 +101,7 @@ object Application {
         if (null != getRecommender)
         {
             val t0 = System.nanoTime()
-            getRecommender.getDataModel.refresh(null);
+            //getRecommender.getDataModel.refresh(null);
             getRecommender.refresh(null);            
             val t1 = System.nanoTime()
 
