@@ -15,4 +15,5 @@ class YixiItem(scrapy.Item):
     description = scrapy.Field()
     piclink = scrapy.Field()
     courselink = scrapy.Field()
+    duration = scrapy.Field()
     source = scrapy.Field()
