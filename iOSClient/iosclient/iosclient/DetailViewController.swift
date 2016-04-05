@@ -25,16 +25,15 @@ class DetailViewController: UIViewController {
                 
         //play online video
         if (videoUrl != nil){
-            let url = NSURL.fileURLWithPath(videoUrl)
-            let player = AVPlayer(URL: url)
+            let videoURL = NSURL(string: videoUrl)
+            let player = AVPlayer(URL: videoURL!)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
-            
             playerViewController.view.frame = CGRectMake(10, 110, 360, 300)
-            self.view.addSubview(playerViewController.view)
             self.addChildViewController(playerViewController)
+            self.view.addSubview(playerViewController.view)
+            playerViewController.player!.play()
             
-            player.play()
         }
         
     }
