@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var labelTitle: UILabel!
     
+    
     var selectedTitle: String!
     var videoUrl: String!
     
@@ -40,6 +41,34 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func shareBtn(sender: AnyObject) {
+        let firstActivityItem = "Text you want"
+        
+        let activityViewController : UIActivityViewController = UIActivityViewController(
+            activityItems: [firstActivityItem], applicationActivities: nil)
+        
+        // This lines is for the popover you need to show in iPad
+        activityViewController.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
+        
+        // This line remove the arrow of the popover to show in iPad
+        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+        
+        // Anything you want to exclude
+        activityViewController.excludedActivityTypes = [
+            UIActivityTypePostToWeibo,
+            UIActivityTypePrint,
+            UIActivityTypeAssignToContact,
+            UIActivityTypeSaveToCameraRoll,
+            UIActivityTypeAddToReadingList,
+            UIActivityTypePostToFlickr,
+            UIActivityTypePostToVimeo,
+        ]
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
+    
     
     
     
