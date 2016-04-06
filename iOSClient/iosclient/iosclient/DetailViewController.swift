@@ -7,19 +7,42 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 
 class DetailViewController: UIViewController {
     
+    @IBOutlet weak var labelTitle: UILabel!
+    
+    var selectedTitle: String!
+    var videoUrl: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        labelTitle.text = selectedTitle
+                
+        //play online video
+        if (videoUrl != nil){
+            let videoURL = NSURL(string: videoUrl)
+            let player = AVPlayer(URL: videoURL!)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            playerViewController.view.frame = CGRectMake(10, 110, 360, 300)
+            self.addChildViewController(playerViewController)
+            self.view.addSubview(playerViewController.view)
+            playerViewController.player!.play()
+            
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     
 }

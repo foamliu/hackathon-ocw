@@ -16,6 +16,8 @@ class TableViewController: UITableViewController {
     //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
     var loadMoreEnable = true
+    var selectedTitle: String!
+    var selectedVideoUrl: String!
     
     var customRefreshControl = UIRefreshControl()
     var infiniteScrollingView:UIView?
@@ -115,11 +117,21 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-    /*
-    func imageForRating(rating:Int) -> UIImage? {
-        let imageName = "\(rating)Stars"
-        return UIImage(named: imageName)
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        let nameLabel = currentCell.viewWithTag(100) as? UILabel
+        selectedTitle = nameLabel?.text
+        selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
+        performSegueWithIdentifier("showDetail", sender: self)
     }
-     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showDetail"){
+            let viewController = segue.destinationViewController as! DetailViewController
+            viewController.selectedTitle = selectedTitle
+            viewController.videoUrl = selectedVideoUrl
+        }
+
+    }
     
 }

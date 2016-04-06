@@ -63,7 +63,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="tXj-V4-scd" kind="showDetail" id="ZEQ-4C-xu2"/>
+                                    <segue destination="tXj-V4-scd" kind="show" identifier="showDetail" id="7lm-xH-lMl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -78,10 +78,10 @@
             </objects>
             <point key="canvasLocation" x="957" y="399"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--视频内容-->
         <scene sceneID="xnQ-RA-St8">
             <objects>
-                <viewController id="tXj-V4-scd" customClass="DetailViewController" customModule="iosclient" sceneMemberID="viewController">
+                <viewController title="视频内容" id="tXj-V4-scd" customClass="DetailViewController" customModule="iosclient" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c4G-27-bx2"/>
                         <viewControllerLayoutGuide type="bottom" id="cNo-6i-2Hi"/>
@@ -89,12 +89,37 @@
                     <view key="view" contentMode="scaleToFill" id="XOh-Ud-0Rl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggY-YR-yyn">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="20" y="72" width="360" height="30"/>
+                                </variation>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ggY-YR-yyn"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="ggY-YR-yyn"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="视频内容" id="zS5-zv-NeC"/>
+                    <connections>
+                        <outlet property="labelTitle" destination="ggY-YR-yyn" id="3Jg-yT-k73"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E3O-N8-9S1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1708" y="399"/>
+            <point key="canvasLocation" x="1707" y="399"/>
         </scene>
     </scenes>
 </document>
