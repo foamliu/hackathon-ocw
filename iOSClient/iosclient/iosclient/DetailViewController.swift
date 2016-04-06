@@ -42,9 +42,22 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //分享文本
+    func sendText(text:String, inScene: WXScene)->Bool{
+        let req=SendMessageToWXReq()
+        req.text=text
+        req.bText=true
+        req.scene=Int32(inScene.rawValue)
+        return WXApi.sendReq(req)
+    }
+    
+    
+    
     @IBAction func shareBtn(sender: AnyObject) {
-        let firstActivityItem = "Text you want"
         
+        sendText("这是来自学啥iOS端的分享", inScene: WXSceneSession) //分享文本到朋友圈
+        
+        /*
         let activityViewController : UIActivityViewController = UIActivityViewController(
             activityItems: [firstActivityItem], applicationActivities: nil)
         
@@ -67,6 +80,7 @@ class DetailViewController: UIViewController {
         ]
         
         self.presentViewController(activityViewController, animated: true, completion: nil)
+         */
     }
     
     

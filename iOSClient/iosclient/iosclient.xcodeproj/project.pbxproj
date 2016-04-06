@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		761E6D471CB4AA1800819982 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D461CB4AA1800819982 /* SWRevealViewController.m */; };
 		761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D481CB4B1FE00819982 /* MenuController.swift */; };
 		7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */; };
+		76AFFDB61CB4F087006232CA /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AFFDB51CB4F087006232CA /* SWRevealViewController.m */; };
+		76AFFDBB1CB4F098006232CA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDB71CB4F098006232CA /* libWeChatSDK.a */; };
+		76AFFDBD1CB51176006232CA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDBC1CB51176006232CA /* SystemConfiguration.framework */; };
+		76AFFDBF1CB51187006232CA /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDBE1CB51187006232CA /* libsqlite3.0.tbd */; };
+		76AFFDC11CB51195006232CA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDC01CB51195006232CA /* libc++.tbd */; };
+		76AFFDC31CB511A6006232CA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDC21CB511A6006232CA /* CoreTelephony.framework */; };
+		76AFFDC51CB511BF006232CA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDC41CB511BF006232CA /* libz.tbd */; };
 		76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389A1CABC24300622A4A /* AppDelegate.swift */; };
 		76DD389D1CABC24300622A4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389C1CABC24300622A4A /* ViewController.swift */; };
 		76DD38A01CABC24300622A4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76DD389E1CABC24300622A4A /* Main.storyboard */; };
@@ -45,11 +51,20 @@
 /* Begin PBXFileReference section */
 		28D1D1BEEE679FDDB6A4F0FE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		73BE1F9DB3C562D681D5A208 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		761E6D441CB4AA0400819982 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
 		761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosclient-Bridging-Header.h"; sourceTree = "<group>"; };
-		761E6D461CB4AA1800819982 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
 		761E6D481CB4B1FE00819982 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableFooterView.swift; sourceTree = "<group>"; };
+		76AFFDB41CB4F087006232CA /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		76AFFDB51CB4F087006232CA /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		76AFFDB71CB4F098006232CA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		76AFFDB81CB4F098006232CA /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		76AFFDB91CB4F098006232CA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		76AFFDBA1CB4F098006232CA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		76AFFDBC1CB51176006232CA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		76AFFDBE1CB51187006232CA /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		76AFFDC01CB51195006232CA /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		76AFFDC21CB511A6006232CA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		76AFFDC41CB511BF006232CA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		76DD38971CABC24300622A4A /* iosclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76DD389A1CABC24300622A4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76DD389C1CABC24300622A4A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +91,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76AFFDC51CB511BF006232CA /* libz.tbd in Frameworks */,
+				76AFFDC31CB511A6006232CA /* CoreTelephony.framework in Frameworks */,
+				76AFFDC11CB51195006232CA /* libc++.tbd in Frameworks */,
+				76AFFDBF1CB51187006232CA /* libsqlite3.0.tbd in Frameworks */,
+				76AFFDBD1CB51176006232CA /* SystemConfiguration.framework in Frameworks */,
+				76AFFDBB1CB4F098006232CA /* libWeChatSDK.a in Frameworks */,
 				F986E2C99775C843EF3A0DB0 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,11 +130,21 @@
 		761E6D431CB4A9BD00819982 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
-				761E6D461CB4AA1800819982 /* SWRevealViewController.m */,
-				761E6D441CB4AA0400819982 /* SWRevealViewController.h */,
-				761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */,
+				76AFFDB41CB4F087006232CA /* SWRevealViewController.h */,
+				76AFFDB51CB4F087006232CA /* SWRevealViewController.m */,
 			);
 			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		76AFFDAE1CB4EEE7006232CA /* WXApi */ = {
+			isa = PBXGroup;
+			children = (
+				76AFFDB71CB4F098006232CA /* libWeChatSDK.a */,
+				76AFFDB81CB4F098006232CA /* WechatAuthSDK.h */,
+				76AFFDB91CB4F098006232CA /* WXApi.h */,
+				76AFFDBA1CB4F098006232CA /* WXApiObject.h */,
+			);
+			name = WXApi;
 			sourceTree = "<group>";
 		};
 		76DD388E1CABC24300622A4A = {
@@ -141,8 +172,10 @@
 		76DD38991CABC24300622A4A /* iosclient */ = {
 			isa = PBXGroup;
 			children = (
+				76AFFDAE1CB4EEE7006232CA /* WXApi */,
 				761E6D431CB4A9BD00819982 /* SWRevealViewController */,
 				76DD389A1CABC24300622A4A /* AppDelegate.swift */,
+				761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */,
 				76DD389C1CABC24300622A4A /* ViewController.swift */,
 				76DD389E1CABC24300622A4A /* Main.storyboard */,
 				76DD38A11CABC24300622A4A /* Assets.xcassets */,
@@ -180,6 +213,11 @@
 		BBD4095B0A36AC2B7CEF59B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				76AFFDC41CB511BF006232CA /* libz.tbd */,
+				76AFFDC21CB511A6006232CA /* CoreTelephony.framework */,
+				76AFFDC01CB51195006232CA /* libc++.tbd */,
+				76AFFDBE1CB51187006232CA /* libsqlite3.0.tbd */,
+				76AFFDBC1CB51176006232CA /* SystemConfiguration.framework */,
 				73BE1F9DB3C562D681D5A208 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -373,8 +411,8 @@
 				76DD38CF1CABCD9000622A4A /* SampleData.swift in Sources */,
 				76DD38CB1CABC4E500622A4A /* TableViewCell.swift in Sources */,
 				76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */,
-				761E6D471CB4AA1800819982 /* SWRevealViewController.m in Sources */,
 				7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */,
+				76AFFDB61CB4F087006232CA /* SWRevealViewController.m in Sources */,
 				76DD38C91CABC3FE00622A4A /* TableViewController.swift in Sources */,
 				76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */,
 			);
@@ -524,6 +562,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = iosclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iosclient",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.iosclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosclient/iosclient-Bridging-Header.h";
@@ -539,6 +581,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = iosclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iosclient",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.iosclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosclient/iosclient-Bridging-Header.h";
