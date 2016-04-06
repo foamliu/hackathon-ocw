@@ -16,8 +16,11 @@ class TableViewController: UITableViewController {
     //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
     var loadMoreEnable = true
+    
     var selectedTitle: String!
     var selectedVideoUrl: String!
+    var selectedDescription: String!
+    var selectedImage: UIImage!
     
     var customRefreshControl = UIRefreshControl()
     var infiniteScrollingView:UIView?
@@ -128,16 +131,23 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
         let nameLabel = currentCell.viewWithTag(100) as? UILabel
+        let courseImageView = currentCell.viewWithTag(102) as? UIImageView
         selectedTitle = nameLabel?.text
+        selectedDescription = courses[indexPath.row].valueForKey("description") as? String
+        selectedImage = courseImageView?.image
         selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
+        
         performSegueWithIdentifier("showDetail", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showDetail"){
             let viewController = segue.destinationViewController as! DetailViewController
-            viewController.selectedTitle = selectedTitle
-            viewController.videoUrl = selectedVideoUrl
+            viewController.courseTitle = selectedTitle
+            viewController.courseDescription = selectedDescription
+            viewController.courseImage = selectedImage
+            viewController.courseVideoUrl = selectedVideoUrl
+            
         }
 
     }

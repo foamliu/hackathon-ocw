@@ -15,18 +15,19 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var labelTitle: UILabel!
     
-    
-    var selectedTitle: String!
-    var videoUrl: String!
+    var courseTitle: String!
+    var courseDescription: String!
+    var courseImage: UIImage!
+    var courseVideoUrl: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let screenSize : CGRect = UIScreen.mainScreen().bounds;
-        labelTitle.text = selectedTitle
+        labelTitle.text = courseTitle
 
         //play online video
-        if (videoUrl != nil){
-            let videoURL = NSURL(string: videoUrl)
+        if (courseVideoUrl != nil){
+            let videoURL = NSURL(string: courseVideoUrl)
             let player = AVPlayer(URL: videoURL!)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
@@ -51,11 +52,30 @@ class DetailViewController: UIViewController {
         return WXApi.sendReq(req)
     }
     
+    func sendVideo(title: String, description: String, image: UIImage, url: String, inScene: WXScene) {
+        let message =  WXMediaMessage()
+        message.title = title
+        message.description = description
+        //message.setThumbImage(UIImage(named:"apple.png"))
+        message.setThumbImage(image)
+        
+        let ext =  WXVideoObject()
+        //ext.videoUrl = "http://v.youku.com/v_show/id_XNTUxNDY1NDY4.html"
+        ext.videoUrl = url
+        message.mediaObject = ext
+        
+        let req =  SendMessageToWXReq()
+        req.bText = false
+        req.message = message
+        req.scene = Int32(inScene.rawValue)
+        WXApi.sendReq(req)
+    }
+    
     
     
     @IBAction func shareBtn(sender: AnyObject) {
-        
-        sendText("这是来自学啥iOS端的分享", inScene: WXSceneSession) //分享文本到朋友圈
+        //sendText("这是来自学啥iOS端的分享", inScene: WXSceneSession) //分享文本到朋友圈
+        sendVideo(courseTitle, description: courseDescription, image: courseImage, url: courseVideoUrl, inScene: WXSceneSession)
         
         /*
         let activityViewController : UIActivityViewController = UIActivityViewController(
