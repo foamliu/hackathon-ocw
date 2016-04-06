@@ -20,22 +20,20 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let screenSize : CGRect = UIScreen.mainScreen().bounds;
         labelTitle.text = selectedTitle
-                
+
         //play online video
         if (videoUrl != nil){
             let videoURL = NSURL(string: videoUrl)
             let player = AVPlayer(URL: videoURL!)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
-            playerViewController.view.frame = CGRectMake(10, 110, 360, 300)
+            playerViewController.view.frame = CGRectMake(0, 110, screenSize.width, 300)
             self.addChildViewController(playerViewController)
             self.view.addSubview(playerViewController.view)
             playerViewController.player!.play()
-            
         }
-        
     }
     
     override func didReceiveMemoryWarning() {

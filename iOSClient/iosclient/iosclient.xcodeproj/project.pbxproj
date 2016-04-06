@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		761E6D471CB4AA1800819982 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D461CB4AA1800819982 /* SWRevealViewController.m */; };
+		761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D481CB4B1FE00819982 /* MenuController.swift */; };
 		7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */; };
 		76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389A1CABC24300622A4A /* AppDelegate.swift */; };
 		76DD389D1CABC24300622A4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389C1CABC24300622A4A /* ViewController.swift */; };
@@ -43,6 +45,10 @@
 /* Begin PBXFileReference section */
 		28D1D1BEEE679FDDB6A4F0FE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		73BE1F9DB3C562D681D5A208 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		761E6D441CB4AA0400819982 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
+		761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosclient-Bridging-Header.h"; sourceTree = "<group>"; };
+		761E6D461CB4AA1800819982 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
+		761E6D481CB4B1FE00819982 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableFooterView.swift; sourceTree = "<group>"; };
 		76DD38971CABC24300622A4A /* iosclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76DD389A1CABC24300622A4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +106,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		761E6D431CB4A9BD00819982 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				761E6D461CB4AA1800819982 /* SWRevealViewController.m */,
+				761E6D441CB4AA0400819982 /* SWRevealViewController.h */,
+				761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
 		76DD388E1CABC24300622A4A = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +141,7 @@
 		76DD38991CABC24300622A4A /* iosclient */ = {
 			isa = PBXGroup;
 			children = (
+				761E6D431CB4A9BD00819982 /* SWRevealViewController */,
 				76DD389A1CABC24300622A4A /* AppDelegate.swift */,
 				76DD389C1CABC24300622A4A /* ViewController.swift */,
 				76DD389E1CABC24300622A4A /* Main.storyboard */,
@@ -137,6 +154,7 @@
 				76DD38CE1CABCD9000622A4A /* SampleData.swift */,
 				76DD38D01CABCDD900622A4A /* Course.swift */,
 				7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */,
+				761E6D481CB4B1FE00819982 /* MenuController.swift */,
 			);
 			path = iosclient;
 			sourceTree = "<group>";
@@ -349,11 +367,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */,
 				76DD389D1CABC24300622A4A /* ViewController.swift in Sources */,
 				76DD38D11CABCDD900622A4A /* Course.swift in Sources */,
 				76DD38CF1CABCD9000622A4A /* SampleData.swift in Sources */,
 				76DD38CB1CABC4E500622A4A /* TableViewCell.swift in Sources */,
 				76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */,
+				761E6D471CB4AA1800819982 /* SWRevealViewController.m in Sources */,
 				7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */,
 				76DD38C91CABC3FE00622A4A /* TableViewController.swift in Sources */,
 				76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */,
@@ -501,10 +521,13 @@
 			baseConfigurationReference = B0D93FADA330DB60900BD7FE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = iosclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.iosclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iosclient/iosclient-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -513,10 +536,12 @@
 			baseConfigurationReference = 28D1D1BEEE679FDDB6A4F0FE /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = iosclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.iosclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iosclient/iosclient-Bridging-Header.h";
 			};
 			name = Release;
 		};
