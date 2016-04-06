@@ -52,15 +52,14 @@ class DetailViewController: UIViewController {
         return WXApi.sendReq(req)
     }
     
+    //分享视频
     func sendVideo(title: String, description: String, image: UIImage, url: String, inScene: WXScene) {
         let message =  WXMediaMessage()
         message.title = title
         message.description = description
-        //message.setThumbImage(UIImage(named:"apple.png"))
         message.setThumbImage(image)
         
         let ext =  WXVideoObject()
-        //ext.videoUrl = "http://v.youku.com/v_show/id_XNTUxNDY1NDY4.html"
         ext.videoUrl = url
         message.mediaObject = ext
         
