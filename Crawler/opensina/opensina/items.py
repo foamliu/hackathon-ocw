@@ -11,4 +11,9 @@ import scrapy
 class OpensinaItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    title = scrapy.Field()
+    description = scrapy.Field()
+    piclink = scrapy.Field()
+    courselink = scrapy.Field()
+    duration = scrapy.Field()
+    source = scrapy.Field()
