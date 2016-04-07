@@ -113,17 +113,63 @@ class MenuController: UITableViewController {
                     self.userImg.clipsToBounds = true
                     
                 }
+                //Build json file
+                var userProfile = [String: AnyObject]()
+                userProfile["openid"] = self.user.openid
+                userProfile["nickname"] = self.user.nickname
+                userProfile["sex"] = Int(self.user.sex!)
+                userProfile["province"] = self.user.province
+                userProfile["city"] = self.user.city
+                userProfile["country"] = self.user.country
+                userProfile["headimgurl"] = self.user.headimgurl
+                
+                //userProfile["_id"] = Int(self.user.userid!)
+                //userProfile["deviceid"] = self.user.deviceid
+
                 //Send user profile to server
+                let url = "http://jieko.cc/user" + self.user.userid!
+                let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+                request.HTTPMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                 
+                do{
+                    request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(userProfile, options: [])
+                    let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                        guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                            print("error=\(error)")
+                            return
+                        }
+                        
+                        if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                            print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                            print("response = \(response)")
+                        }
+                        
+                        let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                        print("responseString = \(responseString)")
+                    }
+                    task.resume()
+                } catch _{
+                    print("Eror json")
+                }
                 
+                //Write to local file
+                let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+                let documentsDirectoryPath = NSURL(string: documentsDirectoryPathString)!
+                let jsonFilePath = documentsDirectoryPath.URLByAppendingPathComponent("userProfile.json")
                 
-                //SVProgressHUD.showSuccessWithStatus("获取到用户信息", duration: 1)
-                
-                //let headimgurl: String = jsonResult["headimgurl"] as! String
-                //let nickname: String = jsonResult["nickname"] as! String
-                
-                //self.headerImg.sd_setImageWithURL(NSURL(string: headimgurl))
-                //self.nicknameLbl.text = nickname
+                do {
+                    let file = try NSFileHandle(forWritingToURL: jsonFilePath)
+                    do {
+                        let jsonData = try NSJSONSerialization.dataWithJSONObject(userProfile, options: NSJSONWritingOptions.PrettyPrinted)
+                        file.writeData(jsonData)
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                    print("JSON data was written to teh file successfully!")
+                } catch let error as NSError {
+                    print("Couldn't write to file: \(error.localizedDescription)")
+                }
             })
         })
     }
