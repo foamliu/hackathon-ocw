@@ -14,6 +14,9 @@ import AVFoundation
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var commentView: UIView!
     
     var courseTitle: String!
     var courseDescription: String!
@@ -22,9 +25,28 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let screenSize : CGRect = UIScreen.mainScreen().bounds;
         labelTitle.text = courseTitle
+        playVideo()
+        
+        //segmentControl
+        descriptionView.hidden = false
+        commentView.hidden = true
+        
+        //Pass values
+        if(courseDescription != nil){
+            NSNotificationCenter.defaultCenter().postNotificationName("descriptionNotification", object: nil, userInfo: ["description" : courseDescription])
+        }
 
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func playVideo(){
+        let screenSize : CGRect = UIScreen.mainScreen().bounds;
         //play online video
         if (courseVideoUrl != nil){
             let videoURL = NSURL(string: courseVideoUrl)
@@ -36,11 +58,6 @@ class DetailViewController: UIViewController {
             self.view.addSubview(playerViewController.view)
             playerViewController.player!.play()
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //分享文本
@@ -102,7 +119,17 @@ class DetailViewController: UIViewController {
          */
     }
     
-    
-    
+    @IBAction func indexChanged(sender: UISegmentedControl) {
+        switch self.segmentedControl.selectedSegmentIndex{
+            case 0:
+                descriptionView.hidden = false
+                commentView.hidden = true
+            case 1:
+                descriptionView.hidden = true
+                commentView.hidden = false
+            default:
+                break
+        }
+    }
     
 }
