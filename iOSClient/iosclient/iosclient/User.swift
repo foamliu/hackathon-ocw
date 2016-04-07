@@ -8,7 +8,7 @@
 
 import UIKit
 
-class User {
+struct User {
     var userid: String?
     var openid: String?
     var deviceid: String?
@@ -19,6 +19,8 @@ class User {
     var country: String?
     var headimgurl: String?
     
+    init(){}
+       
     init(userid: String?, openid:String?, deviceid:String?, nickname:String?, sex:String?, city:String?, province:String?, country:String?, headimgurl:String?){
         self.userid = userid
         self.openid = openid

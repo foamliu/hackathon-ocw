@@ -11,8 +11,12 @@ import SVProgressHUD
 
 class MenuController: UITableViewController {
     
+    @IBOutlet weak var userImg: UIImageView!
+    @IBOutlet weak var userNickname: UILabel!
+    
     let kWXAPP_ID: String = "wx9b493c5b54472578"
     let kWXAPP_SECRET: String = "211b995337b10a7ef9c32d511e7c4576"
+    
     var user = User()
     
     override func viewDidLoad() {
@@ -81,16 +85,36 @@ class MenuController: UITableViewController {
                 do{
                     let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
                     print("Recevice UserInfo: \(jsonResult)")
-                    user.openid = jsonResult["openid"]
-                    user.nickname = jsonResult["nickname"]
-                    user.sex = jsonResult["sex"]
-                    user.province = jsonResult["province"]
-                    user.city = jsonResult["city"]
-                    user.country = jsonResult["country"]
-                    user.headimgurl = jsonResult["headimgurl"]
+                    self.user.openid = jsonResult["openid"] as? String
+                    self.user.nickname = jsonResult["nickname"] as? String
+                    self.user.sex = jsonResult["sex"] as? String
+                    self.user.province = jsonResult["province"] as? String
+                    self.user.city = jsonResult["city"] as? String
+                    self.user.country = jsonResult["country"] as? String
+                    self.user.headimgurl = jsonResult["headimgurl"] as? String
                 }catch _ {
                     print("Error in json")
                 }
+                
+                //Update user profile to Controller
+                if(self.user.headimgurl != nil){
+                    self.userNickname.text = self.user.nickname
+                    let url = NSURL(string: self.user.headimgurl!)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.userImg.image = UIImage(data: data!)
+                        });
+                    }
+                    self.userImg.layer.borderWidth = 2
+                    self.userImg.layer.masksToBounds = false
+                    self.userImg.layer.borderColor = UIColor.whiteColor().CGColor
+                    self.userImg.layer.cornerRadius = self.userImg.frame.height/2
+                    self.userImg.clipsToBounds = true
+                    
+                }
+                //Send user profile to server
+                
                 
                 
                 //SVProgressHUD.showSuccessWithStatus("获取到用户信息", duration: 1)
