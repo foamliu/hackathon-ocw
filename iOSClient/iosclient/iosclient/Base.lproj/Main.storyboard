@@ -252,6 +252,10 @@
                             <outlet property="delegate" destination="dUM-pH-VvY" id="d7H-BH-HP3"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="userImg" destination="X0P-2D-L41" id="nrI-IU-g7b"/>
+                        <outlet property="userNickname" destination="5D1-Va-OAb" id="htz-Yr-ZFS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rdu-zJ-pkL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
