@@ -8,20 +8,27 @@
 
 import UIKit
 
-struct User {
-    var userid: String?
+class User {
+    var userid: Int?
     var openid: String?
     var deviceid: String?
     var nickname: String?
-    var sex: String?
+    var sex: Int?
     var city: String?
     var province: String?
     var country: String?
     var headimgurl: String?
     
+    class var sharedManager: User {
+        struct Static {
+            static let instance = User()
+        }
+        return Static.instance
+    }
+    
     init(){}
        
-    init(userid: String?, openid:String?, deviceid:String?, nickname:String?, sex:String?, city:String?, province:String?, country:String?, headimgurl:String?){
+    init(userid: Int?, openid:String?, deviceid:String?, nickname:String?, sex:Int?, city:String?, province:String?, country:String?, headimgurl:String?){
         self.userid = userid
         self.openid = openid
         self.deviceid = deviceid
