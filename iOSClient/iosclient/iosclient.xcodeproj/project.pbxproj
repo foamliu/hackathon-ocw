@@ -27,7 +27,6 @@
 		76DD38C91CABC3FE00622A4A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38C81CABC3FE00622A4A /* TableViewController.swift */; };
 		76DD38CB1CABC4E500622A4A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38CA1CABC4E500622A4A /* TableViewCell.swift */; };
 		76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38CC1CABC54000622A4A /* DetailViewController.swift */; };
-		76DD38CF1CABCD9000622A4A /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38CE1CABCD9000622A4A /* SampleData.swift */; };
 		76DD38D11CABCDD900622A4A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38D01CABCDD900622A4A /* Course.swift */; };
 		F986E2C99775C843EF3A0DB0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BE1F9DB3C562D681D5A208 /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -83,7 +82,6 @@
 		76DD38C81CABC3FE00622A4A /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		76DD38CA1CABC4E500622A4A /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		76DD38CC1CABC54000622A4A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		76DD38CE1CABCD9000622A4A /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		76DD38D01CABCDD900622A4A /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		B0D93FADA330DB60900BD7FE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,7 +184,6 @@
 				76DD38C81CABC3FE00622A4A /* TableViewController.swift */,
 				76DD38CA1CABC4E500622A4A /* TableViewCell.swift */,
 				76DD38CC1CABC54000622A4A /* DetailViewController.swift */,
-				76DD38CE1CABCD9000622A4A /* SampleData.swift */,
 				76DD38D01CABCDD900622A4A /* Course.swift */,
 				7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */,
 				761E6D481CB4B1FE00819982 /* MenuController.swift */,
@@ -411,7 +408,6 @@
 				761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */,
 				76DD389D1CABC24300622A4A /* ViewController.swift in Sources */,
 				76DD38D11CABCDD900622A4A /* Course.swift in Sources */,
-				76DD38CF1CABCD9000622A4A /* SampleData.swift in Sources */,
 				76DD38CB1CABC4E500622A4A /* TableViewCell.swift in Sources */,
 				76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */,
 				7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */,
