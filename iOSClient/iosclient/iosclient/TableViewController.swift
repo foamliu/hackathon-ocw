@@ -30,6 +30,7 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getInitId()
         jsonParsingFromUrl()
         
         if self.revealViewController() != nil {
@@ -48,6 +49,42 @@ class TableViewController: UITableViewController {
         self.setupInfiniteScrollingView()
     }
     
+    func getInitId(){
+        User.sharedManager.deviceid = NSUUID().UUIDString
+        //使用deviceid换取userid
+        var basicProfile = [String: AnyObject]()
+        basicProfile["deviceid"] = User.sharedManager.deviceid
+        let url = "http://jieko.cc/user"
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(basicProfile, options: [])
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                guard error == nil && data != nil else {                                                          // check for fundamental networking error
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String: Int]
+                    User.sharedManager.userid = result!["userid"]
+                } catch let error as NSError {
+                    print(error)
+                }
+                
+            }
+            task.resume()
+        } catch _{
+            print("Error json")
+        }
+    }
     
     func setupInfiniteScrollingView(){
         self.infiniteScrollingView = UIView(frame: CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, 0))
