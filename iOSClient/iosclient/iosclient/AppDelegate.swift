@@ -53,7 +53,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     }
     func onResp(resp: BaseResp!) {
         //如果第三方程序向微信发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到微信终端程序界面。
+        let aresp = resp as! SendAuthResp
+        if (aresp.errCode == 0)
+        {
+            print(aresp.code)
+            var dic:Dictionary<String,String>=["code":aresp.code];
+            let value = dic["code"]
+            print("code:\(value)")
+            NSNotificationCenter.defaultCenter().postNotificationName("WX_CODE", object: nil, userInfo: dic)
+        }
     }
-
 }
 

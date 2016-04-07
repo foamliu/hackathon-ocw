@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Course {
+class Course {
     var title: String?
     var description: String?
     var rating: Int
