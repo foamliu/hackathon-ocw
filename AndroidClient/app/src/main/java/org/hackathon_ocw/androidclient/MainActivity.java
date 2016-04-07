@@ -484,11 +484,15 @@ public class MainActivity extends AppCompatActivity
                                     access_token = (String) response.get("access_token");
                                     openid = (String) response.get("openid");
 
+                                    if (access_token != null && openid != null)
+                                    {
+                                        String get_user_info_url = getUserInfo(access_token, openid);
+                                        WXGetUserInfo(get_user_info_url);
+                                    }
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                String get_user_info_url = getUserInfo(access_token, openid);
-                                WXGetUserInfo(get_user_info_url);
                             }
                         }, new Response.ErrorListener() {
                     @Override
