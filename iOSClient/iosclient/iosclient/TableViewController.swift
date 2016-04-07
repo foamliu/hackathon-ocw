@@ -118,7 +118,7 @@ class TableViewController: UITableViewController {
     }
     
     func jsonParsingFromUrl(){
-        let url = NSURL(string: "http://api.jieko.cc/user/15/Candidates")
+        let url = NSURL(string: "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates")
         let request = NSURLRequest(URL: url!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
         }
@@ -173,8 +173,46 @@ class TableViewController: UITableViewController {
         selectedDescription = courses[indexPath.row].valueForKey("description") as? String
         selectedImage = courseImageView?.image
         selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
+        let selectedCourseId: Int! = courses[indexPath.row].valueForKey("item_id") as? Int
         
+        //Send request to server
+        sendSelectedCourse(selectedCourseId)
+        
+        //Pass values
         performSegueWithIdentifier("showDetail", sender: self)
+    }
+    
+    func sendSelectedCourse(courseId: Int){
+        var courseSelected = [String: AnyObject]()
+        courseSelected["user_id"] = User.sharedManager.userid
+        courseSelected["item_id"] = courseId
+        courseSelected["pref"] = 3
+        
+        let url = "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Preferences"
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(courseSelected, options: [])
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                guard error == nil && data != nil else {
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("responseString = \(responseString)")
+            }
+            task.resume()
+        } catch _{
+            print("Error json")
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -184,9 +222,6 @@ class TableViewController: UITableViewController {
             viewController.courseDescription = selectedDescription
             viewController.courseImage = selectedImage
             viewController.courseVideoUrl = selectedVideoUrl
-            
         }
-
     }
-    
 }
