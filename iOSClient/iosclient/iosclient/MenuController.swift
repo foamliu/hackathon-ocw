@@ -154,6 +154,20 @@ class MenuController: UITableViewController {
                 let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
                 let documentsDirectoryPath = NSURL(string: documentsDirectoryPathString)!
                 let jsonFilePath = documentsDirectoryPath.URLByAppendingPathComponent("userProfile.json")
+                let fileManager = NSFileManager.defaultManager()
+                var isDirectory: ObjCBool = false
+                
+                // creating a .json file in the Documents folder
+                if !fileManager.fileExistsAtPath(jsonFilePath.absoluteString, isDirectory: &isDirectory) {
+                    let created = fileManager.createFileAtPath(jsonFilePath.absoluteString, contents: nil, attributes: nil)
+                    if created {
+                        print("File created ")
+                    } else {
+                        print("Couldn't create file for some reason")
+                    }
+                } else {
+                    print("File already exists")
+                }
                 
                 do {
                     let file = try NSFileHandle(forWritingToURL: jsonFilePath)
