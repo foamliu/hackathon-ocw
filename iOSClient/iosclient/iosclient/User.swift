@@ -9,7 +9,7 @@
 import UIKit
 
 class User {
-    var userid: Int?
+    var userid: Int? = 0
     var openid: String?
     var deviceid: String?
     var nickname: String?

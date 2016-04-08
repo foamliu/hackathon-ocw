@@ -47,6 +47,10 @@ object Application {
 
         courses
     }
+    
+    private def search(keyword: String): Seq[Course] = {        
+        getCourses().filter(_.title.contains(keyword)).take(howMany)
+    }
 
     private def createNewRecommender: Recommender = {
         val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", false, false, null)
@@ -106,7 +110,8 @@ object Application {
 
             Logger.debug("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
         }
-    }
+    }   
+
 }
 
 class Application extends Controller {
@@ -142,6 +147,14 @@ class Application extends Controller {
 
     def echo(message: String) = Action {
         Ok(message)
+    }
+    
+    def search(keyword: String) = Action {
+        val candidates: Seq[Course] = Application.search(keyword)
+
+        val json: JsValue = Json.obj("courses" -> candidates)
+
+        Ok(Json.stringify(json))
     }
 
 }
