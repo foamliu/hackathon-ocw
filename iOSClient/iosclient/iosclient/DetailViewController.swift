@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var commentView: UIView!
     
+    var courseId: Int!
     var courseTitle: String!
     var courseDescription: String!
     var courseImage: UIImage!
@@ -36,8 +37,9 @@ class DetailViewController: UIViewController {
         if(courseDescription != nil){
             NSNotificationCenter.defaultCenter().postNotificationName("descriptionNotification", object: nil, userInfo: ["description" : courseDescription])
         }
-
-        
+        if(courseId != nil){
+            NSNotificationCenter.defaultCenter().postNotificationName("courseIdNotification", object: nil, userInfo: ["courseId" : courseId])
+        }
     }
     
     override func didReceiveMemoryWarning() {

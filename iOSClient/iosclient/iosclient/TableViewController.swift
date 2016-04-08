@@ -17,6 +17,7 @@ class TableViewController: UITableViewController {
     var courses: NSMutableArray = []
     var loadMoreEnable = true
     
+    var selectedCourseId: Int!
     var selectedTitle: String!
     var selectedVideoUrl: String!
     var selectedDescription: String!
@@ -112,9 +113,7 @@ class TableViewController: UITableViewController {
     
     func loadMore(){
         jsonParsingFromUrl()
-        //self.courses.arrayByAddingObject(<#T##anObject: AnyObject##AnyObject#>)
         self.tableView.reloadData()
-    
     }
     
     func jsonParsingFromUrl(){
@@ -173,7 +172,7 @@ class TableViewController: UITableViewController {
         selectedDescription = courses[indexPath.row].valueForKey("description") as? String
         selectedImage = courseImageView?.image
         selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
-        let selectedCourseId: Int! = courses[indexPath.row].valueForKey("item_id") as? Int
+        selectedCourseId = courses[indexPath.row].valueForKey("item_id") as? Int
         
         //Send request to server
         sendSelectedCourse(selectedCourseId)
@@ -222,6 +221,7 @@ class TableViewController: UITableViewController {
             viewController.courseDescription = selectedDescription
             viewController.courseImage = selectedImage
             viewController.courseVideoUrl = selectedVideoUrl
+            viewController.courseId = selectedCourseId
         }
     }
 }

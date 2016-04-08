@@ -27,10 +27,6 @@ class DescriptionViewController: UIViewController {
     //Handler
     func handler(notif: NSNotification) {
         descriptionTextView.text = notif.userInfo!["description"] as! String
-        print("MyNotification was handled");
-        print("userInfo: \(notif.userInfo)");
-        print("SelectedCellIndex \(notif.userInfo!["selectedCellIndex"])"); //Validate userInfo here. it could be nil
-        
     }
 
 }
