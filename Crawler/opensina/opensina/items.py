@@ -17,3 +17,4 @@ class OpensinaItem(scrapy.Item):
     courselink = scrapy.Field()
     duration = scrapy.Field()
     source = scrapy.Field()
+    templink = scrapy.Field()
