@@ -11,6 +11,7 @@ import java.util.Enumeration;
 /**
  * Created by dianyang on 2016/3/7.
  */
+/*
 public class GetUserIdFromIP {
 
     public long ipToLong(String ipString){
@@ -50,3 +51,4 @@ public class GetUserIdFromIP {
         return null;
     }
 }
+*/

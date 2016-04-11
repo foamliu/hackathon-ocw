@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity
                 mListAdapter.clear();
 
                 Download_data download_data = new Download_data((download_complete) MainActivity.this);
-                download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
+                download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
                 mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity
 
 
         final Download_data download_data = new Download_data((download_complete) this);
-        download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
+        download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
 
         mListView.setItemsCanFocus(true);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity
         progressBar.setVisibility(View.VISIBLE);
 
         Download_data download_data = new Download_data((download_complete) MainActivity.this);
-        download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
+        download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
         mListAdapter.addAll(courseList);
 
         new Handler().postDelayed(new Runnable() {
