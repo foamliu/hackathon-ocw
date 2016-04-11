@@ -44,6 +44,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity
 
     //Toolbars
     private Toolbar toolbar;
+    private Button searchBtn;
     private ProgressBar progressBar;
 
     public ListAdapter mListAdapter;
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity
             titleMainToolBar.setText("学啥");
 
             toolbarInit();
+            searchBtnInit();
             listViewInit();
             //floatingButtonInit();
             drawerInit();
@@ -315,6 +318,16 @@ public class MainActivity extends AppCompatActivity
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+    }
+
+    public void searchBtnInit(){
+        searchBtn = (Button)findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onSearchRequested();
+            }
+        });
     }
 
     public int getStatusBarHeight() {
