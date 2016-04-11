@@ -38,7 +38,7 @@ class CommentViewController: UITableViewController {
     }
     
     override func tableView(commentsView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = commentsView.dequeueReusableCellWithIdentifier("CommentsCell") as! TableViewCell
+        let cell = commentsView.dequeueReusableCellWithIdentifier("CommentsCell") as! CommentsViewCell
         
         if let nameLabel = cell.viewWithTag(201) as? UILabel {
             nameLabel.text = comments[indexPath.row].valueForKey("author_name") as? String
