@@ -730,7 +730,7 @@ public class MainActivity extends AppCompatActivity
         try
         {
             jsonObject.put("userid", userProfile.getUserid());
-            Toast.makeText(getApplicationContext(),  userProfile.getUserid(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),  userProfile.getUserid(), Toast.LENGTH_SHORT).show();
         }catch (Exception e)
         {
             Log.e("Json Error",e.toString());
