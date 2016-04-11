@@ -31,6 +31,7 @@
 		76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38CC1CABC54000622A4A /* DetailViewController.swift */; };
 		76DD38D11CABCDD900622A4A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38D01CABCDD900622A4A /* Course.swift */; };
 		76FE57051CB77A810070B751 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FE57041CB77A810070B751 /* Comment.swift */; };
+		76FE57071CBB3DC10070B751 /* CommentsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FE57061CBB3DC10070B751 /* CommentsViewCell.swift */; };
 		F986E2C99775C843EF3A0DB0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BE1F9DB3C562D681D5A208 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		76DD38CC1CABC54000622A4A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		76DD38D01CABCDD900622A4A /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		76FE57041CB77A810070B751 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		76FE57061CBB3DC10070B751 /* CommentsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewCell.swift; sourceTree = "<group>"; };
 		B0D93FADA330DB60900BD7FE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +199,7 @@
 				7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */,
 				767E722D1CB7419300CEBA6C /* CommentViewController.swift */,
 				76FE57041CB77A810070B751 /* Comment.swift */,
+				76FE57061CBB3DC10070B751 /* CommentsViewCell.swift */,
 			);
 			path = iosclient;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 			files = (
 				761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */,
 				76DD389D1CABC24300622A4A /* ViewController.swift in Sources */,
+				76FE57071CBB3DC10070B751 /* CommentsViewCell.swift in Sources */,
 				76DD38D11CABCDD900622A4A /* Course.swift in Sources */,
 				76DD38CB1CABC4E500622A4A /* TableViewCell.swift in Sources */,
 				76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */,
