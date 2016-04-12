@@ -38,6 +38,7 @@ class Open163ExSpider(scrapy.Spider):
           item['courselink'] = info.xpath('a/@href').extract()
           item['piclink'] = info.xpath('a/img/@src').extract()
           item['description'] = info.xpath('p[@class="desc f-c9"]/text()').extract()
+          item['source'] = u'网易公开课'
           yield item
 
         next = self.driver.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
