@@ -18,9 +18,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var sendBtn: UIButton!
-    @IBOutlet weak var commentTextfield: UITextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var commentToolbar: UIToolbar!
+    @IBOutlet weak var commentTextfield: UITextField!
     
     var courseId: Int!
     var courseTitle: String!
@@ -155,8 +155,8 @@ class DetailViewController: UIViewController {
     
     @IBAction func sendBtnClicked(sender: UIButton) {
         commentTextfield.resignFirstResponder()
-        let dict = NSDictionary()
-        dict.setValue(courseId, forKey: "item_id")
+        let dict = NSMutableDictionary()
+        dict.setValue(String(courseId), forKey: "item_id")
         dict.setValue(commentTextfield.text, forKey: "text")
         dict.setValue(String(self.player.currentTime().value), forKey: "timeline")
         dict.setValue(NSCalendar.currentCalendar(), forKey: "posted")

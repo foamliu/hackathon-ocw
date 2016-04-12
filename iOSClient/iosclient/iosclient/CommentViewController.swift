@@ -85,14 +85,14 @@ class CommentViewController: UITableViewController {
     }
     
     func newComment(notif: NSNotification){
-        let newComment: NSDictionary = notif.userInfo!["newComment"] as! NSDictionary
+        let newComment: NSMutableDictionary = notif.userInfo!["newComment"] as! NSMutableDictionary
         newComment.setValue(0, forKey: "like")
         newComment.setValue(User.sharedManager.userid, forKey: "author_id")
         if(User.sharedManager.nickname != nil){
             newComment.setValue(User.sharedManager.nickname, forKey: "author_name")
             newComment.setValue(User.sharedManager.headimgurl, forKey: "headimgurl")
         }
-        comments.addObject(newComment)
+        comments.insertObject(newComment, atIndex: 0)
         commentsView.reloadData()
     }
     
