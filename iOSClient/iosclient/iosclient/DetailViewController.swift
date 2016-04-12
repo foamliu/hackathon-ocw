@@ -156,16 +156,24 @@ class DetailViewController: UIViewController {
     @IBAction func sendBtnClicked(sender: UIButton) {
         commentTextfield.resignFirstResponder()
         let dict = NSMutableDictionary()
-        dict.setValue(String(courseId), forKey: "item_id")
+        dict.setValue(courseId, forKey: "item_id")
         dict.setValue(commentTextfield.text, forKey: "text")
         dict.setValue(String(self.player.currentTime().value), forKey: "timeline")
-        dict.setValue(NSCalendar.currentCalendar(), forKey: "posted")
+        dict.setValue(getCurrentTime(), forKey: "posted")
         commentTextfield.text = ""
         
         //Update the comment to commentField
         NSNotificationCenter.defaultCenter().postNotificationName("newCommentNotification", object: nil, userInfo: ["newComment": dict])
-        
-        //TODO: Send comment to server
+    }
+    
+    func getCurrentTime() -> String{
+        let currentTime = NSDate()
+        let formatter = NSDateFormatter();
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZ";
+        formatter.timeZone = NSTimeZone(abbreviation: "UTC");
+        var utcTimeZoneStr = formatter.stringFromDate(currentTime);
+        utcTimeZoneStr = utcTimeZoneStr.stringByReplacingOccurrencesOfString("GMT", withString: "Z")
+        return utcTimeZoneStr
     }
     
 }

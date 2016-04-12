@@ -55,27 +55,21 @@ class CommentViewController: UITableViewController {
             likeLabel.text = String(comments[indexPath.row].valueForKey("like")!) as? String
         }
         
-        if(comments[indexPath.row].valueForKey("headimgurl") != nil){
-            if let userImageView = cell.viewWithTag(200) as? UIImageView {
+        if let userImageView = cell.viewWithTag(200) as? UIImageView {
+            if(comments[indexPath.row].valueForKey("headimgurl") != nil){
                 let URLString:NSURL = NSURL(string: comments[indexPath.row].valueForKey("headimgurl") as! String)!
                 userImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
-                userImageView.layer.borderWidth = 2
-                userImageView.layer.masksToBounds = false
-                userImageView.layer.borderColor = UIColor.whiteColor().CGColor
-                userImageView.layer.cornerRadius = userImageView.frame.height/2
-                userImageView.clipsToBounds = true
             }
-        }
-        else{
-            if let userImageView = cell.viewWithTag(200) as? UIImageView {
+            else{
                 userImageView.image = UIImage(named: "anonymous")
-                userImageView.layer.borderWidth = 2
-                userImageView.layer.masksToBounds = false
-                userImageView.layer.borderColor = UIColor.whiteColor().CGColor
-                userImageView.layer.cornerRadius = userImageView.frame.height/2
-                userImageView.clipsToBounds = true
             }
+            userImageView.layer.borderWidth = 2
+            userImageView.layer.masksToBounds = false
+            userImageView.layer.borderColor = UIColor.whiteColor().CGColor
+            userImageView.layer.cornerRadius = userImageView.frame.height/2
+            userImageView.clipsToBounds = true
         }
+        
         return cell
     }
     
@@ -105,6 +99,7 @@ class CommentViewController: UITableViewController {
         }
         comments.insertObject(newComment, atIndex: 0)
         commentsView.reloadData()
+        sendComment(newComment)
     }
     
     func startCommentsParsing(data: NSData){
@@ -147,6 +142,37 @@ class CommentViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    func sendComment(newComment: NSMutableDictionary){
+        newComment.removeObjectForKey("headimgurl")
+        
+        let url = "http://jieko.cc/item/" + String(courseId) + "/Comments"
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(newComment, options: [])
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                guard error == nil && data != nil else {
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("responseString = \(responseString)")
+            }
+            task.resume()
+        } catch _{
+            print("Error json")
+        }
+        
     }
 
     
