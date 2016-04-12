@@ -55,6 +55,12 @@ class CommentViewController: UITableViewController {
             if let userImageView = cell.viewWithTag(200) as? UIImageView {
                 let URLString:NSURL = NSURL(string: comments[indexPath.row].valueForKey("headimgurl") as! String)!
                 userImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
+                
+                userImageView.layer.borderWidth = 2
+                userImageView.layer.masksToBounds = false
+                userImageView.layer.borderColor = UIColor.whiteColor().CGColor
+                userImageView.layer.cornerRadius = userImageView.frame.height/2
+                userImageView.clipsToBounds = true
             }
         
         }
