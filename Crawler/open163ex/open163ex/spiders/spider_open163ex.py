@@ -32,12 +32,11 @@ class Open163ExSpider(scrapy.Spider):
 
             for info in hxs.xpath('//div[@class="cnt"]'):
                 item = Open163ExItem()
-                item['title'] = info.xpath('a/@title').extract()[0].encode('utf-8')
+                item['title'] = info.xpath('a/@title').extract()[0].encode('utf-8').replace('"', '“')
                 item['courselink'] = info.xpath('a/@href').extract()[0]
                 item['piclink'] = info.xpath('a/img/@src').extract()[0]
-                item['description'] = info.xpath('p[@class="desc f-c9"]/text()').extract()[0].encode('utf-8')
+                item['description'] = info.xpath('p[@class="desc f-c9"]/text()').extract()[0].encode('utf-8').replace('"', '“')
                 item['source'] = u'网易公开课'.encode('utf-8')
-                count += 1
                 yield item
 
             next = self.driver.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
