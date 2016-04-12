@@ -11,4 +11,12 @@ import scrapy
 class Open163ExItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    title = scrapy.Field()
+    description = scrapy.Field()
+    courselink = scrapy.Field()
+    piclink = scrapy.Field()
+    duration = scrapy.Field()
+    source = scrapy.Field()
+    tags = scrapy.Field()
+    language = scrapy.Field()
+    instructor = scrapy.Field()

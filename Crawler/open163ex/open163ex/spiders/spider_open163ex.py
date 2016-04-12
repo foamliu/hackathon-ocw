@@ -6,7 +6,6 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-import time
 from open163ex.items import Open163ExItem
 
 from selenium import webdriver
@@ -25,8 +24,6 @@ class Open163ExSpider(scrapy.Spider):
 
     def parse(self, response):
       self.driver.get("http://c.open.163.com/search/search.htm?query=#/search/video")
-      #self.browser.get(response.url)
-      time.sleep(5)
 
       while True:
       
@@ -42,8 +39,6 @@ class Open163ExSpider(scrapy.Spider):
           yield item
 
         next = self.driver.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
-        #print next.text
-        time.sleep(2)
 
         try:
           next.click()
