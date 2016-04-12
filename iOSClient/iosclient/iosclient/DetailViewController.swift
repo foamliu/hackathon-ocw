@@ -17,12 +17,17 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var commentView: UIView!
+    @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var commentTextfield: UITextField!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var commentToolbar: UIToolbar!
     
     var courseId: Int!
     var courseTitle: String!
     var courseDescription: String!
     var courseImage: UIImage!
     var courseVideoUrl: String!
+    var player: AVPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +45,8 @@ class DetailViewController: UIViewController {
         if(courseId != nil){
             NSNotificationCenter.defaultCenter().postNotificationName("courseIdNotification", object: nil, userInfo: ["courseId" : courseId])
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,7 +59,7 @@ class DetailViewController: UIViewController {
         //play online video
         if (courseVideoUrl != nil){
             let videoURL = NSURL(string: courseVideoUrl)
-            let player = AVPlayer(URL: videoURL!)
+            player = AVPlayer(URL: videoURL!)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
             playerViewController.view.frame = CGRectMake(0, 110, screenSize.width, 260)
@@ -121,6 +128,7 @@ class DetailViewController: UIViewController {
          */
     }
     
+    
     @IBAction func indexChanged(sender: UISegmentedControl) {
         switch self.segmentedControl.selectedSegmentIndex{
             case 0:
@@ -132,6 +140,32 @@ class DetailViewController: UIViewController {
             default:
                 break
         }
+    }
+    
+    func keyboardWillChange(notification: NSNotification) {
+        let dict = NSDictionary(dictionary: notification.userInfo!);
+        let keyboardFrame = dict[UIKeyboardFrameEndUserInfoKey]!.CGRectValue();
+        let ty = keyboardFrame.origin.y - view.frame.height;
+        let duration = dict[UIKeyboardAnimationDurationUserInfoKey] as! Double;
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.commentToolbar.transform = CGAffineTransformMakeTranslation(0, ty);
+        });
+    }
+    
+    
+    @IBAction func sendBtnClicked(sender: UIButton) {
+        commentTextfield.resignFirstResponder()
+        let dict = NSDictionary()
+        dict.setValue(courseId, forKey: "item_id")
+        dict.setValue(commentTextfield.text, forKey: "text")
+        dict.setValue(String(self.player.currentTime().value), forKey: "timeline")
+        dict.setValue(NSCalendar.currentCalendar(), forKey: "posted")
+        commentTextfield.text = ""
+        
+        //Update the comment to commentField
+        NSNotificationCenter.defaultCenter().postNotificationName("newCommentNotification", object: nil, userInfo: ["newComment": dict])
+        
+        //TODO: Send comment to server
     }
     
 }

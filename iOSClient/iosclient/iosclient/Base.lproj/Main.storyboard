@@ -418,7 +418,7 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAU-0Q-tom">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem style="plain" id="cih-gV-2Sr">
+                                    <barButtonItem width="290" style="plain" id="cih-gV-2Sr">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="说点什么吧..." textAlignment="natural" minimumFontSize="17" id="RTl-Ji-rhc">
                                             <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -431,6 +431,9 @@
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="send"/>
+                                            <connections>
+                                                <action selector="sendBtnClicked:" destination="tXj-V4-scd" eventType="touchUpInside" id="HLC-Hx-UTS"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                 </items>
@@ -539,10 +542,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomConstraint" destination="zds-LA-Dzw" id="qZe-KT-Phh"/>
+                        <outlet property="commentTextfiled" destination="RTl-Ji-rhc" id="UD0-BP-Y6D"/>
+                        <outlet property="commentToolbar" destination="ZAU-0Q-tom" id="hkn-jS-6gL"/>
                         <outlet property="commentView" destination="xYy-7u-K5d" id="Mrs-M0-j2P"/>
                         <outlet property="descriptionView" destination="KJr-7Q-zG8" id="I94-Gt-c8x"/>
                         <outlet property="labelTitle" destination="ggY-YR-yyn" id="3Jg-yT-k73"/>
                         <outlet property="segmentedControl" destination="Ijm-Fi-swm" id="Uh7-ga-86x"/>
+                        <outlet property="sendBtn" destination="NqC-LS-BKi" id="TlS-A6-AVQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E3O-N8-9S1" userLabel="First Responder" sceneMemberID="firstResponder"/>

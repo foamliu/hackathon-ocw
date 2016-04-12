@@ -21,6 +21,7 @@ class CommentViewController: UITableViewController {
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "getCourseItem:", name: "courseIdNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "newComment:", name: "newCommentNotification", object: nil)
         //load comments
         loadCommentsFromUrl()
         
@@ -81,6 +82,18 @@ class CommentViewController: UITableViewController {
     //Handler
     func getCourseItem(notif: NSNotification) {
         courseId = notif.userInfo!["courseId"] as! Int
+    }
+    
+    func newComment(notif: NSNotification){
+        let newComment: NSDictionary = notif.userInfo!["newComment"] as! NSDictionary
+        newComment.setValue(0, forKey: "like")
+        newComment.setValue(User.sharedManager.userid, forKey: "author_id")
+        if(User.sharedManager.nickname != nil){
+            newComment.setValue(User.sharedManager.nickname, forKey: "author_name")
+            newComment.setValue(User.sharedManager.headimgurl, forKey: "headimgurl")
+        }
+        comments.addObject(newComment)
+        commentsView.reloadData()
     }
     
     func startCommentsParsing(data: NSData){
