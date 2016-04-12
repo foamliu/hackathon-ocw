@@ -17,6 +17,7 @@ struct Comment {
     var text: String?
     var timeline: String?
     var like: Int? = 0
+    var headimgurl: String?
     
     init(){}
     
