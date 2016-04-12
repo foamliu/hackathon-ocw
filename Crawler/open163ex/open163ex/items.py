@@ -14,6 +14,7 @@ class Open163ExItem(scrapy.Item):
     item_id = scrapy.Field()
     title = scrapy.Field()
     description = scrapy.Field()
+    link = scrapy.Field()
     courselink = scrapy.Field()
     piclink = scrapy.Field()
     duration = scrapy.Field()
