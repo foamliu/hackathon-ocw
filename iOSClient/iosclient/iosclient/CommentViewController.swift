@@ -12,6 +12,7 @@ class CommentViewController: UITableViewController {
     
     var courseId: Int!
     var comments: NSMutableArray = []
+    var Comments:[Comment] = []
     
     @IBOutlet var commentsView: UITableView!
     
@@ -66,18 +67,76 @@ class CommentViewController: UITableViewController {
         }
     }
     
-    func startCommentsParsing(data: NSData){
-        let dict: NSArray!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSArray
-        for i in 0...(dict.count - 1){
-            comments.addObject(dict.objectAtIndex(i))
-        }
-        commentsView.reloadData()
-    }
-    
     //Handler
     func getCourseItem(notif: NSNotification) {
         courseId = notif.userInfo!["courseId"] as! Int
     }
+    
+    func startCommentsParsing(data: NSData){
+        let dict: NSArray!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSArray
+        for i in 0...(dict.count - 1){
+            comments.addObject(dict.objectAtIndex(i))
+            var newComment = Comment()
+            var commentDic: NSDictionary = dict.objectAtIndex(i) as! NSDictionary
+            newComment.item_id = commentDic["item_id"]?.integerValue
+            newComment.author_id = commentDic["author_id"]?.integerValue
+            newComment.author_name = commentDic["author_name"]?.string
+            newComment.text = commentDic["text"]?.string
+            newComment.timeline = commentDic["timeline"]?.string
+            newComment.like = commentDic["like"]?.integerValue
+            Comments.append(newComment)
+        }
+        commentsView.reloadData()
+        loadHeadImg()
+    }
+    
+    
+    func loadHeadImg(){
+        let headimgurl: String?
+
+        for comment in comments {
+            comments.removeObject(comment)
+            
+            //var author_id: Int! = comment["author_id"]
+            //Get img url with GET request
+            
+            //更新到server端
+            let url = "http://jieko.cc/user/" //+ String(author_id!)
+            let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+            request.HTTPMethod = "GET"
+           
+            
+            do{
+                    let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                    guard error == nil && data != nil else {
+                        print("error=\(error)")
+                        return
+                    }
+                        
+                    if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                        print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                        print("response = \(response)")
+                    }
+                        
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String: Int]
+                        var headimgurl = result!["headimgurl"]
+                        //comment["headimgurl"] = headimgurl
+                        self.comments.addObject(comment)
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+                task.resume()
+            } catch _{
+                print("Error json")
+            }
+            
+        }
+    }
+ 
+    
+    
     
     
 }
