@@ -145,7 +145,8 @@ class CommentViewController: UITableViewController {
     }
     
     func sendComment(newComment: NSMutableDictionary){
-        newComment.removeObjectForKey("headimgurl")
+        let comment = NSKeyedUnarchiver.unarchiveObjectWithData(NSKeyedArchiver.archivedDataWithRootObject(newComment)) as! NSMutableDictionary
+        comment.removeObjectForKey("headimgurl")
         
         let url = "http://jieko.cc/item/" + String(courseId) + "/Comments"
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
@@ -153,7 +154,7 @@ class CommentViewController: UITableViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do{
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(newComment, options: [])
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(comment, options: [])
             let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
                 guard error == nil && data != nil else {
                     print("error=\(error)")

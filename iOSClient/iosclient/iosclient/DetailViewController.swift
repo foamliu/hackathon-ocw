@@ -158,7 +158,7 @@ class DetailViewController: UIViewController {
         let dict = NSMutableDictionary()
         dict.setValue(courseId, forKey: "item_id")
         dict.setValue(commentTextfield.text, forKey: "text")
-        dict.setValue(String(self.player.currentTime().value), forKey: "timeline")
+        dict.setValue(Int(self.player.currentTime().value), forKey: "timeline")
         dict.setValue(getCurrentTime(), forKey: "posted")
         commentTextfield.text = ""
         
