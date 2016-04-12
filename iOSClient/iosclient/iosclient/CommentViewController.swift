@@ -55,8 +55,7 @@ class CommentViewController: UITableViewController {
             likeLabel.text = String(comments[indexPath.row].valueForKey("like")!) as? String
         }
         
-        if(comments[indexPath.row].valueForKey("headimgurl") != nil)
-        {
+        if(comments[indexPath.row].valueForKey("headimgurl") != nil){
             if let userImageView = cell.viewWithTag(200) as? UIImageView {
                 let URLString:NSURL = NSURL(string: comments[indexPath.row].valueForKey("headimgurl") as! String)!
                 userImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
@@ -66,7 +65,16 @@ class CommentViewController: UITableViewController {
                 userImageView.layer.cornerRadius = userImageView.frame.height/2
                 userImageView.clipsToBounds = true
             }
-        
+        }
+        else{
+            if let userImageView = cell.viewWithTag(200) as? UIImageView {
+                userImageView.image = UIImage(named: "anonymous")
+                userImageView.layer.borderWidth = 2
+                userImageView.layer.masksToBounds = false
+                userImageView.layer.borderColor = UIColor.whiteColor().CGColor
+                userImageView.layer.cornerRadius = userImageView.frame.height/2
+                userImageView.clipsToBounds = true
+            }
         }
         return cell
     }
@@ -91,6 +99,9 @@ class CommentViewController: UITableViewController {
         if(User.sharedManager.nickname != nil){
             newComment.setValue(User.sharedManager.nickname, forKey: "author_name")
             newComment.setValue(User.sharedManager.headimgurl, forKey: "headimgurl")
+        }
+        else{
+            newComment.setValue("匿名用户", forKey: "author_name")
         }
         comments.insertObject(newComment, atIndex: 0)
         commentsView.reloadData()
