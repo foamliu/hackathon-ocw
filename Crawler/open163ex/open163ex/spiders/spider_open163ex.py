@@ -25,6 +25,8 @@ class Open163ExSpider(scrapy.Spider):
 
         self.main = webdriver.Firefox()
         self.detail = webdriver.Firefox(profile)
+        # This will throw a TimeoutException whenever the page load takes more than 30 seconds.
+        self.detail.set_page_load_timeout(30)
 
     def __del__(self):
         self.main.close()
@@ -48,16 +50,20 @@ class Open163ExSpider(scrapy.Spider):
                 item['description'] = dlist[0].encode('utf-8').replace('"', '“').replace('\n', '') if dlist else u''
                 item['source'] = u'网易公开课'.encode('utf-8')
 
-                self.detail.get(link)
-                details = scrapy.Selector(text = self.detail.page_source)
-                item['courselink'] = details.xpath('//div[@class="net-bd"]/video/@src').extract()[0]
-                item['duration'] = u''
-                item['tags'] = details.xpath('//div[@class="net-bd"]/div[7]/p/text()').extract()[0].encode('utf-8')
-                item['language'] = details.xpath('//div[@class="net-bd"]/div[6]/p/text()').extract()[0].encode('utf-8')
-                item['instructor'] = details.xpath('//div[@class="net-bd"]/div[5]/p/text()').extract()[0].encode('utf-8')
-                yield item
+                try:
+                    self.detail.get(link)
+                    time.sleep(2)
+                    details = scrapy.Selector(text = self.detail.page_source)
+                    item['courselink'] = details.xpath('//div[@class="net-bd"]/video/@src').extract()[0]
+                    item['duration'] = u''
+                    item['tags'] = details.xpath('//div[@class="net-bd"]/div[7]/p/text()').extract()[0].encode('utf-8')
+                    item['language'] = details.xpath('//div[@class="net-bd"]/div[6]/p/text()').extract()[0].encode('utf-8')
+                    item['instructor'] = details.xpath('//div[@class="net-bd"]/div[5]/p/text()').extract()[0].encode('utf-8')
+                    yield item
 
-                next = self.main.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
+                except Exception as err:
+                    print(err)
+            next = self.main.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
 
             try:
                 #next.click()
