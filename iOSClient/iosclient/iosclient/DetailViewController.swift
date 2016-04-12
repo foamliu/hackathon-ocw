@@ -55,7 +55,7 @@ class DetailViewController: UIViewController {
             let player = AVPlayer(URL: videoURL!)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
-            playerViewController.view.frame = CGRectMake(0, 110, screenSize.width, 300)
+            playerViewController.view.frame = CGRectMake(0, 110, screenSize.width, 260)
             self.addChildViewController(playerViewController)
             self.view.addSubview(playerViewController.view)
             playerViewController.player!.play()

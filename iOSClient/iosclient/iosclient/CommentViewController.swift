@@ -50,12 +50,15 @@ class CommentViewController: UITableViewController {
             commentLabel.text = comments[indexPath.row].valueForKey("text") as? String
         }
         
+        if let likeLabel = cell.viewWithTag(203) as? UILabel {
+            likeLabel.text = String(comments[indexPath.row].valueForKey("like")!) as? String
+        }
+        
         if(comments[indexPath.row].valueForKey("headimgurl") != nil)
         {
             if let userImageView = cell.viewWithTag(200) as? UIImageView {
                 let URLString:NSURL = NSURL(string: comments[indexPath.row].valueForKey("headimgurl") as! String)!
                 userImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
-                
                 userImageView.layer.borderWidth = 2
                 userImageView.layer.masksToBounds = false
                 userImageView.layer.borderColor = UIColor.whiteColor().CGColor
