@@ -403,24 +403,45 @@
                                     <action selector="indexChanged:" destination="tXj-V4-scd" eventType="valueChanged" id="dza-ye-PwT"/>
                                 </connections>
                             </segmentedControl>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYy-7u-K5d">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <connections>
-                                    <segue destination="Asr-fo-bMf" kind="embed" id="LKh-NY-hJY"/>
-                                </connections>
-                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJr-7Q-zG8">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <connections>
                                     <segue destination="Qam-nu-7qG" kind="embed" identifier="showDescription" id="31L-g3-Rh3"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYy-7u-K5d">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <connections>
+                                    <segue destination="Asr-fo-bMf" kind="embed" id="LKh-NY-hJY"/>
+                                </connections>
+                            </containerView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAU-0Q-tom">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" id="cih-gV-2Sr">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="说点什么吧..." textAlignment="natural" minimumFontSize="17" id="RTl-Ji-rhc">
+                                            <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </barButtonItem>
+                                    <barButtonItem image="send" style="plain" id="nvK-xB-ZsX">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NqC-LS-BKi">
+                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="send"/>
+                                        </button>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="KJr-7Q-zG8" firstAttribute="trailing" secondItem="Ijm-Fi-swm" secondAttribute="trailing" id="1sY-pq-INl">
                                 <variation key="widthClass=compact" constant="10"/>
                             </constraint>
+                            <constraint firstItem="ZAU-0Q-tom" firstAttribute="leading" secondItem="XOh-Ud-0Rl" secondAttribute="leading" id="6th-oo-h12"/>
                             <constraint firstItem="ggY-YR-yyn" firstAttribute="top" secondItem="c4G-27-bx2" secondAttribute="bottom" constant="8" symbolic="YES" id="Btu-4G-Ddd"/>
                             <constraint firstItem="KJr-7Q-zG8" firstAttribute="leading" secondItem="Ijm-Fi-swm" secondAttribute="leading" id="DNC-9L-bSf">
                                 <variation key="widthClass=compact" constant="-10"/>
@@ -450,18 +471,18 @@
                                 <variation key="widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="xYy-7u-K5d" firstAttribute="leading" secondItem="KJr-7Q-zG8" secondAttribute="leading" id="ori-8x-YbN"/>
+                            <constraint firstItem="ZAU-0Q-tom" firstAttribute="centerX" secondItem="KJr-7Q-zG8" secondAttribute="centerX" id="woX-mu-CJt"/>
+                            <constraint firstItem="ZAU-0Q-tom" firstAttribute="bottom" secondItem="cNo-6i-2Hi" secondAttribute="top" id="zds-LA-Dzw"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="ggY-YR-yyn"/>
                                 <exclude reference="Ijm-Fi-swm"/>
-                                <exclude reference="xYy-7u-K5d"/>
                                 <exclude reference="KJr-7Q-zG8"/>
+                                <exclude reference="xYy-7u-K5d"/>
+                                <exclude reference="ZAU-0Q-tom"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Krb-Ni-igv"/>
-                                <exclude reference="NQN-sx-8si"/>
-                                <exclude reference="kBb-4g-o8V"/>
                                 <exclude reference="Btu-4G-Ddd"/>
                                 <exclude reference="ZbZ-ra-DDO"/>
                                 <exclude reference="arn-7T-iNd"/>
@@ -473,19 +494,23 @@
                                 <exclude reference="QmU-03-WLb"/>
                                 <exclude reference="oQL-49-P3u"/>
                                 <exclude reference="ori-8x-YbN"/>
+                                <exclude reference="6th-oo-h12"/>
+                                <exclude reference="woX-mu-CJt"/>
+                                <exclude reference="zds-LA-Dzw"/>
+                                <exclude reference="Krb-Ni-igv"/>
+                                <exclude reference="NQN-sx-8si"/>
+                                <exclude reference="kBb-4g-o8V"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="ggY-YR-yyn"/>
                                 <include reference="Ijm-Fi-swm"/>
-                                <include reference="xYy-7u-K5d"/>
                                 <include reference="KJr-7Q-zG8"/>
+                                <include reference="xYy-7u-K5d"/>
+                                <include reference="ZAU-0Q-tom"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="Krb-Ni-igv"/>
-                                <include reference="NQN-sx-8si"/>
-                                <include reference="kBb-4g-o8V"/>
                                 <include reference="Btu-4G-Ddd"/>
                                 <include reference="ZbZ-ra-DDO"/>
                                 <include reference="arn-7T-iNd"/>
@@ -497,6 +522,12 @@
                                 <include reference="QmU-03-WLb"/>
                                 <include reference="oQL-49-P3u"/>
                                 <include reference="ori-8x-YbN"/>
+                                <include reference="6th-oo-h12"/>
+                                <include reference="woX-mu-CJt"/>
+                                <include reference="zds-LA-Dzw"/>
+                                <include reference="Krb-Ni-igv"/>
+                                <include reference="NQN-sx-8si"/>
+                                <include reference="kBb-4g-o8V"/>
                             </mask>
                         </variation>
                     </view>
@@ -761,6 +792,7 @@
         <image name="like" width="25" height="25"/>
         <image name="menu" width="22" height="22"/>
         <image name="photo" width="1024" height="1024"/>
+        <image name="send" width="30" height="30"/>
         <image name="share" width="25" height="25"/>
         <image name="user" width="100" height="100"/>
     </resources>
