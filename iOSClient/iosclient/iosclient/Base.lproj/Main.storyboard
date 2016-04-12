@@ -316,9 +316,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="95"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="102" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaO-JM-BEv">
-                                            <rect key="frame" x="8" y="9" width="151" height="77"/>
-                                        </imageView>
                                         <stackView opaque="NO" contentMode="left" ambiguous="YES" misplaced="YES" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="n0l-mo-huc">
                                             <rect key="frame" x="167" y="8" width="180" height="48"/>
                                             <subviews>
@@ -339,6 +336,9 @@
                                                 <constraint firstAttribute="width" constant="180" id="ABo-Pu-Kob"/>
                                             </constraints>
                                         </stackView>
+                                        <imageView userInteractionEnabled="NO" tag="102" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaO-JM-BEv">
+                                            <rect key="frame" x="8" y="9" width="151" height="77"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -573,22 +573,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="74"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oTF-7W-V5a">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="73" id="Nts-kH-E4J"/>
-                                            </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="Nts-kH-E4J"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="widthClass=compact">
-                                                <mask key="constraints">
-                                                    <include reference="Nts-kH-E4J"/>
-                                                </mask>
-                                            </variation>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="202" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AqN-cg-gg5">
                                             <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -655,6 +639,22 @@
                                                 </mask>
                                             </variation>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oTF-7W-V5a">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="73" id="Nts-kH-E4J"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Nts-kH-E4J"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="Nts-kH-E4J"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="hWM-7c-j0q" firstAttribute="leading" secondItem="oTF-7W-V5a" secondAttribute="trailing" constant="8" symbolic="YES" id="0aH-fI-vPR"/>
@@ -678,11 +678,11 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="subviews">
-                                            <exclude reference="oTF-7W-V5a"/>
                                             <exclude reference="AqN-cg-gg5"/>
                                             <exclude reference="k6X-fY-f2u"/>
                                             <exclude reference="CJD-ja-JZd"/>
                                             <exclude reference="hWM-7c-j0q"/>
+                                            <exclude reference="oTF-7W-V5a"/>
                                         </mask>
                                         <mask key="constraints">
                                             <exclude reference="LTM-kg-MGy"/>
@@ -707,11 +707,11 @@
                                     </variation>
                                     <variation key="widthClass=compact">
                                         <mask key="subviews">
-                                            <include reference="oTF-7W-V5a"/>
                                             <include reference="AqN-cg-gg5"/>
                                             <include reference="k6X-fY-f2u"/>
                                             <include reference="CJD-ja-JZd"/>
                                             <include reference="hWM-7c-j0q"/>
+                                            <include reference="oTF-7W-V5a"/>
                                         </mask>
                                         <mask key="constraints">
                                             <include reference="LTM-kg-MGy"/>

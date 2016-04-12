@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class CommentViewController: UITableViewController {
     
@@ -49,13 +50,14 @@ class CommentViewController: UITableViewController {
             commentLabel.text = comments[indexPath.row].valueForKey("text") as? String
         }
         
-        /*
-        if let userImageView = cell.viewWithTag(200) as? UIImageView {
-            let URLString:NSURL = NSURL(string: comments[indexPath.row].valueForKey("piclink") as! String)!
-            courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
-        }
-         */
+        if(comments[indexPath.row].valueForKey("headimgurl") != nil)
+        {
+            if let userImageView = cell.viewWithTag(200) as? UIImageView {
+                let URLString:NSURL = NSURL(string: comments[indexPath.row].valueForKey("headimgurl") as! String)!
+                userImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
+            }
         
+        }
         return cell
     }
     
@@ -77,12 +79,13 @@ class CommentViewController: UITableViewController {
         for i in 0...(dict.count - 1){
             comments.addObject(dict.objectAtIndex(i))
             var newComment = Comment()
-            var commentDic: NSDictionary = dict.objectAtIndex(i) as! NSDictionary
+            let commentDic: NSDictionary = dict.objectAtIndex(i) as! NSDictionary
             newComment.item_id = commentDic["item_id"]?.integerValue
             newComment.author_id = commentDic["author_id"]?.integerValue
-            newComment.author_name = commentDic["author_name"]?.string
-            newComment.text = commentDic["text"]?.string
-            newComment.timeline = commentDic["timeline"]?.string
+            newComment.author_name = commentDic["author_name"] as? String
+            newComment.text = commentDic["text"] as? String
+            newComment.posted = commentDic["posted"] as? String
+            newComment.timeline = commentDic["timeline"]?.integerValue
             newComment.like = commentDic["like"]?.integerValue
             Comments.append(newComment)
         }
@@ -92,51 +95,26 @@ class CommentViewController: UITableViewController {
     
     
     func loadHeadImg(){
-        let headimgurl: String?
-
         for comment in comments {
-            comments.removeObject(comment)
             
-            //var author_id: Int! = comment["author_id"]
-            //Get img url with GET request
+            let commentDic: NSDictionary = comment as! NSDictionary
+            let author_id: Int! = commentDic["author_id"]?.integerValue
             
-            //更新到server端
-            let url = "http://jieko.cc/user/" //+ String(author_id!)
-            let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-            request.HTTPMethod = "GET"
-           
-            
-            do{
-                    let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-                    guard error == nil && data != nil else {
-                        print("error=\(error)")
-                        return
-                    }
-                        
-                    if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
-                        print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                        print("response = \(response)")
-                    }
-                        
-                    do {
-                        let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String: Int]
-                        var headimgurl = result!["headimgurl"]
-                        //comment["headimgurl"] = headimgurl
-                        self.comments.addObject(comment)
-                    } catch let error as NSError {
-                        print(error)
-                    }
+            Alamofire.request(.GET, "http://jieko.cc/user/" + String(author_id!)).responseJSON { response in
+                print(response.result)   // result of response serialization
+                print(response.result.value)
+                
+                if let JSON = response.result.value as? Array<Dictionary<String, AnyObject>> {
+                    self.comments.removeObject(comment)
+                    let headimgurl: String = (JSON[0]["headimgurl"] as? String)!
+                    print(headimgurl)
+                    commentDic.setValue(headimgurl, forKey: "headimgurl")
+                    self.comments.addObject(commentDic)
+                    self.commentsView.reloadData()
                 }
-                task.resume()
-            } catch _{
-                print("Error json")
             }
-            
         }
     }
- 
-    
-    
-    
+
     
 }
