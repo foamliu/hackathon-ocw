@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.net.URLEncoder;
+
 /**
  * Created by foamliu on 2016/4/11.
  */
@@ -23,8 +25,14 @@ public class SearchActivity extends Activity {
             Log.i("search", "query=" + query);
 
             final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
-            download_data.download_data_from_link(Url + query);
-            finish();
+            try{
+                String strUTF8 = URLEncoder.encode(query, "UTF-8");
+                download_data.download_data_from_link(Url + strUTF8);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            //finish();
         }
     }
 }
