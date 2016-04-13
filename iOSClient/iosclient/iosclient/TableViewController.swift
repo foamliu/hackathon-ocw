@@ -156,6 +156,14 @@ class TableViewController: UITableViewController {
             courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
         }
         
+        if let sourceLabel = cell.viewWithTag(103) as? UILabel {
+            sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
+        }
+        
+        if let durationLabel = cell.viewWithTag(104) as? UILabel {
+            durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
+        }
+        
         if (indexPath.row == self.courses.count - 1){
             self.tableView.tableFooterView = self.infiniteScrollingView
             loadMore()
