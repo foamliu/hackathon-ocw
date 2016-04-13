@@ -16,6 +16,8 @@ class CommentViewController: UITableViewController {
     var Comments:[Comment] = []
     
     @IBOutlet var commentsView: UITableView!
+    @IBOutlet weak var likeBtn: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,8 +175,31 @@ class CommentViewController: UITableViewController {
         } catch _{
             print("Error json")
         }
-        
     }
-
     
+    @IBAction func likeBtnClicked(sender: UIButton) {
+        //Update to local comment
+        var indexPath: NSIndexPath
+        var comment_id: String!
+        if let button = sender as? UIButton {
+            if let superview = button.superview {
+                if let cell = superview.superview as? CommentsViewCell{
+                    indexPath = commentsView.indexPathForCell(cell)!
+                    let id = comments[indexPath.row].valueForKey("_id") as! NSMutableDictionary
+                    comment_id = id.valueForKey("$oid") as! String
+                    let likeLabel = cell.viewWithTag(203) as? UILabel
+                    let like: Int = Int((likeLabel?.text)!)! + 1
+                    likeLabel!.text = String(like)
+                    comments[indexPath.row].setValue(like, forKey: "like")
+                    commentsView.reloadData()
+                }
+            }
+        }
+        //Send to server
+        Alamofire.request(.GET, "http://jieko.cc/item/Comments/" + String(comment_id) + "/like").responseJSON { response in
+            print(response.result)   // result of response serialization
+            print(response.result.value)
+            }
+        }
+
 }
