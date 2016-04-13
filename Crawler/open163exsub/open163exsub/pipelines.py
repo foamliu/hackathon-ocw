@@ -6,6 +6,11 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class Open163ExsubPipeline(object):
+class JsonWriterPipeline(object):
+    def __init__(self):
+        self.file = codecs.open("out.json", "wb", encoding="utf-8")
+
     def process_item(self, item, spider):
+        line = json.dumps(dict(item)) + "\n"
+        self.file.write(line.decode('unicode_escape'))
         return item
