@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity
     private Tracker mTracker;
 
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
+    public static MainActivity Self;
 
     static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
@@ -145,6 +146,8 @@ public class MainActivity extends AppCompatActivity
             drawerInit();
             naviViewInit();
         }
+
+        MainActivity.Self = this;
     }
 
     public boolean checkNetworkStatus(){

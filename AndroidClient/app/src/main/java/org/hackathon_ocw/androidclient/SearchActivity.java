@@ -11,6 +11,8 @@ import android.util.Log;
  */
 public class SearchActivity extends Activity {
 
+    static final String Url = "http://api.jieko.cc/items/search/";
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -20,6 +22,9 @@ public class SearchActivity extends Activity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Log.i("search", "query=" + query);
 
+            final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
+            download_data.download_data_from_link(Url + query);
+            finish();
         }
     }
 }
