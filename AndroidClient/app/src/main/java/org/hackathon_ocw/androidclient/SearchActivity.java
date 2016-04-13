@@ -6,7 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 /**
  * Created by foamliu on 2016/4/11.
@@ -28,11 +33,11 @@ public class SearchActivity extends Activity {
             try{
                 String strUTF8 = URLEncoder.encode(query, "UTF-8");
                 download_data.download_data_from_link(Url + strUTF8);
+                finish();
             }catch (Exception e){
                 e.printStackTrace();
             }
-
-            //finish();
         }
     }
+    
 }

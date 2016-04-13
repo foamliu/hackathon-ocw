@@ -323,15 +323,16 @@ public class MainActivity extends AppCompatActivity
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
     }
 
-    public void searchBtnInit(){
-        searchBtn = (Button)findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new View.OnClickListener(){
+    public void searchBtnInit() {
+        searchBtn = (Button) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onSearchRequested();
             }
         });
     }
+
 
     public int getStatusBarHeight() {
         int result = 0;
@@ -369,7 +370,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void get_data(String data) {
         try {
-            //JSONArray data_array=new JSONArray(data);
+            courseList.clear();
             JSONObject object = new JSONObject(data);
             JSONArray data_array = object.getJSONArray("courses");
             for (int i = 0 ; i < data_array.length() ; i++)
