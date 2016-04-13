@@ -20,17 +20,17 @@ class Open163ExSpider(scrapy.Spider):
     def __init__(self):
         scrapy.Spider.__init__(self)
 
-        profile = webdriver.FirefoxProfile()
-        profile.set_preference("general.useragent.override","Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/BuildID) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36")
+        # profile = webdriver.FirefoxProfile()
+        # profile.set_preference("general.useragent.override","Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/BuildID) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36")
 
         self.main = webdriver.Firefox()
-        self.detail = webdriver.Firefox(profile)
+        # self.detail = webdriver.Firefox(profile)
         # This will throw a TimeoutException whenever the page load takes more than 30 seconds.
-        self.detail.set_page_load_timeout(30)
+        # self.detail.set_page_load_timeout(30)
 
     def __del__(self):
         self.main.close()
-        self.detail.close()
+        # self.detail.close()
 
     def parse(self, response):
         self.main.get("http://c.open.163.com/search/search.htm?query=#/search/video")
@@ -49,20 +49,8 @@ class Open163ExSpider(scrapy.Spider):
                 item['piclink'] = info.xpath('a/img/@src').extract()[0]
                 item['description'] = dlist[0].encode('utf-8').replace('"', '“').replace('\n', '') if dlist else u''
                 item['source'] = u'网易公开课'.encode('utf-8')
+                yield item
 
-                try:
-                    self.detail.get(link)
-                    time.sleep(2)
-                    details = scrapy.Selector(text = self.detail.page_source)
-                    item['courselink'] = details.xpath('//div[@class="net-bd"]/video/@src').extract()[0]
-                    item['duration'] = u''
-                    item['tags'] = details.xpath('//div[@class="net-bd"]/div[7]/p/text()').extract()[0].encode('utf-8')
-                    item['language'] = details.xpath('//div[@class="net-bd"]/div[6]/p/text()').extract()[0].encode('utf-8')
-                    item['instructor'] = details.xpath('//div[@class="net-bd"]/div[5]/p/text()').extract()[0].encode('utf-8')
-                    yield item
-
-                except Exception as err:
-                    print(err)
             next = self.main.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
 
             try:
