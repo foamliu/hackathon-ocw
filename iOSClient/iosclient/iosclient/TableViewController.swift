@@ -27,7 +27,10 @@ class TableViewController: UITableViewController {
     var infiniteScrollingView:UIView?
     var dateFormatter = NSDateFormatter()
     
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,9 @@ class TableViewController: UITableViewController {
         self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
         self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(customRefreshControl)
+        
+        self.tableView.contentOffset = CGPointMake(0, 44);
+        self.searchBar.showsCancelButton = true
         
         self.setupInfiniteScrollingView()
     }
@@ -221,6 +227,11 @@ class TableViewController: UITableViewController {
             print("Error json")
         }
     }
+    
+    @IBAction func searchBtnClicked(sender: UIBarButtonItem) {
+        self.tableView.setContentOffset(CGPointMake(0, -64), animated: true)
+    }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showDetail"){

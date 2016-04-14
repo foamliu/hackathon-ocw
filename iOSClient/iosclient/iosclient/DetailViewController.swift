@@ -96,38 +96,35 @@ class DetailViewController: UIViewController {
         WXApi.sendReq(req)
     }
     
-    
-    
-    @IBAction func shareBtn(sender: AnyObject) {
+    @IBAction func shareBtn(sender: UIBarButtonItem) {
         //sendText("这是来自学啥iOS端的分享", inScene: WXSceneSession) //分享文本到朋友圈
         sendVideo(courseTitle, description: courseDescription, image: courseImage, url: courseVideoUrl, inScene: WXSceneSession)
         
         /*
         let activityViewController : UIActivityViewController = UIActivityViewController(
-            activityItems: [firstActivityItem], applicationActivities: nil)
-        
-        // This lines is for the popover you need to show in iPad
-        activityViewController.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
-        
-        // This line remove the arrow of the popover to show in iPad
-        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
-        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-        
-        // Anything you want to exclude
-        activityViewController.excludedActivityTypes = [
-            UIActivityTypePostToWeibo,
-            UIActivityTypePrint,
-            UIActivityTypeAssignToContact,
-            UIActivityTypeSaveToCameraRoll,
-            UIActivityTypeAddToReadingList,
-            UIActivityTypePostToFlickr,
-            UIActivityTypePostToVimeo,
-        ]
-        
-        self.presentViewController(activityViewController, animated: true, completion: nil)
+        activityItems: [firstActivityItem], applicationActivities: nil)
+         
+         // This lines is for the popover you need to show in iPad
+         activityViewController.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
+         
+         // This line remove the arrow of the popover to show in iPad
+         activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
+         activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+         
+         // Anything you want to exclude
+         activityViewController.excludedActivityTypes = [
+         UIActivityTypePostToWeibo,
+         UIActivityTypePrint,
+         UIActivityTypeAssignToContact,
+         UIActivityTypeSaveToCameraRoll,
+         UIActivityTypeAddToReadingList,
+         UIActivityTypePostToFlickr,
+         UIActivityTypePostToVimeo,
+         ]
+         
+         self.presentViewController(activityViewController, animated: true, completion: nil)
          */
     }
-    
     
     @IBAction func indexChanged(sender: UISegmentedControl) {
         switch self.segmentedControl.selectedSegmentIndex{
