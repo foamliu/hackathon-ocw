@@ -11,7 +11,7 @@ import Alamofire
 import SDWebImage
 
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, UISearchBarDelegate {
     
     //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
@@ -22,6 +22,8 @@ class TableViewController: UITableViewController {
     var selectedVideoUrl: String!
     var selectedDescription: String!
     var selectedImage: UIImage!
+    var searchActive : Bool = false
+    var clearCourses : Bool = false
     
     var customRefreshControl = UIRefreshControl()
     var infiniteScrollingView:UIView?
@@ -52,6 +54,7 @@ class TableViewController: UITableViewController {
         
         self.tableView.contentOffset = CGPointMake(0, 44);
         self.searchBar.showsCancelButton = true
+        self.searchBar.delegate = self
         
         self.setupInfiniteScrollingView()
     }
@@ -130,6 +133,10 @@ class TableViewController: UITableViewController {
     }
     
     func startParsing(data: NSData){
+        if (clearCourses == true){
+            courses.removeAllObjects()
+            clearCourses = false
+        }
         let dict: NSDictionary!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
         for i in 0...((dict.valueForKey("courses") as! NSArray).count - 1){
             courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
@@ -231,7 +238,35 @@ class TableViewController: UITableViewController {
     @IBAction func searchBtnClicked(sender: UIBarButtonItem) {
         self.tableView.setContentOffset(CGPointMake(0, -64), animated: true)
     }
+
     
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if(searchBar.text != nil){
+            let searchKeywords: String = searchBar.text!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+            
+            //Send to server
+            let url = NSURL(string: "http://jieko.cc/items/search/" + searchKeywords)
+            let request = NSURLRequest(URL: url!)
+            clearCourses = true
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
+            }
+            searchBarCancelButtonClicked(searchBar)
+            self.view.endEditing(true)
+        }
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        self.tableView.setContentOffset(CGPointMake(0, -20), animated: true)
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showDetail"){
