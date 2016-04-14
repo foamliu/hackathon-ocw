@@ -469,9 +469,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="tXj-V4-scd" kind="show" identifier="showDetail" id="Bes-Bf-Dpd"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -491,6 +488,7 @@
                     <connections>
                         <outlet property="menuButton" destination="wCD-9I-UNB" id="QOU-Hy-ABx"/>
                         <outlet property="searchBar" destination="qxd-GA-TLx" id="VdK-2K-Ms8"/>
+                        <segue destination="tXj-V4-scd" kind="show" identifier="showDetail" id="tG7-hs-tCo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqY-hV-qa7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -554,7 +552,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <barButtonItem width="290" style="plain" id="cih-gV-2Sr">
-                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="说点什么吧..." textAlignment="natural" minimumFontSize="17" id="RTl-Ji-rhc">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="说点什么吧..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="RTl-Ji-rhc">
                                             <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

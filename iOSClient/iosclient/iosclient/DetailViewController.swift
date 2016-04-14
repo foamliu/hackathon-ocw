@@ -47,6 +47,13 @@ class DetailViewController: UIViewController {
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard(){
+        view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -152,15 +159,18 @@ class DetailViewController: UIViewController {
     
     @IBAction func sendBtnClicked(sender: UIButton) {
         commentTextfield.resignFirstResponder()
-        let dict = NSMutableDictionary()
-        dict.setValue(courseId, forKey: "item_id")
-        dict.setValue(commentTextfield.text, forKey: "text")
-        dict.setValue(Int(self.player.currentTime().value), forKey: "timeline")
-        dict.setValue(getCurrentTime(), forKey: "posted")
-        commentTextfield.text = ""
+        if commentTextfield.text != "" {
+            let dict = NSMutableDictionary()
+            dict.setValue(courseId, forKey: "item_id")
+            dict.setValue(commentTextfield.text, forKey: "text")
+            dict.setValue(Int(self.player.currentTime().value), forKey: "timeline")
+            dict.setValue(getCurrentTime(), forKey: "posted")
+            commentTextfield.text = ""
+            
+            //Update the comment to commentField
+            NSNotificationCenter.defaultCenter().postNotificationName("newCommentNotification", object: nil, userInfo: ["newComment": dict])
+        }
         
-        //Update the comment to commentField
-        NSNotificationCenter.defaultCenter().postNotificationName("newCommentNotification", object: nil, userInfo: ["newComment": dict])
     }
     
     func getCurrentTime() -> String{
