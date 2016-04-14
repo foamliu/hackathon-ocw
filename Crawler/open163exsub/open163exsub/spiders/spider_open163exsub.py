@@ -17,7 +17,7 @@ def getlinks():
     return jsonObj['links']
 
 def encode(field):
-    return field.encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ')
+    return str(field).replace('"', '“').replace('\n', '').replace('\t', '    ').encode('utf-8')
 
 class Open163ExSpider(scrapy.Spider):
     name = 'open163exsub'
@@ -37,6 +37,7 @@ class Open163ExSpider(scrapy.Spider):
     def parse(self, response):
 
         for link in getlinks():
+            print(link)
             self.driver.get(link)
             time.sleep(2)
 
@@ -45,8 +46,8 @@ class Open163ExSpider(scrapy.Spider):
             item = Open163ExSubItem()
             item['title'] = encode(hxs.xpath('/html/head/title/text()'))
             item['description'] = encode(hxs.xpath('/html/body/div/div[1]/div[2]/text()').extract())
-            item['piclink'] = info.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract()
-            item['courselink'] = info.xpath('/html/body/div/div[1]/video/@src').extract()
+            item['piclink'] = hxs.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract()
+            item['courselink'] = hxs.xpath('/html/body/div/div[1]/video/@src').extract()
             item['source'] = u'网易公开课'.encode('utf-8')
             item['school'] = encode(hxs.xpath('/html/body/div/div[1]/div[5]/p/text()').extract())
             item['instructor'] = encode(hxs.xpath('/html/body/div/div[1]/div[6]/p/text()').extract())
