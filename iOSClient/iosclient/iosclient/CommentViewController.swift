@@ -76,8 +76,7 @@ class CommentViewController: UITableViewController {
     }
     
     func loadCommentsFromUrl(){
-        //let url = NSURL(string: "http://jieko.cc/item/" + String(courseId!) + "/Comments")
-        let url = NSURL(string: "http://jieko.cc/item/" + String("1") + "/Comments")
+        let url = NSURL(string: "http://jieko.cc/item/" + String(courseId!) + "/Comments")
         let request = NSURLRequest(URL: url!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startCommentsParsing(data!)
         }
