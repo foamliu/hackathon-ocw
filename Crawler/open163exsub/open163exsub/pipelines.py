@@ -10,7 +10,7 @@ import codecs
 
 class JsonWriterPipeline(object):
     def __init__(self):
-        self.file = codecs.open("out.json", "wb", encoding="utf-8")
+        self.file = codecs.open("out.json", "ab", encoding="utf-8")
 
     def process_item(self, item, spider):
         line = json.dumps(dict(item)) + "\n"
