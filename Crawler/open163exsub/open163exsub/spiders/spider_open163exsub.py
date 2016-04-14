@@ -52,13 +52,13 @@ class Open163ExSpider(scrapy.Spider):
             item['source'] = u'网易公开课'.encode('utf-8')
 
             label = cleanse(hxs.xpath('/html/body/div/div[1]/div[5]/p/span/text()').extract())
-            
-            if label is u'学校：':
+
+            if label.decode('utf-8') == u'学校：':
                 school_pos = 5
                 instructor_pos = 6
                 language_pos = 8
                 tags_pos = 9
-            elif lab is u'讲师：':
+            elif label.decode('utf-8') == u'讲师：':
                 school_pos = 5
                 instructor_pos = 5
                 language_pos = 6
@@ -66,8 +66,8 @@ class Open163ExSpider(scrapy.Spider):
 
             item['school'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(school_pos)).extract())
             item['instructor'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(instructor_pos)).extract())
-            item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format()).extract(language_pos))
-            item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format()).extract(tags_pos))
+            item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(language_pos)).extract())
+            item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(tags_pos)).extract())
             item['link'] = link
             yield item
 
