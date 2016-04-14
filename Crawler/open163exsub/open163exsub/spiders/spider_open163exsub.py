@@ -17,7 +17,7 @@ def getlinks():
     return jsonObj['links']
 
 def cleanse(alist):
-    return alist[0].encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
+    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
 
 class Open163ExSpider(scrapy.Spider):
     name = 'open163exsub'
@@ -50,10 +50,24 @@ class Open163ExSpider(scrapy.Spider):
             item['piclink'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract())
             item['courselink'] = cleanse(hxs.xpath('/html/body/div/div[1]/video/@src').extract())
             item['source'] = u'网易公开课'.encode('utf-8')
-            item['school'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[5]/p/text()').extract())
-            item['instructor'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[6]/p/text()').extract())
-            item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[8]/p/text()').extract())
-            item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[9]/p/text()').extract())
+
+            label = cleanse(hxs.xpath('/html/body/div/div[1]/div[5]/p/span/text()').extract())
+            
+            if label is u'':
+                school_pos = 5
+                instructor_pos = 6
+                language_pos = 8
+                tags_pos = 9
+            elif lab is u'':
+                school_pos = 5
+                instructor_pos = 5
+                language_pos = 6
+                tags_pos = 7
+
+            item['school'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(school_pos)).extract())
+            item['instructor'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(instructor_pos)).extract())
+            item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format()).extract(language_pos))
+            item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format()).extract(tags_pos))
             item['link'] = link
             yield item
 
