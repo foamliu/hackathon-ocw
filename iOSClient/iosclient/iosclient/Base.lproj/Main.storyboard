@@ -469,9 +469,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="tXj-V4-scd" kind="show" identifier="showDetail" id="Bes-Bf-Dpd"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -491,6 +488,7 @@
                     <connections>
                         <outlet property="menuButton" destination="wCD-9I-UNB" id="QOU-Hy-ABx"/>
                         <outlet property="searchBar" destination="qxd-GA-TLx" id="VdK-2K-Ms8"/>
+                        <segue destination="tXj-V4-scd" kind="show" identifier="showDetail" id="tG7-hs-tCo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqY-hV-qa7" userLabel="First Responder" sceneMemberID="firstResponder"/>
