@@ -55,6 +55,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         self.tableView.contentOffset = CGPointMake(0, 44);
         self.searchBar.showsCancelButton = true
         self.searchBar.delegate = self
+        let searchCancelBtn = searchBar.valueForKey("cancelButton") as! UIButton
+        searchCancelBtn.setTitle("取消", forState: UIControlState.Normal)
         
         self.setupInfiniteScrollingView()
     }
@@ -133,13 +135,15 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func startParsing(data: NSData){
-        if (clearCourses == true){
+        let dict: NSDictionary!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+        if (clearCourses == true && (dict.valueForKey("courses") as! NSArray).count > 1){
             courses.removeAllObjects()
             clearCourses = false
         }
-        let dict: NSDictionary!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
-        for i in 0...((dict.valueForKey("courses") as! NSArray).count - 1){
-            courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
+        if ((dict.valueForKey("courses") as! NSArray).count > 1){
+            for i in 0...((dict.valueForKey("courses") as! NSArray).count - 1){
+                courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
+            }
         }
         tableView.reloadData()
     }
@@ -266,6 +270,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.text = ""
         self.tableView.setContentOffset(CGPointMake(0, -20), animated: true)
+        self.view.endEditing(true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
