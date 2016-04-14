@@ -62,7 +62,7 @@ NEWSPIDER_MODULE = 'open163exsub.spiders'
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'open163exsub.pipelines.JsonWriterPipeline': 300,
+    'open163exsub.pipelines.JsonWriterPipeline': 800,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

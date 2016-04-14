@@ -16,8 +16,8 @@ def getlinks():
     jsonObj = json.load(inputfile)
     return jsonObj['links']
 
-def encode(field):
-    return str(field).replace('"', '“').replace('\n', '').replace('\t', '    ').encode('utf-8')
+def cleanse(alist):
+    return alist[0].encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
 
 class Open163ExSpider(scrapy.Spider):
     name = 'open163exsub'
@@ -44,15 +44,16 @@ class Open163ExSpider(scrapy.Spider):
             hxs = scrapy.Selector(text = self.driver.page_source)
 
             item = Open163ExSubItem()
-            item['title'] = encode(hxs.xpath('/html/head/title/text()'))
-            item['description'] = encode(hxs.xpath('/html/body/div/div[1]/div[2]/text()').extract())
-            item['piclink'] = hxs.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract()
-            item['courselink'] = hxs.xpath('/html/body/div/div[1]/video/@src').extract()
+            item['title'] = cleanse(hxs.xpath('/html/head/title/text()').extract())
+            item['title'] = item['title'].split('_')[1]
+            item['description'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[2]/text()').extract())
+            item['piclink'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract())
+            item['courselink'] = cleanse(hxs.xpath('/html/body/div/div[1]/video/@src').extract())
             item['source'] = u'网易公开课'.encode('utf-8')
-            item['school'] = encode(hxs.xpath('/html/body/div/div[1]/div[5]/p/text()').extract())
-            item['instructor'] = encode(hxs.xpath('/html/body/div/div[1]/div[6]/p/text()').extract())
-            item['language'] = encode(hxs.xpath('/html/body/div/div[1]/div[8]/p/text()').extract())
-            item['tags'] = encode(hxs.xpath('/html/body/div/div[1]/div[9]/p/text()').extract())
+            item['school'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[5]/p/text()').extract())
+            item['instructor'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[6]/p/text()').extract())
+            item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[8]/p/text()').extract())
+            item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[9]/p/text()').extract())
             item['link'] = link
             yield item
 
