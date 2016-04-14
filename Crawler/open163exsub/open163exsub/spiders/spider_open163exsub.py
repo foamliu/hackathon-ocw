@@ -35,26 +35,24 @@ class Open163ExSpider(scrapy.Spider):
       self.driver.close()
 
     def parse(self, response):
-        links = getlinks()
-        for link in links:
+
+        for link in getlinks():
             self.driver.get(link)
-            time.sleep(1)
+            time.sleep(2)
+
             hxs = scrapy.Selector(text = self.driver.page_source)
 
-            tlist = hxs.xpath('/html/head/title/text()').extract()
-            dlist = hxs.xpath('p[@class="desc f-c9"]/text()').extract()
-
             item = Open163ExSubItem()
-            item['link'] = link # for correlation
-            item['title'] = encode(tlist[0]) if tlist else u''
-            item['description'] = encode(dlist[0]) if dlist else u''
-            item['piclink'] = info.xpath('a/img/@src').extract()[0]
-            item['courselink'] = info.xpath('//div[@class="net-bd"]/video/@src').extract()[0]
+            item['title'] = encode(hxs.xpath('/html/head/title/text()'))
+            item['description'] = encode(hxs.xpath('/html/body/div/div[1]/div[2]/text()').extract())
+            item['piclink'] = info.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract()
+            item['courselink'] = info.xpath('/html/body/div/div[1]/video/@src').extract()
             item['source'] = u'网易公开课'.encode('utf-8')
-            item['duration'] = u''
-            item['tags'] = u''
-            item['language'] = u''
-            item['instructor'] = u''
+            item['school'] = encode(hxs.xpath('/html/body/div/div[1]/div[5]/p/text()').extract())
+            item['instructor'] = encode(hxs.xpath('/html/body/div/div[1]/div[6]/p/text()').extract())
+            item['language'] = encode(hxs.xpath('/html/body/div/div[1]/div[8]/p/text()').extract())
+            item['tags'] = encode(hxs.xpath('/html/body/div/div[1]/div[9]/p/text()').extract())
+            item['link'] = link
             yield item
 
 
