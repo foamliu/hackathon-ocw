@@ -41,22 +41,20 @@ class Open163ExSpider(scrapy.Spider):
             time.sleep(1)
             hxs = scrapy.Selector(text = self.driver.page_source)
 
-            tlist = info.xpath('/html/head/title/text()').extract()
-            dlist = info.xpath('p[@class="desc f-c9"]/text()').extract()
-            link = info.xpath('a/@href').extract()[0]
+            tlist = hxs.xpath('/html/head/title/text()').extract()
+            dlist = hxs.xpath('p[@class="desc f-c9"]/text()').extract()
 
             item = Open163ExSubItem()
+            item['link'] = link # for correlation
             item['title'] = encode(tlist[0]) if tlist else u''
             item['description'] = encode(dlist[0]) if dlist else u''
             item['piclink'] = info.xpath('a/img/@src').extract()[0]
             item['courselink'] = info.xpath('//div[@class="net-bd"]/video/@src').extract()[0]
-
             item['source'] = u'网易公开课'.encode('utf-8')
             item['duration'] = u''
             item['tags'] = u''
             item['language'] = u''
             item['instructor'] = u''
-
             yield item
 
 

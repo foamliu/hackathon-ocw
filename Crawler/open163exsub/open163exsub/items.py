@@ -21,3 +21,4 @@ class Open163ExSubItem(scrapy.Item):
     tags = scrapy.Field()
     language = scrapy.Field()
     instructor = scrapy.Field()
+    link = scrapy.Field()
