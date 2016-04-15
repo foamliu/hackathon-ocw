@@ -72,7 +72,7 @@ class Open163ExSpider(scrapy.Spider):
         language_pos = 8
         tags_pos = 9
 
-        if label.decode('utf-8') == u'学校：':
+        if label.decode('utf-8') == u'讲师：':
             school_pos = 5
             instructor_pos = 5
             language_pos = 6
