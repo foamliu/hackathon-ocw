@@ -101,8 +101,8 @@ class Open163ExSpider(scrapy.Spider):
                     yield item
                 except Exception as err:
                     print(err)
-                    #time.sleep(100)
-                    break
+                    time.sleep(100)
+                    #break
 
 
 
