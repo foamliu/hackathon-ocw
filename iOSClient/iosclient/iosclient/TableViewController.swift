@@ -11,22 +11,28 @@ import Alamofire
 import SDWebImage
 
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, UISearchBarDelegate {
     
     //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
     var loadMoreEnable = true
     
+    var selectedCourseId: Int!
     var selectedTitle: String!
     var selectedVideoUrl: String!
     var selectedDescription: String!
     var selectedImage: UIImage!
+    var searchActive : Bool = false
+    var clearCourses : Bool = false
     
     var customRefreshControl = UIRefreshControl()
     var infiniteScrollingView:UIView?
     var dateFormatter = NSDateFormatter()
     
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +51,12 @@ class TableViewController: UITableViewController {
         self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
         self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(customRefreshControl)
+        
+        self.tableView.contentOffset = CGPointMake(0, 44);
+        self.searchBar.showsCancelButton = true
+        self.searchBar.delegate = self
+        let searchCancelBtn = searchBar.valueForKey("cancelButton") as! UIButton
+        searchCancelBtn.setTitle("取消", forState: UIControlState.Normal)
         
         self.setupInfiniteScrollingView()
     }
@@ -112,13 +124,11 @@ class TableViewController: UITableViewController {
     
     func loadMore(){
         jsonParsingFromUrl()
-        //self.courses.arrayByAddingObject(<#T##anObject: AnyObject##AnyObject#>)
         self.tableView.reloadData()
-    
     }
     
     func jsonParsingFromUrl(){
-        let url = NSURL(string: "http://api.jieko.cc/user/15/Candidates")
+        let url = NSURL(string: "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates")
         let request = NSURLRequest(URL: url!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
         }
@@ -126,8 +136,14 @@ class TableViewController: UITableViewController {
     
     func startParsing(data: NSData){
         let dict: NSDictionary!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
-        for i in 0...((dict.valueForKey("courses") as! NSArray).count - 1){
-            courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
+        if (clearCourses == true && (dict.valueForKey("courses") as! NSArray).count > 1){
+            courses.removeAllObjects()
+            clearCourses = false
+        }
+        if ((dict.valueForKey("courses") as! NSArray).count > 1){
+            for i in 0...((dict.valueForKey("courses") as! NSArray).count - 1){
+                courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
+            }
         }
         tableView.reloadData()
     }
@@ -157,6 +173,14 @@ class TableViewController: UITableViewController {
             courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
         }
         
+        if let sourceLabel = cell.viewWithTag(103) as? UILabel {
+            sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
+        }
+        
+        if let durationLabel = cell.viewWithTag(104) as? UILabel {
+            durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
+        }
+        
         if (indexPath.row == self.courses.count - 1){
             self.tableView.tableFooterView = self.infiniteScrollingView
             loadMore()
@@ -173,8 +197,80 @@ class TableViewController: UITableViewController {
         selectedDescription = courses[indexPath.row].valueForKey("description") as? String
         selectedImage = courseImageView?.image
         selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
+        selectedCourseId = courses[indexPath.row].valueForKey("item_id") as? Int
         
+        //Send request to server
+        sendSelectedCourse(selectedCourseId)
+        
+        //Pass values
         performSegueWithIdentifier("showDetail", sender: self)
+    }
+    
+    func sendSelectedCourse(courseId: Int){
+        var courseSelected = [String: AnyObject]()
+        courseSelected["user_id"] = User.sharedManager.userid
+        courseSelected["item_id"] = courseId
+        courseSelected["pref"] = 3
+        
+        let url = "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Preferences"
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(courseSelected, options: [])
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                guard error == nil && data != nil else {
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("responseString = \(responseString)")
+            }
+            task.resume()
+        } catch _{
+            print("Error json")
+        }
+    }
+    
+    @IBAction func searchBtnClicked(sender: UIBarButtonItem) {
+        self.tableView.setContentOffset(CGPointMake(0, -64), animated: true)
+    }
+
+    
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if(searchBar.text != nil){
+            let searchKeywords: String = searchBar.text!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+            
+            //Send to server
+            let url = NSURL(string: "http://jieko.cc/items/search/" + searchKeywords)
+            let request = NSURLRequest(URL: url!)
+            clearCourses = true
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
+            }
+            searchBarCancelButtonClicked(searchBar)
+            self.view.endEditing(true)
+        }
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        self.tableView.setContentOffset(CGPointMake(0, -20), animated: true)
+        self.view.endEditing(true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -184,9 +280,7 @@ class TableViewController: UITableViewController {
             viewController.courseDescription = selectedDescription
             viewController.courseImage = selectedImage
             viewController.courseVideoUrl = selectedVideoUrl
-            
+            viewController.courseId = selectedCourseId
         }
-
     }
-    
 }

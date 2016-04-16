@@ -1,8 +1,0 @@
-#-*- coding: utf-8 -*-
-
-class PageDataLink:
-    page = [
-      'http://open.163.com/movie/2012/1/6/2/M839BCIJ0_M83JKP762.html',
-      'http://open.163.com/movie/2012/1/6/7/M8399V2RD_M83JKK967.html',
-      'http://open.163.com/movie/2013/1/K/S/M8UNFE4TI_M8UUT4KKS.html'
-      ]

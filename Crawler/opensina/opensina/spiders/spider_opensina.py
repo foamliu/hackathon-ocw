@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import time
 import re
 from opensina.items import OpensinaItem
 from selenium import webdriver
@@ -22,8 +21,7 @@ class OpensinaSpider(scrapy.Spider):
     def parse(self, response):
         base_url = "http://open.sina.com.cn/course/id_"
         i = 1
-        #count = 1270
-        count = 5
+        count = 1270
         
         while (i <= count):
             url = base_url + str(i)
@@ -46,11 +44,12 @@ class OpensinaSpider(scrapy.Spider):
                 item['title'] = title.encode('utf-8')
                 item['description'] = description.encode('utf-8')
                 item['piclink'] = piclink
-                item['courselink'] = link
+                item['courselink'] = url
                 item['duration'] = u""
-                item['source'] = u"opensina"
+                item['source'] = u"新浪公开课"
+                item['templink'] = link
                 yield item
             
             i = i + 1
-            time.sleep(2)
+
 

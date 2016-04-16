@@ -29,7 +29,7 @@ public class NetworkThread implements Runnable{
     @Override
     public void run() {
 
-        long ipAddrLong = new GetUserIdFromIP().getUserId();
+        //long ipAddrLong = new GetUserIdFromIP().getUserId();
         //Toast.makeText(getApplicationContext(), ipAddress, Toast.LENGTH_SHORT).show();
         try {
             SendPostRequest(Long.valueOf(userid), courseId, rating);

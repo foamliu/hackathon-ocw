@@ -185,7 +185,6 @@ class MenuController: UITableViewController {
         })
     }
     
-    
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

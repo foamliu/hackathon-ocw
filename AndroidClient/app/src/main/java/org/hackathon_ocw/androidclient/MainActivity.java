@@ -44,6 +44,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity
 
     //Toolbars
     private Toolbar toolbar;
+    private Button searchBtn;
     private ProgressBar progressBar;
 
     public ListAdapter mListAdapter;
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity
     private Tracker mTracker;
 
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
+    public static MainActivity Self;
 
     static final String KEY_ID = "id";
     static final String KEY_TITLE = "title";
@@ -137,11 +140,14 @@ public class MainActivity extends AppCompatActivity
             titleMainToolBar.setText("学啥");
 
             toolbarInit();
+            searchBtnInit();
             listViewInit();
             //floatingButtonInit();
             drawerInit();
             naviViewInit();
         }
+
+        MainActivity.Self = this;
     }
 
     public boolean checkNetworkStatus(){
@@ -229,7 +235,7 @@ public class MainActivity extends AppCompatActivity
                 mListAdapter.clear();
 
                 Download_data download_data = new Download_data((download_complete) MainActivity.this);
-                download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
+                download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
                 mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -250,7 +256,7 @@ public class MainActivity extends AppCompatActivity
 
 
         final Download_data download_data = new Download_data((download_complete) this);
-        download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
+        download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
 
         mListView.setItemsCanFocus(true);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -317,6 +323,17 @@ public class MainActivity extends AppCompatActivity
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
     }
 
+    public void searchBtnInit() {
+        searchBtn = (Button) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchRequested();
+            }
+        });
+    }
+
+
     public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -334,7 +351,7 @@ public class MainActivity extends AppCompatActivity
         progressBar.setVisibility(View.VISIBLE);
 
         Download_data download_data = new Download_data((download_complete) MainActivity.this);
-        download_data.download_data_from_link(Url + Long.toString(new GetUserIdFromIP().getUserId()) + "/Candidates");
+        download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
         mListAdapter.addAll(courseList);
 
         new Handler().postDelayed(new Runnable() {
@@ -353,7 +370,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void get_data(String data) {
         try {
-            //JSONArray data_array=new JSONArray(data);
+            courseList.clear();
             JSONObject object = new JSONObject(data);
             JSONArray data_array = object.getJSONArray("courses");
             for (int i = 0 ; i < data_array.length() ; i++)
@@ -730,7 +747,7 @@ public class MainActivity extends AppCompatActivity
         try
         {
             jsonObject.put("userid", userProfile.getUserid());
-            Toast.makeText(getApplicationContext(),  userProfile.getUserid(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),  userProfile.getUserid(), Toast.LENGTH_SHORT).show();
         }catch (Exception e)
         {
             Log.e("Json Error",e.toString());
