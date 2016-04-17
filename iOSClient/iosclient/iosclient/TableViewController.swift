@@ -16,6 +16,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
     var loadMoreEnable = true
+    var isInternetConnected = true
     
     var selectedCourseId: Int!
     var selectedTitle: String!
@@ -36,29 +37,50 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getInitId()
-        jsonParsingFromUrl()
+        checkInternetConnection()
         
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        if(isInternetConnected == true){
+            getInitId()
+            jsonParsingFromUrl()
+            
+            if self.revealViewController() != nil {
+                menuButton.target = self.revealViewController()
+                menuButton.action = "revealToggle:"
+                self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            }
+            
+            self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            
+            self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
+            self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+            self.tableView?.addSubview(customRefreshControl)
+            
+            self.tableView.contentOffset = CGPointMake(0, 44);
+            self.searchBar.showsCancelButton = true
+            self.searchBar.delegate = self
+            let searchCancelBtn = searchBar.valueForKey("cancelButton") as! UIButton
+            searchCancelBtn.setTitle("取消", forState: UIControlState.Normal)
+            
+            self.setupInfiniteScrollingView()
         }
-        
-        self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        
-        self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
-        self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView?.addSubview(customRefreshControl)
-        
-        self.tableView.contentOffset = CGPointMake(0, 44);
-        self.searchBar.showsCancelButton = true
-        self.searchBar.delegate = self
-        let searchCancelBtn = searchBar.valueForKey("cancelButton") as! UIButton
-        searchCancelBtn.setTitle("取消", forState: UIControlState.Normal)
-        
-        self.setupInfiniteScrollingView()
+    }
+    
+    func checkInternetConnection(){
+        if Reachability.isConnectedToNetwork() == true {
+            print("Internet connection OK")
+        } else {
+            print("Internet connection FAILED")
+        }
+        //If the user is not connected to the internet, you may want to show them an alert dialog to notify them.
+        if Reachability.isConnectedToNetwork() == true {
+            print("Internet connection OK")
+        } else {
+            isInternetConnected = false
+            print("Internet connection FAILED")
+            let alert = UIAlertView(title: "没有网络连接", message: "请确认您已连接到互联网", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
     }
     
     func getInitId(){

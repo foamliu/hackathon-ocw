@@ -94,7 +94,7 @@ public class CommentAdapter extends BaseAdapter {
         if(comments == null)
         {
             TextView tv=(TextView)vi;
-            tv.setText("还没有评论，赶快来评论吧");
+            tv.setText("还没有笔记，留下所思所感吧");
             tv.setGravity(Gravity.CENTER);
         }
 

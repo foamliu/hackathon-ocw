@@ -10,6 +10,7 @@
 		7610B0841CB5FD810076AA0B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7610B0831CB5FD810076AA0B /* User.swift */; };
 		761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D481CB4B1FE00819982 /* MenuController.swift */; };
 		7664756D1CB6AC0E00DA808B /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */; };
+		767229E21CC50E4400FB5BF5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767229E11CC50E4400FB5BF5 /* Reachability.swift */; };
 		7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */; };
 		767E722E1CB7419300CEBA6C /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E722D1CB7419300CEBA6C /* CommentViewController.swift */; };
 		76AFFDB61CB4F087006232CA /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AFFDB51CB4F087006232CA /* SWRevealViewController.m */; };
@@ -59,6 +60,7 @@
 		761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosclient-Bridging-Header.h"; sourceTree = "<group>"; };
 		761E6D481CB4B1FE00819982 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		767229E11CC50E4400FB5BF5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableFooterView.swift; sourceTree = "<group>"; };
 		767E722D1CB7419300CEBA6C /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		76AFFDB41CB4F087006232CA /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				767E722D1CB7419300CEBA6C /* CommentViewController.swift */,
 				76FE57041CB77A810070B751 /* Comment.swift */,
 				76FE57061CBB3DC10070B751 /* CommentsViewCell.swift */,
+				767229E11CC50E4400FB5BF5 /* Reachability.swift */,
 			);
 			path = iosclient;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */,
 				7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */,
 				76AFFDB61CB4F087006232CA /* SWRevealViewController.m in Sources */,
+				767229E21CC50E4400FB5BF5 /* Reachability.swift in Sources */,
 				76DD38C91CABC3FE00622A4A /* TableViewController.swift in Sources */,
 				76FE57051CB77A810070B751 /* Comment.swift in Sources */,
 				767E722E1CB7419300CEBA6C /* CommentViewController.swift in Sources */,

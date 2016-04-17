@@ -110,7 +110,12 @@ object Application {
 
             Logger.debug("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
         }
-    }   
+    }
+    
+    private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
+        val items: Seq[Course] = getCourses
+        scala.util.Random.shuffle(items.filter(_.tags.contains(tag)).take(howMany))
+    }
 
 }
 
@@ -151,12 +156,19 @@ class Application extends Controller {
     
     def search(keyword: String) = Action {
         val candidates: Seq[Course] = Application.search(keyword)
-
         val json: JsValue = Json.obj("courses" -> candidates)
-
         Ok(Json.stringify(json))
     }
+    
+    def getTags = Action {
+        Ok("""[["国际名校公开课", 2366], ["国内", 1637], ["中国大学视频公开课", 1492], ["可汗学院", 875], ["数学", 814], ["社会", 704], ["TED", 512], ["艺术", 491], ["生物", 482], ["医学", 448], ["历史", 398], ["经济", 355], ["物理", 347], ["技能", 324], ["心理", 317], ["文学", 294], ["环境", 270], ["计算机", 266], ["哲学", 256], ["化学", 215], ["其他", 192], ["管理", 189], ["演讲", 115], ["法律", 109], ["国立台湾大学公开课", 77], ["赏课", 72], ["地球科学", 60], ["媒体", 58], ["BBC", 55], ["伦理", 34], ["英文", 34], ["中文", 18], ["冷知识", 2]]""")
+    }
 
+    def getCandidatesByTag(id: Long, tag: String) = Action {
+        val candidates: Seq[Course] = Application.getCandidatesByTag(id, tag)
+        val json: JsValue = Json.obj("courses" -> candidates)
+        Ok(Json.stringify(json))
+    }
 }
 
 
