@@ -66,7 +66,7 @@ class OpensinaSpider(scrapy.Spider):
         item['instructor'] = cleanse(hxs.xpath('//*[@id="scr_cont3"]/div/div[1]/div[1]/div/div[2]/text()[1]').extract())
         item['language'] = u'中文'
         item['tags'] = u"新浪公开课"
-        yield item
+        return item
   
     def parse(self, response):
         

@@ -12,22 +12,26 @@ from selenium import webdriver
 from infoqsub.items import InfoqsubItem
 
 def getlinks():
+    links = []
     inputfile = open('infoqsub/links.json','r')
-    jsonObj = json.load(inputfile)
+    lines = inputfile.readlines()
     inputfile.close()
-    return jsonObj['links']
+    for line in lines:
+        jsonObj = json.loads(line)
+        links.append(jsonObj['link'])
+    return links
 
 def getout():
     out = []
     inputfile = open('out.json','r')
     lines = inputfile.readlines()
-    inputfile.close()
     for line in lines:
         out.append(json.loads(line))
+    inputfile.close()
     return out
 
 def cleanse(alist):
-    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
+    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''
 
 def downloaded(link):
     out = getout()
