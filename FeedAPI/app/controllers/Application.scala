@@ -156,7 +156,14 @@ class Application extends Controller {
 
         Ok(Json.stringify(json))
     }
+    
+    def getTags = Action {
+        Ok("")
+    }
 
+    def getCandidatesByTag(id: Long, tag: String) = Action {
+        Ok("")
+    }
 }
 
 
