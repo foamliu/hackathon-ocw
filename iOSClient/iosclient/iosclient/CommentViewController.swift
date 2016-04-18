@@ -25,7 +25,7 @@ class CommentViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "getCourseItem:", name: "courseIdNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "newComment:", name: "newCommentNotification", object: nil)
         //load comments
-        loadCommentsFromUrl()
+        
         
     }
     
@@ -85,6 +85,7 @@ class CommentViewController: UITableViewController {
     //Handler
     func getCourseItem(notif: NSNotification) {
         courseId = notif.userInfo!["courseId"] as! Int
+        loadCommentsFromUrl()
     }
     
     func newComment(notif: NSNotification){
@@ -105,21 +106,24 @@ class CommentViewController: UITableViewController {
     
     func startCommentsParsing(data: NSData){
         let dict: NSArray!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSArray
-        for i in 0...(dict.count - 1){
-            comments.addObject(dict.objectAtIndex(i))
-            var newComment = Comment()
-            let commentDic: NSDictionary = dict.objectAtIndex(i) as! NSDictionary
-            newComment.item_id = commentDic["item_id"]?.integerValue
-            newComment.author_id = commentDic["author_id"]?.integerValue
-            newComment.author_name = commentDic["author_name"] as? String
-            newComment.text = commentDic["text"] as? String
-            newComment.posted = commentDic["posted"] as? String
-            newComment.timeline = commentDic["timeline"]?.integerValue
-            newComment.like = commentDic["like"]?.integerValue
-            Comments.append(newComment)
+        if (dict.count > 1){
+            for i in 0...(dict.count - 1){
+                comments.addObject(dict.objectAtIndex(i))
+                var newComment = Comment()
+                let commentDic: NSDictionary = dict.objectAtIndex(i) as! NSDictionary
+                newComment.item_id = commentDic["item_id"]?.integerValue
+                newComment.author_id = commentDic["author_id"]?.integerValue
+                newComment.author_name = commentDic["author_name"] as? String
+                newComment.text = commentDic["text"] as? String
+                newComment.posted = commentDic["posted"] as? String
+                newComment.timeline = commentDic["timeline"]?.integerValue
+                newComment.like = commentDic["like"]?.integerValue
+                Comments.append(newComment)
+            }
+            commentsView.reloadData()
+            loadHeadImg()
         }
-        commentsView.reloadData()
-        loadHeadImg()
+        
     }
     
     
