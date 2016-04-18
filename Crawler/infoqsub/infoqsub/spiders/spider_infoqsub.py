@@ -58,30 +58,15 @@ class InfoqsubSpider(scrapy.Spider):
         hxs = scrapy.Selector(text = self.driver.page_source)
 
         item = InfoqsubItem()
-        item['title'] = cleanse(hxs.xpath('/html/head/title/text()').extract())
-        item['title'] = item['title'].split('_')[1]
-        item['description'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[2]/text()').extract())
-        item['piclink'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract())
-        item['courselink'] = cleanse(hxs.xpath('/html/body/div/div[1]/video/@src').extract())
-        item['source'] = u'网易公开课'.encode('utf-8')
-
-        label = cleanse(hxs.xpath('/html/body/div/div[1]/div[5]/p/span/text()').extract())
-
-        school_pos = 5
-        instructor_pos = 6
-        language_pos = 8
-        tags_pos = 9
-
-        if label.decode('utf-8') == u'讲师：':
-            school_pos = 5
-            instructor_pos = 5
-            language_pos = 6
-            tags_pos = 7
-
-        item['school'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(school_pos)).extract())
-        item['instructor'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(instructor_pos)).extract())
-        item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(language_pos)).extract())
-        item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(tags_pos)).extract())
+        item['title'] = cleanse(hxs.xpath('/html/body/div[1]/div/section/h1/text()').extract())
+        item['description'] = cleanse(hxs.xpath('/html/body/div[1]/div/div[3]/p[1]/text()').extract())
+        item['piclink'] = cleanse(hxs.xpath('/html/body/div[1]/div/div[1]/div[1]/div[1]/div[3]/img/@src').extract())
+        item['courselink'] = u''
+        item['source'] = u'InfoQ'.encode('utf-8')
+        item['school'] = u'InfoQ'.encode('utf-8')
+        item['instructor'] = cleanse(hxs.xpath('/html/body/div[1]/div/section/p/a/text()').extract())
+        item['language'] = u'中文'.encode('utf-8')
+        item['tags'] = u'计算机 InfoQ'.encode('utf-8')
         item['link'] = link
         return item
 
