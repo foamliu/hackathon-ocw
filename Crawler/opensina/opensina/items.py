@@ -10,11 +10,13 @@ import scrapy
 
 class OpensinaItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    title = scrapy.Field()
-    description = scrapy.Field()
-    piclink = scrapy.Field()
-    courselink = scrapy.Field()
-    duration = scrapy.Field()
-    source = scrapy.Field()
-    templink = scrapy.Field()
+    title = scrapy.Field()        #名称
+    description = scrapy.Field()  #简介
+    piclink = scrapy.Field()      #图片地址
+    courselink = scrapy.Field()   #课程地址
+    source = scrapy.Field()       #来源
+    school = scrapy.Field()       #学校
+    instructor = scrapy.Field()   #讲师
+    language = scrapy.Field()     #授课语言
+    tags = scrapy.Field()         #类型
+    link = scrapy.Field()         #链接，用于关联。
