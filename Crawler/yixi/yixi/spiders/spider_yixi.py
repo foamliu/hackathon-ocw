@@ -54,11 +54,10 @@ class YixiSpider(scrapy.Spider):
         hxs = scrapy.Selector(text = self.driver.page_source)
 
         speakerIntr = cleanse(hxs.xpath('(//span[contains(@class,"speakerIntr")])/text()').extract())
-        lecturesOverView = cleanse(hxs.xpath('(//div[contains(@class,"lecturesOverView")])/text()').extract())
 
         item = YixiItem()
         item['title'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[2]/h2/text()').extract())
-        item['description'] = u"{0}\n{1}\n".format(speakerIntr, lecturesOverView)
+        item['description'] = cleanse(hxs.xpath('(//div[contains(@class,"lecturesOverView")])/text()').extract())
         item['piclink'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[1]/div/div/img/@src').extract())
         item['courselink'] = u""
         item['source'] = u"一席"
@@ -67,9 +66,9 @@ class YixiSpider(scrapy.Spider):
         item['language'] = u"中文"
         item['tags'] = u"一席"
         item['link'] = link
-        item['posted'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[2]/span[1]/text()').extract())
-        item['crawled'] = time.strftime("%Y-%m-%d")
-        yield item        
+        #item['posted'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[2]/span[1]/text()').extract())
+        #item['crawled'] = time.strftime("%Y-%m-%d")
+        return item
       
     def parse(self, response):
         
