@@ -426,8 +426,7 @@
                                                     <exclude reference="Two-dA-Vx6"/>
                                                 </mask>
                                             </variation>
-                                            <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="167" y="66" width="166" height="22"/>
+                                            <variation key="widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="Two-dA-Vx6"/>
                                                 </mask>
@@ -542,12 +541,6 @@
                                     <segue destination="Qam-nu-7qG" kind="embed" identifier="showDescription" id="31L-g3-Rh3"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYy-7u-K5d">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <connections>
-                                    <segue destination="Asr-fo-bMf" kind="embed" id="LKh-NY-hJY"/>
-                                </connections>
-                            </containerView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAU-0Q-tom">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
@@ -571,6 +564,12 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYy-7u-K5d">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <connections>
+                                    <segue destination="Asr-fo-bMf" kind="embed" id="LKh-NY-hJY"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -615,8 +614,8 @@
                                 <exclude reference="ggY-YR-yyn"/>
                                 <exclude reference="Ijm-Fi-swm"/>
                                 <exclude reference="KJr-7Q-zG8"/>
-                                <exclude reference="xYy-7u-K5d"/>
                                 <exclude reference="ZAU-0Q-tom"/>
+                                <exclude reference="xYy-7u-K5d"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Krb-Ni-igv"/>
@@ -643,8 +642,8 @@
                                 <include reference="ggY-YR-yyn"/>
                                 <include reference="Ijm-Fi-swm"/>
                                 <include reference="KJr-7Q-zG8"/>
-                                <include reference="xYy-7u-K5d"/>
                                 <include reference="ZAU-0Q-tom"/>
+                                <include reference="xYy-7u-K5d"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Krb-Ni-igv"/>
