@@ -78,7 +78,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         } else {
             isInternetConnected = false
             print("Internet connection FAILED")
-            let alert = UIAlertView(title: "没有网络连接", message: "请确认您的手机已连接到互联网", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "没有网络连接", message: "请确认您已连接到互联网", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
     }
