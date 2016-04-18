@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import re
+import time
+import json
 from opensina.items import OpensinaItem
 from selenium import webdriver
 
@@ -59,9 +60,8 @@ class OpensinaSpider(scrapy.Spider):
         item['description'] = cleanse(hxs.xpath('/html/body/div[11]/div[2]/div[2]/div[3]/p[1]/text()').extract())
         item['piclink'] = cleanse(hxs.xpath('(//div[contains(@class,"pic")])/img/@src').extract())
         item['courselink'] = u''
-        item['duration'] = u""
         item['source'] = u"新浪公开课"
-        item['link'] = url
+        item['link'] = link
         item['school'] = cleanse(hxs.xpath('//*[@id="scr_cont3"]/div/div[1]/div[1]/div/div[2]/a/text()').extract())
         item['instructor'] = cleanse(hxs.xpath('//*[@id="scr_cont3"]/div/div[1]/div[1]/div/div[2]/text()[1]').extract())
         item['language'] = u'中文'
@@ -84,5 +84,5 @@ class OpensinaSpider(scrapy.Spider):
                     yield item
                 except Exception as err:
                     print(err)
-                    time.sleep(100)
-                    #break          
+                    #time.sleep(100)
+                    break
