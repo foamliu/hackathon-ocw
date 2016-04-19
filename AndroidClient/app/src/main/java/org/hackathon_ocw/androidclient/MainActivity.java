@@ -98,17 +98,6 @@ public class MainActivity extends AppCompatActivity
     private String access_token;
     private String openid;
 
-    //User info
-    private UserProfile userProfile;
-    /*
-    private String nickname;
-    private int sex;
-    private String province;
-    private String city;
-    private String country;
-    private String headimgurl;
-    */
-
     private Tracker mTracker;
 
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
@@ -236,7 +225,7 @@ public class MainActivity extends AppCompatActivity
                 mListAdapter.clear();
 
                 Download_data download_data = new Download_data((download_complete) MainActivity.this);
-                download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
+                download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
                 mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -257,7 +246,7 @@ public class MainActivity extends AppCompatActivity
 
 
         final Download_data download_data = new Download_data((download_complete) this);
-        download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
+        download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
 
         mListView.setItemsCanFocus(true);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -274,10 +263,10 @@ public class MainActivity extends AppCompatActivity
                         intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
                         intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
                         intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
-                        intent.putExtra("userid", userProfile.getUserid());
-                        if(userProfile.getNickname() != null) {
-                            intent.putExtra("nickname", userProfile.getNickname());
-                            intent.putExtra("headimgurl", userProfile.getHeadimgurl());
+                        intent.putExtra("userid", UserProfile.getUserProfile().getUserid());
+                        if(UserProfile.getUserProfile().getNickname() != null) {
+                            intent.putExtra("nickname", UserProfile.getUserProfile().getNickname());
+                            intent.putExtra("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
                         }
 
                         intent.setClass(MainActivity.this, DetailActivity.class);
@@ -289,10 +278,10 @@ public class MainActivity extends AppCompatActivity
                         intent.putExtra("webUrl",mListAdapter.getWebUrlbyPosition(position));
                         intent.putExtra("id", mListAdapter.getIdbyPosition(position));
                         intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
-                        intent.putExtra("userid", userProfile.getUserid());
-                        if(userProfile.getNickname() != null) {
-                            intent.putExtra("nickname", userProfile.getNickname());
-                            intent.putExtra("headimgurl", userProfile.getHeadimgurl());
+                        intent.putExtra("userid", UserProfile.getUserProfile().getUserid());
+                        if(UserProfile.getUserProfile().getNickname() != null) {
+                            intent.putExtra("nickname", UserProfile.getUserProfile().getNickname());
+                            intent.putExtra("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
                         }
 
                         intent.setClass(MainActivity.this, WebDetailActivity.class);
@@ -300,7 +289,7 @@ public class MainActivity extends AppCompatActivity
                     }
                     //Send post to server
                     String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
-                    Runnable networkTask = new NetworkThread(userProfile.getUserid(), courseId, 3);
+                    Runnable networkTask = new NetworkThread(UserProfile.getUserProfile().getUserid(), courseId, 3);
                     new Thread(networkTask).start();
                 }catch (Exception e)
                 {
@@ -369,7 +358,7 @@ public class MainActivity extends AppCompatActivity
         progressBar.setVisibility(View.VISIBLE);
 
         Download_data download_data = new Download_data((download_complete) MainActivity.this);
-        download_data.download_data_from_link(Url + userProfile.getUserid() + "/Candidates");
+        download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
         mListAdapter.addAll(courseList);
 
         new Handler().postDelayed(new Runnable() {
@@ -550,13 +539,13 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
-                            userProfile.setOpenid((String)response.get("openid"));
-                            userProfile.setNickname((String)response.get("nickname"));
-                            userProfile.setSex((Integer) response.get("sex"));
-                            userProfile.setCity((String) response.get("city"));
-                            userProfile.setProvince((String) response.get("province"));
-                            userProfile.setCountry((String) response.get("country"));
-                            userProfile.setHeadimgurl((String) response.get("headimgurl"));
+                            UserProfile.getUserProfile().setOpenid((String) response.get("openid"));
+                            UserProfile.getUserProfile().setNickname((String) response.get("nickname"));
+                            UserProfile.getUserProfile().setSex((Integer) response.get("sex"));
+                            UserProfile.getUserProfile().setCity((String) response.get("city"));
+                            UserProfile.getUserProfile().setProvince((String) response.get("province"));
+                            UserProfile.getUserProfile().setCountry((String) response.get("country"));
+                            UserProfile.getUserProfile().setHeadimgurl((String) response.get("headimgurl"));
                             //Toast.makeText(getApplicationContext(), nickname + " " + country , Toast.LENGTH_SHORT).show();
                             UpdateUserProfile();
                         }catch(Exception e)
@@ -629,28 +618,28 @@ public class MainActivity extends AppCompatActivity
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
         com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);
-        imageLoader.get(userProfile.getHeadimgurl(), listener);
+        imageLoader.get(UserProfile.getUserProfile().getHeadimgurl(), listener);
 
         TextView textView = (TextView)findViewById(R.id.userName);
-        textView.setText(userProfile.getNickname());
+        textView.setText(UserProfile.getUserProfile().getNickname());
 
         //Update local user profile
         JSONObject jsonObject = new JSONObject();
         try
         {
-            jsonObject.put("userid", userProfile.getUserid());
-            jsonObject.put("openid", userProfile.getOpenid());
-            jsonObject.put("nickname", userProfile.getNickname());
-            jsonObject.put("sex", userProfile.getSex());
-            jsonObject.put("city", userProfile.getCity());
-            jsonObject.put("province", userProfile.getProvince());
-            jsonObject.put("country", userProfile.getCountry());
-            jsonObject.put("headimgurl", userProfile.getHeadimgurl());
-            if(userProfile.getDeviceid() == null)
+            jsonObject.put("userid", UserProfile.getUserProfile().getUserid());
+            jsonObject.put("openid", UserProfile.getUserProfile().getOpenid());
+            jsonObject.put("nickname", UserProfile.getUserProfile().getNickname());
+            jsonObject.put("sex", UserProfile.getUserProfile().getSex());
+            jsonObject.put("city", UserProfile.getUserProfile().getCity());
+            jsonObject.put("province", UserProfile.getUserProfile().getProvince());
+            jsonObject.put("country", UserProfile.getUserProfile().getCountry());
+            jsonObject.put("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
+            if(UserProfile.getUserProfile().getDeviceid() == null)
             {
-                userProfile.setDeviceid(Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+                UserProfile.getUserProfile().setDeviceid(Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
             }
-            jsonObject.put("deviceid", userProfile.getDeviceid());
+            jsonObject.put("deviceid", UserProfile.getUserProfile().getDeviceid());
         }catch (Exception e)
         {
             Log.e("Json Error",e.toString());
@@ -675,13 +664,13 @@ public class MainActivity extends AppCompatActivity
         jsonObject.remove("userid");
         jsonObject.remove("sex");
         try{
-            jsonObject.put("_id", Integer.valueOf(userProfile.getUserid()));
-            jsonObject.put("sex", Integer.valueOf(userProfile.getSex()));
+            jsonObject.put("_id", Integer.valueOf(UserProfile.getUserProfile().getUserid()));
+            jsonObject.put("sex", Integer.valueOf(UserProfile.getUserProfile().getSex()));
         }catch(Exception e){
             e.printStackTrace();
         }
 
-        String httpurl = "http://jieko.cc/user/" + userProfile.getUserid();
+        String httpurl = "http://jieko.cc/user/" + UserProfile.getUserProfile().getUserid();
 
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, httpurl, jsonObject,
                 new Response.Listener<JSONObject>() {
@@ -712,7 +701,6 @@ public class MainActivity extends AppCompatActivity
 
     public void getUserProfileFromFile()
     {
-        userProfile = new UserProfile();
         String str;
         //Read from local user profile
         try {
@@ -738,15 +726,15 @@ public class MainActivity extends AppCompatActivity
                 //Parse
                 try{
                     JSONObject jsonObject = new JSONObject(str);
-                    userProfile.setUserid(jsonObject.getString("userid"));
-                    userProfile.setDeviceid(jsonObject.getString("deviceid"));
-                    userProfile.setOpenid(jsonObject.getString("openid"));
-                    userProfile.setNickname(jsonObject.getString("nickname"));
-                    userProfile.setSex(jsonObject.getInt("sex"));
-                    userProfile.setCity(jsonObject.getString("city"));
-                    userProfile.setProvince(jsonObject.getString("province"));
-                    userProfile.setCountry(jsonObject.getString("country"));
-                    userProfile.setHeadimgurl(jsonObject.getString("headimgurl"));
+                    UserProfile.getUserProfile().setUserid(jsonObject.getString("userid"));
+                    UserProfile.getUserProfile().setDeviceid(jsonObject.getString("deviceid"));
+                    UserProfile.getUserProfile().setOpenid(jsonObject.getString("openid"));
+                    UserProfile.getUserProfile().setNickname(jsonObject.getString("nickname"));
+                    UserProfile.getUserProfile().setSex(jsonObject.getInt("sex"));
+                    UserProfile.getUserProfile().setCity(jsonObject.getString("city"));
+                    UserProfile.getUserProfile().setProvince(jsonObject.getString("province"));
+                    UserProfile.getUserProfile().setCountry(jsonObject.getString("country"));
+                    UserProfile.getUserProfile().setHeadimgurl(jsonObject.getString("headimgurl"));
                 }catch (Exception e)
                 {
                     e.printStackTrace();
@@ -765,7 +753,7 @@ public class MainActivity extends AppCompatActivity
         JSONObject jsonObject = new JSONObject();
         try
         {
-            jsonObject.put("userid", userProfile.getUserid());
+            jsonObject.put("userid", UserProfile.getUserProfile().getUserid());
             //Toast.makeText(getApplicationContext(),  userProfile.getUserid(), Toast.LENGTH_SHORT).show();
         }catch (Exception e)
         {
@@ -789,7 +777,7 @@ public class MainActivity extends AppCompatActivity
     public void getUserId(){
         String url = "http://jieko.cc/user";
         String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        userProfile.setDeviceid(android_id);
+        UserProfile.getUserProfile().setDeviceid(android_id);
         //Send POST request
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JSONObject jsonObject = new JSONObject();
@@ -805,7 +793,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
-                            userProfile.setUserid(String.valueOf((Long)response.getLong("userid")));
+                            UserProfile.getUserProfile().setUserid(String.valueOf((Long) response.getLong("userid")));
                             setUserProfile();
                         }catch (Exception e)
                         {

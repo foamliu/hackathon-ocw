@@ -5,6 +5,8 @@ package org.hackathon_ocw.androidclient;
  */
 public class UserProfile {
 
+    private static UserProfile userProfile = null;
+
     private String userid;
     private String deviceid;
     private String nickname;
@@ -13,6 +15,13 @@ public class UserProfile {
     private String city;
     private String country;
     private String headimgurl;
+
+    public static UserProfile getUserProfile(){
+        if (userProfile == null){
+            userProfile = new UserProfile();
+        }
+        return userProfile;
+    }
 
     public String getOpenid() {
         return openid;
