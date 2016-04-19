@@ -1,6 +1,8 @@
 package controllers
 
+import scala.annotation.migration
 import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.mutable.ListBuffer
 import scala.io.Codec.string2codec
 import scala.io.Source
 
@@ -14,14 +16,20 @@ import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood
 import org.apache.mahout.cf.taste.recommender.Recommender
 import org.apache.mahout.cf.taste.similarity.UserSimilarity
 
+import javax.inject.Inject
 import play.api.Logger
 import play.api.Play
+import play.api.libs.json.JsArray
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import play.api.libs.json.Reads.traversableReads
+import play.api.libs.json.Writes
 import play.api.mvc.Action
 import play.api.mvc.Controller
+import play.modules.reactivemongo.MongoController
+import play.modules.reactivemongo.ReactiveMongoApi
+import play.modules.reactivemongo.ReactiveMongoComponents
 
 object Application {
 
@@ -112,43 +120,80 @@ object Application {
         }
     }
     
-    private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
+    // 标签列表排序：用户看过的以课程标签多到少排列，未看过的随机排列
+    private def getTags(userID: Long, itemIDs: ListBuffer[Long]): Seq[(String, Int)] = {
+        val items: Seq[Course] = getCourses
+        
+        val allTags = scala.collection.mutable.Map[String, Int]()     //所有标签
+        for (item <- items)
+        {
+            val tagList: Array[String] = item.tags.split(" ")
+            for (tag <- tagList)
+            {
+                if (!tag.isEmpty()) {
+                    val number: Int = allTags.getOrElse(tag, 0)
+                    allTags.update(tag, number + 1)
+                }
+            }
+        }
+        
+        val interestedItems = items.filter(item => itemIDs.contains(item.itemID))
+        val interested = scala.collection.mutable.Map[String, Int]()  //用户学过课程的标签
+        for (item <- interestedItems)
+        {
+            val tagList: Array[String] = item.tags.split(" ")
+            for (tag <- tagList)
+            {
+                val number: Int = interested.getOrElse(tag, 0)
+                interested.update(tag, number + 1)
+            }
+        }       
+        
+        val tags = scala.collection.mutable.Map[String, Int]()
+        for (tag <- allTags.keys)
+        {
+            val number: Int = interested.getOrElse(tag, 0)
+            tags.update(tag, number)
+        }
+        
+        val pairs: List[(String, Int)] = tags.toList sortBy {_._2}        
+        val resultList: ListBuffer[(String, Int)]  = new ListBuffer[(String, Int)]()
+        for (tag <- pairs.reverse.map(_._1))
+        {
+            resultList.append((tag, allTags.getOrElse(tag, 0)))
+        }
+        
+        resultList.toSeq
+    }
+    
+    private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {        
         val items: Seq[Course] = getCourses
         scala.util.Random.shuffle(items.filter(_.tags.contains(tag)).take(howMany))
     }
-
 }
 
-class Application extends Controller {
+class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Controller
+        with MongoController with ReactiveMongoComponents {
 
     def index = Action {
         Ok("Your new application is ready.")
     }
 
     def getCandidates(userID: Long) = Action {
-
         Logger.debug(userID toString)
-
         val candidates: Seq[Course] = Application.getCandidates(userID)
-
         val json: JsValue = Json.obj("courses" -> candidates)
-
         Ok(Json.stringify(json))
     }
 
     def addCrashReport = Action(parse.json) {
-
         request =>
             {
                 val json: JsValue = request.body
-
                 val jsonString: String = Json.stringify(json)
-
                 Logger.warn(jsonString);
-
                 Ok("Ok")
-            }
-    }
+            }    }
 
     def echo(message: String) = Action {
         Ok(message)
@@ -159,9 +204,16 @@ class Application extends Controller {
         val json: JsValue = Json.obj("courses" -> candidates)
         Ok(Json.stringify(json))
     }
+
+    implicit def tuple2Writes[A, B](implicit a: Writes[A], b: Writes[B]): Writes[Tuple2[A, B]] = new Writes[Tuple2[A, B]] {
+        def writes(tuple: Tuple2[A, B]) = JsArray(Seq(a.writes(tuple._1), b.writes(tuple._2)))
+    }
     
-    def getTags = Action {
-        Ok("""[["国际名校公开课", 2366], ["国内", 1637], ["中国大学视频公开课", 1492], ["可汗学院", 875], ["数学", 814], ["社会", 704], ["TED", 512], ["艺术", 491], ["生物", 482], ["医学", 448], ["历史", 398], ["经济", 355], ["物理", 347], ["技能", 324], ["心理", 317], ["文学", 294], ["环境", 270], ["计算机", 266], ["哲学", 256], ["化学", 215], ["其他", 192], ["管理", 189], ["演讲", 115], ["法律", 109], ["国立台湾大学公开课", 77], ["赏课", 72], ["地球科学", 60], ["媒体", 58], ["BBC", 55], ["伦理", 34], ["英文", 34], ["中文", 18], ["冷知识", 2]]""")
+    def getTags(userID: Long) = Action {        
+        val itemIDs = Rating.getItemIDs(reactiveMongoApi, userID)
+        val tags = Application.getTags(userID, itemIDs)
+        val json: JsValue = Json.obj("tags" -> tags)
+        Ok(Json.stringify(json))
     }
 
     def getCandidatesByTag(id: Long, tag: String) = Action {

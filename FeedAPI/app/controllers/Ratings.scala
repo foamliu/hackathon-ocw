@@ -1,7 +1,6 @@
 package controllers
 
 import java.util.Date
-
 import javax.inject.Inject
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -23,6 +22,7 @@ import play.api.mvc.Controller
 import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.ReactiveMongoApi
 import play.modules.reactivemongo.ReactiveMongoComponents
+import scala.collection.mutable.ListBuffer
 
 case class Rating(user_id: Long, item_id: Long, preference: Double, created_at: Date)
 
@@ -41,6 +41,22 @@ object Rating {
                 "item_id" -> r.item_id,
                 "preference" -> r.preference,
                 "created_at" -> r.created_at)
+    }
+    
+        // BSON-JSON conversions
+    import play.modules.reactivemongo.json._
+    def getItemIDs(reactiveMongoApi: ReactiveMongoApi, userID: Long) : ListBuffer[Long] = {
+        val ratingRepo = new backend.RatingRepo(reactiveMongoApi)
+        val itemIDs: ListBuffer[Long] = new ListBuffer[Long]() 
+        ratingRepo.find(Json.obj("user_id" -> userID)).map(ratings => {
+            for (rating <- ratings)
+            {
+                val itemID: Long = (rating \ "item_id").as[Long]
+                itemIDs += itemID
+            }
+        })
+        
+        itemIDs
     }
 }
 
