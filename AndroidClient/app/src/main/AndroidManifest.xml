@@ -36,6 +36,13 @@
             android:hardwareAccelerated="false">
         </activity>
         <activity
+            android:name=".WebDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:hardwareAccelerated="false">
+        </activity>
+        <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/wxentry"

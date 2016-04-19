@@ -136,9 +136,6 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         detailToolBarInit();
 
-        titleDetail=(TextView)findViewById(R.id.titleDetail);
-        titleDetail.setText(title);
-
         addListenerOnBackButton();
         addListenerOnShareButton();
 
@@ -180,6 +177,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         backBtn = (Button)findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                onPause();
                 finish();
             }
         });
@@ -240,6 +238,12 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
             browser.getSettings().setJavaScriptEnabled(true);
             browser.loadUrl(webUri);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        browser.onPause();
     }
 
     //Google Analytics

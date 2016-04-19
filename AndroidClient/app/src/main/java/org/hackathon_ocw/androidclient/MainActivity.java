@@ -257,8 +257,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try{
+                    String a = mListAdapter.getVideoUrlbyPosition(position);
 
-                    if(mListAdapter.getVideoUrlbyPosition(position) != ""){
+                    if(!mListAdapter.getVideoUrlbyPosition(position).equals("")){
                         //Show subpage with videoUrl
                         Intent intent = new Intent();
                         intent.putExtra("id", mListAdapter.getIdbyPosition(position));
@@ -393,7 +394,7 @@ public class MainActivity extends AppCompatActivity
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
                 map.put(KEY_THUMB_URL,obj.getString("piclink"));
                 map.put(KEY_VIDEOURL,obj.getString("courselink"));
-                //map.put(KEY_WEBURL,obj.getString("link"));
+                map.put(KEY_WEBURL,obj.getString("link"));
                 map.put(KEY_DURATION,obj.getString("duration"));
                 map.put(KEY_SOURCE,obj.getString("source"));
                 courseList.add(map);
