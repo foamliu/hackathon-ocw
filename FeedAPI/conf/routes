@@ -16,7 +16,7 @@ GET     /item/:id/Comments              controllers.Comments.get(id: Long)
 GET     /item/Comments/:id/like         controllers.Comments.like(id: String)
 GET     /echo/:message                  controllers.Application.echo(message: String)
 GET     /items/search/:keyword          controllers.Application.search(keyword: String)
-GET     /items/tags                     controllers.Application.getTags
+GET     /user/:id/tags                  controllers.Application.getTags(id: Long)
 GET     /user/:id/Candidates/tag/:tag   controllers.Application.getCandidatesByTag(id: Long, tag: String)
 
 # Map static resources from the /public folder to the /assets URL path
