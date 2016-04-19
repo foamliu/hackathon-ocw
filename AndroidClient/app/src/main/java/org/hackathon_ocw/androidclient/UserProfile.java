@@ -97,5 +97,11 @@ public class UserProfile {
         this.headimgurl = headimgurl;
     }
 
-
+    public void clearProfile(){
+        this.nickname = "";
+        this.sex = -1;
+        this.province = "";
+        this.country = "";
+        this.headimgurl = "";
+    }
 }

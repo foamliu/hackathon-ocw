@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity
     private static String get_access_token = "";
     private String access_token;
     private String openid;
+    private boolean login = false;
 
     private Tracker mTracker;
 
@@ -419,7 +420,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
         updateNaviViewWithUserProfile();
         return true;
     }
@@ -447,8 +447,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_login) {
+        if (id == R.id.nav_login && login == false) {
             WXLogin();
+            item.setChecked(false);
+            item.setCheckable(true);
+        }
+        else if(id == R.id.nav_login && login == true){
+            WXLogout();
+            item.setChecked(false);
+            item.setCheckable(true);
         }
         /*
         else if (id == R.id.nav_gallery) {
@@ -487,6 +494,40 @@ public class MainActivity extends AppCompatActivity
         req.scope = "snsapi_userinfo";
         req.state = "hackathon_ocw";
         boolean res = WXapi.sendReq(req);
+    }
+
+    private void WXLogout(){
+        //clear userprofile.json
+        UserProfile.getUserProfile().clearProfile();
+
+        updateNaviViewWithUserProfile();
+
+        //Update local user profile
+        JSONObject jsonObject = new JSONObject();
+        try
+        {
+            jsonObject.put("userid", UserProfile.getUserProfile().getUserid());
+            if(UserProfile.getUserProfile().getDeviceid() == null)
+            {
+                UserProfile.getUserProfile().setDeviceid(Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+            }
+            jsonObject.put("deviceid", UserProfile.getUserProfile().getDeviceid());
+        }catch (Exception e)
+        {
+            Log.e("Json Error",e.toString());
+        }
+
+        //Write to local file
+        String fileName = "userProfile.json";
+        File userProfileFile = new File(getApplicationContext().getFilesDir(), fileName);
+        try {
+            FileWriter fw = new FileWriter(userProfileFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(jsonObject.toString());
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -617,6 +658,7 @@ public class MainActivity extends AppCompatActivity
 
     public void UpdateUserProfile()
     {
+        login = true;
         CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
@@ -625,6 +667,12 @@ public class MainActivity extends AppCompatActivity
 
         TextView textView = (TextView)findViewById(R.id.userName);
         textView.setText(UserProfile.getUserProfile().getNickname());
+
+        Menu menu = navigationView.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.nav_login);
+        if(login == true){
+            menuItem.setTitle("注销");
+        }
 
         //Update local user profile
         JSONObject jsonObject = new JSONObject();
@@ -752,7 +800,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void updateNaviViewWithUserProfile(){
-        if(UserProfile.getUserProfile().getNickname() != ""){
+        if(UserProfile.getUserProfile().getNickname() != "" && UserProfile.getUserProfile().getNickname() != null){
+            login = true;
             CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
             RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
             com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
@@ -763,6 +812,25 @@ public class MainActivity extends AppCompatActivity
 
             TextView textView = (TextView)findViewById(R.id.userName);
             textView.setText(UserProfile.getUserProfile().getNickname());
+
+            Menu menu = navigationView.getMenu();
+            MenuItem menuItem = menu.findItem(R.id.nav_login);
+            if(login == true){
+                menuItem.setTitle("注销");
+            }
+        }
+        else {
+            login = false;
+            CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
+            imageView.setImageResource(R.drawable.ic_account_circle_black_48dp);
+            TextView textView = (TextView)findViewById(R.id.userName);
+            textView.setText("未登陆");
+
+            Menu menu = navigationView.getMenu();
+            MenuItem menuItem = menu.findItem(R.id.nav_login);
+            if(login == false){
+                menuItem.setTitle("登陆");
+            }
         }
     }
 
