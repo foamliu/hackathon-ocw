@@ -35,6 +35,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity
     public ListView mListView;
     private TextView titleMainToolBar;
     private TextView textMore;
+    private NavigationView navigationView;
 
     //Toolbars
     private Toolbar toolbar;
@@ -180,7 +182,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void naviViewInit(){
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -390,7 +392,7 @@ public class MainActivity extends AppCompatActivity
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
                 map.put(KEY_THUMB_URL,obj.getString("piclink"));
                 map.put(KEY_VIDEOURL,obj.getString("courselink"));
-                map.put(KEY_WEBURL,obj.getString("link"));
+                //map.put(KEY_WEBURL,obj.getString("link"));
                 map.put(KEY_DURATION,obj.getString("duration"));
                 map.put(KEY_SOURCE,obj.getString("source"));
                 courseList.add(map);
@@ -413,15 +415,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
+        updateNaviViewWithUserProfile();
         return true;
     }
 
-
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -449,8 +452,8 @@ public class MainActivity extends AppCompatActivity
         }
         /*
         else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
+        }
+        else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
@@ -696,7 +699,6 @@ public class MainActivity extends AppCompatActivity
             }
         };
         requestQueue.add(jsonRequest);
-
     }
 
     public void getUserProfileFromFile()
@@ -749,6 +751,21 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void updateNaviViewWithUserProfile(){
+        if(UserProfile.getUserProfile().getNickname() != ""){
+            CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
+            RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
+            com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
+            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);
+            if(UserProfile.getUserProfile().getHeadimgurl() != ""){
+                imageLoader.get(UserProfile.getUserProfile().getHeadimgurl(), listener);
+            }
+
+            TextView textView = (TextView)findViewById(R.id.userName);
+            textView.setText(UserProfile.getUserProfile().getNickname());
+        }
+    }
+
     public void setUserProfile() {
         JSONObject jsonObject = new JSONObject();
         try
@@ -771,7 +788,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
             userProfileFile = null;
         }
-
     }
 
     public void getUserId(){

@@ -115,8 +115,6 @@ public class ListAdapter extends BaseAdapter {
         imageLoader.DisplayImage(course.get(MainActivity.KEY_THUMB_URL), thumb_image);
 
         //Will be replaced by real data
-        //videoDurationText.setText("03:59");
-        //videoWatchedText.setText("网易公开课");
         videoWatchedText.setText(course.get(MainActivity.KEY_SOURCE));
 
         return vi;
