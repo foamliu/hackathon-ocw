@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_DESCRIPTION = "description";
     static final String KEY_THUMB_URL = "thumb_url";
     static final String KEY_VIDEOURL = "videoUrl";
+    static final String KEY_WEBURL = "webUrl";
     static final String KEY_DURATION = "videoDuration";
     static final String KEY_SOURCE = "source";
     static final String Url = "http://api.jieko.cc/user/";
@@ -264,22 +265,39 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try{
-                    //Show subpage
-                    Intent intent = new Intent();
-                    intent.putExtra("id", mListAdapter.getIdbyPosition(position));
-                    intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
-                    intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
-                    intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
-                    intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
-                    intent.putExtra("userid", userProfile.getUserid());
-                    if(userProfile.getNickname() != null) {
-                        intent.putExtra("nickname", userProfile.getNickname());
-                        intent.putExtra("headimgurl", userProfile.getHeadimgurl());
+
+                    if(mListAdapter.getVideoUrlbyPosition(position) != ""){
+                        //Show subpage with videoUrl
+                        Intent intent = new Intent();
+                        intent.putExtra("id", mListAdapter.getIdbyPosition(position));
+                        intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
+                        intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
+                        intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
+                        intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
+                        intent.putExtra("userid", userProfile.getUserid());
+                        if(userProfile.getNickname() != null) {
+                            intent.putExtra("nickname", userProfile.getNickname());
+                            intent.putExtra("headimgurl", userProfile.getHeadimgurl());
+                        }
+
+                        intent.setClass(MainActivity.this, DetailActivity.class);
+                        startActivity(intent);
                     }
+                    else{
+                        //Show subpage with Webview
+                        Intent intent = new Intent();
+                        intent.putExtra("webUrl",mListAdapter.getWebUrlbyPosition(position));
+                        intent.putExtra("id", mListAdapter.getIdbyPosition(position));
+                        intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
+                        intent.putExtra("userid", userProfile.getUserid());
+                        if(userProfile.getNickname() != null) {
+                            intent.putExtra("nickname", userProfile.getNickname());
+                            intent.putExtra("headimgurl", userProfile.getHeadimgurl());
+                        }
 
-                    intent.setClass(MainActivity.this, DetailActivity.class);
-                    startActivity(intent);
-
+                        intent.setClass(MainActivity.this, WebDetailActivity.class);
+                        startActivity(intent);
+                    }
                     //Send post to server
                     String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
                     Runnable networkTask = new NetworkThread(userProfile.getUserid(), courseId, 3);
@@ -383,6 +401,7 @@ public class MainActivity extends AppCompatActivity
                 map.put(KEY_DESCRIPTION,obj.getString("description"));
                 map.put(KEY_THUMB_URL,obj.getString("piclink"));
                 map.put(KEY_VIDEOURL,obj.getString("courselink"));
+                map.put(KEY_WEBURL,obj.getString("link"));
                 map.put(KEY_DURATION,obj.getString("duration"));
                 map.put(KEY_SOURCE,obj.getString("source"));
                 courseList.add(map);
