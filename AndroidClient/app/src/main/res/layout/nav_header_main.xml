@@ -16,13 +16,14 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_marginLeft="35dp"
         android:src="@drawable/ic_account_circle_black_48dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="45dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/userName"
         android:text="请登录"
