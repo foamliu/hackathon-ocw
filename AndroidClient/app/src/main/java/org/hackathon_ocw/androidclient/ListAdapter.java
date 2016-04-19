@@ -111,7 +111,13 @@ public class ListAdapter extends BaseAdapter {
         course = data.get(position);
 
         title.setText(course.get(MainActivity.KEY_TITLE));
-        videoDurationText.setText(course.get(MainActivity.KEY_DURATION));
+        if(course.get(MainActivity.KEY_DURATION).equals(""))
+        {
+            videoDurationText.setText("---:---");
+        }
+        else {
+            videoDurationText.setText(course.get(MainActivity.KEY_DURATION));
+        }
         imageLoader.DisplayImage(course.get(MainActivity.KEY_THUMB_URL), thumb_image);
 
         //Will be replaced by real data
