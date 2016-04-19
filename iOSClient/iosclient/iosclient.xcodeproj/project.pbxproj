@@ -11,6 +11,7 @@
 		761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D481CB4B1FE00819982 /* MenuController.swift */; };
 		7664756D1CB6AC0E00DA808B /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */; };
 		767229E21CC50E4400FB5BF5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767229E11CC50E4400FB5BF5 /* Reachability.swift */; };
+		767229E41CC5F4EE00FB5BF5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 767229E31CC5F4EE00FB5BF5 /* GoogleService-Info.plist */; };
 		7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */; };
 		767E722E1CB7419300CEBA6C /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E722D1CB7419300CEBA6C /* CommentViewController.swift */; };
 		76AFFDB61CB4F087006232CA /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AFFDB51CB4F087006232CA /* SWRevealViewController.m */; };
@@ -61,6 +62,7 @@
 		761E6D481CB4B1FE00819982 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		767229E11CC50E4400FB5BF5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		767229E31CC5F4EE00FB5BF5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableFooterView.swift; sourceTree = "<group>"; };
 		767E722D1CB7419300CEBA6C /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		76AFFDB41CB4F087006232CA /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				76DD389E1CABC24300622A4A /* Main.storyboard */,
 				76DD38A11CABC24300622A4A /* Assets.xcassets */,
 				76DD38A31CABC24300622A4A /* LaunchScreen.storyboard */,
+				767229E31CC5F4EE00FB5BF5 /* GoogleService-Info.plist */,
 				76DD38A61CABC24300622A4A /* Info.plist */,
 				76DD38C81CABC3FE00622A4A /* TableViewController.swift */,
 				76DD38CA1CABC4E500622A4A /* TableViewCell.swift */,
@@ -309,6 +312,7 @@
 				TargetAttributes = {
 					76DD38961CABC24300622A4A = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = VCK7LAMAS6;
 					};
 					76DD38AA1CABC24300622A4A = {
 						CreatedOnToolsVersion = 7.3;
@@ -346,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76DD38A51CABC24300622A4A /* LaunchScreen.storyboard in Resources */,
+				767229E41CC5F4EE00FB5BF5 /* GoogleService-Info.plist in Resources */,
 				76DD38A21CABC24300622A4A /* Assets.xcassets in Resources */,
 				76DD38A01CABC24300622A4A /* Main.storyboard in Resources */,
 			);
@@ -580,6 +585,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iosclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -588,8 +595,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.iosclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosclient/iosclient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -599,6 +608,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iosclient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -607,7 +618,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.iosclient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosclient/iosclient-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -85,7 +85,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     func getInitId(){
         User.sharedManager.deviceid = UIDevice.currentDevice().identifierForVendor!.UUIDString
-        print(User.sharedManager.deviceid)
         //使用deviceid换取userid
         var basicProfile = [String: AnyObject]()
         basicProfile["deviceid"] = User.sharedManager.deviceid

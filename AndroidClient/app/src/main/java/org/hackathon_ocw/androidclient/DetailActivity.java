@@ -241,7 +241,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         backBtn = (Button)findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Back",Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

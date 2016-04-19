@@ -48,6 +48,10 @@ public class ListAdapter extends BaseAdapter {
         return data.get(position).get("videoUrl");
     }
 
+    public String getWebUrlbyPosition(int position) {
+        return data.get(position).get("webUrl");
+    }
+
     public String getTitlebyPosition(int position) {
         return data.get(position).get("title");
     }
