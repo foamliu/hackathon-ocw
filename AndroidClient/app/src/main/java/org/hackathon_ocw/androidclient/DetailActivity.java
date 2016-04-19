@@ -111,9 +111,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private String title;
     private String videoUrl;
 
-    //User info
-    private UserProfile userProfile;
-
     private Tracker mTracker;
 
     private NestedScrollingChildHelper mChildHelper;
@@ -131,16 +128,14 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
 
-        userProfile = new UserProfile();
-
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         description = intent.getStringExtra("description");
         courseId = intent.getStringExtra("id");
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
-        userProfile.setNickname(intent.getStringExtra("nickname"));
-        userProfile.setHeadimgurl(intent.getStringExtra("headimgurl"));
-        userProfile.setUserid(intent.getStringExtra("userid"));
+        UserProfile.getUserProfile().setNickname(intent.getStringExtra("nickname"));
+        UserProfile.getUserProfile().setHeadimgurl(intent.getStringExtra("headimgurl"));
+        UserProfile.getUserProfile().setUserid(intent.getStringExtra("userid"));
         videoUrl = intent.getStringExtra("videoImg");
 
         detailToolBarInit();
@@ -389,7 +384,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
                 //Send the ratings to server...
                 //Send post to server
-                Runnable networkTask = new NetworkThread(userProfile.getUserid(), courseId, rating);
+                Runnable networkTask = new NetworkThread(UserProfile.getUserProfile().getUserid(), courseId, rating);
                 new Thread(networkTask).start();
             }
         });
@@ -483,10 +478,10 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 int item_id = Integer.valueOf(courseId);
 
                 //Get author_id
-                int author_id = Integer.valueOf(userProfile.getUserid());
+                int author_id = Integer.valueOf(UserProfile.getUserProfile().getUserid());
                 String author_name;
-                if(userProfile.getNickname() != null) {
-                    author_name = userProfile.getNickname();
+                if(UserProfile.getUserProfile().getNickname() != null) {
+                    author_name = UserProfile.getUserProfile().getNickname();
                 }
                 else {
                     author_name = "匿名用户";
@@ -564,9 +559,9 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 map.put("comment", comment);
                 map.put("timeline", String.valueOf(timeline));
                 map.put("like", String.valueOf(like));
-                if(userProfile.getHeadimgurl() != null)
+                if(UserProfile.getUserProfile().getHeadimgurl() != null)
                 {
-                    map.put("headimgurl", userProfile.getHeadimgurl());
+                    map.put("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
                 }
 
                 PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter)viewPager.getAdapter();
