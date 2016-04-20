@@ -8,6 +8,7 @@
 import scrapy
 import time
 import json
+from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from guokr.items import GuokrItem
 
@@ -50,33 +51,24 @@ class GuokrSpider(scrapy.Spider):
         self.driver.get('http://www.guokr.com/scientific/')
         time.sleep(2)
         
-        while True:
+        for i in range(1000):
+            lastElement = driver.find_elements_by_id("waterfallLoading")[-1]
+            lastElement.send_keys(Keys.NULL)
 
-            hxs = scrapy.Selector(text = self.driver.page_source)
-            for info in hxs.xpath('//*[@id="waterfall"]/div'):
-                item = GuokrItem()
-                item['title'] = cleanse(info.xpath('h3/a[@class="article-title"]/text()').extract())
-                item['description'] = cleanse(info.xpath('p[@class="article-summary"]/text()').extract())
-                item['piclink'] = cleanse(info.xpath('a/img/@src').extract())
-                item['courselink'] = u''
-                item['source'] = u'Guokr'
-                item['school'] = u'Guokr'
-                item['instructor'] = cleanse(info.xpath('div/a[1]/text()').extract())
-                item['language'] = u'Chinese'
-                item['tags'] = cleanse(info.xpath('a[@class="label label-common"]/text()').extract())
-                item['link'] = cleanse(info.xpath('a[2]/@href').extract())
-                yield item
-
-            next = self.driver.find_element_by_xpath('/html/body/div[1]/div/ul[1]/li[2]/a')
-            #print next.text
-            time.sleep(2)
-
-            try:
-                next.click()
-
-            except Exception as err:
-                print(err)
-                break
+        hxs = scrapy.Selector(text = self.driver.page_source)
+        for info in hxs.xpath('//*[@id="waterfall"]/div'):
+            item = GuokrItem()
+            item['title'] = cleanse(info.xpath('h3/a[@class="article-title"]/text()').extract())
+            item['description'] = cleanse(info.xpath('p[@class="article-summary"]/text()').extract())
+            item['piclink'] = cleanse(info.xpath('a/img/@src').extract())
+            item['courselink'] = u''
+            item['source'] = u'果壳网'
+            item['school'] = u'果壳网'
+            item['instructor'] = cleanse(info.xpath('div/a[1]/text()').extract())
+            item['language'] = u'中文'
+            item['tags'] = cleanse(info.xpath('a[@class="label label-common"]/text()').extract())
+            item['link'] = cleanse(info.xpath('a[@data-gaevent="scientific_image:v1.1.1.1:scientific"]/@href').extract())
+            yield item
 
 
 
