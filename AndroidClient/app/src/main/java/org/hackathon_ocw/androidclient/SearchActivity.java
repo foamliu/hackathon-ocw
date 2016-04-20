@@ -41,6 +41,7 @@ import me.gujun.android.taggroup.TagGroup;
 public class SearchActivity extends AppCompatActivity {
 
     static final String Url = "http://api.jieko.cc/items/search/";
+    static final String UrlbyTags = "http://jieko.cc/user/";
 
     private Button cancelBtn;
     private EditText editText;
@@ -95,8 +96,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchTagsInit() {
-        //String url = "http://jieko.cc/user/" + UserProfile.getUserProfile().getUserid() + "/tags";
-        String url = "http://jieko.cc/user/5/tags";
+        String url = "http://jieko.cc/user/" + UserProfile.getUserProfile().getUserid() + "/tags";
+        //String url = "http://jieko.cc/user/5/tags";
         //Send Request here
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -129,7 +130,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onTagClick(String tag) {
                 editText.setText(tag);
-                search(tag);
+                searchByTags(tag);
             }
         });
     }
@@ -157,12 +158,22 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(String query){
-        Log.i("search", "query=" + query);
-
         final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
         try{
             String strUTF8 = URLEncoder.encode(query, "UTF-8");
             download_data.download_data_from_link(Url + strUTF8);
+            finish();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void searchByTags(String query){
+        String Urlbytags = UrlbyTags + UserProfile.getUserProfile().getUserid() + "/Candidates/tag/";
+        final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
+        try{
+            String strUTF8 = URLEncoder.encode(query, "UTF-8");
+            download_data.download_data_from_link(Urlbytags + strUTF8);
             finish();
         }catch (Exception e){
             e.printStackTrace();
