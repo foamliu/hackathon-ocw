@@ -339,7 +339,13 @@ public class MainActivity extends AppCompatActivity
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSearchRequested();
+                //onSearchRequested();
+                //TODO:create a new view
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+
+
             }
         });
     }
