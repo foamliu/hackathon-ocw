@@ -10,6 +10,7 @@ import time
 import json
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from guokr.items import GuokrItem
 
 def getout():
@@ -51,9 +52,13 @@ class GuokrSpider(scrapy.Spider):
         self.driver.get('http://www.guokr.com/scientific/')
         time.sleep(2)
         
-        for i in range(1000):
-            lastElement = driver.find_elements_by_id("waterfallLoading")[-1]
-            lastElement.send_keys(Keys.NULL)
+        #lastElement = self.driver.find_elements_by_id("waterfallLoading")[-1]
+        #ActionChains(self.driver).move_to_element(lastElement).click().perform()
+        #lastElement.send_keys(Keys.NULL)
+            
+        for i in range(1, 100):
+            self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
+            time.sleep(5)
 
         hxs = scrapy.Selector(text = self.driver.page_source)
         for info in hxs.xpath('//*[@id="waterfall"]/div'):
