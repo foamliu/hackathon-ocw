@@ -56,7 +56,7 @@ class GuokrSpider(scrapy.Spider):
         #ActionChains(self.driver).move_to_element(lastElement).click().perform()
         #lastElement.send_keys(Keys.NULL)
             
-        for i in range(1, 500):
+        for i in range(1, 600):
             self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
             time.sleep(5)
 
