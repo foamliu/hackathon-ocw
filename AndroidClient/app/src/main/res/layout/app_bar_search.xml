@@ -24,14 +24,16 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:id="@+id/EditSearch"
+                    android:id="@+id/editSearch"
                     android:background="@drawable/edittext"
                     android:textColor="@color/black"
                     android:hint="搜索课程"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="15dp"
                     android:paddingLeft="10dp"
+                    android:maxLines="1"
                     android:layout_marginRight="80dp"
+                    android:imeOptions="actionDone"
                     />
 
                 <Button
