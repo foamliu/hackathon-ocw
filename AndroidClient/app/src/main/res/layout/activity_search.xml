@@ -13,24 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:paddingTop="70dp">
 
-        <TextView
+        <me.gujun.android.taggroup.TagGroup
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/titleDetail2"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:gravity="center_vertical"
-            />
+            android:layout_height="match_parent"
+            android:id="@+id/tagGroup"
+            style="@style/CustomTagGroup">
 
-
+        </me.gujun.android.taggroup.TagGroup>
 
     </LinearLayout>
 

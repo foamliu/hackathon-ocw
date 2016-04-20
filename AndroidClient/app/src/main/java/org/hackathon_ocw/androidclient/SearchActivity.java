@@ -12,12 +12,23 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import me.gujun.android.taggroup.TagGroup;
 
 /**
  * Created by foamliu on 2016/4/11.
@@ -28,7 +39,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private Button cancelBtn;
     private Toolbar searchToolbar;
-    private TextView titleToolBar;
+    private TagGroup tagGroup;
+
+    public ArrayList<String> tagsList = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -55,8 +68,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         detailToolBarInit();
-
         addListenerOnBackButton();
+        tagGroup = (TagGroup)findViewById(R.id.tagGroup);
+        searchTagsInit();
     }
 
     public void detailToolBarInit(){
@@ -68,8 +82,6 @@ public class SearchActivity extends AppCompatActivity {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
-        //titleToolBar=(TextView)findViewById(R.id.titleToolBar);
-        //titleToolBar.setText("学啥");
     }
 
     // A method to find height of the status bar
@@ -80,6 +92,37 @@ public class SearchActivity extends AppCompatActivity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public void searchTagsInit(){
+        //String url = "http://jieko.cc/user/" + UserProfile.getUserProfile().getUserid() + "/tags";
+        String url = "http://jieko.cc/user/5/tags";
+        //Send Request here
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("tags");
+                            for (int i = 0 ; i < jsonArray.length() ; i++)
+                            {
+                                JSONArray jr=jsonArray.getJSONArray(i);
+                                tagsList.add((String) jr.get(0));
+                            }
+                            tagGroup.setTags(tagsList);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+            }
+        });
+        requestQueue.add(jsonRequest);
+
     }
 
     public void addListenerOnBackButton() {
