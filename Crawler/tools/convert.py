@@ -12,15 +12,17 @@ def get_duration(olist, url):
 #input_file = open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\items.json', "r")
 #output_file = codecs.open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\output.json', "w", encoding="utf-8")
 
-input_file_1 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\Crawler\yixi\out.json', "r", encoding="utf-8")
+input_file_1 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\Crawler\guokr\out.json', "r", encoding="utf-8")
 input_file_2 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\items.json', "r", encoding="utf-8")
 output_file = codecs.open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\output.json', "w", encoding="utf-8")
 
 olist = json.load(input_file_2, encoding='utf-8')
 
 lines = input_file_1.readlines()
-i = 8269
+i = 8623
 for line in lines:
+    line = line.replace('\\','\\\\')
+    print(line)
     item = json.loads(line)
     item['item_id'] = i
     item['duration'] = ''
