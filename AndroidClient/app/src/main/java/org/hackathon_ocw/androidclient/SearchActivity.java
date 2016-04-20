@@ -2,14 +2,19 @@ package org.hackathon_ocw.androidclient;
 
 import android.app.Activity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -38,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
     static final String Url = "http://api.jieko.cc/items/search/";
 
     private Button cancelBtn;
+    private EditText editText;
     private Toolbar searchToolbar;
     private TagGroup tagGroup;
 
@@ -46,23 +52,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        /*
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction()))
-        {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Log.i("search", "query=" + query);
-
-            final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
-            try{
-                String strUTF8 = URLEncoder.encode(query, "UTF-8");
-                download_data.download_data_from_link(Url + strUTF8);
-                finish();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        */
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_search);
@@ -70,7 +59,10 @@ public class SearchActivity extends AppCompatActivity {
         detailToolBarInit();
         addListenerOnBackButton();
         tagGroup = (TagGroup)findViewById(R.id.tagGroup);
+        editSearchInit();
         searchTagsInit();
+        searchTagsListener();
+        addListenerOnSearchButton();
     }
 
     public void detailToolBarInit(){
@@ -94,7 +86,15 @@ public class SearchActivity extends AppCompatActivity {
         return result;
     }
 
-    public void searchTagsInit(){
+    public void editSearchInit(){
+        editText = (EditText)findViewById(R.id.editSearch);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
+
+    public void searchTagsInit() {
         //String url = "http://jieko.cc/user/" + UserProfile.getUserProfile().getUserid() + "/tags";
         String url = "http://jieko.cc/user/5/tags";
         //Send Request here
@@ -122,7 +122,16 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonRequest);
+    }
 
+    public void searchTagsListener(){
+        tagGroup.setOnTagClickListener(new TagGroup.OnTagClickListener() {
+            @Override
+            public void onTagClick(String tag) {
+                editText.setText(tag);
+                search(tag);
+            }
+        });
     }
 
     public void addListenerOnBackButton() {
@@ -133,5 +142,30 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
-    
+
+    public void addListenerOnSearchButton(){
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    search(editText.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void search(String query){
+        Log.i("search", "query=" + query);
+
+        final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
+        try{
+            String strUTF8 = URLEncoder.encode(query, "UTF-8");
+            download_data.download_data_from_link(Url + strUTF8);
+            finish();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
