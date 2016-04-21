@@ -302,9 +302,9 @@
                                 <exclude reference="Z8g-5U-b3t"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Jye-3H-OrM"/>
                                 <exclude reference="JLs-eP-b0O"/>
                                 <exclude reference="hUT-KP-iNb"/>
-                                <exclude reference="Jye-3H-OrM"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -312,9 +312,9 @@
                                 <include reference="Z8g-5U-b3t"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Jye-3H-OrM"/>
                                 <include reference="JLs-eP-b0O"/>
                                 <include reference="hUT-KP-iNb"/>
-                                <include reference="Jye-3H-OrM"/>
                             </mask>
                         </variation>
                     </view>
@@ -372,15 +372,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" id="qxd-GA-TLx">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <scopeButtonTitles>
-                                <string>Title</string>
-                                <string>Title</string>
-                            </scopeButtonTitles>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CourseCell" rowHeight="96" id="RCX-TL-rrl" customClass="TableViewCell" customModule="iosclient">
                                 <rect key="frame" x="0.0" y="136" width="600" height="96"/>
@@ -552,7 +543,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="wCD-9I-UNB" id="QOU-Hy-ABx"/>
-                        <outlet property="searchBar" destination="qxd-GA-TLx" id="VdK-2K-Ms8"/>
                         <segue destination="tXj-V4-scd" kind="show" identifier="showDetail" id="TCu-UN-XEE"/>
                     </connections>
                 </tableViewController>

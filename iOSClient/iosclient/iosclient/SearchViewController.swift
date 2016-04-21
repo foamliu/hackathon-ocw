@@ -65,13 +65,34 @@ class SearchViewController: UIViewController, UISearchBarDelegate, TagListViewDe
                 self.tagListView.addTag(ele[0] as! String)
             }
         }
-        
-        
+    }
+    
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if(searchBar.text != nil){
+            //Update the searchText to Table
+            NSNotificationCenter.defaultCenter().postNotificationName("newSearchNotification", object: nil, userInfo: ["newSearch": searchBar.text!])
+            navigationController!.popViewControllerAnimated(true)
+        }
     }
     
     func tagPressed(title: String, tagView: TagView, sender: TagListView) {
-        print("Tag pressed: \(title), \(sender)")
+        //Search by tags
+        //Update the searchText to Table
+        NSNotificationCenter.defaultCenter().postNotificationName("newSearchByTagNotification", object: nil, userInfo: ["newSearchByTag": title])
+        navigationController!.popViewControllerAnimated(true)
+        
     }
+    
+    
+    
 
 
 }
