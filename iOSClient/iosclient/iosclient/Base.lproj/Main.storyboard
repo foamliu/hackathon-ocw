@@ -671,6 +671,24 @@
                                     <segue destination="Asr-fo-bMf" kind="embed" id="LKh-NY-hJY"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZE3-dY-rdD" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="129" y="72" width="143" height="20"/>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -686,6 +704,9 @@
                             <constraint firstItem="KJr-7Q-zG8" firstAttribute="top" secondItem="Ijm-Fi-swm" secondAttribute="bottom" constant="8" symbolic="YES" id="EPP-Ec-Zl1">
                                 <variation key="widthClass=compact" constant="8"/>
                             </constraint>
+                            <constraint firstItem="ZE3-dY-rdD" firstAttribute="centerX" secondItem="Ijm-Fi-swm" secondAttribute="centerX" id="HlZ-LN-saK">
+                                <variation key="widthClass=compact" constant="-1.5"/>
+                            </constraint>
                             <constraint firstItem="cNo-6i-2Hi" firstAttribute="top" secondItem="KJr-7Q-zG8" secondAttribute="bottom" constant="8" symbolic="YES" id="Krb-Ni-igv">
                                 <variation key="widthClass=compact" constant="47"/>
                             </constraint>
@@ -696,11 +717,15 @@
                             <constraint firstItem="cNo-6i-2Hi" firstAttribute="top" secondItem="Ijm-Fi-swm" secondAttribute="bottom" constant="217" id="kBb-4g-o8V">
                                 <variation key="widthClass=compact" constant="256"/>
                             </constraint>
+                            <constraint firstItem="ZE3-dY-rdD" firstAttribute="leading" secondItem="XOh-Ud-0Rl" secondAttribute="leading" constant="141" id="l8m-1l-UiP">
+                                <variation key="widthClass=compact" constant="127"/>
+                            </constraint>
                             <constraint firstItem="xYy-7u-K5d" firstAttribute="top" secondItem="KJr-7Q-zG8" secondAttribute="top" id="oQL-49-P3u">
                                 <variation key="widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="xYy-7u-K5d" firstAttribute="leading" secondItem="KJr-7Q-zG8" secondAttribute="leading" id="ori-8x-YbN"/>
                             <constraint firstItem="ZAU-0Q-tom" firstAttribute="centerX" secondItem="KJr-7Q-zG8" secondAttribute="centerX" id="woX-mu-CJt"/>
+                            <constraint firstItem="ZE3-dY-rdD" firstAttribute="top" secondItem="c4G-27-bx2" secondAttribute="bottom" constant="8" symbolic="YES" id="zPB-G9-OKx"/>
                             <constraint firstItem="ZAU-0Q-tom" firstAttribute="bottom" secondItem="cNo-6i-2Hi" secondAttribute="top" id="zds-LA-Dzw"/>
                         </constraints>
                         <variation key="default">
@@ -709,8 +734,12 @@
                                 <exclude reference="KJr-7Q-zG8"/>
                                 <exclude reference="ZAU-0Q-tom"/>
                                 <exclude reference="xYy-7u-K5d"/>
+                                <exclude reference="ZE3-dY-rdD"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="HlZ-LN-saK"/>
+                                <exclude reference="l8m-1l-UiP"/>
+                                <exclude reference="zPB-G9-OKx"/>
                                 <exclude reference="6W7-d5-0Bu"/>
                                 <exclude reference="1sY-pq-INl"/>
                                 <exclude reference="DNC-9L-bSf"/>
@@ -733,8 +762,12 @@
                                 <include reference="KJr-7Q-zG8"/>
                                 <include reference="ZAU-0Q-tom"/>
                                 <include reference="xYy-7u-K5d"/>
+                                <include reference="ZE3-dY-rdD"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="HlZ-LN-saK"/>
+                                <include reference="l8m-1l-UiP"/>
+                                <include reference="zPB-G9-OKx"/>
                                 <include reference="6W7-d5-0Bu"/>
                                 <include reference="1sY-pq-INl"/>
                                 <include reference="DNC-9L-bSf"/>
@@ -766,6 +799,7 @@
                         <outlet property="commentToolbar" destination="ZAU-0Q-tom" id="hkn-jS-6gL"/>
                         <outlet property="commentView" destination="xYy-7u-K5d" id="Mrs-M0-j2P"/>
                         <outlet property="descriptionView" destination="KJr-7Q-zG8" id="I94-Gt-c8x"/>
+                        <outlet property="ratingBar" destination="ZE3-dY-rdD" id="FW4-E2-oRj"/>
                         <outlet property="segmentedControl" destination="Ijm-Fi-swm" id="Uh7-ga-86x"/>
                         <outlet property="sendBtn" destination="NqC-LS-BKi" id="TlS-A6-AVQ"/>
                     </connections>

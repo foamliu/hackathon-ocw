@@ -9,7 +9,8 @@
 import UIKit
 import AVKit
 import AVFoundation
-
+import Cosmos
+import Foundation
 
 class DetailViewController: UIViewController {
     
@@ -20,6 +21,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var commentToolbar: UIToolbar!
     @IBOutlet weak var commentTextfield: UITextField!
+    @IBOutlet weak var ratingBar: CosmosView!
     
     var courseId: Int!
     var courseTitle: String!
@@ -28,6 +30,7 @@ class DetailViewController: UIViewController {
     var courseVideoUrl: String!
     var courseLink: String?
     var player: AVPlayer!
+    var alert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +42,7 @@ class DetailViewController: UIViewController {
             self.title = courseTitle
         }
         playVideo()
+        ratingBar.didTouchCosmos = didTouchCosmos
         
         //segmentControl
         descriptionView.hidden = false
@@ -79,6 +83,63 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func didTouchCosmos(rating: Double){
+        let rate: Int = Int(rating)
+        sendSelectedCourse(courseId, rating: rate)
+        notifyUser("谢谢您的评分", message: "", timeToDissapear: 2)
+        
+    }
+    
+    func sendSelectedCourse(courseId: Int, rating: Int){
+        var courseSelected = [String: AnyObject]()
+        courseSelected["user_id"] = User.sharedManager.userid
+        courseSelected["item_id"] = courseId
+        courseSelected["pref"] = rating
+        
+        let url = "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Preferences"
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(courseSelected, options: [])
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                guard error == nil && data != nil else {
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("responseString = \(responseString)")
+            }
+            task.resume()
+        } catch _{
+            print("Error json")
+        }
+    }
+    
+    func notifyUser(title: String, message: String, timeToDissapear: Int) -> Void
+    {
+        alert = UIAlertController(title: title,message: message,preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let cancelAction = UIAlertAction(title: "OK",style: .Cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+        UIApplication.sharedApplication().keyWindow?.rootViewController!.presentViewController(alert, animated: true,completion: nil)
+        
+        // Delay the dismissal by timeToDissapear seconds
+        let delay = Double(timeToDissapear) * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) { [weak self] in
+            self!.alert.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func playVideo(){
@@ -126,31 +187,6 @@ class DetailViewController: UIViewController {
     @IBAction func shareBtn(sender: UIBarButtonItem) {
         //sendText("这是来自学啥iOS端的分享", inScene: WXSceneSession) //分享文本到朋友圈
         sendVideo(courseTitle, description: courseDescription, image: courseImage, url: courseVideoUrl, inScene: WXSceneSession)
-        
-        /*
-        let activityViewController : UIActivityViewController = UIActivityViewController(
-        activityItems: [firstActivityItem], applicationActivities: nil)
-         
-         // This lines is for the popover you need to show in iPad
-         activityViewController.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
-         
-         // This line remove the arrow of the popover to show in iPad
-         activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
-         activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
-         
-         // Anything you want to exclude
-         activityViewController.excludedActivityTypes = [
-         UIActivityTypePostToWeibo,
-         UIActivityTypePrint,
-         UIActivityTypeAssignToContact,
-         UIActivityTypeSaveToCameraRoll,
-         UIActivityTypeAddToReadingList,
-         UIActivityTypePostToFlickr,
-         UIActivityTypePostToVimeo,
-         ]
-         
-         self.presentViewController(activityViewController, animated: true, completion: nil)
-         */
     }
     
     @IBAction func indexChanged(sender: UISegmentedControl) {
