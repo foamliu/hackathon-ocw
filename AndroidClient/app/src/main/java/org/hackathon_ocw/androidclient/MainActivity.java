@@ -114,6 +114,10 @@ public class MainActivity extends AppCompatActivity
     static final String KEY_WEBURL = "webUrl";
     static final String KEY_DURATION = "videoDuration";
     static final String KEY_SOURCE = "source";
+    static final String KEY_INSTRUCTOR = "instructor";
+    static final String KEY_LANGUAGE = "language";
+    static final String KEY_SCHOOL = "school";
+    static final String KEY_TAGS = "tags";
     static final String Url = "http://api.jieko.cc/user/";
 
     @Override
@@ -403,6 +407,10 @@ public class MainActivity extends AppCompatActivity
                 map.put(KEY_WEBURL,obj.getString("link"));
                 map.put(KEY_DURATION,obj.getString("duration"));
                 map.put(KEY_SOURCE,obj.getString("source"));
+                map.put(KEY_INSTRUCTOR,obj.getString("instructor"));
+                map.put(KEY_LANGUAGE,obj.getString("language"));
+                map.put(KEY_SCHOOL,obj.getString("school"));
+                map.put(KEY_TAGS,obj.getString("tags"));
                 courseList.add(map);
 
             }
