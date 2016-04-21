@@ -46,18 +46,27 @@ class SearchViewController: UIViewController, UISearchBarDelegate, TagListViewDe
     
     func searchTagsInit(){
         tagListView.delegate = self
-        tagListView.textFont = UIFont.systemFontOfSize(24)
+        tagListView.textFont = UIFont.systemFontOfSize(12)
+        tagListView.textColor = UIColor.darkGrayColor()
+        tagListView.tagBackgroundColor = UIColor.whiteColor()
+        tagListView.cornerRadius = 15
+        tagListView.marginX = 15
+        tagListView.marginY = 10
+        tagListView.paddingX = 15
+        tagListView.paddingY = 8
+        tagListView.borderColor = UIColor.lightGrayColor()
+        tagListView.borderWidth = 1
         
         //Get tags from server
-        
         Alamofire.request(.GET, "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/tags").responseJSON { response in
             let json = response.result.value!["tags"] as! NSArray
-            
             for element in json{
                 let ele = element as! NSArray
                 self.tagListView.addTag(ele[0] as! String)
             }
         }
+        
+        
     }
     
     func tagPressed(title: String, tagView: TagView, sender: TagListView) {

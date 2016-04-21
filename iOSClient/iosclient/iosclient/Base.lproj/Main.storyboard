@@ -276,22 +276,35 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8g-5U-b3t" customClass="TagListView" customModule="TagListView">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="360" id="XDq-Kz-KTi"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="XDq-Kz-KTi"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="XDq-Kz-KTi"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0qv-dd-Vu7" firstAttribute="top" secondItem="Z8g-5U-b3t" secondAttribute="bottom" constant="298" id="0A7-jT-iMg"/>
-                            <constraint firstItem="Z8g-5U-b3t" firstAttribute="top" secondItem="vmJ-XJ-8G1" secondAttribute="bottom" constant="8" symbolic="YES" id="BWl-fN-uNB"/>
-                            <constraint firstItem="Z8g-5U-b3t" firstAttribute="leading" secondItem="KTj-ha-HVE" secondAttribute="leadingMargin" id="d1d-rX-lcM"/>
+                            <constraint firstItem="Z8g-5U-b3t" firstAttribute="leading" secondItem="KTj-ha-HVE" secondAttribute="leadingMargin" id="JLs-eP-b0O"/>
+                            <constraint firstItem="0qv-dd-Vu7" firstAttribute="top" secondItem="Z8g-5U-b3t" secondAttribute="bottom" constant="275" id="Jye-3H-OrM"/>
+                            <constraint firstItem="Z8g-5U-b3t" firstAttribute="top" secondItem="vmJ-XJ-8G1" secondAttribute="bottom" constant="19" id="hUT-KP-iNb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Z8g-5U-b3t"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="BWl-fN-uNB"/>
-                                <exclude reference="d1d-rX-lcM"/>
-                                <exclude reference="0A7-jT-iMg"/>
+                                <exclude reference="JLs-eP-b0O"/>
+                                <exclude reference="hUT-KP-iNb"/>
+                                <exclude reference="Jye-3H-OrM"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -299,9 +312,9 @@
                                 <include reference="Z8g-5U-b3t"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="BWl-fN-uNB"/>
-                                <include reference="d1d-rX-lcM"/>
-                                <include reference="0A7-jT-iMg"/>
+                                <include reference="JLs-eP-b0O"/>
+                                <include reference="hUT-KP-iNb"/>
+                                <include reference="Jye-3H-OrM"/>
                             </mask>
                         </variation>
                     </view>
