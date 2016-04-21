@@ -13,7 +13,6 @@ import AVFoundation
 
 class DetailViewController: UIViewController {
     
-    @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var commentView: UIView!
@@ -32,7 +31,8 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelTitle.text = courseTitle
+        let trimCourseTitle = courseTitle.stringByReplacingCharactersInRange(courseTitle.startIndex.advancedBy(10)..<courseTitle.endIndex, withString: "...")
+        self.title = trimCourseTitle
         playVideo()
         
         //segmentControl

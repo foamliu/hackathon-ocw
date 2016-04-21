@@ -10,7 +10,6 @@ import UIKit
 
 class WebViewController: UIViewController {
     
-    @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var webView: UIWebView!
     
     var courseId: Int!
@@ -19,7 +18,8 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelTitle.text = courseTitle
+        let trimCourseTitle = courseTitle.stringByReplacingCharactersInRange(courseTitle.startIndex.advancedBy(10)..<courseTitle.endIndex, withString: "...")
+        self.title = trimCourseTitle
         showWebView();
     }
     
