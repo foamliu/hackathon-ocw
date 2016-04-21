@@ -19,9 +19,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     var selectedCourseId: Int!
     var selectedTitle: String!
-    var selectedVideoUrl: String!
+    var selectedVideoUrl: String?
     var selectedDescription: String!
     var selectedImage: UIImage!
+    var selectedLink: String?
     var searchActive : Bool = false
     var clearCourses : Bool = false
     
@@ -214,12 +215,18 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         selectedImage = courseImageView?.image
         selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
         selectedCourseId = courses[indexPath.row].valueForKey("item_id") as? Int
+        selectedLink = courses[indexPath.row].valueForKey("link") as? String
         
         //Send request to server
         sendSelectedCourse(selectedCourseId)
         
-        //Pass values
-        performSegueWithIdentifier("showDetail", sender: self)
+        if(selectedVideoUrl == "" || selectedVideoUrl == nil){
+            //Pass values
+            performSegueWithIdentifier("showWebDetail", sender: self)
+        }
+        else{
+            performSegueWithIdentifier("showDetail", sender: self)
+        }
     }
     
     func sendSelectedCourse(courseId: Int){
@@ -280,11 +287,18 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showDetail"){
             let viewController = segue.destinationViewController as! DetailViewController
+            viewController.courseId = selectedCourseId
             viewController.courseTitle = selectedTitle
             viewController.courseDescription = selectedDescription
             viewController.courseImage = selectedImage
             viewController.courseVideoUrl = selectedVideoUrl
+            viewController.courseLink = selectedLink
+        }
+        else if(segue.identifier == "showWebDetail"){
+            let viewController = segue.destinationViewController as! WebViewController
             viewController.courseId = selectedCourseId
+            viewController.courseTitle = selectedTitle
+            viewController.courseLink = selectedLink
         }
     }
 }

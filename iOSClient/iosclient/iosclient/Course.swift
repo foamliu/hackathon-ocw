@@ -13,11 +13,13 @@ struct Course {
     var title: String?
     var description: String?
     var rating: Int
+    var link: String?
     
-    init(id: String?, title: String?, description:String?, rating:Int){
+    init(id: String?, title: String?, description:String?, rating:Int, link:String?){
         self.id = id
         self.title = title
         self.description = description
         self.rating = rating
+        self.link = link
     }
 }

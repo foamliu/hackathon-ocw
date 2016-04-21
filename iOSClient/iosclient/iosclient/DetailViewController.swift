@@ -27,6 +27,7 @@ class DetailViewController: UIViewController {
     var courseDescription: String!
     var courseImage: UIImage!
     var courseVideoUrl: String!
+    var courseLink: String?
     var player: AVPlayer!
     
     override func viewDidLoad() {
