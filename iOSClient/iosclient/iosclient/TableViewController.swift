@@ -13,7 +13,6 @@ import SDWebImage
 
 class TableViewController: UITableViewController, UISearchBarDelegate {
     
-    //var courses:[Course] = coursesData
     var courses: NSMutableArray = []
     var loadMoreEnable = true
     var isInternetConnected = true
@@ -261,9 +260,11 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    /*
     @IBAction func searchBtnClicked(sender: UIBarButtonItem) {
-        self.tableView.setContentOffset(CGPointMake(0, -64), animated: true)
+        //self.tableView.setContentOffset(CGPointMake(0, -64), animated: true)
     }
+ */
 
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
