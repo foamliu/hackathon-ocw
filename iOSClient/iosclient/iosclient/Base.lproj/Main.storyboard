@@ -261,6 +261,58 @@
             </objects>
             <point key="canvasLocation" x="957" y="1096"/>
         </scene>
+        <!--Search View Controller-->
+        <scene sceneID="sk1-9d-OyD">
+            <objects>
+                <viewController id="jzq-pd-zUD" customClass="SearchViewController" customModule="iosclient" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vmJ-XJ-8G1"/>
+                        <viewControllerLayoutGuide type="bottom" id="0qv-dd-Vu7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KTj-ha-HVE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8g-5U-b3t" customClass="TagListView" customModule="TagListView">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0qv-dd-Vu7" firstAttribute="top" secondItem="Z8g-5U-b3t" secondAttribute="bottom" constant="298" id="0A7-jT-iMg"/>
+                            <constraint firstItem="Z8g-5U-b3t" firstAttribute="top" secondItem="vmJ-XJ-8G1" secondAttribute="bottom" constant="8" symbolic="YES" id="BWl-fN-uNB"/>
+                            <constraint firstItem="Z8g-5U-b3t" firstAttribute="leading" secondItem="KTj-ha-HVE" secondAttribute="leadingMargin" id="d1d-rX-lcM"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Z8g-5U-b3t"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="BWl-fN-uNB"/>
+                                <exclude reference="d1d-rX-lcM"/>
+                                <exclude reference="0A7-jT-iMg"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Z8g-5U-b3t"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="BWl-fN-uNB"/>
+                                <include reference="d1d-rX-lcM"/>
+                                <include reference="0A7-jT-iMg"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tagListView" destination="Z8g-5U-b3t" id="KHN-qj-taX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KVG-sc-Q5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="957" y="-260"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="21C-lI-b4W">
             <objects>
@@ -481,6 +533,7 @@
                             <inset key="imageInsets" minX="12" minY="12" maxX="12" maxY="12"/>
                             <connections>
                                 <action selector="searchBtnClicked:" destination="oHY-9l-1N7" id="xRd-hL-YOU"/>
+                                <segue destination="jzq-pd-zUD" kind="show" id="ZWf-ty-AAF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -817,7 +870,7 @@
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="169" y="38" width="35" height="33"/>
+                                                <rect key="frame" x="169" y="38" width="35" height="32"/>
                                                 <mask key="constraints">
                                                     <include reference="XUF-L8-guK"/>
                                                 </mask>
