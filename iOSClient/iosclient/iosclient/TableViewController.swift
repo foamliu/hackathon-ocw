@@ -298,6 +298,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             let viewController = segue.destinationViewController as! WebViewController
             viewController.courseId = selectedCourseId
             viewController.courseTitle = selectedTitle
+            viewController.courseDescription = selectedDescription
+            viewController.courseImage = selectedImage
             viewController.courseLink = selectedLink
         }
     }

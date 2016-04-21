@@ -31,8 +31,13 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let trimCourseTitle = courseTitle.stringByReplacingCharactersInRange(courseTitle.startIndex.advancedBy(10)..<courseTitle.endIndex, withString: "...")
-        self.title = trimCourseTitle
+        if (courseTitle.characters.count > 10){
+            let trimCourseTitle = courseTitle.stringByReplacingCharactersInRange(courseTitle.startIndex.advancedBy(10)..<courseTitle.endIndex, withString: "...")
+            self.title = trimCourseTitle
+        }
+        else{
+            self.title = courseTitle
+        }
         playVideo()
         
         //segmentControl

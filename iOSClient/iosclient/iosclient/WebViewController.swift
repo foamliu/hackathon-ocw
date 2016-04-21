@@ -14,12 +14,19 @@ class WebViewController: UIViewController {
     
     var courseId: Int!
     var courseTitle: String!
+    var courseDescription: String!
+    var courseImage: UIImage!
     var courseLink: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let trimCourseTitle = courseTitle.stringByReplacingCharactersInRange(courseTitle.startIndex.advancedBy(10)..<courseTitle.endIndex, withString: "...")
-        self.title = trimCourseTitle
+        if (courseTitle.characters.count > 10){
+            let trimCourseTitle = courseTitle.stringByReplacingCharactersInRange(courseTitle.startIndex.advancedBy(10)..<courseTitle.endIndex, withString: "...")
+            self.title = trimCourseTitle
+        }
+        else{
+            self.title = courseTitle
+        }
         showWebView();
     }
     
@@ -31,5 +38,28 @@ class WebViewController: UIViewController {
     func showWebView(){
         webView.loadRequest(NSURLRequest(URL: NSURL(string: courseLink)!))
     }
+    
+    //分享网页
+    func sendWebpage(title: String, description: String, image: UIImage, url: String, inScene: WXScene) {
+        let message =  WXMediaMessage()
+        message.title = title
+        message.description = description
+        message.setThumbImage(image)
+        
+        let ext =  WXWebpageObject()
+        ext.webpageUrl = url
+        message.mediaObject = ext
+        
+        let req =  SendMessageToWXReq()
+        req.bText = false
+        req.message = message
+        req.scene = Int32(inScene.rawValue)
+        WXApi.sendReq(req)
+    }
+    
+    @IBAction func shareBtnClicked(sender: UIBarButtonItem) {
+        sendWebpage(courseTitle, description: courseDescription, image: courseImage, url: courseLink, inScene: WXSceneSession)
+    }
+    
 
 }

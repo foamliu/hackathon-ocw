@@ -373,7 +373,14 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="网页内容" id="Tuu-sU-KfO"/>
+                    <navigationItem key="navigationItem" title="网页内容" id="Tuu-sU-KfO">
+                        <barButtonItem key="rightBarButtonItem" image="share" width="35" id="1gg-qo-OmA">
+                            <inset key="imageInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                            <connections>
+                                <action selector="shareBtnClicked:" destination="yrQ-wT-CVP" id="2PZ-tM-pRk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="webView" destination="jgR-vs-IbP" id="Ub0-Qz-ncR"/>
                     </connections>
