@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import SDWebImage
-
+import MGSwipeTableCell
 
 class TableViewController: UITableViewController, UISearchBarDelegate {
     
@@ -38,6 +38,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         checkInternetConnection()
         
         if(isInternetConnected == true){
+            //self.tableView.registerClass(MGSwipeTableCell.self, forCellReuseIdentifier: "CourseCell")
             getInitId()
             jsonParsingFromUrl()
             
@@ -202,6 +203,9 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             self.tableView.tableFooterView = self.infiniteScrollingView
             loadMore()
         }
+        
+        //cell.rightButtons = [MGSwipeButton(title: "Delete", backgroundColor: UIColor.redColor()), MGSwipeButton(title: "More", backgroundColor: UIColor.lightGrayColor())]
+        //cell.rightSwipeSettings.transition = MGSwipeTransition.Rotate3D
         
         return cell
     }
