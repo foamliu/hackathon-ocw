@@ -7,11 +7,31 @@
 
 import scrapy
 import time
+import json
 
 from open163ex.items import Open163ExItem
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 
+def getout():
+    out = []
+    inputfile = open('out.json','r')
+    lines = inputfile.readlines()
+    inputfile.close()
+    for line in lines:
+        out.append(json.loads(line))
+    return out
+
+def cleanse(alist):
+    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
+
+def downloaded(link):
+    out = getout()
+    for js in out:
+        if js['link'] == link:
+            return True
+    return False
+    
 class Open163ExSpider(scrapy.Spider):
     name = 'open163ex'
     allowed_domains = ["open.163.com"]
@@ -33,6 +53,7 @@ class Open163ExSpider(scrapy.Spider):
         # self.detail.close()
 
     def parse(self, response):
+
         self.main.get("http://c.open.163.com/search/search.htm?query=#/search/video")
 
         while True:
@@ -40,16 +61,15 @@ class Open163ExSpider(scrapy.Spider):
             hxs = scrapy.Selector(text = self.main.page_source)
 
             for info in hxs.xpath('//div[@class="cnt"]'):
-                tlist = info.xpath('a/@title').extract()
-                dlist = info.xpath('p[@class="desc f-c9"]/text()').extract()
                 link = info.xpath('a/@href').extract()[0]
-                item = Open163ExItem()
-                item['title'] = tlist[0].encode('utf-8').replace('"', '“').replace('\n', '') if tlist else u''
-                item['link'] = link
-                item['piclink'] = info.xpath('a/img/@src').extract()[0]
-                item['description'] = dlist[0].encode('utf-8').replace('"', '“').replace('\n', '') if dlist else u''
-                item['source'] = u'网易公开课'.encode('utf-8')
-                yield item
+                print link
+                isdownloaded = downloaded(link)
+                print 'is downloaded: {0}'.format(isdownloaded)
+
+                if not isdownloaded:
+                    item = Open163ExItem()
+                    item['link'] = link
+                    yield item
 
             next = self.main.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
 
@@ -61,7 +81,5 @@ class Open163ExSpider(scrapy.Spider):
                 sys.exit(0)
             except Exception as err:
                 print(err)
-
-
 
 

@@ -13,9 +13,13 @@ from open163exsub.items import Open163ExSubItem
 
 def getlinks():
     inputfile = open('open163exsub/links.json','r')
-    jsonObj = json.load(inputfile)
+    lines = inputfile.readlines()
+    links = []
+    for line in lines:
+        item = json.loads(line)
+        links.append(item['link'])
     inputfile.close()
-    return jsonObj['links']
+    return links
 
 def getout():
     out = []
@@ -86,8 +90,9 @@ class Open163ExSpider(scrapy.Spider):
         return item
 
     def parse(self, response):
-
-        for link in getlinks():
+        links = getlinks()
+        links.reverse()
+        for link in links:
             print link
             isdownloaded = downloaded(link)
             print 'is downloaded: {0}'.format(isdownloaded)
