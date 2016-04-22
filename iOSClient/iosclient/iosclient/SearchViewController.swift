@@ -46,13 +46,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, TagListViewDe
     
     func searchTagsInit(){
         tagListView.delegate = self
-        tagListView.textFont = UIFont.systemFontOfSize(24)
+        tagListView.textFont = UIFont.systemFontOfSize(12)
+        tagListView.textColor = UIColor.darkGrayColor()
+        tagListView.tagBackgroundColor = UIColor.whiteColor()
+        tagListView.cornerRadius = 15
+        tagListView.marginX = 15
+        tagListView.marginY = 10
+        tagListView.paddingX = 15
+        tagListView.paddingY = 8
+        tagListView.borderColor = UIColor.lightGrayColor()
+        tagListView.borderWidth = 1
         
         //Get tags from server
-        
         Alamofire.request(.GET, "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/tags").responseJSON { response in
             let json = response.result.value!["tags"] as! NSArray
-            
             for element in json{
                 let ele = element as! NSArray
                 self.tagListView.addTag(ele[0] as! String)
@@ -60,9 +67,32 @@ class SearchViewController: UIViewController, UISearchBarDelegate, TagListViewDe
         }
     }
     
-    func tagPressed(title: String, tagView: TagView, sender: TagListView) {
-        print("Tag pressed: \(title), \(sender)")
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        return true
     }
+    
+    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if(searchBar.text != nil){
+            //Update the searchText to Table
+            NSNotificationCenter.defaultCenter().postNotificationName("newSearchNotification", object: nil, userInfo: ["newSearch": searchBar.text!])
+            navigationController!.popViewControllerAnimated(true)
+        }
+    }
+    
+    func tagPressed(title: String, tagView: TagView, sender: TagListView) {
+        //Search by tags
+        //Update the searchText to Table
+        NSNotificationCenter.defaultCenter().postNotificationName("newSearchByTagNotification", object: nil, userInfo: ["newSearchByTag": title])
+        navigationController!.popViewControllerAnimated(true)
+        
+    }
+    
+    
+    
 
 
 }

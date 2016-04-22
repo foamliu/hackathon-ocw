@@ -102,26 +102,27 @@ public class ListAdapter extends BaseAdapter {
         }
 
         TextView title = (TextView) vi.findViewById(R.id.title);
-        TextView videoDurationText = (TextView) vi.findViewById(R.id.videoDurationText);
-        TextView videoWatchedText = (TextView) vi.findViewById(R.id.videoWatchedText);
+        TextView videoOrElse = (TextView) vi.findViewById(R.id.videoOrElse);
+        TextView source = (TextView) vi.findViewById(R.id.source);
         ImageView thumb_image = (ImageView) vi.findViewById(R.id.pic_link);
-
+        ImageView durationImg = (ImageView) vi.findViewById(R.id.videoDurationImg);
 
         HashMap<String, String> course = new HashMap<String, String>();
         course = data.get(position);
 
         title.setText(course.get(MainActivity.KEY_TITLE));
+        source.setText(course.get(MainActivity.KEY_SOURCE));
+
         if(course.get(MainActivity.KEY_DURATION).equals(""))
         {
-            videoDurationText.setText("---:---");
+            videoOrElse.setText("---:---");
+            //durationImg.setVisibility(View.INVISIBLE);
+            //videoOrElse.setText(course.get(MainActivity.KEY_INSTRUCTOR));
         }
         else {
-            videoDurationText.setText(course.get(MainActivity.KEY_DURATION));
+            videoOrElse.setText(course.get(MainActivity.KEY_DURATION));
         }
         imageLoader.DisplayImage(course.get(MainActivity.KEY_THUMB_URL), thumb_image);
-
-        //Will be replaced by real data
-        videoWatchedText.setText(course.get(MainActivity.KEY_SOURCE));
 
         return vi;
     }

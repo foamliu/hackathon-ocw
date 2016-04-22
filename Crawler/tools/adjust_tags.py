@@ -23,6 +23,6 @@ for item in items:
     #    count += 1
 
 #print (count)
-#技能 地球科学 建筑 医学 社会 生物 物理 教育 艺术 建筑 历史 机器人学 教育 经济 天文 法律
+#技能 地球科学 建筑 医学 社会 生物 物理 教育 艺术 建筑 历史 机器人学 教育 经济 天文 法律 演讲 教育
 #json.dump(items ,output_file, indent=4,ensure_ascii=False,sort_keys=True)
 #http://imgsize.ph.126.net/?enlarge=true&amp;imgurl=http://img4.cache.netease.com/video/2013/9/4/20130904155017c21a3.jpg_280x158x1x95.jpg

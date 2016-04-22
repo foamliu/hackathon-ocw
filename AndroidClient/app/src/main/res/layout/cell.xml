@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:id="@+id/videoWatchedText"
+            android:id="@+id/source"
             android:textColor="@color/grey"
             android:gravity="center_vertical"
             android:textSize="12dp"
@@ -62,7 +62,7 @@
         <TextView
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:id="@+id/videoDurationText"
+            android:id="@+id/videoOrElse"
             android:textColor="@color/grey"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"

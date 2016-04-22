@@ -19,9 +19,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     var selectedCourseId: Int!
     var selectedTitle: String!
-    var selectedVideoUrl: String!
+    var selectedVideoUrl: String?
     var selectedDescription: String!
     var selectedImage: UIImage!
+    var selectedLink: String?
     var searchActive : Bool = false
     var clearCourses : Bool = false
     
@@ -31,8 +32,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +54,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
             self.tableView?.addSubview(customRefreshControl)
             
-            self.tableView.contentOffset = CGPointMake(0, 44);
-            self.searchBar.showsCancelButton = true
-            self.searchBar.delegate = self
-            let searchCancelBtn = searchBar.valueForKey("cancelButton") as! UIButton
-            searchCancelBtn.setTitle("取消", forState: UIControlState.Normal)
-            
             self.setupInfiniteScrollingView()
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "search:", name: "newSearchNotification", object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "searchByTags:", name: "newSearchByTagNotification", object: nil)
         }
     }
     
@@ -123,7 +119,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         self.infiniteScrollingView = UIView(frame: CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, 0))
         self.infiniteScrollingView!.autoresizingMask = UIViewAutoresizing.FlexibleWidth
         self.infiniteScrollingView!.backgroundColor = UIColor.whiteColor()
-        var activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+        let activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
         activityViewIndicator.color = UIColor.darkGrayColor()
         activityViewIndicator.frame = CGRectMake(self.infiniteScrollingView!.frame.size.width/2-activityViewIndicator.frame.width/2, self.infiniteScrollingView!.frame.size.height/4-activityViewIndicator.frame.height, activityViewIndicator.frame.width, 0)
         activityViewIndicator.startAnimating()
@@ -219,12 +215,18 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         selectedImage = courseImageView?.image
         selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
         selectedCourseId = courses[indexPath.row].valueForKey("item_id") as? Int
+        selectedLink = courses[indexPath.row].valueForKey("link") as? String
         
         //Send request to server
         sendSelectedCourse(selectedCourseId)
         
-        //Pass values
-        performSegueWithIdentifier("showDetail", sender: self)
+        if(selectedVideoUrl == "" || selectedVideoUrl == nil){
+            //Pass values
+            performSegueWithIdentifier("showWebDetail", sender: self)
+        }
+        else{
+            performSegueWithIdentifier("showDetail", sender: self)
+        }
     }
     
     func sendSelectedCourse(courseId: Int){
@@ -260,50 +262,45 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    /*
-    @IBAction func searchBtnClicked(sender: UIBarButtonItem) {
-        //self.tableView.setContentOffset(CGPointMake(0, -64), animated: true)
-    }
- */
-
-    
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-        return true
-    }
-    
-    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
-        return true
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if(searchBar.text != nil){
-            let searchKeywords: String = searchBar.text!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-            
-            //Send to server
-            let url = NSURL(string: "http://jieko.cc/items/search/" + searchKeywords)
-            let request = NSURLRequest(URL: url!)
-            clearCourses = true
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
-            }
-            searchBarCancelButtonClicked(searchBar)
-            self.view.endEditing(true)
+    func search(notif: NSNotification){
+        let keywords: String = notif.userInfo!["newSearch"] as! String
+        let keywordsUTF8: String = keywords.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        //Send to server
+        let url = NSURL(string: "http://jieko.cc/items/search/" + keywordsUTF8)
+        let request = NSURLRequest(URL: url!)
+        clearCourses = true
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
         }
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchBar.text = ""
-        self.tableView.setContentOffset(CGPointMake(0, -20), animated: true)
-        self.view.endEditing(true)
+    func searchByTags(notif: NSNotification){
+        let keywords: String = notif.userInfo!["newSearchByTag"] as! String
+        let keywordsUTF8: String = keywords.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        //Send to server
+        let url = NSURL(string: "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates/tag/" + keywordsUTF8)
+        let request = NSURLRequest(URL: url!)
+        clearCourses = true
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showDetail"){
             let viewController = segue.destinationViewController as! DetailViewController
+            viewController.courseId = selectedCourseId
             viewController.courseTitle = selectedTitle
             viewController.courseDescription = selectedDescription
             viewController.courseImage = selectedImage
             viewController.courseVideoUrl = selectedVideoUrl
+            viewController.courseLink = selectedLink
+        }
+        else if(segue.identifier == "showWebDetail"){
+            let viewController = segue.destinationViewController as! WebViewController
             viewController.courseId = selectedCourseId
+            viewController.courseTitle = selectedTitle
+            viewController.courseDescription = selectedDescription
+            viewController.courseImage = selectedImage
+            viewController.courseLink = selectedLink
         }
     }
 }
