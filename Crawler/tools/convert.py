@@ -12,22 +12,29 @@ def get_duration(olist, url):
 #input_file = open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\items.json', "r")
 #output_file = codecs.open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\output.json', "w", encoding="utf-8")
 
-input_file_1 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\Crawler\guokr\out.json', "r", encoding="utf-8")
+def downloaded(items, link):
+    for item in items:
+        if item['link'] == link:
+            return True
+    return False
+
+input_file_1 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\Crawler\open163exsub\out.json', "r", encoding="utf-8")
 input_file_2 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\items.json', "r", encoding="utf-8")
 output_file = codecs.open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\output.json', "w", encoding="utf-8")
 
-olist = json.load(input_file_2, encoding='utf-8')
+items = json.load(input_file_2, encoding='utf-8')
 
 lines = input_file_1.readlines()
-i = 8623
+i = 20544
 for line in lines:
     line = line.replace('\\','\\\\')
-    print(line)
+    #print(line)
     item = json.loads(line)
-    item['item_id'] = i
-    item['duration'] = ''
-    olist.append(item)
-    i += 1
+    if not downloaded(items, item['link']):
+        item['item_id'] = i
+        item['duration'] = ''
+        items.append(item)
+        i += 1
 
 
-json.dump(olist ,output_file, indent=4,ensure_ascii=False)
+json.dump(items ,output_file, indent=4,ensure_ascii=False,sort_keys=True)
