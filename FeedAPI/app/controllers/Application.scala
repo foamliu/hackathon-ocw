@@ -1,8 +1,8 @@
 package controllers
 
-import scala.annotation.migration
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.ListBuffer
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Codec.string2codec
 import scala.io.Source
 
@@ -21,6 +21,7 @@ import play.api.Logger
 import play.api.Play
 import play.api.libs.json.JsArray
 import play.api.libs.json.JsValue
+import play.api.libs.json.JsValue.jsValueToJsLookup
 import play.api.libs.json.Json
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import play.api.libs.json.Reads.traversableReads
@@ -30,6 +31,7 @@ import play.api.mvc.Controller
 import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.ReactiveMongoApi
 import play.modules.reactivemongo.ReactiveMongoComponents
+import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
 
 object Application {
 
@@ -55,8 +57,8 @@ object Application {
 
         courses
     }
-    
-    private def search(keyword: String): Seq[Course] = {        
+
+    private def search(keyword: String): Seq[Course] = {
         getCourses().filter(_.title.contains(keyword)).take(howMany)
     }
 
@@ -119,54 +121,48 @@ object Application {
             Logger.debug("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
         }
     }
-    
+
     // 标签列表排序：用户看过的以课程标签多到少排列，未看过的随机排列
     private def getTags(userID: Long, itemIDs: ListBuffer[Long]): Seq[(String, Int)] = {
         val items: Seq[Course] = getCourses
-        
-        val allTags = scala.collection.mutable.Map[String, Int]()     //所有标签
-        for (item <- items)
-        {
+
+        val allTags = scala.collection.mutable.Map[String, Int]() //所有标签
+        for (item <- items) {
             val tagList: Array[String] = item.tags.split(" ")
-            for (tag <- tagList)
-            {
+            for (tag <- tagList) {
                 if (!tag.isEmpty()) {
                     val number: Int = allTags.getOrElse(tag, 0)
                     allTags.update(tag, number + 1)
                 }
             }
         }
-        
+
         val interestedItems = items.filter(item => itemIDs.contains(item.itemID))
-        val interested = scala.collection.mutable.Map[String, Int]()  //用户学过课程的标签
-        for (item <- interestedItems)
-        {
+        val interested = scala.collection.mutable.Map[String, Int]() //用户学过课程的标签
+        for (item <- interestedItems) {
             val tagList: Array[String] = item.tags.split(" ")
-            for (tag <- tagList)
-            {
+            for (tag <- tagList) {
                 val number: Int = interested.getOrElse(tag, 0)
                 interested.update(tag, number + 1)
             }
-        }       
-        
+        }
+
         val tags = scala.collection.mutable.Map[String, Int]()
-        for (tag <- allTags.keys)
-        {
+        for (tag <- allTags.keys) {
             val number: Int = interested.getOrElse(tag, 0)
             tags.update(tag, number)
         }
-        
-        val pairs: List[(String, Int)] = tags.toList sortBy {_._2}        
-        val resultList: ListBuffer[(String, Int)]  = new ListBuffer[(String, Int)]()
-        for (tag <- pairs.reverse.map(_._1))
-        {
+
+        val pairs: List[(String, Int)] = tags.toList sortBy { _._2 }
+        val resultList: ListBuffer[(String, Int)] = new ListBuffer[(String, Int)]()
+        for (tag <- pairs.reverse.map(_._1)) {
             resultList.append((tag, allTags.getOrElse(tag, 0)))
         }
-        
+
         resultList.toSeq
     }
-    
-    private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {        
+
+    private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
         val items: Seq[Course] = getCourses
         scala.util.Random.shuffle(items.filter(_.tags.contains(tag)).take(howMany))
     }
@@ -193,12 +189,13 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
                 val jsonString: String = Json.stringify(json)
                 Logger.warn(jsonString);
                 Ok("Ok")
-            }    }
+            }
+    }
 
     def echo(message: String) = Action {
         Ok(message)
     }
-    
+
     def search(keyword: String) = Action {
         val candidates: Seq[Course] = Application.search(keyword)
         val json: JsValue = Json.obj("courses" -> candidates)
@@ -208,9 +205,24 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
     implicit def tuple2Writes[A, B](implicit a: Writes[A], b: Writes[B]): Writes[Tuple2[A, B]] = new Writes[Tuple2[A, B]] {
         def writes(tuple: Tuple2[A, B]) = JsArray(Seq(a.writes(tuple._1), b.writes(tuple._2)))
     }
-    
-    def getTags(userID: Long) = Action {        
-        val itemIDs = Rating.getItemIDs(reactiveMongoApi, userID)
+
+    // BSON-JSON conversions
+    import play.modules.reactivemongo.json._
+    def ratingRepo = new backend.RatingRepo(reactiveMongoApi)
+    private def getItemIDs(userID: Long): ListBuffer[Long] = {        
+        val itemIDs: ListBuffer[Long] = new ListBuffer[Long]()
+        ratingRepo.find(Json.obj("user_id" -> userID)).map(ratings => {
+            for (rating <- ratings) {
+                val itemID: Long = (rating \ "item_id").as[Long]
+                itemIDs.+=(itemID) 
+            }
+        }).recover { case PrimaryUnavailableException => InternalServerError("Please install MongoDB") }
+
+        itemIDs
+    }
+
+    def getTags(userID: Long) = Action {
+        val itemIDs = getItemIDs(userID)
         val tags = Application.getTags(userID, itemIDs)
         val json: JsValue = Json.obj("tags" -> tags)
         Ok(Json.stringify(json))

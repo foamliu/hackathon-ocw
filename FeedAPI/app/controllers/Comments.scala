@@ -1,5 +1,7 @@
 package controllers
 
+import java.util.Date
+
 import javax.inject.Inject
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -19,17 +21,12 @@ import play.api.mvc.Controller
 import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.ReactiveMongoApi
 import play.modules.reactivemongo.ReactiveMongoComponents
+import play.modules.reactivemongo.json.BSONDocumentFormat
+import play.modules.reactivemongo.json.BSONDocumentWrites
 import play.modules.reactivemongo.json.JsObjectDocumentWriter
-import reactivemongo.bson.BSONDateTime
 import reactivemongo.bson.BSONDocument
 import reactivemongo.bson.BSONObjectID
-import reactivemongo.bson.BSONReader
-import reactivemongo.bson.BSONWriter
 import reactivemongo.bson.Producer.nameValue2Producer
-import java.time.Duration
-import java.util.Date
-import reactivemongo.bson.BSONString
-import play.api.libs.json.JsString
 
 case class Comment(itemID: Long, authorID: Long, authorName: String, posted: Date, text: String, timeline: Long, like: Int)
 
