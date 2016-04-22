@@ -90,3 +90,4 @@
 {"_id":{"$oid":"570f5b601b0000650c044c25"},"posted":"2016-04-14T08:57:04.620Z","author_id":364,"like":0,"author_name":"匿名用户","text":"","timeline":0,"item_id":1593}
 {"_id":{"$oid":"570f5b601b0000600c044c26"},"posted":"2016-04-14T08:57:04.699Z","author_id":364,"like":0,"author_name":"匿名用户","text":"","timeline":0,"item_id":1593}
 {"_id":{"$oid":"570f5b601b00005d0c044c27"},"posted":"2016-04-14T08:57:04.699Z","author_id":364,"like":0,"author_name":"匿名用户","text":"","timeline":0,"item_id":1593}
+{"_id":{"$oid":"5718a34f2600004e007b00bc"},"item_id":4508,"author_id":458,"author_name":"匿名用户","posted":"2016-04-21T09:54:13.947Z","text":"","timeline":49,"like":0}
