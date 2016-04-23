@@ -12,6 +12,7 @@
 		7634A9DB1CC8AA2200BFED99 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7634A9DA1CC8AA2200BFED99 /* SearchViewController.swift */; };
 		7664756D1CB6AC0E00DA808B /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */; };
 		766489DA1CC8DFAA0047DD5F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766489D91CC8DFAA0047DD5F /* WebViewController.swift */; };
+		766489DC1CCB3ADE0047DD5F /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766489DB1CCB3ADE0047DD5F /* PopoverViewController.swift */; };
 		767229E21CC50E4400FB5BF5 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767229E11CC50E4400FB5BF5 /* Reachability.swift */; };
 		767229E41CC5F4EE00FB5BF5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 767229E31CC5F4EE00FB5BF5 /* GoogleService-Info.plist */; };
 		7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */; };
@@ -65,6 +66,7 @@
 		7634A9DA1CC8AA2200BFED99 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		766489D91CC8DFAA0047DD5F /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		766489DB1CCB3ADE0047DD5F /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		767229E11CC50E4400FB5BF5 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		767229E31CC5F4EE00FB5BF5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7678BECB1CACC5480083125D /* LoadMoreTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreTableFooterView.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				76FE57041CB77A810070B751 /* Comment.swift */,
 				76FE57061CBB3DC10070B751 /* CommentsViewCell.swift */,
 				767229E11CC50E4400FB5BF5 /* Reachability.swift */,
+				766489DB1CCB3ADE0047DD5F /* PopoverViewController.swift */,
 			);
 			path = iosclient;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				767E722E1CB7419300CEBA6C /* CommentViewController.swift in Sources */,
 				7664756D1CB6AC0E00DA808B /* DescriptionViewController.swift in Sources */,
 				76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */,
+				766489DC1CCB3ADE0047DD5F /* PopoverViewController.swift in Sources */,
 				7610B0841CB5FD810076AA0B /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

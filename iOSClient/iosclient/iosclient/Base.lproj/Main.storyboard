@@ -261,6 +261,87 @@
             </objects>
             <point key="canvasLocation" x="957" y="1096"/>
         </scene>
+        <!--Popover View Controller-->
+        <scene sceneID="o18-ux-d9n">
+            <objects>
+                <viewController storyboardIdentifier="Popover" id="h8o-YN-AsQ" customClass="PopoverViewController" customModule="iosclient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hhr-o9-U0j"/>
+                        <viewControllerLayoutGuide type="bottom" id="WOP-iw-1J9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Idb-6M-i6d">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可选理由，精准屏蔽" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ru-PM-a3L">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="173" id="0BH-MK-XVL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0BH-MK-XVL"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="0BH-MK-XVL"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcK-f1-93q">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.034348060344827583" blue="0.0" alpha="0.80892619680851063" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="不感兴趣">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Ru-PM-a3L" firstAttribute="leading" secondItem="Idb-6M-i6d" secondAttribute="leadingMargin" constant="4" id="6SK-09-Ce9"/>
+                            <constraint firstItem="wcK-f1-93q" firstAttribute="baseline" secondItem="6Ru-PM-a3L" secondAttribute="baseline" id="ARc-sw-ioE"/>
+                            <constraint firstItem="wcK-f1-93q" firstAttribute="leading" secondItem="6Ru-PM-a3L" secondAttribute="trailing" constant="55" id="ILn-3L-uKI"/>
+                            <constraint firstItem="6Ru-PM-a3L" firstAttribute="top" secondItem="hhr-o9-U0j" secondAttribute="bottom" constant="17" id="JyU-24-6MA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wcK-f1-93q" secondAttribute="trailing" constant="30" id="PsG-jG-yzd"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="6Ru-PM-a3L"/>
+                                <exclude reference="wcK-f1-93q"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="ARc-sw-ioE"/>
+                                <exclude reference="ILn-3L-uKI"/>
+                                <exclude reference="PsG-jG-yzd"/>
+                                <exclude reference="6SK-09-Ce9"/>
+                                <exclude reference="JyU-24-6MA"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="6Ru-PM-a3L"/>
+                                <include reference="wcK-f1-93q"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="ARc-sw-ioE"/>
+                                <include reference="ILn-3L-uKI"/>
+                                <include reference="PsG-jG-yzd"/>
+                                <include reference="6SK-09-Ce9"/>
+                                <include reference="JyU-24-6MA"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="400" height="200"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Na4-x3-Xiq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="231" y="-60"/>
+        </scene>
         <!--Search View Controller-->
         <scene sceneID="sk1-9d-OyD">
             <objects>

@@ -11,7 +11,7 @@ import Alamofire
 import SDWebImage
 import MGSwipeTableCell
 
-class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate  {
+class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate, UIPopoverPresentationControllerDelegate {
     
     var courses: NSMutableArray = []
     var loadMoreEnable = true
@@ -33,6 +33,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     var deleteCourseIndexPath: NSIndexPath? = nil
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,11 +244,25 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         //self.showAlertForRow(tableView.indexPathForCell(cell)!.row)
         //print(tableView.indexPathForCell(cell)!.row)
         
+        //self.performSegueWithIdentifier("showDislike", sender: self)
+        
+        /*
         //debug now
         tableView.beginUpdates()
         courses.removeObjectAtIndex(tableView.indexPathForCell(cell)!.row)
         tableView.deleteRowsAtIndexPaths([tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
         tableView.endUpdates()
+         */
+        //let fromRect:CGRect()
+        
+        let popVC = (storyboard?.instantiateViewControllerWithIdentifier("Popover"))! as! PopoverViewController
+        popVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+        popVC.popoverPresentationController?.delegate = self
+        popVC.popoverPresentationController?.sourceView = cell.dislikeButton
+        popVC.popoverPresentationController?.sourceRect = cell.dislikeButton.bounds
+        popVC.popoverPresentationController?.permittedArrowDirections = .Up
+        popVC.preferredContentSize = CGSizeMake(400, 150)
+        self.presentViewController(popVC, animated: true, completion: nil)
         
     }
     
@@ -347,5 +362,20 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
             viewController.courseImage = selectedImage
             viewController.courseLink = selectedLink
         }
+        /*else if(segue.identifier == "showDislike"){
+            let viewController = segue.destinationViewController as! PopoverViewController
+            var controller = viewController.popoverPresentationController
+            if controller == nil {
+                controller?.delegate = self
+            }
+            viewController.Tags = "test"
+        }
+        */
     }
+    
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
 }
