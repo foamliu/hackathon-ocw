@@ -30,6 +30,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     var infiniteScrollingView:UIView?
     var dateFormatter = NSDateFormatter()
     
+    var deleteCourseIndexPath: NSIndexPath? = nil
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -194,15 +196,59 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
             cell.buttonDelegate = self
         }
         
-        //cell.rightButtons = [MGSwipeButton(title: "Delete", backgroundColor: UIColor.redColor()), MGSwipeButton(title: "More", backgroundColor: UIColor.lightGrayColor())]
-        //cell.rightSwipeSettings.transition = MGSwipeTransition.Rotate3D
-        
         return cell
+    }
+    
+    // MARK: UITableViewDelegate Methods
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            deleteCourseIndexPath = indexPath
+            let courseToDelete = courses[indexPath.row].valueForKey("title") as! String
+            confirmDelete(courseToDelete)
+        }
+    }
+    
+    // Delete Confirmation and Handling
+    func confirmDelete(course: String) {
+        let alert = UIAlertController(title: "Delete Course", message: "Are you sure you want to permanently delete \(course)?", preferredStyle: .ActionSheet)
+        
+        let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: handleDeleteCourse)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteCourse)
+        
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func handleDeleteCourse(alertAction: UIAlertAction!) -> Void {
+        if let indexPath = deleteCourseIndexPath {
+            tableView.beginUpdates()
+            
+            courses.removeObjectAtIndex(indexPath.row)
+            
+            // Note that indexPath is wrapped in an array:  [indexPath]
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            
+            deleteCourseIndexPath = nil
+            tableView.endUpdates()
+        }
+    }
+    
+    func cancelDeleteCourse(alertAction: UIAlertAction!) {
+        deleteCourseIndexPath = nil
     }
     
     func cellTapped(cell: TableViewCell) {
         //self.showAlertForRow(tableView.indexPathForCell(cell)!.row)
-        print(tableView.indexPathForCell(cell)!.row)
+        //print(tableView.indexPathForCell(cell)!.row)
+        
+        //debug now
+        tableView.beginUpdates()
+        courses.removeObjectAtIndex(tableView.indexPathForCell(cell)!.row)
+        tableView.deleteRowsAtIndexPaths([tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
+        tableView.endUpdates()
+        
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
