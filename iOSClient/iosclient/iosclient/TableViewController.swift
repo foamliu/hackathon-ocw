@@ -275,12 +275,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         //send related info
         let dict = NSMutableDictionary()
         dict.setValue(tableView.indexPathForCell(cell)!, forKey: "indexPath")
+        dict.setValue(courses[tableView.indexPathForCell(cell)!.row].valueForKey("item_id")!, forKey: "item_id")
         dict.setValue(courses[tableView.indexPathForCell(cell)!.row].valueForKey("tags")!, forKey: "tags")
         dict.setValue(courses[tableView.indexPathForCell(cell)!.row].valueForKey("source")!, forKey: "source")
         
         //Update the comment to commentField
         NSNotificationCenter.defaultCenter().postNotificationName("newDislikeNotification", object: nil, userInfo: ["newDislike": dict])
-        
         
     }
     
@@ -380,15 +380,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
             viewController.courseImage = selectedImage
             viewController.courseLink = selectedLink
         }
-        /*else if(segue.identifier == "showDislike"){
-            let viewController = segue.destinationViewController as! PopoverViewController
-            var controller = viewController.popoverPresentationController
-            if controller == nil {
-                controller?.delegate = self
-            }
-            viewController.Tags = "test"
-        }
-        */
     }
     
     

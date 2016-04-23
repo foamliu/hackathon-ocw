@@ -91,8 +91,5 @@ class SearchViewController: UIViewController, UISearchBarDelegate, TagListViewDe
         
     }
     
-    
-    
-
 
 }

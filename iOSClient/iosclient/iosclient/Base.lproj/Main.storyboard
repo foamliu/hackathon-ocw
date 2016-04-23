@@ -270,7 +270,7 @@
                         <viewControllerLayoutGuide type="bottom" id="WOP-iw-1J9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Idb-6M-i6d">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可选理由，精准屏蔽" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ru-PM-a3L">
@@ -279,6 +279,10 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gl1-mI-KRX" customClass="TagListView" customModule="TagListView">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcK-f1-93q">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.034348060344827583" blue="0.0" alpha="0.80892619680851063" colorSpace="calibratedRGB"/>
@@ -305,10 +309,6 @@
                                     <action selector="dislikeBtnClicked:" destination="h8o-YN-AsQ" eventType="touchUpInside" id="Lvw-tB-dHp"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gl1-mI-KRX" customClass="TagListView" customModule="TagListView">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -328,35 +328,35 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="6Ru-PM-a3L"/>
-                                <exclude reference="wcK-f1-93q"/>
                                 <exclude reference="gl1-mI-KRX"/>
+                                <exclude reference="wcK-f1-93q"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="GYY-2l-p1N"/>
+                                <exclude reference="XFn-oy-aRt"/>
                                 <exclude reference="kEz-xC-hOy"/>
                                 <exclude reference="tcz-UV-TbR"/>
                                 <exclude reference="5CT-lD-X7V"/>
                                 <exclude reference="9fd-ce-gTd"/>
                                 <exclude reference="TFP-WA-9xV"/>
                                 <exclude reference="qfR-Rf-AA7"/>
-                                <exclude reference="GYY-2l-p1N"/>
-                                <exclude reference="XFn-oy-aRt"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="6Ru-PM-a3L"/>
-                                <include reference="wcK-f1-93q"/>
                                 <include reference="gl1-mI-KRX"/>
+                                <include reference="wcK-f1-93q"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="GYY-2l-p1N"/>
+                                <include reference="XFn-oy-aRt"/>
                                 <include reference="kEz-xC-hOy"/>
                                 <include reference="tcz-UV-TbR"/>
                                 <include reference="5CT-lD-X7V"/>
                                 <include reference="9fd-ce-gTd"/>
                                 <include reference="TFP-WA-9xV"/>
                                 <include reference="qfR-Rf-AA7"/>
-                                <include reference="GYY-2l-p1N"/>
-                                <include reference="XFn-oy-aRt"/>
                             </mask>
                         </variation>
                     </view>
@@ -364,6 +364,7 @@
                     <size key="freeformSize" width="400" height="150"/>
                     <connections>
                         <outlet property="dislikeButton" destination="wcK-f1-93q" id="2J6-Jr-OqO"/>
+                        <outlet property="dislikeLabel" destination="6Ru-PM-a3L" id="nqg-Si-dEC"/>
                         <outlet property="disliketagListView" destination="gl1-mI-KRX" id="g8H-Ad-y1c"/>
                     </connections>
                 </viewController>
