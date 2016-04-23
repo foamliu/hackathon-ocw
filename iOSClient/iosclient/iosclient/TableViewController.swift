@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import SDWebImage
-import MGSwipeTableCell
 
 class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate, UIPopoverPresentationControllerDelegate {
     
