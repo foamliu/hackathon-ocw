@@ -11,7 +11,7 @@ import Alamofire
 import SDWebImage
 import MGSwipeTableCell
 
-class TableViewController: UITableViewController, UISearchBarDelegate {
+class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate, UIPopoverPresentationControllerDelegate {
     
     var courses: NSMutableArray = []
     var loadMoreEnable = true
@@ -30,8 +30,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     var infiniteScrollingView:UIView?
     var dateFormatter = NSDateFormatter()
     
+    var deleteCourseIndexPath: NSIndexPath? = nil
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,40 +180,94 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell") as! TableViewCell
         
-        if let nameLabel = cell.viewWithTag(100) as? UILabel {
-            nameLabel.text = courses[indexPath.row].valueForKey("title") as? String
-        }
+        cell.nameLabel.text = courses[indexPath.row].valueForKey("title") as? String
+        cell.descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
+        cell.sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
+        cell.durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
         
-        if let descriptionLabel = cell.viewWithTag(101) as? UILabel {
-            descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
-        }
-        
-        if let courseImageView = cell.viewWithTag(102) as? UIImageView {
-            let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
-            courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
-        }
-        
-        if let sourceLabel = cell.viewWithTag(103) as? UILabel {
-            sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
-        }
-        
-        if let durationLabel = cell.viewWithTag(104) as? UILabel {
-            durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
-        }
+        let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
+        cell.courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
         
         if (indexPath.row == self.courses.count - 1){
             self.tableView.tableFooterView = self.infiniteScrollingView
             loadMore()
         }
         
-        //cell.rightButtons = [MGSwipeButton(title: "Delete", backgroundColor: UIColor.redColor()), MGSwipeButton(title: "More", backgroundColor: UIColor.lightGrayColor())]
-        //cell.rightSwipeSettings.transition = MGSwipeTransition.Rotate3D
+        if cell.buttonDelegate == nil {
+            cell.buttonDelegate = self
+        }
         
         return cell
     }
     
+    // MARK: UITableViewDelegate Methods
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            deleteCourseIndexPath = indexPath
+            let courseToDelete = courses[indexPath.row].valueForKey("title") as! String
+            confirmDelete(courseToDelete)
+        }
+    }
+    
+    // Delete Confirmation and Handling
+    func confirmDelete(course: String) {
+        let alert = UIAlertController(title: "Delete Course", message: "Are you sure you want to permanently delete \(course)?", preferredStyle: .ActionSheet)
+        
+        let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: handleDeleteCourse)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteCourse)
+        
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func handleDeleteCourse(alertAction: UIAlertAction!) -> Void {
+        if let indexPath = deleteCourseIndexPath {
+            tableView.beginUpdates()
+            
+            courses.removeObjectAtIndex(indexPath.row)
+            
+            // Note that indexPath is wrapped in an array:  [indexPath]
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            
+            deleteCourseIndexPath = nil
+            tableView.endUpdates()
+        }
+    }
+    
+    func cancelDeleteCourse(alertAction: UIAlertAction!) {
+        deleteCourseIndexPath = nil
+    }
+    
+    func cellTapped(cell: TableViewCell) {
+        //self.showAlertForRow(tableView.indexPathForCell(cell)!.row)
+        //print(tableView.indexPathForCell(cell)!.row)
+        
+        //self.performSegueWithIdentifier("showDislike", sender: self)
+        
+        /*
+        //debug now
+        tableView.beginUpdates()
+        courses.removeObjectAtIndex(tableView.indexPathForCell(cell)!.row)
+        tableView.deleteRowsAtIndexPaths([tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
+        tableView.endUpdates()
+         */
+        //let fromRect:CGRect()
+        
+        let popVC = (storyboard?.instantiateViewControllerWithIdentifier("Popover"))! as! PopoverViewController
+        popVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+        popVC.popoverPresentationController?.delegate = self
+        popVC.popoverPresentationController?.sourceView = cell.dislikeButton
+        popVC.popoverPresentationController?.sourceRect = cell.dislikeButton.bounds
+        popVC.popoverPresentationController?.permittedArrowDirections = .Up
+        popVC.preferredContentSize = CGSizeMake(400, 150)
+        self.presentViewController(popVC, animated: true, completion: nil)
+        
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as! TableViewCell
         let nameLabel = currentCell.viewWithTag(100) as? UILabel
         let courseImageView = currentCell.viewWithTag(102) as? UIImageView
         selectedTitle = nameLabel?.text
@@ -306,5 +362,20 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             viewController.courseImage = selectedImage
             viewController.courseLink = selectedLink
         }
+        /*else if(segue.identifier == "showDislike"){
+            let viewController = segue.destinationViewController as! PopoverViewController
+            var controller = viewController.popoverPresentationController
+            if controller == nil {
+                controller?.delegate = self
+            }
+            viewController.Tags = "test"
+        }
+        */
     }
+    
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
 }
