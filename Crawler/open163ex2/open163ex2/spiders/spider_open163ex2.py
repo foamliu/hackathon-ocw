@@ -50,37 +50,50 @@ class Open163ExSpider(scrapy.Spider):
     def __init__(self):
         scrapy.Spider.__init__(self)
 
-        # profile = webdriver.FirefoxProfile()
-        # profile.set_preference("general.useragent.override","Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/BuildID) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36")
-
         self.main = webdriver.Firefox()
-        # self.detail = webdriver.Firefox(profile)
-        # This will throw a TimeoutException whenever the page load takes more than 30 seconds.
-        # self.detail.set_page_load_timeout(30)
 
     def __del__(self):
         self.main.close()
-        # self.detail.close()
+    
+    def downloadOne(self, link):
+        
+        print link
+        isdownloaded = downloaded(link)
+        print 'is downloaded: {0}'.format(isdownloaded)
 
-    def parse(self, response):
+        if not isdownloaded:
+            item = Open163ExItem()
+            item['link'] = link
+            return item 
+    
+    def downloadList(self, link):
+    
+        for info in hxs.xpath('//*[@id="list1"]/tbody/tr'):
+            link = info.xpath('td[@class="u-ctitle"]/a/@href').extract()[0]
+            item = downloadOne(self,link)
+            yield item
 
-        self.main.get("http://c.open.163.com/search/search.htm?query=#/search/video")
-
+    def download(self, link):
+        self.driver.get(link)
+        time.sleep(2)
+        
         while True:
 
             hxs = scrapy.Selector(text = self.main.page_source)
-
-            for info in hxs.xpath('//div[@class="cnt"]'):
-                link = info.xpath('a/@href').extract()[0]
-                print link
-                isdownloaded = downloaded(link)
-                print 'is downloaded: {0}'.format(isdownloaded)
-
-                if not isdownloaded:
-                    item = Open163ExItem()
-                    item['link'] = link
+            # 第一种常见格式
+            for info in hxs.xpath('//*[@id="j-resultbox"]/div/div/div/div[1]/div[1]/div[2]/div[@class="cnt"]'):
+                link = info.xpath('/a[@class="img"]').extract()[0]
+                if link.startswith('http://open.163.com/movie/'):
+                    item = downloadOne(self,link)
                     yield item
-
+                    
+                if link.startswith('http://open.163.com/special/'):
+                    list = downloadList(self, link)
+                    for item in items:
+                        yield item    
+            # 第二种常见格式
+            # TODO
+            
             next = self.main.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
 
             try:
@@ -90,6 +103,20 @@ class Open163ExSpider(scrapy.Spider):
             except KeyboardInterrupt:
                 sys.exit(0)
             except Exception as err:
+                break
+        
+    def parse(self, response):
+        links = getlinks()
+
+        for link in links:
+                
+            #max_retry = 5
+            #for i in range(max_retry):
+            try:
+                items = self.download(link)
+                for item in items:
+                    yield item
+            except Exception as err:
                 print(err)
-
-
+                time.sleep(100)
+                #break
