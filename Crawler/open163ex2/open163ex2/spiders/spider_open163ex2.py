@@ -71,6 +71,14 @@ class Open163Ex2Spider(scrapy.Spider):
         self.detail.get(link)
         time.sleep(2)
         
+        more = self.detail.find_element_by_xpath('/html/body/div[8]/div[1]/div[1]/div[2]')
+        try:
+            #next.click()
+            ActionChains(self.detail).move_to_element(more).click().perform()
+            time.sleep(5)
+        except Exception as err:
+            print(err)
+        
         hxs = scrapy.Selector(text = self.detail.page_source)
         
         for info in hxs.xpath('//*[@id="list1"]/tbody/tr'):
