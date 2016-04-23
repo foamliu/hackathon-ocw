@@ -61,6 +61,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
             
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "search:", name: "newSearchNotification", object: nil)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "searchByTags:", name: "newSearchByTagNotification", object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "deleteRow:", name: "deleteRowNotification", object: nil)
         }
     }
     
@@ -240,6 +241,14 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         deleteCourseIndexPath = nil
     }
     
+    func deleteRow(notif: NSNotification) {
+        let indexPath = notif.userInfo!["indexPath"] as! NSIndexPath
+        tableView.beginUpdates()
+        courses.removeObjectAtIndex(indexPath.row)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        tableView.endUpdates()
+    }
+    
     func cellTapped(cell: TableViewCell) {
         //self.showAlertForRow(tableView.indexPathForCell(cell)!.row)
         //print(tableView.indexPathForCell(cell)!.row)
@@ -263,6 +272,16 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         popVC.popoverPresentationController?.permittedArrowDirections = .Up
         popVC.preferredContentSize = CGSizeMake(400, 150)
         self.presentViewController(popVC, animated: true, completion: nil)
+        
+        //send related info
+        let dict = NSMutableDictionary()
+        dict.setValue(tableView.indexPathForCell(cell)!, forKey: "indexPath")
+        dict.setValue(courses[tableView.indexPathForCell(cell)!.row].valueForKey("tags")!, forKey: "tags")
+        dict.setValue(courses[tableView.indexPathForCell(cell)!.row].valueForKey("source")!, forKey: "source")
+        
+        //Update the comment to commentField
+        NSNotificationCenter.defaultCenter().postNotificationName("newDislikeNotification", object: nil, userInfo: ["newDislike": dict])
+        
         
     }
     

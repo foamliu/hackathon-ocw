@@ -126,7 +126,6 @@ class CommentViewController: UITableViewController {
         
     }
     
-    
     func loadHeadImg(){
         for comment in comments {
             
