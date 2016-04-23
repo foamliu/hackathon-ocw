@@ -11,7 +11,7 @@ import Alamofire
 import SDWebImage
 import MGSwipeTableCell
 
-class TableViewController: UITableViewController, UISearchBarDelegate {
+class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate  {
     
     var courses: NSMutableArray = []
     var loadMoreEnable = true
@@ -29,7 +29,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     var customRefreshControl = UIRefreshControl()
     var infiniteScrollingView:UIView?
     var dateFormatter = NSDateFormatter()
-    
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -178,30 +177,21 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell") as! TableViewCell
         
-        if let nameLabel = cell.viewWithTag(100) as? UILabel {
-            nameLabel.text = courses[indexPath.row].valueForKey("title") as? String
-        }
+        cell.nameLabel.text = courses[indexPath.row].valueForKey("title") as? String
+        cell.descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
+        cell.sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
+        cell.durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
         
-        if let descriptionLabel = cell.viewWithTag(101) as? UILabel {
-            descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
-        }
-        
-        if let courseImageView = cell.viewWithTag(102) as? UIImageView {
-            let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
-            courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
-        }
-        
-        if let sourceLabel = cell.viewWithTag(103) as? UILabel {
-            sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
-        }
-        
-        if let durationLabel = cell.viewWithTag(104) as? UILabel {
-            durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
-        }
+        let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
+        cell.courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
         
         if (indexPath.row == self.courses.count - 1){
             self.tableView.tableFooterView = self.infiniteScrollingView
             loadMore()
+        }
+        
+        if cell.buttonDelegate == nil {
+            cell.buttonDelegate = self
         }
         
         //cell.rightButtons = [MGSwipeButton(title: "Delete", backgroundColor: UIColor.redColor()), MGSwipeButton(title: "More", backgroundColor: UIColor.lightGrayColor())]
@@ -210,8 +200,13 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
+    func cellTapped(cell: TableViewCell) {
+        //self.showAlertForRow(tableView.indexPathForCell(cell)!.row)
+        print(tableView.indexPathForCell(cell)!.row)
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as! TableViewCell
         let nameLabel = currentCell.viewWithTag(100) as? UILabel
         let courseImageView = currentCell.viewWithTag(102) as? UIImageView
         selectedTitle = nameLabel?.text

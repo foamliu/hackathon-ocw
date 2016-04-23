@@ -8,6 +8,25 @@
 
 import UIKit
 
+protocol TableViewCellDelegate {
+    func cellTapped(cell: TableViewCell)
+}
+
 class TableViewCell: UITableViewCell {
+    
+    var buttonDelegate: TableViewCellDelegate?
+    
+    @IBOutlet weak var dislikeButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var sourceLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var courseImageView: UIImageView!
+    
+    @IBAction func dislikeBtnClicked(sender: AnyObject) {
+        if let delegate = buttonDelegate {
+            delegate.cellTapped(self)
+        }
+    }
     
 }
