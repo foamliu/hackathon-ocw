@@ -14,7 +14,7 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 
 def getlinks():
-    inputfile = open('open163exsub/links.json','r')
+    inputfile = open('open163ex2/links.json','r')
     lines = inputfile.readlines()
     links = []
     for line in lines:
@@ -42,8 +42,8 @@ def downloaded(link):
             return True
     return False
     
-class Open163ExSpider(scrapy.Spider):
-    name = 'open163ex'
+class Open163Ex2Spider(scrapy.Spider):
+    name = 'open163ex2'
     allowed_domains = ["open.163.com"]
     start_urls = ["http://c.open.163.com/search/search.htm?query=#/search/video"]
 
@@ -51,50 +51,67 @@ class Open163ExSpider(scrapy.Spider):
         scrapy.Spider.__init__(self)
 
         self.main = webdriver.Firefox()
+        self.detail = webdriver.Firefox()
 
     def __del__(self):
         self.main.close()
+        self.detail.close()
     
     def downloadOne(self, link):
-        
-        print link
+        print 'one: '+link
         isdownloaded = downloaded(link)
         print 'is downloaded: {0}'.format(isdownloaded)
 
         if not isdownloaded:
-            item = Open163ExItem()
+            item = Open163Ex2Item()
             item['link'] = link
             return item 
     
     def downloadList(self, link):
-    
+        self.detail.get(link)
+        time.sleep(2)
+        
+        hxs = scrapy.Selector(text = self.detail.page_source)
+        
         for info in hxs.xpath('//*[@id="list1"]/tbody/tr'):
-            link = info.xpath('td[@class="u-ctitle"]/a/@href').extract()[0]
-            item = downloadOne(self,link)
-            yield item
+            alist = info.xpath('td[1]/a/@href').extract()
+            if alist:
+                alink = alist[0]
+                
+                if alink.startswith('http://open.163.com/movie/'):
+                    print('list: ' + alink)
+                    item = self.downloadOne(alink)
+                    yield item
 
     def download(self, link):
-        self.driver.get(link)
+        self.main.get(link)
         time.sleep(2)
         
         while True:
 
             hxs = scrapy.Selector(text = self.main.page_source)
             # 第一种常见格式
-            for info in hxs.xpath('//*[@id="j-resultbox"]/div/div/div/div[1]/div[1]/div[2]/div[@class="cnt"]'):
-                link = info.xpath('/a[@class="img"]').extract()[0]
-                if link.startswith('http://open.163.com/movie/'):
-                    item = downloadOne(self,link)
-                    yield item
-                    
-                if link.startswith('http://open.163.com/special/'):
-                    list = downloadList(self, link)
-                    for item in items:
-                        yield item    
+            #//*[@id="j-resultbox"]/div/div/div/div[1]/div[1]/div[2]/
+            for info in hxs.xpath('//div[@class="cnt"]'):
+                llist = info.xpath('a[@class="img"]/@href').extract()
+                if llist:
+                    link = llist[0]
+                    #print(link)
+                    if link.startswith('http://open.163.com/movie/'):
+                        item = self.downloadOne(link)
+                        yield item
+                        
+                    if link.startswith('http://open.163.com/special/'):
+                        alist = self.downloadList(link)
+                        for item in alist:
+                            yield item
             # 第二种常见格式
             # TODO
             
             next = self.main.find_element_by_xpath('//div[@class="j-list"]/div[2]/div/a[11]')
+            aclass = next.get_attribute('class')
+            if ('js-disabled' in aclass):
+                break
 
             try:
                 #next.click()
@@ -110,13 +127,10 @@ class Open163ExSpider(scrapy.Spider):
 
         for link in links:
                 
-            #max_retry = 5
-            #for i in range(max_retry):
             try:
                 items = self.download(link)
                 for item in items:
                     yield item
             except Exception as err:
                 print(err)
-                time.sleep(100)
-                #break
+                break
