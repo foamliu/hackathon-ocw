@@ -14,11 +14,11 @@ from open163exsub.items import Open163ExSubItem
 def getlinks():
     inputfile = open('open163exsub/links.json','r')
     lines = inputfile.readlines()
+    inputfile.close()
     links = []
     for line in lines:
         item = json.loads(line)
         links.append(item['link'])
-    inputfile.close()
     return links
 
 def getout():
@@ -31,7 +31,7 @@ def getout():
     return out
 
 def cleanse(alist):
-    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
+    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''
 
 def downloaded(link):
     out = getout()
@@ -98,15 +98,12 @@ class Open163ExSpider(scrapy.Spider):
             print 'is downloaded: {0}'.format(isdownloaded)
 
             if not isdownloaded:
-                
-                #max_retry = 5
-                #for i in range(max_retry):
                 try:
                     item = self.download(link)
                     yield item
                 except Exception as err:
                     print(err)
-                    time.sleep(100)
+                    time.sleep(10)
                     #break
 
 
