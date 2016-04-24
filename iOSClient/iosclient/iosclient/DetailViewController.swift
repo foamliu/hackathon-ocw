@@ -76,6 +76,10 @@ class DetailViewController: UIViewController {
         // [END screen_view_hit_swift]
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        player.pause()
+    }
+    
     func dismissKeyboard(){
         view.endEditing(true)
     }
