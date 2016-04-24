@@ -43,15 +43,15 @@ public class TagListView: UIView {
     @IBInspectable public var tagHighlightedBackgroundColor: UIColor? {
         didSet {
             for tagView in tagViews {
-                tagView.tagHighlightedBackgroundColor = tagHighlightedBackgroundColor
+                tagView.highlightedBackgroundColor = tagHighlightedBackgroundColor
             }
         }
     }
     
-    @IBInspectable public var tagSelectedBackgroundColor: UIColor = UIColor.redColor() {
+    @IBInspectable public var tagSelectedBackgroundColor: UIColor? {
         didSet {
             for tagView in tagViews {
-                tagView.tagSelectedBackgroundColor = tagSelectedBackgroundColor
+                tagView.selectedBackgroundColor = tagSelectedBackgroundColor
             }
         }
     }
@@ -70,6 +70,7 @@ public class TagListView: UIView {
             }
         }
     }
+    
     @IBInspectable public var borderColor: UIColor? {
         didSet {
             for tagView in tagViews {
@@ -77,6 +78,15 @@ public class TagListView: UIView {
             }
         }
     }
+    
+    @IBInspectable public var selectedBorderColor: UIColor? {
+        didSet {
+            for tagView in tagViews {
+                tagView.selectedBorderColor = selectedBorderColor
+            }
+        }
+    }
+    
     @IBInspectable public var paddingY: CGFloat = 2 {
         didSet {
             for tagView in tagViews {
@@ -135,7 +145,7 @@ public class TagListView: UIView {
         }
     }
     
-    @IBInspectable var enableRemoveButton: Bool = false {
+    @IBInspectable public var enableRemoveButton: Bool = false {
         didSet {
             for tagView in tagViews {
                 tagView.enableRemoveButton = enableRemoveButton
@@ -144,7 +154,7 @@ public class TagListView: UIView {
         }
     }
     
-    @IBInspectable var removeButtonIconSize: CGFloat = 12 {
+    @IBInspectable public var removeButtonIconSize: CGFloat = 12 {
         didSet {
             for tagView in tagViews {
                 tagView.removeButtonIconSize = removeButtonIconSize
@@ -152,7 +162,7 @@ public class TagListView: UIView {
             rearrangeViews()
         }
     }
-    @IBInspectable var removeIconLineWidth: CGFloat = 1 {
+    @IBInspectable public var removeIconLineWidth: CGFloat = 1 {
         didSet {
             for tagView in tagViews {
                 tagView.removeIconLineWidth = removeIconLineWidth
@@ -161,7 +171,7 @@ public class TagListView: UIView {
         }
     }
     
-    @IBInspectable var removeIconLineColor: UIColor = UIColor.whiteColor().colorWithAlphaComponent(0.54) {
+    @IBInspectable public var removeIconLineColor: UIColor = UIColor.whiteColor().colorWithAlphaComponent(0.54) {
         didSet {
             for tagView in tagViews {
                 tagView.removeIconLineColor = removeIconLineColor
@@ -244,7 +254,7 @@ public class TagListView: UIView {
             tagBackgroundView.addSubview(tagView)
             currentRowView.addSubview(tagBackgroundView)
             
-            currentRowTagCount++
+            currentRowTagCount += 1
             currentRowWidth += tagView.frame.width + marginX
             
             switch alignment {
@@ -277,11 +287,12 @@ public class TagListView: UIView {
         tagView.textColor = textColor
         tagView.selectedTextColor = selectedTextColor
         tagView.tagBackgroundColor = tagBackgroundColor
-        tagView.tagHighlightedBackgroundColor = tagHighlightedBackgroundColor
-        tagView.tagSelectedBackgroundColor = tagSelectedBackgroundColor
+        tagView.highlightedBackgroundColor = tagHighlightedBackgroundColor
+        tagView.selectedBackgroundColor = tagSelectedBackgroundColor
         tagView.cornerRadius = cornerRadius
         tagView.borderWidth = borderWidth
         tagView.borderColor = borderColor
+        tagView.selectedBorderColor = selectedBorderColor
         tagView.paddingX = paddingX
         tagView.paddingY = paddingY
         tagView.textFont = textFont
@@ -289,8 +300,8 @@ public class TagListView: UIView {
         tagView.removeButtonIconSize = removeButtonIconSize
         tagView.enableRemoveButton = enableRemoveButton
         tagView.removeIconLineColor = removeIconLineColor
-        tagView.addTarget(self, action: "tagPressed:", forControlEvents: .TouchUpInside)
-        tagView.removeButton.addTarget(self, action: "removeButtonPressed:", forControlEvents: .TouchUpInside)
+        tagView.addTarget(self, action: #selector(tagPressed(_:)), forControlEvents: .TouchUpInside)
+        tagView.removeButton.addTarget(self, action: #selector(removeButtonPressed(_:)), forControlEvents: .TouchUpInside)
         
         return addTagView(tagView)
     }

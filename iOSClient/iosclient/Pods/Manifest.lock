@@ -20,14 +20,12 @@ PODS:
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
-  - TagListView (0.5)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - Cosmos (~> 1.2)
   - Google/Analytics
   - SDWebImage (~> 3.7)
-  - TagListView
 
 SPEC CHECKSUMS:
   Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
@@ -39,6 +37,5 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: eb3965ea12710569c7b80db198a39e39b18613f7
   GoogleUtilities: 85f8ad6b251544286a97163133d042ec95f889c5
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  TagListView: d9e6f0f30eca6a84138669f8449b89df068e6573
 
 COCOAPODS: 0.39.0
