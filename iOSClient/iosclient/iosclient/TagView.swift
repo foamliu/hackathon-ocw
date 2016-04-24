@@ -11,39 +11,41 @@ import UIKit
 @IBDesignable
 public class TagView: UIButton {
 
-    @IBInspectable var cornerRadius: CGFloat = 0 {
+    @IBInspectable public var cornerRadius: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius
             layer.masksToBounds = cornerRadius > 0
         }
     }
-    @IBInspectable var borderWidth: CGFloat = 0 {
+    @IBInspectable public var borderWidth: CGFloat = 0 {
         didSet {
             layer.borderWidth = borderWidth
         }
     }
-    @IBInspectable var borderColor: UIColor? {
+    
+    @IBInspectable public var borderColor: UIColor? {
         didSet {
-            layer.borderColor = borderColor?.CGColor
+            reloadStyles()
         }
     }
-    @IBInspectable var textColor: UIColor = UIColor.whiteColor() {
+    
+    @IBInspectable public var textColor: UIColor = UIColor.whiteColor() {
         didSet {
-            setTitleColor(textColor, forState: .Normal)
+            reloadStyles()
         }
     }
-    @IBInspectable var selectedTextColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable public var selectedTextColor: UIColor = UIColor.whiteColor() {
         didSet {
-            setTitleColor(selected ? selectedTextColor : textColor, forState: .Normal)
+            reloadStyles()
         }
     }
-    @IBInspectable var paddingY: CGFloat = 2 {
+    @IBInspectable public var paddingY: CGFloat = 2 {
         didSet {
             titleEdgeInsets.top = paddingY
             titleEdgeInsets.bottom = paddingY
         }
     }
-    @IBInspectable var paddingX: CGFloat = 5 {
+    @IBInspectable public var paddingX: CGFloat = 5 {
         didSet {
             titleEdgeInsets.left = paddingX
             updateRightInsets()
@@ -52,24 +54,25 @@ public class TagView: UIButton {
 
     @IBInspectable public var tagBackgroundColor: UIColor = UIColor.grayColor() {
         didSet {
-            backgroundColor = tagBackgroundColor
+            reloadStyles()
         }
     }
     
-    @IBInspectable public var tagHighlightedBackgroundColor: UIColor? {
+    @IBInspectable public var highlightedBackgroundColor: UIColor? {
         didSet {
-            if let color = tagHighlightedBackgroundColor where highlighted {
-                backgroundColor = color
-            }
-            else {
-                backgroundColor = tagBackgroundColor
-            }
+            reloadStyles()
         }
     }
     
-    @IBInspectable public var tagSelectedBackgroundColor: UIColor = UIColor.redColor() {
+    @IBInspectable public var selectedBorderColor: UIColor? {
         didSet {
-            backgroundColor = selected ? tagSelectedBackgroundColor : tagBackgroundColor
+            reloadStyles()
+        }
+    }
+    
+    @IBInspectable public var selectedBackgroundColor: UIColor? {
+        didSet {
+            reloadStyles()
         }
     }
     
@@ -79,27 +82,35 @@ public class TagView: UIButton {
         }
     }
     
+    private func reloadStyles() {
+        if highlighted {
+            if let highlightedBackgroundColor = highlightedBackgroundColor {
+                // For highlighted, if it's nil, we should not fallback to backgroundColor.
+                // Instead, we keep the current color.
+                backgroundColor = highlightedBackgroundColor
+            }
+        }
+        else if selected {
+            backgroundColor = selectedBackgroundColor ?? tagBackgroundColor
+            layer.borderColor = selectedBorderColor?.CGColor ?? borderColor?.CGColor
+            setTitleColor(selectedTextColor, forState: .Normal)
+        }
+        else {
+            backgroundColor = tagBackgroundColor
+            layer.borderColor = borderColor?.CGColor
+            setTitleColor(textColor, forState: .Normal)
+        }
+    }
+    
     override public var highlighted: Bool {
         didSet {
-            if let color = tagHighlightedBackgroundColor where highlighted {
-                backgroundColor = color
-            }
-            else {
-                backgroundColor = selected ? tagSelectedBackgroundColor : tagBackgroundColor
-            }
+            reloadStyles()
         }
     }
     
     override public var selected: Bool {
         didSet {
-            if selected {
-                backgroundColor = tagSelectedBackgroundColor
-                setTitleColor(selectedTextColor, forState: .Normal)
-            }
-            else {
-                backgroundColor = tagBackgroundColor
-                setTitleColor(textColor, forState: .Normal)
-            }
+            reloadStyles()
         }
     }
     
@@ -107,26 +118,26 @@ public class TagView: UIButton {
     
     let removeButton = CloseButton()
     
-    @IBInspectable var enableRemoveButton: Bool = false {
+    @IBInspectable public var enableRemoveButton: Bool = false {
         didSet {
             removeButton.hidden = !enableRemoveButton
             updateRightInsets()
         }
     }
     
-    @IBInspectable var removeButtonIconSize: CGFloat = 12 {
+    @IBInspectable public var removeButtonIconSize: CGFloat = 12 {
         didSet {
             removeButton.iconSize = removeButtonIconSize
             updateRightInsets()
         }
     }
     
-    @IBInspectable var removeIconLineWidth: CGFloat = 3 {
+    @IBInspectable public var removeIconLineWidth: CGFloat = 3 {
         didSet {
             removeButton.lineWidth = removeIconLineWidth
         }
     }
-    @IBInspectable var removeIconLineColor: UIColor = UIColor.whiteColor().colorWithAlphaComponent(0.54) {
+    @IBInspectable public var removeIconLineColor: UIColor = UIColor.whiteColor().colorWithAlphaComponent(0.54) {
         didSet {
             removeButton.lineColor = removeIconLineColor
         }

@@ -24,6 +24,9 @@
 		76AFFDC11CB51195006232CA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDC01CB51195006232CA /* libc++.tbd */; };
 		76AFFDC31CB511A6006232CA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDC21CB511A6006232CA /* CoreTelephony.framework */; };
 		76AFFDC51CB511BF006232CA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AFFDC41CB511BF006232CA /* libz.tbd */; };
+		76CC485E1CCC706F007E2F99 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC485A1CCC706F007E2F99 /* CloseButton.swift */; };
+		76CC485F1CCC706F007E2F99 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC485C1CCC706F007E2F99 /* TagListView.swift */; };
+		76CC48601CCC706F007E2F99 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC485D1CCC706F007E2F99 /* TagView.swift */; };
 		76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389A1CABC24300622A4A /* AppDelegate.swift */; };
 		76DD389D1CABC24300622A4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389C1CABC24300622A4A /* ViewController.swift */; };
 		76DD38A01CABC24300622A4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76DD389E1CABC24300622A4A /* Main.storyboard */; };
@@ -82,6 +85,10 @@
 		76AFFDC01CB51195006232CA /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		76AFFDC21CB511A6006232CA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		76AFFDC41CB511BF006232CA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		76CC485A1CCC706F007E2F99 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		76CC485B1CCC706F007E2F99 /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
+		76CC485C1CCC706F007E2F99 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		76CC485D1CCC706F007E2F99 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		76DD38971CABC24300622A4A /* iosclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76DD389A1CABC24300622A4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76DD389C1CABC24300622A4A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +172,17 @@
 			name = WXApi;
 			sourceTree = "<group>";
 		};
+		76CC48591CCC6FFF007E2F99 /* TagListView */ = {
+			isa = PBXGroup;
+			children = (
+				76CC485A1CCC706F007E2F99 /* CloseButton.swift */,
+				76CC485B1CCC706F007E2F99 /* TagListView.h */,
+				76CC485C1CCC706F007E2F99 /* TagListView.swift */,
+				76CC485D1CCC706F007E2F99 /* TagView.swift */,
+			);
+			name = TagListView;
+			sourceTree = "<group>";
+		};
 		76DD388E1CABC24300622A4A = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +208,7 @@
 		76DD38991CABC24300622A4A /* iosclient */ = {
 			isa = PBXGroup;
 			children = (
+				76CC48591CCC6FFF007E2F99 /* TagListView */,
 				76AFFDAE1CB4EEE7006232CA /* WXApi */,
 				761E6D431CB4A9BD00819982 /* SWRevealViewController */,
 				76DD389A1CABC24300622A4A /* AppDelegate.swift */,
@@ -444,10 +463,13 @@
 				76AFFDB61CB4F087006232CA /* SWRevealViewController.m in Sources */,
 				767229E21CC50E4400FB5BF5 /* Reachability.swift in Sources */,
 				76DD38C91CABC3FE00622A4A /* TableViewController.swift in Sources */,
+				76CC485E1CCC706F007E2F99 /* CloseButton.swift in Sources */,
+				76CC48601CCC706F007E2F99 /* TagView.swift in Sources */,
 				7634A9DB1CC8AA2200BFED99 /* SearchViewController.swift in Sources */,
 				76FE57051CB77A810070B751 /* Comment.swift in Sources */,
 				766489DA1CC8DFAA0047DD5F /* WebViewController.swift in Sources */,
 				767E722E1CB7419300CEBA6C /* CommentViewController.swift in Sources */,
+				76CC485F1CCC706F007E2F99 /* TagListView.swift in Sources */,
 				7664756D1CB6AC0E00DA808B /* DescriptionViewController.swift in Sources */,
 				76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */,
 				766489DC1CCB3ADE0047DD5F /* PopoverViewController.swift in Sources */,

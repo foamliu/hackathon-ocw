@@ -53,8 +53,11 @@ class PopoverViewController: UIViewController, TagListViewDelegate {
         disliketagListView.borderColor = UIColor.lightGrayColor()
         disliketagListView.borderWidth = 1
         disliketagListView.selectedTextColor = UIColor.redColor()
-        //disliketagListView.tagSelectedBackgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3)
-    
+        
+        disliketagListView.selectedTextColor = UIColor.redColor()
+        disliketagListView.tagSelectedBackgroundColor = UIColor.whiteColor()
+        disliketagListView.selectedBorderColor = UIColor.redColor()
+        
         disliketagListView.addTag("重复")
         disliketagListView.addTag("内容质量差")
     }
@@ -72,13 +75,13 @@ class PopoverViewController: UIViewController, TagListViewDelegate {
     func tagPressed(title: String, tagView: TagView, sender: TagListView) {
         //Search by tags
         //Update the searchText to Table
+        tagView.selected = true
         if(tagsArray.containsObject(title)){
             tagsArray.removeObject(title)
         }
         else{
             tagsArray.addObject(title)
         }
-        
         if(tagsArray.count != 0){
             dislikeButton.setTitle("确定", forState: UIControlState.Normal)
             dislikeLabel.text = "已选择" + String(tagsArray.count) + "个理由"
@@ -129,6 +132,7 @@ class PopoverViewController: UIViewController, TagListViewDelegate {
         //send to server
         if(tagsArray.count != 0){
             //TODO: send sever with dislike tags
+            sendSelectedCourse(courseId)
         }
         else{
             print(courseId)
