@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 import SDWebImage
 
-class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate, UIPopoverPresentationControllerDelegate {
+class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate, UIPopoverPresentationControllerDelegate, NSURLConnectionDataDelegate {
     
     var courses: NSMutableArray = []
+    var data = NSMutableData()
     var loadMoreEnable = true
     var isInternetConnected = true
     
@@ -303,6 +304,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         //Send request to server
         sendSelectedCourse(selectedCourseId)
         
+        if((selectedLink?.containsString("yixi")) == true){
+            parseYixiCourse(selectedLink!);
+        }
+        
         if(selectedVideoUrl == "" || selectedVideoUrl == nil){
             //Pass values
             performSegueWithIdentifier("showWebDetail", sender: self)
@@ -342,6 +347,25 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
             task.resume()
         } catch _{
             print("Error json")
+        }
+    }
+    
+    func parseYixiCourse(videoUrl: String){
+        Alamofire.request(.GET, videoUrl).responseString { response in
+            print(response.result.value)
+            let str: String = response.result.value!
+            do {
+                //vid: \'XMTQ4NTYxMDc4MA==\'
+                let pattern = ".*vid: \'.*"
+                let regex = try NSRegularExpression(pattern: pattern, options: [])
+                let nsString = str as NSString
+                let result = regex.matchesInString(str, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, nsString.length)) as Array<NSTextCheckingResult>
+                for match in result {
+                    print(nsString.substringWithRange(match.range))
+                }
+            }catch let error as NSError{
+                print(error)
+            }
         }
     }
     
