@@ -782,7 +782,6 @@ public class MainActivity extends AppCompatActivity
                 }
                 inputStream.close();
                 str = stringBuilder.toString();
-
                 if(!str.contains("userid"))
                 {
                     getUserId();

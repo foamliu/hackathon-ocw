@@ -39,4 +39,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:8.1.0'
     compile files('libs/volley.jar')
     compile 'me.gujun.android.taggroup:library:1.4@aar'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
 }

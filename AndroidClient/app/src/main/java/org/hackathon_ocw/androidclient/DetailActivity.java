@@ -46,6 +46,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -143,6 +144,15 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         titleDetail=(TextView)findViewById(R.id.titleDetail);
         titleDetail.setText(title);
 
+        RelativeLayout videoLayout = (RelativeLayout) findViewById(R.id.videoLayout);
+        if(isTablet(this.getApplicationContext()))
+        {
+            videoLayout.getLayoutParams().height = 1000;
+        }
+        else{
+            videoLayout.getLayoutParams().height = 220;
+        }
+
         getVideoImage(videoUrl);
 
         videoInit();
@@ -180,8 +190,12 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
-        titleToolBar=(TextView)findViewById(R.id.titleToolBar);
+        titleToolBar=(TextView) findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
+    }
+
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
     public void videoInit(){
