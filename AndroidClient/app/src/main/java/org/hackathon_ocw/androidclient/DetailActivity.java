@@ -24,6 +24,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -115,6 +116,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private Tracker mTracker;
 
     private NestedScrollingChildHelper mChildHelper;
+    DisplayMetrics metrics = new DisplayMetrics();
 
 
     @Override
@@ -125,6 +127,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         setContentView(R.layout.activity_detail);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
@@ -145,14 +148,15 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         titleDetail.setText(title);
 
         RelativeLayout videoLayout = (RelativeLayout) findViewById(R.id.videoLayout);
-        if(isTablet(this.getApplicationContext()))
-        {
+        if(isTablet(this.getApplicationContext())) {
             videoLayout.getLayoutParams().height = 1000;
         }
         else{
-            videoLayout.getLayoutParams().height = 220;
+            videoLayout.getLayoutParams().height = 460;
         }
+        /*
 
+        */
         getVideoImage(videoUrl);
 
         videoInit();
@@ -178,6 +182,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.detailTabs);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
@@ -406,6 +411,9 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
     public void addListenerOnCommentButton(){
         editText = (EditText)findViewById(R.id.EditComment);
+        if(isTablet(this.getApplicationContext())) {
+            editText.getLayoutParams().width = metrics.widthPixels - 200;
+        }
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -442,6 +450,10 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
             popWindow.update();
         }
         //popWindow.setAnimationStyle(R.style.pop);
+        EditText writeCommentPopWin = (EditText) popWindow.getContentView().findViewById(R.id.WriteCommentPopWin);
+        if(isTablet(this.getApplicationContext())) {
+            writeCommentPopWin.getLayoutParams().width = metrics.widthPixels - 200;
+        }
         popWindow.setBackgroundDrawable(new ShapeDrawable());
         popWindow.setFocusable(true);
         popWindow.setOutsideTouchable(true);
