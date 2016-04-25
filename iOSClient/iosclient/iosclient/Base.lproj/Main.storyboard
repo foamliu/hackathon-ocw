@@ -571,13 +571,13 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8w0-cC-jmk">
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="8w0-cC-jmk">
                                             <rect key="frame" x="147" y="46" width="198" height="61"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lD-cU-zAc">
                                                     <rect key="frame" x="0.0" y="17" width="33" height="16"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="blY-dD-CXN"/>
+                                                        <constraint firstAttribute="width" constant="80" id="blY-dD-CXN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -614,35 +614,25 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJl-7q-Itg">
                                                     <rect key="frame" x="103" y="17" width="33" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="gce-PP-T8C"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="gce-PP-T8C"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <variation key="widthClass=compact">
-                                                        <mask key="constraints">
-                                                            <include reference="gce-PP-T8C"/>
-                                                        </mask>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="8lD-cU-zAc" firstAttribute="top" secondItem="8w0-cC-jmk" secondAttribute="top" constant="3" id="Two-dA-Vx6"/>
+                                                <constraint firstItem="CJl-7q-Itg" firstAttribute="leading" secondItem="Nr8-lx-n0i" secondAttribute="trailing" constant="10" id="dyi-f9-Pay"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="Two-dA-Vx6"/>
+                                                    <exclude reference="dyi-f9-Pay"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="Two-dA-Vx6"/>
+                                                    <include reference="dyi-f9-Pay"/>
                                                 </mask>
                                             </variation>
                                         </stackView>
@@ -665,20 +655,20 @@
                                         <button opaque="NO" alpha="0.5" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWA-PN-6NH">
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="33" id="8mm-NA-rX9"/>
-                                                <constraint firstAttribute="height" constant="33" id="fS4-60-jlm"/>
+                                                <constraint firstAttribute="height" constant="28" id="dvy-bh-TsV"/>
+                                                <constraint firstAttribute="width" constant="28" id="mql-JW-6gB"/>
                                             </constraints>
                                             <state key="normal" title="Button" image="dislike"/>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="8mm-NA-rX9"/>
-                                                    <exclude reference="fS4-60-jlm"/>
+                                                    <exclude reference="dvy-bh-TsV"/>
+                                                    <exclude reference="mql-JW-6gB"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
                                                 <mask key="constraints">
-                                                    <include reference="8mm-NA-rX9"/>
-                                                    <include reference="fS4-60-jlm"/>
+                                                    <include reference="dvy-bh-TsV"/>
+                                                    <include reference="mql-JW-6gB"/>
                                                 </mask>
                                             </variation>
                                             <connections>
@@ -687,17 +677,15 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="gWA-PN-6NH" firstAttribute="leading" secondItem="8w0-cC-jmk" secondAttribute="trailing" constant="1" id="Afu-OR-fUz"/>
-                                        <constraint firstItem="gWA-PN-6NH" firstAttribute="bottom" secondItem="8w0-cC-jmk" secondAttribute="bottom" id="EB2-2X-ipV">
-                                            <variation key="widthClass=compact" constant="5"/>
-                                        </constraint>
-                                        <constraint firstItem="gWA-PN-6NH" firstAttribute="trailing" secondItem="n0l-mo-huc" secondAttribute="trailing" id="IwU-wa-pG2"/>
                                         <constraint firstItem="n0l-mo-huc" firstAttribute="leading" secondItem="yaO-JM-BEv" secondAttribute="trailing" constant="8" symbolic="YES" id="Rhg-tR-EZP"/>
-                                        <constraint firstItem="yaO-JM-BEv" firstAttribute="leading" secondItem="dqc-wW-p0Q" secondAttribute="leadingMargin" id="gUe-df-Dur"/>
-                                        <constraint firstItem="gWA-PN-6NH" firstAttribute="top" secondItem="dqc-wW-p0Q" secondAttribute="topMargin" constant="46" id="mBf-I5-tOt">
-                                            <variation key="widthClass=compact" constant="51"/>
+                                        <constraint firstItem="gWA-PN-6NH" firstAttribute="trailing" secondItem="dqc-wW-p0Q" secondAttribute="trailingMargin" id="XEo-H4-PaL">
+                                            <variation key="widthClass=compact" constant="14"/>
                                         </constraint>
+                                        <constraint firstItem="yaO-JM-BEv" firstAttribute="leading" secondItem="dqc-wW-p0Q" secondAttribute="leadingMargin" id="gUe-df-Dur"/>
                                         <constraint firstItem="yaO-JM-BEv" firstAttribute="top" secondItem="n0l-mo-huc" secondAttribute="top" id="ouA-yW-rh9"/>
+                                        <constraint firstItem="gWA-PN-6NH" firstAttribute="bottom" secondItem="8w0-cC-jmk" secondAttribute="bottom" id="pzF-DE-Q9Q">
+                                            <variation key="widthClass=compact" constant="3"/>
+                                        </constraint>
                                         <constraint firstItem="8w0-cC-jmk" firstAttribute="leading" secondItem="n0l-mo-huc" secondAttribute="leading" id="qGB-fX-0bl"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="yaO-JM-BEv" secondAttribute="bottom" constant="2" id="r3Y-M2-RJ7"/>
                                         <constraint firstItem="8w0-cC-jmk" firstAttribute="bottom" secondItem="dqc-wW-p0Q" secondAttribute="bottomMargin" id="rte-NR-n71"/>
@@ -709,18 +697,16 @@
                                             <exclude reference="gWA-PN-6NH"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <exclude reference="Afu-OR-fUz"/>
-                                            <exclude reference="EB2-2X-ipV"/>
-                                            <exclude reference="IwU-wa-pG2"/>
-                                            <exclude reference="mBf-I5-tOt"/>
                                             <exclude reference="gUe-df-Dur"/>
                                             <exclude reference="ouA-yW-rh9"/>
                                             <exclude reference="r3Y-M2-RJ7"/>
                                             <exclude reference="s4c-Gn-vLS"/>
-                                            <exclude reference="qGB-fX-0bl"/>
-                                            <exclude reference="rte-NR-n71"/>
                                             <exclude reference="Rhg-tR-EZP"/>
                                             <exclude reference="wSk-Vx-5HK"/>
+                                            <exclude reference="qGB-fX-0bl"/>
+                                            <exclude reference="rte-NR-n71"/>
+                                            <exclude reference="XEo-H4-PaL"/>
+                                            <exclude reference="pzF-DE-Q9Q"/>
                                         </mask>
                                     </variation>
                                     <variation key="widthClass=compact">
@@ -728,18 +714,16 @@
                                             <include reference="gWA-PN-6NH"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <include reference="Afu-OR-fUz"/>
-                                            <include reference="EB2-2X-ipV"/>
-                                            <include reference="IwU-wa-pG2"/>
-                                            <include reference="mBf-I5-tOt"/>
                                             <include reference="gUe-df-Dur"/>
                                             <include reference="ouA-yW-rh9"/>
                                             <include reference="r3Y-M2-RJ7"/>
                                             <include reference="s4c-Gn-vLS"/>
-                                            <include reference="qGB-fX-0bl"/>
-                                            <include reference="rte-NR-n71"/>
                                             <include reference="Rhg-tR-EZP"/>
                                             <include reference="wSk-Vx-5HK"/>
+                                            <include reference="qGB-fX-0bl"/>
+                                            <include reference="rte-NR-n71"/>
+                                            <include reference="XEo-H4-PaL"/>
+                                            <include reference="pzF-DE-Q9Q"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
