@@ -80,8 +80,8 @@ class Open163Ex2Spider(scrapy.Spider):
         
         hxs = scrapy.Selector(text = self.detail.page_source)
         
-        for info in hxs.xpath('//*[@id="list1"]/tbody/tr'):
-            alist = info.xpath('td[1]/a/@href').extract()
+        for info in hxs.xpath('//td[@class="u-ctitle"]'):
+            alist = info.xpath('a/@href').extract()
             if alist:
                 alink = alist[0]
                 
