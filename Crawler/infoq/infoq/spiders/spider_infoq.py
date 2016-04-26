@@ -56,7 +56,9 @@ class InfoqSpider(scrapy.Spider):
             for info in hxs.xpath('/html/body/div[1]/div/ul[2]/li'):
                 item = InfoqItem()
                 link = cleanse(info.xpath('a[1]/@href').extract())
-                item['link'] = 'http://www.infoq.com{0}'.format(link)
+                link = 'http://www.infoq.com{0}'.format(link)
+                if downloaded(link): return
+                item['link'] = link
                 yield item
 
             next = self.driver.find_element_by_xpath('/html/body/div[1]/div/ul[1]/li[2]/a')

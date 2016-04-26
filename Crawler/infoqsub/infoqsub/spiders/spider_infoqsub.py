@@ -21,29 +21,15 @@ def getlinks():
         links.append(jsonObj['link'])
     return links
 
-def getout():
-    out = []
-    inputfile = open('out.json','r')
-    lines = inputfile.readlines()
-    for line in lines:
-        out.append(json.loads(line))
-    inputfile.close()
-    return out
-
 def cleanse(alist):
     return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''
 
-def downloaded(link):
-    out = getout()
-    for js in out:
-        if js['link'] == link:
-            return True
-    return False
 
 class InfoqsubSpider(scrapy.Spider):
     name = 'infoqsub'
     allowed_domains = ["www.infoq.com"]
     start_urls = ["http://www.infoq.com/cn/presentations"]
+    out = []
 
     def __init__(self):
         scrapy.Spider.__init__(self)
@@ -55,6 +41,22 @@ class InfoqsubSpider(scrapy.Spider):
     def __del__(self):
         self.driver.close()
 
+    def getout(self):
+        if len(self.out) == 0:
+            inputfile = open('out.json','r')
+            lines = inputfile.readlines()
+            inputfile.close()
+            for line in lines:
+                self.out.append(json.loads(line))
+        return self.out
+
+    def downloaded(self, link):
+        out = self.getout()
+        for js in out:
+            if js['link'] == link:
+                return True
+        return False
+        
     def download(self, link):
         self.driver.get(link)
         time.sleep(2)
@@ -78,7 +80,7 @@ class InfoqsubSpider(scrapy.Spider):
 
         for link in getlinks():
             print link
-            isdownloaded = downloaded(link)
+            isdownloaded = self.downloaded(link)
             print 'is downloaded: {0}'.format(isdownloaded)
 
             if not isdownloaded:
