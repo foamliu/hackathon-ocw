@@ -8,7 +8,7 @@ output_file = codecs.open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-
 items = json.load(input_file, encoding='utf-8')
 
 for item in items:
-    if item['source'] == '新浪公开课':
+    if item['source'] == '果壳网':
         item['enabled'] = False
     else:
         item['enabled'] = True
