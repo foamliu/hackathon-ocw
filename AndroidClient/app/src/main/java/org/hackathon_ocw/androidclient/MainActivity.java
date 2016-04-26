@@ -16,6 +16,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.hackathon_ocw.androidclient.wxapi.WXEntryActivity;
 import org.json.JSONArray;
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity
     private String access_token;
     private String openid;
     private boolean login = false;
-
+    private int positionYixi;
     private Tracker mTracker;
 
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
@@ -261,9 +263,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try{
-                    String a = mListAdapter.getVideoUrlbyPosition(position);
+                    boolean isYixi = false;
 
-                    if(!mListAdapter.getVideoUrlbyPosition(position).equals("")){
+                    if(mListAdapter.getWebUrlbyPosition(position).contains("yixi")){
+                        parseYixiCourseStep1(mListAdapter.getWebUrlbyPosition(position));
+                        positionYixi = position;
+                        isYixi = true;
+                    }
+
+                    if(!mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi){
                         //Show subpage with videoUrl
                         Intent intent = new Intent();
                         intent.putExtra("id", mListAdapter.getIdbyPosition(position));
@@ -280,7 +288,7 @@ public class MainActivity extends AppCompatActivity
                         intent.setClass(MainActivity.this, DetailActivity.class);
                         startActivity(intent);
                     }
-                    else{
+                    else if (mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi){
                         //Show subpage with Webview
                         Intent intent = new Intent();
                         intent.putExtra("webUrl",mListAdapter.getWebUrlbyPosition(position));
@@ -328,6 +336,72 @@ public class MainActivity extends AppCompatActivity
     }
     */
 
+    public void parseYixiCourseStep1(String videoUrl){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = videoUrl;
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.contains("vid")){
+                            Pattern pattern = Pattern.compile("(?<=vid: \').*(?=\')");
+                            Matcher matcher = pattern.matcher(response);
+                            if(matcher.find()) {
+                                parseYixiCourseStep2(matcher.group(0));
+                                //Log.e("Get regex", matcher.group(0));
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get error", error.toString());
+            }
+        });
+        queue.add(stringRequest);
+    }
+
+    public void parseYixiCourseStep2(String token){
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String url = "http://api.yixi.tv/youku.php?id=" + token;
+        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONObject("files").getJSONObject("3gphd").getJSONArray("segs");
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String link = jsonObject.getString("url").replace("\\","");
+
+                            //Show subpage with videoUrl
+                            Intent intent = new Intent();
+                            intent.putExtra("id", mListAdapter.getIdbyPosition(positionYixi));
+                            intent.putExtra("title", mListAdapter.getTitlebyPosition(positionYixi));
+                            intent.putExtra("videoUrl", link);
+                            intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(positionYixi));
+                            intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(positionYixi));
+                            intent.putExtra("userid", UserProfile.getUserProfile().getUserid());
+                            if(UserProfile.getUserProfile().getNickname() != null) {
+                                intent.putExtra("nickname", UserProfile.getUserProfile().getNickname());
+                                intent.putExtra("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
+                            }
+
+                            intent.setClass(MainActivity.this, DetailActivity.class);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+            }
+        });
+        requestQueue.add(jsonRequest);
+    }
+
     public void toolbarInit() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -348,8 +422,6 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
-
-
             }
         });
     }
