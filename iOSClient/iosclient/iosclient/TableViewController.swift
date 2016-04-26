@@ -84,6 +84,22 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     
     func getInitId(){
         User.sharedManager.deviceid = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        //检查本地userProfile文件
+        let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+        let documentsDirectoryPath = NSURL(string: documentsDirectoryPathString)!
+        let filePath = String(documentsDirectoryPath.URLByAppendingPathComponent("userProfile.json"))
+        do{
+            let fileContent = try NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
+            let json = try NSJSONSerialization.JSONObjectWithData(fileContent.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
+            let userid = json["_id"] as! Int
+            User.sharedManager.userid = userid
+        }catch let error as NSError{
+            print(error)
+            getInitFromServer()
+        }
+    }
+    
+    func getInitFromServer(){
         //使用deviceid换取userid
         var basicProfile = [String: AnyObject]()
         basicProfile["deviceid"] = User.sharedManager.deviceid
