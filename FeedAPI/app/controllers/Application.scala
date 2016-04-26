@@ -102,14 +102,13 @@ object Application {
 
         val items: Seq[Course] = getCourses
         val itemIDs: List[Long] = recommend(userID)
-        val candidates: Seq[Course] = items.filter(i => itemIDs.contains(i.itemID))
+        var candidates: Seq[Course] = items.filter(i => itemIDs.contains(i.itemID))
 
-        if (candidates.size > 0) {
-            candidates
-        } else {
-            scala.util.Random.shuffle(items).take(howMany)
+        if (candidates.size == 0) {
+            candidates = scala.util.Random.shuffle(items).take(howMany)
         }
 
+        candidates.filter(_.enabled)
     }
 
     def refresh() = {
