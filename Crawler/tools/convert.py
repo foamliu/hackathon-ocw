@@ -25,7 +25,7 @@ output_file = codecs.open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI
 items = json.load(input_file_2, encoding='utf-8')
 
 lines = input_file_1.readlines()
-i = 20793
+i = 28955
 for line in lines:
     line = line.replace('\\','\\\\')
     #print(line)
@@ -33,6 +33,7 @@ for line in lines:
     if not downloaded(items, item['link']):
         item['item_id'] = i
         item['duration'] = ''
+        item['enabled'] = True
         items.append(item)
         i += 1
 
