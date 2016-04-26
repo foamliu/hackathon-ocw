@@ -21,29 +21,14 @@ def getlinks():
         links.append(item['link'])
     return links
 
-def getout():
-    out = []
-    inputfile = open('out.json','r')
-    lines = inputfile.readlines()
-    inputfile.close()
-    for line in lines:
-        out.append(json.loads(line))
-    return out
-
 def cleanse(alist):
     return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''
-
-def downloaded(link):
-    out = getout()
-    for js in out:
-        if js['link'] == link:
-            return True
-    return False
 
 class Open163ExSpider(scrapy.Spider):
     name = 'open163exsub'
     allowed_domains = ["open.163.com"]
     start_urls = ["http://open.163.com"]
+    out = []
 
     def __init__(self):
         scrapy.Spider.__init__(self)
@@ -54,6 +39,22 @@ class Open163ExSpider(scrapy.Spider):
 
     def __del__(self):
         self.driver.close()
+
+    def getout(self):
+        if len(self.out) == 0:
+            inputfile = open('out.json','r')
+            lines = inputfile.readlines()
+            inputfile.close()
+            for line in lines:
+                self.out.append(json.loads(line))
+        return self.out
+
+    def downloaded(self, link):
+        out = self.getout()
+        for js in out:
+            if js['link'] == link:
+                return True
+        return False
 
     def download(self, link):
         self.driver.get(link)
@@ -94,7 +95,7 @@ class Open163ExSpider(scrapy.Spider):
         links.reverse()
         for link in links:
             print link
-            isdownloaded = downloaded(link)
+            isdownloaded = self.downloaded(link)
             print 'is downloaded: {0}'.format(isdownloaded)
 
             if not isdownloaded:
@@ -103,7 +104,7 @@ class Open163ExSpider(scrapy.Spider):
                     yield item
                 except Exception as err:
                     print(err)
-                    time.sleep(10)
+                    #time.sleep(10)
                     #break
 
 
