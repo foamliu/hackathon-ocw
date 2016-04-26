@@ -13,6 +13,8 @@ class MenuController: UITableViewController {
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var userNickname: UILabel!
     
+    var alert: UIAlertController!
+    
     let kWXAPP_ID: String = "wx9b493c5b54472578"
     let kWXAPP_SECRET: String = "211b995337b10a7ef9c32d511e7c4576"
     
@@ -27,7 +29,30 @@ class MenuController: UITableViewController {
     }
     
     @IBAction func loginBtn(sender: AnyObject) {
-        sendWXAuthRequest()
+        if(WXApi.isWXAppInstalled()){
+            sendWXAuthRequest()
+        }
+        else{
+            notifyUser("请先安装微信", message: "", timeToDissapear: 200)
+        }
+        
+    }
+    
+    func notifyUser(title: String, message: String, timeToDissapear: Int) -> Void
+    {
+        alert = UIAlertController(title: title,message: message,preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let cancelAction = UIAlertAction(title: "OK",style: .Cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+        UIApplication.sharedApplication().keyWindow?.rootViewController!.presentViewController(alert, animated: true,completion: nil)
+        
+        // Delay the dismissal by timeToDissapear seconds
+        let delay = Double(timeToDissapear) * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) { [weak self] in
+            self!.alert.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func sendWXAuthRequest(){
