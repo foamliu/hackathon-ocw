@@ -1,34 +1,27 @@
-#合并历次爬取结果并去重
-
+#把duration融入items.json
 import json
-from pprint import pprint
-from PageDataLinklast import PageDataLinklast
-from PageDataLink import PageDataLink
+import codecs
 
-file = open(r"C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\Crawler\open163ex\out.json", "r", encoding="utf-8")
-output = open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\Crawler\open163ex\links.json', 'w', encoding='utf-8')
-links = []
-'''lines = file.readlines()
+def getDuration(durations, link):
+    for item in durations:
+        if item['link'] == link:
+            return item['duration']
+    return ''
 
-output.close()'''
 
-items = json.load(file)
+input_file_1 = open(r'C:\Users\foamliu.FAREAST\Desktop\video_info_1.0_free\NReco.VideoInfo\examples\NReco.VideoInfo.Examples.GetFileInfo\bin\Debug\result.json', "r", encoding="utf-8")
+input_file_2 = open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\items.json', "r", encoding="utf-8")
+output_file = codecs.open(r'C:\Users\foamliu.FAREAST\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\output.json', "w", encoding="utf-8")
 
+items = json.load(input_file_2, encoding='utf-8')
+durations = json.load(input_file_1, encoding='utf-8')
+
+count = 0
 for item in items:
-    links.append(item["link"])
+    if item['source'] == '网易公开课' and item['duration'] == '':
+        #item['duration'] = getDuration(durations, item['link'])
+        count += 1
 
-for link in PageDataLinklast().page:
-    links.append(link)
+print (count)
 
-for link in PageDataLink().page:
-    links.append(link)
-print(len(links))
-links=list(set(links))
-print(len(links))
-jsonList = {'links':[]}
-for link in links:
-    jsonList['links'].append(link)
-
-output.write(json.dumps(jsonList))
-
-
+json.dump(items ,output_file, indent=4,ensure_ascii=False,sort_keys=True)
