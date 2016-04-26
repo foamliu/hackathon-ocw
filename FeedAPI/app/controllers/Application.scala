@@ -35,7 +35,7 @@ import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
 
 object Application {
 
-    private val howMany = 10
+    private val howMany = 20
     private val n = 2 // Nearest N User Neighborhood
     private val item_file = "app/assets/jsons/items.json"
 
@@ -52,7 +52,7 @@ object Application {
             val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
             val json: JsValue = Json.parse(source)
 
-            courses = json.as[Seq[Course]]
+            courses = json.as[Seq[Course]].filter(_.enabled)
         }
 
         courses
@@ -108,7 +108,7 @@ object Application {
             candidates = scala.util.Random.shuffle(items).take(howMany)
         }
 
-        candidates.filter(_.enabled)
+        candidates
     }
 
     def refresh() = {
