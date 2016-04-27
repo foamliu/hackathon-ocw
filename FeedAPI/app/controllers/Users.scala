@@ -91,7 +91,7 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
         
         val userID: Long = Await.result(userIDFuture, Duration.Inf)
 
-        Logger.info("Users.register. Deviceid found:{0}, userID:{1}, deviceID:{2}".format(found toString, userID toString, deviceid))
+        Logger.info("Users.register. Deviceid found:%s, userID:%d, deviceID:%s".format(found toString, userID, deviceid))
         
         if (!found)
         {

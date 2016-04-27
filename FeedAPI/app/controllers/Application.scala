@@ -85,7 +85,7 @@ object Application {
         try {
             var recommendations = getRecommender.recommend(userID, howMany)
             if (recommendations.size > 0) {
-                Logger.info("Real recommendations: userID={0} result size={1}.".format(userID, recommendations.size))
+                Logger.info("Real recommendations: userID=%d, result size=%d.".format(userID, recommendations.size))
             }
 
             for (r <- recommendations) list = r.getItemID :: list
