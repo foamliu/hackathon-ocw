@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TagListView
 import Alamofire
 
 class SearchViewController: UIViewController, UISearchBarDelegate, TagListViewDelegate {

@@ -8,7 +8,6 @@
 
 import UIKit
 import Foundation
-import TagListView
 
 class PopoverViewController: UIViewController, TagListViewDelegate {
     
