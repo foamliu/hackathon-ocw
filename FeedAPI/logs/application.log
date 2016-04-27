@@ -3742,3 +3742,1838 @@ true
 2016-04-25 02:05:01,647 - [INFO] - from application in application-akka.actor.default-dispatcher-133 
 true
 
+2016-04-25 02:29:28,482 - [INFO] - from application in application-akka.actor.default-dispatcher-152 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-25 02:29:28,487 - [INFO] - from application in application-akka.actor.default-dispatcher-152 
+413
+
+2016-04-25 02:29:28,487 - [INFO] - from application in application-akka.actor.default-dispatcher-152 
+true
+
+2016-04-25 02:30:08,430 - [INFO] - from application in application-akka.actor.default-dispatcher-159 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-25 02:30:08,437 - [INFO] - from application in application-akka.actor.default-dispatcher-159 
+413
+
+2016-04-25 02:30:08,437 - [INFO] - from application in application-akka.actor.default-dispatcher-159 
+true
+
+2016-04-25 02:44:32,452 - [INFO] - from application in application-akka.actor.default-dispatcher-165 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-25 02:44:32,455 - [INFO] - from application in application-akka.actor.default-dispatcher-165 
+413
+
+2016-04-25 02:44:32,455 - [INFO] - from application in application-akka.actor.default-dispatcher-165 
+true
+
+2016-04-25 02:44:45,772 - [INFO] - from application in application-akka.actor.default-dispatcher-167 
+413,10987,0.000000
+
+2016-04-25 02:44:57,514 - [INFO] - from application in application-akka.actor.default-dispatcher-166 
+413,10396,0.000000
+
+2016-04-25 02:51:20,357 - [INFO] - from application in application-akka.actor.default-dispatcher-166 
+461,23283,3.000000
+
+2016-04-25 02:51:23,626 - [INFO] - from application in application-akka.actor.default-dispatcher-172 
+461,18075,3.000000
+
+2016-04-25 02:52:29,477 - [INFO] - from application in application-akka.actor.default-dispatcher-166 
+461,23283,3.000000
+
+2016-04-25 02:54:07,254 - [INFO] - from application in application-akka.actor.default-dispatcher-166 
+413,8010,3.000000
+
+2016-04-25 02:54:18,767 - [INFO] - from application in application-akka.actor.default-dispatcher-183 
+413,16766,3.000000
+
+2016-04-25 02:54:32,599 - [INFO] - from application in application-akka.actor.default-dispatcher-179 
+413,2390,3.000000
+
+2016-04-25 03:06:41,977 - [INFO] - from application in application-akka.actor.default-dispatcher-184 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-25 03:06:41,981 - [INFO] - from application in application-akka.actor.default-dispatcher-184 
+413
+
+2016-04-25 03:06:41,982 - [INFO] - from application in application-akka.actor.default-dispatcher-184 
+true
+
+2016-04-25 03:06:47,602 - [INFO] - from application in application-akka.actor.default-dispatcher-188 
+413,6624,3.000000
+
+2016-04-25 03:09:10,317 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+67BABCB1-24A2-49D5-B4A3-520F6633A5F2
+
+2016-04-25 03:09:10,324 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+516
+
+2016-04-25 03:09:10,325 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+false
+
+2016-04-25 03:09:25,386 - [INFO] - from application in application-akka.actor.default-dispatcher-192 
+516,19039,3.000000
+
+2016-04-25 03:10:06,065 - [INFO] - from application in application-akka.actor.default-dispatcher-194 
+516,3279,0.000000
+
+2016-04-25 03:17:34,184 - [INFO] - from application in application-akka.actor.default-dispatcher-201 
+516,27350,3.000000
+
+2016-04-25 03:17:57,054 - [INFO] - from application in application-akka.actor.default-dispatcher-201 
+516,14493,3.000000
+
+2016-04-25 03:18:44,997 - [INFO] - from application in application-akka.actor.default-dispatcher-201 
+516,20867,0.000000
+
+2016-04-25 03:19:07,628 - [INFO] - from application in application-akka.actor.default-dispatcher-201 
+516,20927,0.000000
+
+2016-04-25 03:23:00,486 - [INFO] - from application in application-akka.actor.default-dispatcher-201 
+516,21179,3.000000
+
+2016-04-25 03:23:11,065 - [INFO] - from application in application-akka.actor.default-dispatcher-210 
+516,21179,4.000000
+
+2016-04-25 06:07:28,801 - [INFO] - from application in application-akka.actor.default-dispatcher-222 
+5c7cac1c5cb86eb1
+
+2016-04-25 06:07:28,804 - [INFO] - from application in application-akka.actor.default-dispatcher-222 
+8
+
+2016-04-25 06:07:28,804 - [INFO] - from application in application-akka.actor.default-dispatcher-222 
+true
+
+2016-04-25 06:07:29,197 - [INFO] - from application in application-akka.actor.default-dispatcher-223 
+5c7cac1c5cb86eb1
+
+2016-04-25 06:07:29,199 - [INFO] - from application in application-akka.actor.default-dispatcher-223 
+8
+
+2016-04-25 06:07:29,199 - [INFO] - from application in application-akka.actor.default-dispatcher-223 
+true
+
+2016-04-25 06:07:40,411 - [INFO] - from application in application-akka.actor.default-dispatcher-227 
+8,13032,3.000000
+
+2016-04-25 06:21:55,482 - [INFO] - from application in application-akka.actor.default-dispatcher-230 
+8,628,3.000000
+
+2016-04-25 06:22:21,380 - [INFO] - from application in application-akka.actor.default-dispatcher-232 
+8,27602,3.000000
+
+2016-04-25 06:31:00,009 - [INFO] - from application in application-akka.actor.default-dispatcher-237 
+5820ca48d418d035
+
+2016-04-25 06:31:00,015 - [INFO] - from application in application-akka.actor.default-dispatcher-237 
+517
+
+2016-04-25 06:31:00,015 - [INFO] - from application in application-akka.actor.default-dispatcher-237 
+false
+
+2016-04-25 06:32:48,266 - [INFO] - from application in application-akka.actor.default-dispatcher-242 
+8,22990,3.000000
+
+2016-04-25 06:33:40,977 - [INFO] - from application in application-akka.actor.default-dispatcher-244 
+8,13859,3.000000
+
+2016-04-25 06:33:47,639 - [INFO] - from application in application-akka.actor.default-dispatcher-250 
+8,13859,3.000000
+
+2016-04-25 06:34:03,051 - [INFO] - from application in application-akka.actor.default-dispatcher-249 
+8,11881,3.000000
+
+2016-04-25 06:34:13,550 - [INFO] - from application in application-akka.actor.default-dispatcher-249 
+8,14252,3.000000
+
+2016-04-25 06:34:22,576 - [INFO] - from application in application-akka.actor.default-dispatcher-250 
+8,3310,3.000000
+
+2016-04-25 06:34:56,159 - [INFO] - from application in application-akka.actor.default-dispatcher-248 
+3,4774,3.000000
+
+2016-04-25 06:44:48,237 - [INFO] - from application in application-akka.actor.default-dispatcher-251 
+5c7cac1c5cb86eb1
+
+2016-04-25 06:44:48,239 - [INFO] - from application in application-akka.actor.default-dispatcher-251 
+8
+
+2016-04-25 06:44:48,239 - [INFO] - from application in application-akka.actor.default-dispatcher-251 
+true
+
+2016-04-25 06:44:59,219 - [INFO] - from application in application-akka.actor.default-dispatcher-257 
+8,28720,3.000000
+
+2016-04-25 06:45:41,000 - [INFO] - from application in application-akka.actor.default-dispatcher-255 
+8,26773,3.000000
+
+2016-04-25 06:45:41,466 - [WARN] - from application in application-akka.actor.default-dispatcher-258 
+{"STACK_TRACE":"java.lang.RuntimeException: Unable to start activity ComponentInfo{org.hackathon_ocw.androidclient/org.hackathon_ocw.androidclient.DetailActivity}: java.lang.RuntimeException: Binary XML file line #45: You must supply a layout_height attribute.\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2198)\n\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2247)\n\tat android.app.ActivityThread.access$800(ActivityThread.java:139)\n\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1210)\n\tat android.os.Handler.dispatchMessage(Handler.java:102)\n\tat android.os.Looper.loop(Looper.java:136)\n\tat android.app.ActivityThread.main(ActivityThread.java:5028)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:515)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:788)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:604)\n\tat dalvik.system.NativeStart.main(Native Method)\nCaused by: java.lang.RuntimeException: Binary XML file line #45: You must supply a layout_height attribute.\n\tat android.content.res.TypedArray.getLayoutDimension(TypedArray.java:492)\n\tat android.view.ViewGroup$LayoutParams.setBaseAttributes(ViewGroup.java:5949)\n\tat android.view.ViewGroup$MarginLayoutParams.<init>(ViewGroup.java:6117)\n\tat android.widget.LinearLayout$LayoutParams.<init>(LinearLayout.java:1831)\n\tat android.widget.LinearLayout.generateLayoutParams(LinearLayout.java:1743)\n\tat android.widget.LinearLayout.generateLayoutParams(LinearLayout.java:58)\n\tat android.view.LayoutInflater.rInflate(LayoutInflater.java:760)\n\tat android.view.LayoutInflater.rInflate(LayoutInflater.java:761)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:495)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:400)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:353)\n\tat android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:267)\n\tat android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:129)\n\tat org.hackathon_ocw.androidclient.DetailActivity.onCreate(DetailActivity.java:128)\n\tat android.app.Activity.performCreate(Activity.java:5241)\n\tat android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1087)\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2162)\n\t... 11 more\njava.lang.RuntimeException: Binary XML file line #45: You must supply a layout_height attribute.\n\tat android.content.res.TypedArray.getLayoutDimension(TypedArray.java:492)\n\tat android.view.ViewGroup$LayoutParams.setBaseAttributes(ViewGroup.java:5949)\n\tat android.view.ViewGroup$MarginLayoutParams.<init>(ViewGroup.java:6117)\n\tat android.widget.LinearLayout$LayoutParams.<init>(LinearLayout.java:1831)\n\tat android.widget.LinearLayout.generateLayoutParams(LinearLayout.java:1743)\n\tat android.widget.LinearLayout.generateLayoutParams(LinearLayout.java:58)\n\tat android.view.LayoutInflater.rInflate(LayoutInflater.java:760)\n\tat android.view.LayoutInflater.rInflate(LayoutInflater.java:761)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:495)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:400)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:353)\n\tat android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:267)\n\tat android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:129)\n\tat org.hackathon_ocw.androidclient.DetailActivity.onCreate(DetailActivity.java:128)\n\tat android.app.Activity.performCreate(Activity.java:5241)\n\tat android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1087)\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2162)\n\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2247)\n\tat android.app.ActivityThread.access$800(ActivityThread.java:139)\n\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1210)\n\tat android.os.Handler.dispatchMessage(Handler.java:102)\n\tat android.os.Looper.loop(Looper.java:136)\n\tat android.app.ActivityThread.main(ActivityThread.java:5028)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:515)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:788)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:604)\n\tat dalvik.system.NativeStart.main(Native Method)\n","PHONE_MODEL":"MI PAD","APP_VERSION_NAME":"0.1.1.0","USER_CRASH_DATE":"2016-04-25T14:45:40.969+08:00","ANDROID_VERSION":"4.4.4","USER_APP_START_DATE":"2016-04-25T14:45:37.575+08:00"}
+
+2016-04-25 06:46:33,111 - [INFO] - from application in application-akka.actor.default-dispatcher-255 
+8,23227,3.000000
+
+2016-04-25 06:47:19,030 - [INFO] - from application in application-akka.actor.default-dispatcher-255 
+8,5079,3.000000
+
+2016-04-25 06:47:38,789 - [INFO] - from application in application-akka.actor.default-dispatcher-265 
+8,4941,3.000000
+
+2016-04-25 06:48:07,841 - [INFO] - from application in application-akka.actor.default-dispatcher-267 
+8,22661,3.000000
+
+2016-04-25 06:49:08,815 - [INFO] - from application in application-akka.actor.default-dispatcher-255 
+8,1233,3.000000
+
+2016-04-25 06:49:30,218 - [INFO] - from application in application-akka.actor.default-dispatcher-270 
+8,4772,3.000000
+
+2016-04-25 07:21:23,140 - [INFO] - from application in application-akka.actor.default-dispatcher-255 
+8,3006,3.000000
+
+2016-04-25 07:22:19,028 - [INFO] - from application in application-akka.actor.default-dispatcher-255 
+3,4774,3.000000
+
+2016-04-25 07:23:39,063 - [INFO] - from application in application-akka.actor.default-dispatcher-255 
+8,19886,3.000000
+
+2016-04-25 07:23:46,100 - [INFO] - from application in application-akka.actor.default-dispatcher-282 
+8,23046,3.000000
+
+2016-04-25 07:26:03,810 - [INFO] - from application in application-akka.actor.default-dispatcher-280 
+8,23015,3.000000
+
+2016-04-25 07:27:22,053 - [INFO] - from application in application-akka.actor.default-dispatcher-280 
+8,20796,3.000000
+
+2016-04-25 07:28:39,521 - [INFO] - from application in application-akka.actor.default-dispatcher-290 
+8,5600,3.000000
+
+2016-04-25 07:28:44,955 - [INFO] - from application in application-akka.actor.default-dispatcher-296 
+8,24763,3.000000
+
+2016-04-25 07:29:01,790 - [INFO] - from application in application-akka.actor.default-dispatcher-293 
+8,2521,3.000000
+
+2016-04-25 07:29:48,522 - [INFO] - from application in application-akka.actor.default-dispatcher-294 
+3,3489,3.000000
+
+2016-04-25 07:30:26,013 - [INFO] - from application in application-akka.actor.default-dispatcher-297 
+3,25318,3.000000
+
+2016-04-25 07:30:48,007 - [INFO] - from application in application-akka.actor.default-dispatcher-302 
+3,506,3.000000
+
+2016-04-25 07:31:02,812 - [INFO] - from application in application-akka.actor.default-dispatcher-303 
+3,20728,3.000000
+
+2016-04-25 07:31:15,900 - [INFO] - from application in application-akka.actor.default-dispatcher-303 
+3,26272,3.000000
+
+2016-04-25 07:31:55,450 - [INFO] - from application in application-akka.actor.default-dispatcher-305 
+3,25134,3.000000
+
+2016-04-25 07:32:37,195 - [INFO] - from application in application-akka.actor.default-dispatcher-294 
+3,3535,3.000000
+
+2016-04-25 07:35:40,061 - [INFO] - from application in application-akka.actor.default-dispatcher-294 
+8,2521,3.000000
+
+2016-04-25 07:40:39,512 - [INFO] - from application in application-akka.actor.default-dispatcher-312 
+8,26616,3.000000
+
+2016-04-25 07:40:40,084 - [WARN] - from application in application-akka.actor.default-dispatcher-319 
+{"STACK_TRACE":"java.lang.RuntimeException: Unable to start activity ComponentInfo{org.hackathon_ocw.androidclient/org.hackathon_ocw.androidclient.DetailActivity}: java.lang.NullPointerException\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2198)\n\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2247)\n\tat android.app.ActivityThread.access$800(ActivityThread.java:139)\n\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1210)\n\tat android.os.Handler.dispatchMessage(Handler.java:102)\n\tat android.os.Looper.loop(Looper.java:136)\n\tat android.app.ActivityThread.main(ActivityThread.java:5028)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:515)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:788)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:604)\n\tat dalvik.system.NativeStart.main(Native Method)\nCaused by: java.lang.NullPointerException\n\tat org.hackathon_ocw.androidclient.DetailActivity.onCreate(DetailActivity.java:156)\n\tat android.app.Activity.performCreate(Activity.java:5241)\n\tat android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1087)\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2162)\n\t... 11 more\njava.lang.NullPointerException\n\tat org.hackathon_ocw.androidclient.DetailActivity.onCreate(DetailActivity.java:156)\n\tat android.app.Activity.performCreate(Activity.java:5241)\n\tat android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1087)\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2162)\n\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2247)\n\tat android.app.ActivityThread.access$800(ActivityThread.java:139)\n\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1210)\n\tat android.os.Handler.dispatchMessage(Handler.java:102)\n\tat android.os.Looper.loop(Looper.java:136)\n\tat android.app.ActivityThread.main(ActivityThread.java:5028)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:515)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:788)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:604)\n\tat dalvik.system.NativeStart.main(Native Method)\n","PHONE_MODEL":"MI PAD","APP_VERSION_NAME":"0.1.1.0","USER_CRASH_DATE":"2016-04-25T15:40:39.692+08:00","ANDROID_VERSION":"4.4.4","USER_APP_START_DATE":"2016-04-25T15:40:37.425+08:00"}
+
+2016-04-25 07:43:13,438 - [INFO] - from application in application-akka.actor.default-dispatcher-320 
+8,26694,3.000000
+
+2016-04-25 07:45:54,949 - [INFO] - from application in application-akka.actor.default-dispatcher-320 
+8,26227,3.000000
+
+2016-04-25 07:46:26,168 - [INFO] - from application in application-akka.actor.default-dispatcher-326 
+8,27633,3.000000
+
+2016-04-25 07:47:33,097 - [INFO] - from application in application-akka.actor.default-dispatcher-329 
+8,2244,3.000000
+
+2016-04-25 07:48:00,475 - [INFO] - from application in application-akka.actor.default-dispatcher-331 
+8,28904,3.000000
+
+2016-04-25 07:49:08,418 - [INFO] - from application in application-akka.actor.default-dispatcher-329 
+8,3523,3.000000
+
+2016-04-25 07:50:05,784 - [INFO] - from application in application-akka.actor.default-dispatcher-335 
+8,401,3.000000
+
+2016-04-25 07:50:48,692 - [INFO] - from application in application-akka.actor.default-dispatcher-339 
+8,27506,3.000000
+
+2016-04-25 07:51:59,502 - [INFO] - from application in application-akka.actor.default-dispatcher-340 
+8,22172,3.000000
+
+2016-04-25 07:52:00,865 - [WARN] - from application in application-akka.actor.default-dispatcher-346 
+{"STACK_TRACE":"java.lang.NullPointerException\n\tat org.hackathon_ocw.androidclient.DetailActivity.commentShowPopup(DetailActivity.java:455)\n\tat org.hackathon_ocw.androidclient.DetailActivity$7.onFocusChange(DetailActivity.java:421)\n\tat android.view.View.onFocusChanged(View.java:4842)\n\tat android.widget.TextView.onFocusChanged(TextView.java:7656)\n\tat android.view.View.handleFocusGainInternal(View.java:4623)\n\tat android.view.View.requestFocusNoSearch(View.java:7007)\n\tat android.view.View.requestFocus(View.java:6986)\n\tat android.view.View.requestFocus(View.java:6953)\n\tat android.view.View.requestFocus(View.java:6932)\n\tat android.view.View.onTouchEvent(View.java:8661)\n\tat android.widget.TextView.onTouchEvent(TextView.java:7716)\n\tat android.view.View.dispatchTouchEvent(View.java:7714)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2216)\n\tat android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:1959)\n\tat com.android.internal.policy.impl.PhoneWindow$DecorView.superDispatchTouchEvent(PhoneWindow.java:2081)\n\tat com.android.internal.policy.impl.PhoneWindow.superDispatchTouchEvent(PhoneWindow.java:1520)\n\tat android.app.Activity.dispatchTouchEvent(Activity.java:2468)\n\tat android.support.v7.view.WindowCallbackWrapper.dispatchTouchEvent(WindowCallbackWrapper.java:60)\n\tat android.support.v7.view.WindowCallbackWrapper.dispatchTouchEvent(WindowCallbackWrapper.java:60)\n\tat com.android.internal.policy.impl.PhoneWindow$DecorView.dispatchTouchEvent(PhoneWindow.java:2029)\n\tat android.view.View.dispatchPointerEvent(View.java:7894)\n\tat android.view.ViewRootImpl$ViewPostImeInputStage.processPointerEvent(ViewRootImpl.java:4115)\n\tat android.view.ViewRootImpl$ViewPostImeInputStage.onProcess(ViewRootImpl.java:3994)\n\tat android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3553)\n\tat android.view.ViewRootImpl$InputStage.onDeliverToNext(ViewRootImpl.java:3603)\n\tat android.view.ViewRootImpl$InputStage.forward(ViewRootImpl.java:3572)\n\tat android.view.ViewRootImpl$AsyncInputStage.forward(ViewRootImpl.java:3679)\n\tat android.view.ViewRootImpl$InputStage.apply(ViewRootImpl.java:3580)\n\tat android.view.ViewRootImpl$AsyncInputStage.apply(ViewRootImpl.java:3736)\n\tat android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3553)\n\tat android.view.ViewRootImpl$InputStage.onDeliverToNext(ViewRootImpl.java:3603)\n\tat android.view.ViewRootImpl$InputStage.forward(ViewRootImpl.java:3572)\n\tat android.view.ViewRootImpl$InputStage.apply(ViewRootImpl.java:3580)\n\tat android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3553)\n\tat android.view.ViewRootImpl.deliverInputEvent(ViewRootImpl.java:5736)\n\tat android.view.ViewRootImpl.doProcessInputEvents(ViewRootImpl.java:5716)\n\tat android.view.ViewRootImpl.enqueueInputEvent(ViewRootImpl.java:5687)\n\tat android.view.ViewRootImpl$WindowInputEventReceiver.onInputEvent(ViewRootImpl.java:5816)\n\tat android.view.InputEventReceiver.dispatchInputEvent(InputEventReceiver.java:185)\n\tat android.os.MessageQueue.nativePollOnce(Native Method)\n\tat android.os.MessageQueue.next(MessageQueue.java:138)\n\tat android.os.Looper.loop(Looper.java:123)\n\tat android.app.ActivityThread.main(ActivityThread.java:5028)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:515)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:788)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:604)\n\tat dalvik.system.NativeStart.main(Native Method)\n","PHONE_MODEL":"MI PAD","APP_VERSION_NAME":"0.1.1.0","USER_CRASH_DATE":"2016-04-25T15:52:00.723+08:00","ANDROID_VERSION":"4.4.4","USER_APP_START_DATE":"2016-04-25T15:51:48.984+08:00"}
+
+2016-04-25 07:53:30,284 - [INFO] - from application in application-akka.actor.default-dispatcher-347 
+8,27015,3.000000
+
+2016-04-25 07:54:05,779 - [INFO] - from application in application-akka.actor.default-dispatcher-348 
+8,3751,3.000000
+
+2016-04-25 07:55:24,071 - [INFO] - from application in application-akka.actor.default-dispatcher-352 
+8,26597,3.000000
+
+2016-04-25 07:56:10,118 - [INFO] - from application in application-akka.actor.default-dispatcher-352 
+3,3535,3.000000
+
+2016-04-25 07:56:49,952 - [INFO] - from application in application-akka.actor.default-dispatcher-356 
+8,3751,3.000000
+
+2016-04-25 08:22:36,027 - [INFO] - from application in application-akka.actor.default-dispatcher-369 
+5,6787,3.000000
+
+2016-04-25 11:52:59,468 - [INFO] - from application in application-akka.actor.default-dispatcher-377 
+907c48d4d4d3472e
+
+2016-04-25 11:52:59,473 - [INFO] - from application in application-akka.actor.default-dispatcher-377 
+518
+
+2016-04-25 11:52:59,473 - [INFO] - from application in application-akka.actor.default-dispatcher-377 
+false
+
+2016-04-25 11:53:57,799 - [INFO] - from application in application-akka.actor.default-dispatcher-381 
+518,6235,3.000000
+
+2016-04-25 11:56:12,678 - [INFO] - from application in application-akka.actor.default-dispatcher-387 
+8,5511,3.000000
+
+2016-04-25 11:57:17,893 - [INFO] - from application in application-akka.actor.default-dispatcher-388 
+8,6626,3.000000
+
+2016-04-25 11:57:53,230 - [INFO] - from application in application-akka.actor.default-dispatcher-388 
+8,6626,3.000000
+
+2016-04-25 11:59:20,241 - [INFO] - from application in application-akka.actor.default-dispatcher-395 
+8,26,3.000000
+
+2016-04-25 12:09:56,594 - [INFO] - from application in application-akka.actor.default-dispatcher-395 
+518,21443,3.000000
+
+2016-04-25 13:11:58,431 - [INFO] - from application in application-akka.actor.default-dispatcher-411 
+37e965d5c22f540c
+
+2016-04-25 13:11:58,436 - [INFO] - from application in application-akka.actor.default-dispatcher-411 
+519
+
+2016-04-25 13:11:58,436 - [INFO] - from application in application-akka.actor.default-dispatcher-411 
+false
+
+2016-04-25 16:06:01,698 - [INFO] - from application in application-akka.actor.default-dispatcher-422 
+7c6547b1c8af9344
+
+2016-04-25 16:06:01,702 - [INFO] - from application in application-akka.actor.default-dispatcher-422 
+520
+
+2016-04-25 16:06:01,702 - [INFO] - from application in application-akka.actor.default-dispatcher-422 
+false
+
+2016-04-25 21:21:50,435 - [INFO] - from application in application-akka.actor.default-dispatcher-467 
+09B9EDE3-48B9-47CD-A43E-C7DDAF630870
+
+2016-04-25 21:21:50,438 - [INFO] - from application in application-akka.actor.default-dispatcher-467 
+521
+
+2016-04-25 21:21:50,438 - [INFO] - from application in application-akka.actor.default-dispatcher-467 
+false
+
+2016-04-25 21:21:51,744 - [INFO] - from application in application-akka.actor.default-dispatcher-471 
+userID=0 recommendations.size=10
+
+2016-04-25 21:21:55,774 - [INFO] - from application in application-akka.actor.default-dispatcher-471 
+521,838,3.000000
+
+2016-04-25 21:22:00,685 - [INFO] - from application in application-akka.actor.default-dispatcher-471 
+521,838,3.000000
+
+2016-04-25 21:22:36,173 - [INFO] - from application in application-akka.actor.default-dispatcher-467 
+E0B1DD55-6A04-4259-AFE4-3DE33668CE45
+
+2016-04-25 21:22:36,186 - [INFO] - from application in application-akka.actor.default-dispatcher-467 
+522
+
+2016-04-25 21:22:36,187 - [INFO] - from application in application-akka.actor.default-dispatcher-467 
+false
+
+2016-04-25 21:22:37,240 - [INFO] - from application in application-akka.actor.default-dispatcher-473 
+userID=0 recommendations.size=10
+
+2016-04-25 22:59:57,278 - [INFO] - from application in application-akka.actor.default-dispatcher-479 
+8,5741,3.000000
+
+2016-04-25 23:00:47,474 - [INFO] - from application in application-akka.actor.default-dispatcher-477 
+8,6451,3.000000
+
+2016-04-25 23:00:54,091 - [INFO] - from application in application-akka.actor.default-dispatcher-477 
+8,5825,3.000000
+
+2016-04-26 00:48:56,966 - [INFO] - from application in application-akka.actor.default-dispatcher-491 
+5,6989,3.000000
+
+2016-04-26 00:57:41,761 - [INFO] - from application in application-akka.actor.default-dispatcher-501 
+519,147,3.000000
+
+2016-04-26 00:58:47,129 - [INFO] - from application in application-akka.actor.default-dispatcher-500 
+519,4850,3.000000
+
+2016-04-26 00:59:12,179 - [INFO] - from application in application-akka.actor.default-dispatcher-500 
+519,16023,3.000000
+
+2016-04-26 00:59:22,074 - [INFO] - from application in application-akka.actor.default-dispatcher-505 
+519,16023,3.000000
+
+2016-04-26 01:08:21,776 - [INFO] - from application in application-akka.actor.default-dispatcher-510 
+5,11961,3.000000
+
+2016-04-26 01:25:27,336 - [INFO] - from application in application-akka.actor.default-dispatcher-512 
+5,6956,3.000000
+
+2016-04-26 03:08:00,093 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-26 03:08:00,139 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-26 03:08:00,166 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongoApi stopping...
+
+2016-04-26 03:08:00,191 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongoApi connections stopped. [Success(Closed)]
+
+2016-04-26 03:08:06,901 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-26 03:08:06,925 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 03:08:06,927 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-26 03:08:06,946 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-26 03:08:07,053 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-26 03:41:20,989 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-26 03:41:21,113 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-26 03:42:02,716 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-26 03:42:02,738 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 03:42:02,740 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-26 03:42:02,757 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-26 03:42:02,884 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-26 04:02:27,493 - [INFO] - from application in application-akka.actor.default-dispatcher-5 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 04:02:27,495 - [INFO] - from application in application-akka.actor.default-dispatcher-5 
+ReactiveMongoApi starting...
+
+2016-04-26 04:02:27,570 - [INFO] - from application in application-akka.actor.default-dispatcher-5 
+ReactiveMongoApi successfully started with DB 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 04:02:27,761 - [INFO] - from application in application-akka.actor.default-dispatcher-5 
+413
+
+2016-04-26 04:02:27,762 - [INFO] - from application in application-akka.actor.default-dispatcher-5 
+true
+
+2016-04-26 04:02:31,365 - [INFO] - from application in application-akka.actor.default-dispatcher-8 
+userID=0 recommendations.size=10
+
+2016-04-26 04:02:33,316 - [INFO] - from application in application-akka.actor.default-dispatcher-8 
+userID=413 recommendations.size=10
+
+2016-04-26 04:02:33,722 - [INFO] - from application in application-akka.actor.default-dispatcher-8 
+userID=413 recommendations.size=10
+
+2016-04-26 04:02:38,003 - [INFO] - from application in application-akka.actor.default-dispatcher-8 
+413,843,0.000000
+
+2016-04-26 04:23:08,739 - [INFO] - from application in application-akka.actor.default-dispatcher-11 
+5,27676,3.000000
+
+2016-04-26 04:24:19,639 - [INFO] - from application in application-akka.actor.default-dispatcher-14 
+5,8393,3.000000
+
+2016-04-26 04:24:45,578 - [INFO] - from application in application-akka.actor.default-dispatcher-10 
+5,1140,3.000000
+
+2016-04-26 04:26:11,898 - [INFO] - from application in application-akka.actor.default-dispatcher-21 
+5,20955,3.000000
+
+2016-04-26 05:10:01,348 - [INFO] - from application in application-akka.actor.default-dispatcher-29 
+5,4759,3.000000
+
+2016-04-26 05:11:12,813 - [INFO] - from application in application-akka.actor.default-dispatcher-32 
+5,18352,3.000000
+
+2016-04-26 05:11:20,208 - [INFO] - from application in application-akka.actor.default-dispatcher-34 
+5,19842,3.000000
+
+2016-04-26 05:11:37,218 - [INFO] - from application in application-akka.actor.default-dispatcher-35 
+5,19842,3.000000
+
+2016-04-26 05:11:47,098 - [INFO] - from application in application-akka.actor.default-dispatcher-32 
+5,13317,3.000000
+
+2016-04-26 05:12:14,674 - [INFO] - from application in application-akka.actor.default-dispatcher-35 
+5,8766,3.000000
+
+2016-04-26 05:12:35,624 - [INFO] - from application in application-akka.actor.default-dispatcher-29 
+5,11878,3.000000
+
+2016-04-26 05:14:10,628 - [INFO] - from application in application-akka.actor.default-dispatcher-29 
+5,9268,3.000000
+
+2016-04-26 05:15:42,968 - [INFO] - from application in application-akka.actor.default-dispatcher-29 
+5,11012,3.000000
+
+2016-04-26 05:16:26,847 - [INFO] - from application in application-akka.actor.default-dispatcher-43 
+5,12516,3.000000
+
+2016-04-26 05:33:37,353 - [INFO] - from application in application-akka.actor.default-dispatcher-49 
+5,12327,3.000000
+
+2016-04-26 05:35:17,172 - [INFO] - from application in application-akka.actor.default-dispatcher-50 
+5,11407,3.000000
+
+2016-04-26 05:36:06,268 - [INFO] - from application in application-akka.actor.default-dispatcher-55 
+5,6948,3.000000
+
+2016-04-26 05:40:32,293 - [INFO] - from application in application-akka.actor.default-dispatcher-58 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 05:40:32,300 - [INFO] - from application in application-akka.actor.default-dispatcher-58 
+413
+
+2016-04-26 05:40:32,300 - [INFO] - from application in application-akka.actor.default-dispatcher-58 
+true
+
+2016-04-26 05:40:40,730 - [INFO] - from application in application-akka.actor.default-dispatcher-66 
+userID=0 recommendations.size=10
+
+2016-04-26 05:42:24,057 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 05:42:24,062 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+413
+
+2016-04-26 05:42:24,063 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+true
+
+2016-04-26 05:42:25,442 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+userID=0 recommendations.size=10
+
+2016-04-26 05:46:28,844 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 05:46:28,843 - [INFO] - from application in application-akka.actor.default-dispatcher-67 
+userID=0 recommendations.size=10
+
+2016-04-26 05:46:28,852 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+413
+
+2016-04-26 05:46:28,852 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+true
+
+2016-04-26 05:47:11,203 - [INFO] - from application in application-akka.actor.default-dispatcher-72 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 05:47:11,207 - [INFO] - from application in application-akka.actor.default-dispatcher-70 
+userID=0 recommendations.size=10
+
+2016-04-26 05:47:11,216 - [INFO] - from application in application-akka.actor.default-dispatcher-72 
+413
+
+2016-04-26 05:47:11,216 - [INFO] - from application in application-akka.actor.default-dispatcher-72 
+true
+
+2016-04-26 05:51:11,192 - [INFO] - from application in application-akka.actor.default-dispatcher-76 
+userID=0 recommendations.size=10
+
+2016-04-26 05:51:11,362 - [INFO] - from application in application-akka.actor.default-dispatcher-76 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 05:51:11,365 - [INFO] - from application in application-akka.actor.default-dispatcher-76 
+413
+
+2016-04-26 05:51:11,366 - [INFO] - from application in application-akka.actor.default-dispatcher-76 
+true
+
+2016-04-26 05:55:45,276 - [INFO] - from application in application-akka.actor.default-dispatcher-81 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 05:55:45,282 - [INFO] - from application in application-akka.actor.default-dispatcher-81 
+413
+
+2016-04-26 05:55:45,282 - [INFO] - from application in application-akka.actor.default-dispatcher-81 
+true
+
+2016-04-26 05:55:45,387 - [INFO] - from application in application-akka.actor.default-dispatcher-86 
+userID=0 recommendations.size=10
+
+2016-04-26 05:59:38,215 - [INFO] - from application in application-akka.actor.default-dispatcher-84 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 05:59:38,218 - [INFO] - from application in application-akka.actor.default-dispatcher-84 
+413
+
+2016-04-26 05:59:38,218 - [INFO] - from application in application-akka.actor.default-dispatcher-84 
+true
+
+2016-04-26 05:59:38,264 - [INFO] - from application in application-akka.actor.default-dispatcher-90 
+userID=0 recommendations.size=10
+
+2016-04-26 06:24:52,177 - [INFO] - from application in application-akka.actor.default-dispatcher-89 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 06:24:52,181 - [INFO] - from application in application-akka.actor.default-dispatcher-89 
+413
+
+2016-04-26 06:24:52,181 - [INFO] - from application in application-akka.actor.default-dispatcher-89 
+true
+
+2016-04-26 06:24:53,251 - [INFO] - from application in application-akka.actor.default-dispatcher-94 
+userID=0 recommendations.size=10
+
+2016-04-26 06:41:59,217 - [INFO] - from application in application-akka.actor.default-dispatcher-93 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 06:41:59,222 - [INFO] - from application in application-akka.actor.default-dispatcher-93 
+413
+
+2016-04-26 06:41:59,222 - [INFO] - from application in application-akka.actor.default-dispatcher-93 
+true
+
+2016-04-26 06:42:00,181 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+userID=0 recommendations.size=10
+
+2016-04-26 06:43:30,703 - [INFO] - from application in application-akka.actor.default-dispatcher-96 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 06:43:30,706 - [INFO] - from application in application-akka.actor.default-dispatcher-96 
+413
+
+2016-04-26 06:43:30,707 - [INFO] - from application in application-akka.actor.default-dispatcher-96 
+true
+
+2016-04-26 06:43:32,599 - [INFO] - from application in application-akka.actor.default-dispatcher-101 
+userID=0 recommendations.size=10
+
+2016-04-26 06:45:17,406 - [INFO] - from application in application-akka.actor.default-dispatcher-99 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 06:45:17,413 - [INFO] - from application in application-akka.actor.default-dispatcher-99 
+413
+
+2016-04-26 06:45:17,413 - [INFO] - from application in application-akka.actor.default-dispatcher-99 
+true
+
+2016-04-26 06:45:26,558 - [INFO] - from application in application-akka.actor.default-dispatcher-105 
+userID=0 recommendations.size=10
+
+2016-04-26 07:11:24,851 - [INFO] - from application in application-akka.actor.default-dispatcher-109 
+9E131A17-5F40-480D-8A6D-AE91561D7313
+
+2016-04-26 07:11:24,855 - [INFO] - from application in application-akka.actor.default-dispatcher-109 
+413
+
+2016-04-26 07:11:24,855 - [INFO] - from application in application-akka.actor.default-dispatcher-109 
+true
+
+2016-04-26 07:11:25,848 - [INFO] - from application in application-akka.actor.default-dispatcher-109 
+userID=413 recommendations.size=10
+
+2016-04-26 07:14:22,009 - [INFO] - from application in application-akka.actor.default-dispatcher-113 
+userID=413 recommendations.size=10
+
+2016-04-26 07:30:09,767 - [INFO] - from application in application-akka.actor.default-dispatcher-116 
+8,11333,3.000000
+
+2016-04-26 07:30:55,897 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-26 07:30:55,944 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-26 07:30:55,974 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongoApi stopping...
+
+2016-04-26 07:30:55,994 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongoApi connections stopped. [Success(Closed)]
+
+2016-04-26 07:31:01,254 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-26 07:31:01,277 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 07:31:01,278 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-26 07:31:01,297 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-26 07:31:01,390 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-26 08:13:53,787 - [INFO] - from application in application-akka.actor.default-dispatcher-8 
+ReactiveMongoApi starting...
+
+2016-04-26 08:13:53,848 - [INFO] - from application in application-akka.actor.default-dispatcher-8 
+ReactiveMongoApi successfully started with DB 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 08:14:04,930 - [INFO] - from application in application-akka.actor.default-dispatcher-8 
+3,8277,3.000000
+
+2016-04-26 08:16:08,198 - [INFO] - from application in application-akka.actor.default-dispatcher-9 
+3,8277,3.000000
+
+2016-04-26 08:17:01,429 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-26 08:17:01,481 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-26 08:17:01,509 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongoApi stopping...
+
+2016-04-26 08:17:01,524 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongoApi connections stopped. [Success(Closed)]
+
+2016-04-26 08:18:07,700 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-26 08:18:07,723 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 08:18:07,724 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-26 08:18:07,744 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-26 08:18:07,905 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-26 08:19:02,759 - [INFO] - from application in application-akka.actor.default-dispatcher-2 
+ReactiveMongoApi starting...
+
+2016-04-26 08:19:02,824 - [INFO] - from application in application-akka.actor.default-dispatcher-2 
+ReactiveMongoApi successfully started with DB 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 08:19:23,984 - [INFO] - from application in application-akka.actor.default-dispatcher-2 
+3,8285,3.000000
+
+2016-04-26 08:23:12,821 - [INFO] - from application in application-akka.actor.default-dispatcher-11 
+3,8271,3.000000
+
+2016-04-26 08:26:08,443 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+3,8100,3.000000
+
+2016-04-26 08:26:19,831 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+3,25680,3.000000
+
+2016-04-26 08:27:23,787 - [INFO] - from application in application-akka.actor.default-dispatcher-18 
+3,25680,3.000000
+
+2016-04-26 08:27:50,062 - [INFO] - from application in application-akka.actor.default-dispatcher-18 
+3,25680,3.000000
+
+2016-04-26 08:28:19,749 - [INFO] - from application in application-akka.actor.default-dispatcher-18 
+3,27833,3.000000
+
+2016-04-26 08:43:23,393 - [INFO] - from application in application-akka.actor.default-dispatcher-28 
+3,8271,3.000000
+
+2016-04-26 08:49:19,959 - [INFO] - from application in application-akka.actor.default-dispatcher-32 
+3,8513,3.000000
+
+2016-04-26 08:50:12,697 - [WARN] - from application in application-akka.actor.default-dispatcher-34 
+{"STACK_TRACE":"java.lang.ArrayIndexOutOfBoundsException: length=2; index=2\n\tat java.util.regex.Matcher.group(Matcher.java:358)\n\tat org.hackathon_ocw.androidclient.MainActivity$7.onResponse(MainActivity.java:351)\n\tat org.hackathon_ocw.androidclient.MainActivity$7.onResponse(MainActivity.java:343)\n\tat com.android.volley.toolbox.StringRequest.deliverResponse(StringRequest.java:60)\n\tat com.android.volley.toolbox.StringRequest.deliverResponse(StringRequest.java:30)\n\tat com.android.volley.ExecutorDelivery$ResponseDeliveryRunnable.run(ExecutorDelivery.java:99)\n\tat android.os.Handler.handleCallback(Handler.java:733)\n\tat android.os.Handler.dispatchMessage(Handler.java:95)\n\tat android.os.Looper.loop(Looper.java:136)\n\tat android.app.ActivityThread.main(ActivityThread.java:5095)\n\tat java.lang.reflect.Method.invokeNative(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:515)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:786)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:602)\n\tat de.robv.android.xposed.XposedBridge.main(XposedBridge.java:132)\n\tat dalvik.system.NativeStart.main(Native Method)\n","PHONE_MODEL":"ZTE Q802D","APP_VERSION_NAME":"0.1.1.0","USER_CRASH_DATE":"2016-04-26T16:50:11.596+08:00","ANDROID_VERSION":"4.4.4","USER_APP_START_DATE":"2016-04-26T16:49:07.964+08:00"}
+
+2016-04-26 08:51:25,359 - [INFO] - from application in application-akka.actor.default-dispatcher-38 
+3,8271,3.000000
+
+2016-04-26 08:59:00,962 - [INFO] - from application in application-akka.actor.default-dispatcher-44 
+5,7719,3.000000
+
+2016-04-26 09:26:03,968 - [INFO] - from application in application-akka.actor.default-dispatcher-48 
+5,6254,3.000000
+
+2016-04-26 09:37:36,225 - [INFO] - from application in application-akka.actor.default-dispatcher-55 
+3,8271,3.000000
+
+2016-04-26 09:42:58,512 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+3,8276,3.000000
+
+2016-04-26 09:43:30,955 - [INFO] - from application in application-akka.actor.default-dispatcher-57 
+3,8276,3.000000
+
+2016-04-26 09:43:40,678 - [INFO] - from application in application-akka.actor.default-dispatcher-57 
+3,8273,3.000000
+
+2016-04-26 10:04:12,103 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+24b8bdaf8c497cf9
+
+2016-04-26 10:04:12,124 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+523
+
+2016-04-26 10:04:12,125 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+false
+
+2016-04-26 10:05:12,162 - [INFO] - from application in application-akka.actor.default-dispatcher-64 
+523,23783,3.000000
+
+2016-04-26 10:06:26,607 - [INFO] - from application in application-akka.actor.default-dispatcher-70 
+523,5268,3.000000
+
+2016-04-26 10:06:54,566 - [INFO] - from application in application-akka.actor.default-dispatcher-67 
+523,3242,3.000000
+
+2016-04-26 13:35:46,532 - [INFO] - from application in Thread-4 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-26 13:35:46,574 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-26 13:35:46,646 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongoApi stopping...
+
+2016-04-26 13:35:46,662 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongoApi connections stopped. [Success(Closed)]
+
+2016-04-26 13:35:54,139 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-26 13:35:54,166 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 13:35:54,168 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-26 13:35:54,182 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-26 13:35:54,318 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-26 14:56:02,017 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-26 14:56:02,217 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-26 14:56:06,285 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-26 14:56:06,306 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 14:56:06,307 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-26 14:56:06,318 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-26 14:56:06,437 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-26 14:56:25,279 - [INFO] - from application in application-akka.actor.default-dispatcher-2 
+8,19340,3.000000
+
+2016-04-26 14:56:25,286 - [INFO] - from application in application-akka.actor.default-dispatcher-2 
+ReactiveMongoApi starting...
+
+2016-04-26 14:56:25,348 - [INFO] - from application in application-akka.actor.default-dispatcher-2 
+ReactiveMongoApi successfully started with DB 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 14:56:31,821 - [INFO] - from application in application-akka.actor.default-dispatcher-5 
+8,9506,3.000000
+
+2016-04-26 15:22:36,488 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-26 15:22:36,536 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-26 15:22:36,567 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongoApi stopping...
+
+2016-04-26 15:22:36,578 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongoApi connections stopped. [Success(Closed)]
+
+2016-04-26 15:22:40,196 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-26 15:22:40,220 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 15:22:40,221 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-26 15:22:40,238 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-26 15:22:40,366 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-26 16:22:37,577 - [INFO] - from application in application-akka.actor.default-dispatcher-9 
+519,3887,3.000000
+
+2016-04-26 16:22:37,581 - [INFO] - from application in application-akka.actor.default-dispatcher-9 
+ReactiveMongoApi starting...
+
+2016-04-26 16:22:37,650 - [INFO] - from application in application-akka.actor.default-dispatcher-9 
+ReactiveMongoApi successfully started with DB 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-26 16:27:03,726 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+519,9733,3.000000
+
+2016-04-26 16:28:47,585 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+519,3887,3.000000
+
+2016-04-26 16:35:16,193 - [INFO] - from application in application-akka.actor.default-dispatcher-23 
+519,24724,3.000000
+
+2016-04-26 16:35:41,196 - [INFO] - from application in application-akka.actor.default-dispatcher-25 
+519,20963,3.000000
+
+2016-04-26 16:48:48,933 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+6237a04d20e2ca8b
+
+2016-04-26 16:48:48,953 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+524
+
+2016-04-26 16:48:48,953 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+false
+
+2016-04-26 16:49:10,476 - [INFO] - from application in application-akka.actor.default-dispatcher-32 
+524,4380,3.000000
+
+2016-04-27 00:03:29,274 - [INFO] - from application in application-akka.actor.default-dispatcher-48 
+8,21954,3.000000
+
+2016-04-27 01:02:22,383 - [INFO] - from application in application-akka.actor.default-dispatcher-53 
+5,20388,3.000000
+
+2016-04-27 01:19:40,057 - [INFO] - from application in application-akka.actor.default-dispatcher-58 
+5,14534,3.000000
+
+2016-04-27 01:19:57,097 - [INFO] - from application in application-akka.actor.default-dispatcher-59 
+5,23578,3.000000
+
+2016-04-27 02:09:47,606 - [INFO] - from application in application-akka.actor.default-dispatcher-68 
+518,4218,3.000000
+
+2016-04-27 03:09:24,676 - [INFO] - from application in application-akka.actor.default-dispatcher-68 
+userID=413 recommendations.size=20
+
+2016-04-27 03:53:02,920 - [INFO] - from application in application-akka.actor.default-dispatcher-94 
+523,29727,3.000000
+
+2016-04-27 03:53:18,561 - [INFO] - from application in application-akka.actor.default-dispatcher-95 
+523,28168,3.000000
+
+2016-04-27 03:54:05,361 - [INFO] - from application in application-akka.actor.default-dispatcher-96 
+523,15505,3.000000
+
+2016-04-27 03:54:57,280 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+523,15651,3.000000
+
+2016-04-27 03:55:40,690 - [INFO] - from application in application-akka.actor.default-dispatcher-102 
+523,23157,3.000000
+
+2016-04-27 03:55:48,765 - [INFO] - from application in application-akka.actor.default-dispatcher-106 
+523,477,3.000000
+
+2016-04-27 03:58:06,473 - [INFO] - from application in application-akka.actor.default-dispatcher-105 
+523,31066,3.000000
+
+2016-04-27 04:19:54,615 - [INFO] - from application in application-akka.actor.default-dispatcher-124 
+F11E5958-B269-4F97-804B-5C2FE72F503E
+
+2016-04-27 04:19:54,616 - [INFO] - from application in application-akka.actor.default-dispatcher-123 
+userID=0 recommendations.size=20
+
+2016-04-27 04:19:54,622 - [INFO] - from application in application-akka.actor.default-dispatcher-124 
+525
+
+2016-04-27 04:19:54,622 - [INFO] - from application in application-akka.actor.default-dispatcher-124 
+false
+
+2016-04-27 04:20:10,564 - [INFO] - from application in application-akka.actor.default-dispatcher-123 
+userID=0 recommendations.size=20
+
+2016-04-27 04:20:10,601 - [INFO] - from application in application-akka.actor.default-dispatcher-123 
+F11E5958-B269-4F97-804B-5C2FE72F503E
+
+2016-04-27 04:20:10,604 - [INFO] - from application in application-akka.actor.default-dispatcher-123 
+525
+
+2016-04-27 04:20:10,605 - [INFO] - from application in application-akka.actor.default-dispatcher-123 
+true
+
+2016-04-27 04:20:29,146 - [INFO] - from application in application-akka.actor.default-dispatcher-126 
+F11E5958-B269-4F97-804B-5C2FE72F503E
+
+2016-04-27 04:20:29,150 - [INFO] - from application in application-akka.actor.default-dispatcher-126 
+525
+
+2016-04-27 04:20:29,150 - [INFO] - from application in application-akka.actor.default-dispatcher-126 
+true
+
+2016-04-27 04:20:30,252 - [INFO] - from application in application-akka.actor.default-dispatcher-127 
+userID=0 recommendations.size=20
+
+2016-04-27 04:20:59,195 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+userID=0 recommendations.size=20
+
+2016-04-27 04:20:59,205 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+B8F3CC71-829F-4C2D-A0BF-EFB333BA0DC7
+
+2016-04-27 04:20:59,216 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+526
+
+2016-04-27 04:20:59,216 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+false
+
+2016-04-27 04:21:15,568 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:15,591 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+B8F3CC71-829F-4C2D-A0BF-EFB333BA0DC7
+
+2016-04-27 04:21:15,597 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+526
+
+2016-04-27 04:21:15,597 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+true
+
+2016-04-27 04:21:16,515 - [INFO] - from application in application-akka.actor.default-dispatcher-131 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:16,523 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+DD02C86A-2DD8-4AF2-BFF8-38A175A483DA
+
+2016-04-27 04:21:16,528 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+527
+
+2016-04-27 04:21:16,528 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+false
+
+2016-04-27 04:21:22,683 - [INFO] - from application in application-akka.actor.default-dispatcher-136 
+8ACF4F50-6EAB-4027-A643-14FD29A6715E
+
+2016-04-27 04:21:22,688 - [INFO] - from application in application-akka.actor.default-dispatcher-136 
+528
+
+2016-04-27 04:21:22,688 - [INFO] - from application in application-akka.actor.default-dispatcher-136 
+false
+
+2016-04-27 04:21:23,708 - [INFO] - from application in application-akka.actor.default-dispatcher-135 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:32,714 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+B8F3CC71-829F-4C2D-A0BF-EFB333BA0DC7
+
+2016-04-27 04:21:32,720 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:32,724 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+526
+
+2016-04-27 04:21:32,725 - [INFO] - from application in application-akka.actor.default-dispatcher-125 
+true
+
+2016-04-27 04:21:36,939 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+DD02C86A-2DD8-4AF2-BFF8-38A175A483DA
+
+2016-04-27 04:21:36,941 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+527
+
+2016-04-27 04:21:36,941 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+true
+
+2016-04-27 04:21:36,959 - [INFO] - from application in application-akka.actor.default-dispatcher-136 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:45,451 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+8ACF4F50-6EAB-4027-A643-14FD29A6715E
+
+2016-04-27 04:21:45,452 - [INFO] - from application in application-akka.actor.default-dispatcher-131 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:45,461 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+528
+
+2016-04-27 04:21:45,461 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+true
+
+2016-04-27 04:21:55,498 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+74F8FEAB-FE9C-4339-8C02-13AED0F9882B
+
+2016-04-27 04:21:55,503 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+529
+
+2016-04-27 04:21:55,503 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+false
+
+2016-04-27 04:21:56,281 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:56,758 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+userID=0 recommendations.size=20
+
+2016-04-27 04:21:57,677 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+DD02C86A-2DD8-4AF2-BFF8-38A175A483DA
+
+2016-04-27 04:21:57,681 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+527
+
+2016-04-27 04:21:57,682 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+true
+
+2016-04-27 04:22:03,271 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+8ACF4F50-6EAB-4027-A643-14FD29A6715E
+
+2016-04-27 04:22:03,274 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+528
+
+2016-04-27 04:22:03,274 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+true
+
+2016-04-27 04:22:03,287 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+userID=0 recommendations.size=20
+
+2016-04-27 04:22:14,695 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+userID=0 recommendations.size=20
+
+2016-04-27 04:22:14,698 - [INFO] - from application in application-akka.actor.default-dispatcher-131 
+74F8FEAB-FE9C-4339-8C02-13AED0F9882B
+
+2016-04-27 04:22:14,701 - [INFO] - from application in application-akka.actor.default-dispatcher-131 
+529
+
+2016-04-27 04:22:14,701 - [INFO] - from application in application-akka.actor.default-dispatcher-131 
+true
+
+2016-04-27 04:22:21,937 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+userID=0 recommendations.size=20
+
+2016-04-27 04:22:22,821 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+80C240D6-A961-4CD1-95AB-CD59C0165B2F
+
+2016-04-27 04:22:22,826 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+530
+
+2016-04-27 04:22:22,826 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+false
+
+2016-04-27 04:22:35,056 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+74F8FEAB-FE9C-4339-8C02-13AED0F9882B
+
+2016-04-27 04:22:35,059 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+529
+
+2016-04-27 04:22:35,059 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+true
+
+2016-04-27 04:22:36,240 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+userID=0 recommendations.size=20
+
+2016-04-27 04:22:44,457 - [INFO] - from application in application-akka.actor.default-dispatcher-137 
+userID=0 recommendations.size=20
+
+2016-04-27 04:22:44,509 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+80C240D6-A961-4CD1-95AB-CD59C0165B2F
+
+2016-04-27 04:22:44,515 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+530
+
+2016-04-27 04:22:44,516 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+true
+
+2016-04-27 04:23:05,759 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+userID=0 recommendations.size=20
+
+2016-04-27 04:23:05,771 - [INFO] - from application in application-akka.actor.default-dispatcher-138 
+80C240D6-A961-4CD1-95AB-CD59C0165B2F
+
+2016-04-27 04:23:05,774 - [INFO] - from application in application-akka.actor.default-dispatcher-138 
+530
+
+2016-04-27 04:23:05,774 - [INFO] - from application in application-akka.actor.default-dispatcher-138 
+true
+
+2016-04-27 04:32:07,519 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+userID=0 recommendations.size=20
+
+2016-04-27 04:32:08,633 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+FD22D893-BD5F-4AA9-998D-791114DCA272
+
+2016-04-27 04:32:08,637 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+531
+
+2016-04-27 04:32:08,637 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+false
+
+2016-04-27 04:32:24,770 - [INFO] - from application in application-akka.actor.default-dispatcher-149 
+userID=0 recommendations.size=20
+
+2016-04-27 04:32:25,835 - [INFO] - from application in application-akka.actor.default-dispatcher-149 
+FD22D893-BD5F-4AA9-998D-791114DCA272
+
+2016-04-27 04:32:25,840 - [INFO] - from application in application-akka.actor.default-dispatcher-149 
+531
+
+2016-04-27 04:32:25,842 - [INFO] - from application in application-akka.actor.default-dispatcher-149 
+true
+
+2016-04-27 04:32:44,964 - [INFO] - from application in application-akka.actor.default-dispatcher-148 
+userID=0 recommendations.size=20
+
+2016-04-27 04:32:44,997 - [INFO] - from application in application-akka.actor.default-dispatcher-148 
+FD22D893-BD5F-4AA9-998D-791114DCA272
+
+2016-04-27 04:32:45,002 - [INFO] - from application in application-akka.actor.default-dispatcher-148 
+531
+
+2016-04-27 04:32:45,002 - [INFO] - from application in application-akka.actor.default-dispatcher-148 
+true
+
+2016-04-27 04:35:45,733 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+userID=0 recommendations.size=20
+
+2016-04-27 04:35:46,669 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+FD5FBE3C-55F6-40FC-9D31-8EB1FD0FE478
+
+2016-04-27 04:35:46,674 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+532
+
+2016-04-27 04:35:46,674 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+false
+
+2016-04-27 04:36:01,455 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+userID=0 recommendations.size=20
+
+2016-04-27 04:36:01,459 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+FD5FBE3C-55F6-40FC-9D31-8EB1FD0FE478
+
+2016-04-27 04:36:01,462 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+532
+
+2016-04-27 04:36:01,462 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+true
+
+2016-04-27 04:36:02,305 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+2F0957D3-9921-4889-B4FE-7C5400A5B3F9
+
+2016-04-27 04:36:02,312 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+533
+
+2016-04-27 04:36:02,313 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+false
+
+2016-04-27 04:36:02,340 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+userID=0 recommendations.size=20
+
+2016-04-27 04:36:19,135 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+userID=0 recommendations.size=20
+
+2016-04-27 04:36:19,170 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+FD5FBE3C-55F6-40FC-9D31-8EB1FD0FE478
+
+2016-04-27 04:36:19,173 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+532
+
+2016-04-27 04:36:19,177 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+true
+
+2016-04-27 04:36:24,199 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+2F0957D3-9921-4889-B4FE-7C5400A5B3F9
+
+2016-04-27 04:36:24,201 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+533
+
+2016-04-27 04:36:24,202 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+true
+
+2016-04-27 04:36:24,202 - [INFO] - from application in application-akka.actor.default-dispatcher-153 
+userID=0 recommendations.size=20
+
+2016-04-27 04:36:47,167 - [INFO] - from application in application-akka.actor.default-dispatcher-152 
+userID=0 recommendations.size=20
+
+2016-04-27 04:36:47,184 - [INFO] - from application in application-akka.actor.default-dispatcher-152 
+2F0957D3-9921-4889-B4FE-7C5400A5B3F9
+
+2016-04-27 04:36:47,186 - [INFO] - from application in application-akka.actor.default-dispatcher-152 
+533
+
+2016-04-27 04:36:47,186 - [INFO] - from application in application-akka.actor.default-dispatcher-152 
+true
+
+2016-04-27 05:04:26,474 - [INFO] - from application in application-akka.actor.default-dispatcher-170 
+userID=0 recommendations.size=20
+
+2016-04-27 05:04:26,478 - [INFO] - from application in application-akka.actor.default-dispatcher-168 
+9A7585CB-A365-45BF-B5A5-C3009BD7454C
+
+2016-04-27 05:04:26,482 - [INFO] - from application in application-akka.actor.default-dispatcher-168 
+534
+
+2016-04-27 05:04:26,483 - [INFO] - from application in application-akka.actor.default-dispatcher-168 
+false
+
+2016-04-27 05:04:42,050 - [INFO] - from application in application-akka.actor.default-dispatcher-168 
+9A7585CB-A365-45BF-B5A5-C3009BD7454C
+
+2016-04-27 05:04:42,054 - [INFO] - from application in application-akka.actor.default-dispatcher-168 
+534
+
+2016-04-27 05:04:42,055 - [INFO] - from application in application-akka.actor.default-dispatcher-168 
+true
+
+2016-04-27 05:04:42,058 - [INFO] - from application in application-akka.actor.default-dispatcher-168 
+userID=0 recommendations.size=20
+
+2016-04-27 05:04:59,521 - [INFO] - from application in application-akka.actor.default-dispatcher-173 
+9A7585CB-A365-45BF-B5A5-C3009BD7454C
+
+2016-04-27 05:04:59,523 - [INFO] - from application in application-akka.actor.default-dispatcher-171 
+userID=0 recommendations.size=20
+
+2016-04-27 05:04:59,525 - [INFO] - from application in application-akka.actor.default-dispatcher-173 
+534
+
+2016-04-27 05:04:59,526 - [INFO] - from application in application-akka.actor.default-dispatcher-173 
+true
+
+2016-04-27 05:05:27,005 - [INFO] - from application in application-akka.actor.default-dispatcher-172 
+32F127BE-DD59-404E-A1EC-0BB3BFB29545
+
+2016-04-27 05:05:27,008 - [INFO] - from application in application-akka.actor.default-dispatcher-172 
+535
+
+2016-04-27 05:05:27,008 - [INFO] - from application in application-akka.actor.default-dispatcher-172 
+false
+
+2016-04-27 05:05:27,516 - [INFO] - from application in application-akka.actor.default-dispatcher-176 
+userID=0 recommendations.size=20
+
+2016-04-27 05:05:43,189 - [INFO] - from application in application-akka.actor.default-dispatcher-177 
+32F127BE-DD59-404E-A1EC-0BB3BFB29545
+
+2016-04-27 05:05:43,192 - [INFO] - from application in application-akka.actor.default-dispatcher-177 
+535
+
+2016-04-27 05:05:43,192 - [INFO] - from application in application-akka.actor.default-dispatcher-177 
+true
+
+2016-04-27 05:05:43,269 - [INFO] - from application in application-akka.actor.default-dispatcher-172 
+userID=0 recommendations.size=20
+
+2016-04-27 05:06:01,317 - [INFO] - from application in application-akka.actor.default-dispatcher-179 
+userID=0 recommendations.size=20
+
+2016-04-27 05:06:01,342 - [INFO] - from application in application-akka.actor.default-dispatcher-179 
+32F127BE-DD59-404E-A1EC-0BB3BFB29545
+
+2016-04-27 05:06:01,345 - [INFO] - from application in application-akka.actor.default-dispatcher-179 
+535
+
+2016-04-27 05:06:01,345 - [INFO] - from application in application-akka.actor.default-dispatcher-179 
+true
+
+2016-04-27 05:07:35,330 - [INFO] - from application in application-akka.actor.default-dispatcher-177 
+F22F1C70-49D4-4A2D-997A-47FEEDB5A938
+
+2016-04-27 05:07:35,334 - [INFO] - from application in application-akka.actor.default-dispatcher-180 
+userID=0 recommendations.size=20
+
+2016-04-27 05:07:35,340 - [INFO] - from application in application-akka.actor.default-dispatcher-177 
+536
+
+2016-04-27 05:07:35,340 - [INFO] - from application in application-akka.actor.default-dispatcher-177 
+false
+
+2016-04-27 05:07:57,384 - [INFO] - from application in application-akka.actor.default-dispatcher-184 
+userID=0 recommendations.size=20
+
+2016-04-27 05:07:57,393 - [INFO] - from application in application-akka.actor.default-dispatcher-181 
+F22F1C70-49D4-4A2D-997A-47FEEDB5A938
+
+2016-04-27 05:07:57,396 - [INFO] - from application in application-akka.actor.default-dispatcher-181 
+536
+
+2016-04-27 05:07:57,397 - [INFO] - from application in application-akka.actor.default-dispatcher-181 
+true
+
+2016-04-27 05:08:21,175 - [INFO] - from application in application-akka.actor.default-dispatcher-180 
+userID=0 recommendations.size=20
+
+2016-04-27 05:08:21,193 - [INFO] - from application in application-akka.actor.default-dispatcher-180 
+F22F1C70-49D4-4A2D-997A-47FEEDB5A938
+
+2016-04-27 05:08:21,196 - [INFO] - from application in application-akka.actor.default-dispatcher-180 
+536
+
+2016-04-27 05:08:21,196 - [INFO] - from application in application-akka.actor.default-dispatcher-180 
+true
+
+2016-04-27 05:14:22,291 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+userID=0 recommendations.size=20
+
+2016-04-27 05:14:22,300 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+0B6FDC35-111E-4835-B987-DE74A7ED0360
+
+2016-04-27 05:14:22,307 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+537
+
+2016-04-27 05:14:22,307 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+false
+
+2016-04-27 05:14:42,907 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+userID=0 recommendations.size=20
+
+2016-04-27 05:14:43,880 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+0B6FDC35-111E-4835-B987-DE74A7ED0360
+
+2016-04-27 05:14:43,887 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+537
+
+2016-04-27 05:14:43,887 - [INFO] - from application in application-akka.actor.default-dispatcher-186 
+true
+
+2016-04-27 05:14:58,217 - [INFO] - from application in application-akka.actor.default-dispatcher-190 
+userID=0 recommendations.size=20
+
+2016-04-27 05:14:58,219 - [INFO] - from application in application-akka.actor.default-dispatcher-189 
+0B6FDC35-111E-4835-B987-DE74A7ED0360
+
+2016-04-27 05:14:58,224 - [INFO] - from application in application-akka.actor.default-dispatcher-189 
+537
+
+2016-04-27 05:14:58,224 - [INFO] - from application in application-akka.actor.default-dispatcher-189 
+true
+
+2016-04-27 05:27:06,110 - [INFO] - from application in application-akka.actor.default-dispatcher-198 
+userID=0 recommendations.size=20
+
+2016-04-27 05:27:06,194 - [INFO] - from application in application-akka.actor.default-dispatcher-198 
+39128D08-A009-4AAA-B949-ACC4B6100495
+
+2016-04-27 05:27:06,202 - [INFO] - from application in application-akka.actor.default-dispatcher-198 
+538
+
+2016-04-27 05:27:06,202 - [INFO] - from application in application-akka.actor.default-dispatcher-198 
+false
+
+2016-04-27 05:27:20,501 - [INFO] - from application in application-akka.actor.default-dispatcher-199 
+39128D08-A009-4AAA-B949-ACC4B6100495
+
+2016-04-27 05:27:20,504 - [INFO] - from application in application-akka.actor.default-dispatcher-199 
+538
+
+2016-04-27 05:27:20,505 - [INFO] - from application in application-akka.actor.default-dispatcher-199 
+true
+
+2016-04-27 05:27:20,576 - [INFO] - from application in application-akka.actor.default-dispatcher-198 
+userID=0 recommendations.size=20
+
+2016-04-27 05:27:38,132 - [INFO] - from application in application-akka.actor.default-dispatcher-199 
+39128D08-A009-4AAA-B949-ACC4B6100495
+
+2016-04-27 05:27:38,135 - [INFO] - from application in application-akka.actor.default-dispatcher-199 
+538
+
+2016-04-27 05:27:38,135 - [INFO] - from application in application-akka.actor.default-dispatcher-199 
+true
+
+2016-04-27 05:27:38,137 - [INFO] - from application in application-akka.actor.default-dispatcher-200 
+userID=0 recommendations.size=20
+
+2016-04-27 05:29:39,553 - [INFO] - from application in application-akka.actor.default-dispatcher-202 
+97DC7D33-F017-4EAD-B8B5-4DBF5AADC72A
+
+2016-04-27 05:29:39,557 - [INFO] - from application in application-akka.actor.default-dispatcher-202 
+539
+
+2016-04-27 05:29:39,558 - [INFO] - from application in application-akka.actor.default-dispatcher-202 
+false
+
+2016-04-27 05:29:39,567 - [INFO] - from application in application-akka.actor.default-dispatcher-202 
+userID=0 recommendations.size=20
+
+2016-04-27 05:29:56,416 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+userID=0 recommendations.size=20
+
+2016-04-27 05:29:56,425 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+97DC7D33-F017-4EAD-B8B5-4DBF5AADC72A
+
+2016-04-27 05:29:56,427 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+539
+
+2016-04-27 05:29:56,427 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+true
+
+2016-04-27 05:30:13,981 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+97DC7D33-F017-4EAD-B8B5-4DBF5AADC72A
+
+2016-04-27 05:30:13,984 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+539
+
+2016-04-27 05:30:13,984 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+true
+
+2016-04-27 05:30:13,993 - [INFO] - from application in application-akka.actor.default-dispatcher-208 
+userID=0 recommendations.size=20
+
+2016-04-27 05:53:06,834 - [INFO] - from application in Thread-4 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-04-27 05:53:06,873 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-04-27 05:53:06,907 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongoApi stopping...
+
+2016-04-27 05:53:06,925 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongoApi connections stopped. [Success(Closed)]
+
+2016-04-27 05:53:16,975 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-04-27 05:53:16,997 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-27 05:53:16,998 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-04-27 05:53:17,007 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-04-27 05:53:17,075 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-04-27 06:33:17,846 - [INFO] - from application in application-akka.actor.default-dispatcher-19 
+D6BD8884-0391-4468-BA70-664DA294B95D
+
+2016-04-27 06:33:17,856 - [INFO] - from application in application-akka.actor.default-dispatcher-19 
+ReactiveMongoApi starting...
+
+2016-04-27 06:33:17,991 - [INFO] - from application in application-akka.actor.default-dispatcher-19 
+ReactiveMongoApi successfully started with DB 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-04-27 06:33:18,447 - [ERROR] - from reactivemongo.core.actors.MongoDBSystem in reactivemongo-akka.actor.default-dispatcher-3 
+The entire node set is unreachable, is there a network problem?
+
+2016-04-27 06:33:18,947 - [INFO] - from application in application-akka.actor.default-dispatcher-19 
+540
+
+2016-04-27 06:33:18,948 - [INFO] - from application in application-akka.actor.default-dispatcher-19 
+false
+
+2016-04-27 06:33:21,612 - [INFO] - from application in application-akka.actor.default-dispatcher-18 
+userID=0 recommendations.size=20
+
+2016-04-27 06:33:33,631 - [INFO] - from application in application-akka.actor.default-dispatcher-22 
+D6BD8884-0391-4468-BA70-664DA294B95D
+
+2016-04-27 06:33:33,636 - [INFO] - from application in application-akka.actor.default-dispatcher-13 
+userID=0 recommendations.size=20
+
+2016-04-27 06:33:33,639 - [INFO] - from application in application-akka.actor.default-dispatcher-22 
+540
+
+2016-04-27 06:33:33,640 - [INFO] - from application in application-akka.actor.default-dispatcher-22 
+true
+
+2016-04-27 06:33:50,508 - [INFO] - from application in application-akka.actor.default-dispatcher-22 
+userID=0 recommendations.size=20
+
+2016-04-27 06:33:50,544 - [INFO] - from application in application-akka.actor.default-dispatcher-23 
+D6BD8884-0391-4468-BA70-664DA294B95D
+
+2016-04-27 06:33:50,551 - [INFO] - from application in application-akka.actor.default-dispatcher-23 
+540
+
+2016-04-27 06:33:50,552 - [INFO] - from application in application-akka.actor.default-dispatcher-23 
+true
+
+2016-04-27 06:41:39,748 - [INFO] - from application in application-akka.actor.default-dispatcher-20 
+f432676ee2cd3cb2
+
+2016-04-27 06:41:39,756 - [INFO] - from application in application-akka.actor.default-dispatcher-20 
+541
+
+2016-04-27 06:41:39,757 - [INFO] - from application in application-akka.actor.default-dispatcher-20 
+false
+
+2016-04-27 06:43:12,692 - [INFO] - from application in application-akka.actor.default-dispatcher-30 
+541,9921,3.000000
+
+2016-04-27 06:44:56,512 - [INFO] - from application in application-akka.actor.default-dispatcher-32 
+541,9456,3.000000
+
+2016-04-27 06:46:20,675 - [INFO] - from application in application-akka.actor.default-dispatcher-38 
+541,9764,3.000000
+
+2016-04-27 07:22:56,208 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+userID=0 recommendations.size=20
+
+2016-04-27 07:22:56,217 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+D84DB904-A233-4856-9D64-D6927A517E2C
+
+2016-04-27 07:22:56,225 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+542
+
+2016-04-27 07:22:56,225 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+false
+
+2016-04-27 07:23:11,298 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+D84DB904-A233-4856-9D64-D6927A517E2C
+
+2016-04-27 07:23:11,303 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+542
+
+2016-04-27 07:23:11,304 - [INFO] - from application in application-akka.actor.default-dispatcher-56 
+true
+
+2016-04-27 07:23:12,259 - [INFO] - from application in application-akka.actor.default-dispatcher-59 
+userID=0 recommendations.size=20
+
+2016-04-27 07:23:29,474 - [INFO] - from application in application-akka.actor.default-dispatcher-59 
+D84DB904-A233-4856-9D64-D6927A517E2C
+
+2016-04-27 07:23:29,477 - [INFO] - from application in application-akka.actor.default-dispatcher-59 
+542
+
+2016-04-27 07:23:29,478 - [INFO] - from application in application-akka.actor.default-dispatcher-59 
+true
+
+2016-04-27 07:23:29,480 - [INFO] - from application in application-akka.actor.default-dispatcher-59 
+userID=0 recommendations.size=20
+
+2016-04-27 08:18:55,353 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+523,19159,3.000000
+
+2016-04-27 08:19:11,970 - [INFO] - from application in application-akka.actor.default-dispatcher-66 
+523,30487,3.000000
+
+2016-04-27 09:05:19,089 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+7F0C2036-44D7-47A9-B12D-D49D5BA7F78C
+
+2016-04-27 09:05:19,089 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+userID=0 recommendations.size=20
+
+2016-04-27 09:05:19,103 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+543
+
+2016-04-27 09:05:19,103 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+false
+
+2016-04-27 09:05:37,104 - [INFO] - from application in application-akka.actor.default-dispatcher-75 
+userID=0 recommendations.size=20
+
+2016-04-27 09:05:38,228 - [INFO] - from application in application-akka.actor.default-dispatcher-75 
+7F0C2036-44D7-47A9-B12D-D49D5BA7F78C
+
+2016-04-27 09:05:38,231 - [INFO] - from application in application-akka.actor.default-dispatcher-75 
+543
+
+2016-04-27 09:05:38,231 - [INFO] - from application in application-akka.actor.default-dispatcher-75 
+true
+
+2016-04-27 09:05:59,021 - [INFO] - from application in application-akka.actor.default-dispatcher-73 
+userID=0 recommendations.size=20
+
+2016-04-27 09:05:59,026 - [INFO] - from application in application-akka.actor.default-dispatcher-72 
+7F0C2036-44D7-47A9-B12D-D49D5BA7F78C
+
+2016-04-27 09:05:59,037 - [INFO] - from application in application-akka.actor.default-dispatcher-72 
+543
+
+2016-04-27 09:05:59,037 - [INFO] - from application in application-akka.actor.default-dispatcher-72 
+true
+
+2016-04-27 10:49:22,200 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+15253E91-4857-4502-A70C-32E608958698
+
+2016-04-27 10:49:22,205 - [INFO] - from application in application-akka.actor.default-dispatcher-78 
+userID=0 recommendations.size=20
+
+2016-04-27 10:49:22,215 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+544
+
+2016-04-27 10:49:22,216 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+false
+
+2016-04-27 10:49:39,002 - [INFO] - from application in application-akka.actor.default-dispatcher-78 
+userID=0 recommendations.size=20
+
+2016-04-27 10:49:39,102 - [INFO] - from application in application-akka.actor.default-dispatcher-81 
+15253E91-4857-4502-A70C-32E608958698
+
+2016-04-27 10:49:39,108 - [INFO] - from application in application-akka.actor.default-dispatcher-81 
+544
+
+2016-04-27 10:49:39,109 - [INFO] - from application in application-akka.actor.default-dispatcher-81 
+true
+
+2016-04-27 10:49:56,415 - [INFO] - from application in application-akka.actor.default-dispatcher-83 
+userID=0 recommendations.size=20
+
+2016-04-27 10:49:57,149 - [INFO] - from application in application-akka.actor.default-dispatcher-83 
+15253E91-4857-4502-A70C-32E608958698
+
+2016-04-27 10:49:57,152 - [INFO] - from application in application-akka.actor.default-dispatcher-83 
+544
+
+2016-04-27 10:49:57,152 - [INFO] - from application in application-akka.actor.default-dispatcher-83 
+true
+
+2016-04-27 14:16:23,650 - [INFO] - from application in application-akka.actor.default-dispatcher-95 
+8,8279,3.000000
+
+2016-04-27 14:25:03,199 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+583cc373c360d27a
+
+2016-04-27 14:25:03,206 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+117
+
+2016-04-27 14:25:03,207 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+true
+
+2016-04-27 14:25:10,001 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+edae6501d783efc4
+
+2016-04-27 14:25:10,006 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+545
+
+2016-04-27 14:25:10,006 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+false
+
+2016-04-27 14:25:17,071 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+117,10440,3.000000
+
+2016-04-27 14:25:19,985 - [INFO] - from application in application-akka.actor.default-dispatcher-101 
+545,23573,3.000000
+
+2016-04-27 14:25:33,612 - [INFO] - from application in application-akka.actor.default-dispatcher-100 
+545,24058,3.000000
+
+2016-04-27 14:27:42,909 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+756fa31c2794615b
+
+2016-04-27 14:27:42,915 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+546
+
+2016-04-27 14:27:42,915 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+false
+
+2016-04-27 14:28:02,263 - [INFO] - from application in application-akka.actor.default-dispatcher-105 
+546,10436,3.000000
+
+2016-04-27 14:28:21,492 - [INFO] - from application in application-akka.actor.default-dispatcher-106 
+545,1865,3.000000
+
+2016-04-27 14:30:34,859 - [INFO] - from application in application-akka.actor.default-dispatcher-104 
+545,12845,3.000000
+
+2016-04-27 14:41:41,159 - [INFO] - from application in application-akka.actor.default-dispatcher-104 
+2e4808fef176f968
+
+2016-04-27 14:41:41,164 - [INFO] - from application in application-akka.actor.default-dispatcher-104 
+547
+
+2016-04-27 14:41:41,165 - [INFO] - from application in application-akka.actor.default-dispatcher-104 
+false
+
+2016-04-27 14:41:58,323 - [INFO] - from application in application-akka.actor.default-dispatcher-118 
+3d8bbf9ec00dc954
+
+2016-04-27 14:41:58,329 - [INFO] - from application in application-akka.actor.default-dispatcher-118 
+548
+
+2016-04-27 14:41:58,329 - [INFO] - from application in application-akka.actor.default-dispatcher-118 
+false
+
+2016-04-27 14:42:08,665 - [INFO] - from application in application-akka.actor.default-dispatcher-121 
+547,13802,3.000000
+
+2016-04-27 14:42:21,680 - [INFO] - from application in application-akka.actor.default-dispatcher-121 
+547,31013,3.000000
+
+2016-04-27 14:42:29,740 - [INFO] - from application in application-akka.actor.default-dispatcher-117 
+548,26399,3.000000
+
+2016-04-27 14:42:39,573 - [INFO] - from application in application-akka.actor.default-dispatcher-123 
+547,31013,3.000000
+
+2016-04-27 14:42:40,010 - [INFO] - from application in application-akka.actor.default-dispatcher-123 
+547,31013,5.000000
+
+2016-04-27 14:42:49,223 - [INFO] - from application in application-akka.actor.default-dispatcher-104 
+548,17444,3.000000
+
+2016-04-27 14:42:57,036 - [INFO] - from application in application-akka.actor.default-dispatcher-118 
+548,17444,3.000000
+
+2016-04-27 14:43:22,202 - [INFO] - from application in application-akka.actor.default-dispatcher-120 
+548,4293,3.000000
+
+2016-04-27 14:44:14,699 - [WARN] - from application in application-akka.actor.default-dispatcher-117 
+{"APP_VERSION_NAME":"0.1.2.0","PHONE_MODEL":"ATH-UL00","ANDROID_VERSION":"5.1.1","STACK_TRACE":"java.lang.NullPointerException: Attempt to invoke virtual method 'int android.graphics.Bitmap.getHeight()' on a null object reference\n\tat org.hackathon_ocw.androidclient.DetailActivity.WXShare(DetailActivity.java:302)\n\tat org.hackathon_ocw.androidclient.DetailActivity.onMenuItemClick(DetailActivity.java:281)\n\tat android.widget.PopupMenu.onMenuItemSelected(PopupMenu.java:228)\n\tat com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected(MenuBuilder.java:761)\n\tat com.android.internal.view.menu.MenuItemImpl.invoke(MenuItemImpl.java:158)\n\tat com.android.internal.view.menu.MenuBuilder.performItemAction(MenuBuilder.java:904)\n\tat com.android.internal.view.menu.MenuBuilder.performItemAction(MenuBuilder.java:894)\n\tat com.android.internal.view.menu.MenuPopupHelper.onItemClick(MenuPopupHelper.java:232)\n\tat android.widget.AdapterView.performItemClick(AdapterView.java:308)\n\tat android.widget.AbsListView.performItemClick(AbsListView.java:1162)\n\tat android.widget.AbsListView$PerformClick.run(AbsListView.java:3086)\n\tat android.widget.AbsListView$3.run(AbsListView.java:3920)\n\tat android.os.Handler.handleCallback(Handler.java:739)\n\tat android.os.Handler.dispatchMessage(Handler.java:95)\n\tat android.os.Looper.loop(Looper.java:135)\n\tat android.app.ActivityThread.main(ActivityThread.java:5669)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:372)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:960)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:755)\n","USER_APP_START_DATE":"2016-04-27T22:41:39.574+08:00","USER_CRASH_DATE":"2016-04-27T22:43:52.279+08:00"}
+
+2016-04-27 14:45:27,179 - [WARN] - from application in application-akka.actor.default-dispatcher-129 
+{"APP_VERSION_NAME":"0.1.2.0","PHONE_MODEL":"ATH-UL00","ANDROID_VERSION":"5.1.1","STACK_TRACE":"java.lang.NullPointerException: Attempt to invoke virtual method 'int android.graphics.Bitmap.getHeight()' on a null object reference\n\tat org.hackathon_ocw.androidclient.DetailActivity.WXShare(DetailActivity.java:302)\n\tat org.hackathon_ocw.androidclient.DetailActivity.onMenuItemClick(DetailActivity.java:281)\n\tat android.widget.PopupMenu.onMenuItemSelected(PopupMenu.java:228)\n\tat com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected(MenuBuilder.java:761)\n\tat com.android.internal.view.menu.MenuItemImpl.invoke(MenuItemImpl.java:158)\n\tat com.android.internal.view.menu.MenuBuilder.performItemAction(MenuBuilder.java:904)\n\tat com.android.internal.view.menu.MenuBuilder.performItemAction(MenuBuilder.java:894)\n\tat com.android.internal.view.menu.MenuPopupHelper.onItemClick(MenuPopupHelper.java:232)\n\tat android.widget.AdapterView.performItemClick(AdapterView.java:308)\n\tat android.widget.AbsListView.performItemClick(AbsListView.java:1162)\n\tat android.widget.AbsListView$PerformClick.run(AbsListView.java:3086)\n\tat android.widget.AbsListView$3.run(AbsListView.java:3920)\n\tat android.os.Handler.handleCallback(Handler.java:739)\n\tat android.os.Handler.dispatchMessage(Handler.java:95)\n\tat android.os.Looper.loop(Looper.java:135)\n\tat android.app.ActivityThread.main(ActivityThread.java:5669)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:372)\n\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:960)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:755)\n","USER_APP_START_DATE":"2016-04-27T22:41:39.574+08:00","USER_CRASH_DATE":"2016-04-27T22:43:52.279+08:00"}
+
+2016-04-27 15:03:52,738 - [INFO] - from application in application-akka.actor.default-dispatcher-131 
+5,29673,3.000000
+
+2016-04-27 15:04:07,687 - [INFO] - from application in application-akka.actor.default-dispatcher-133 
+5,15102,3.000000
+
