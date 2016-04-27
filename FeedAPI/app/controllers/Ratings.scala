@@ -64,7 +64,7 @@ class Ratings @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Control
                 val user_id = (json \ "user_id").as[Long]
                 val item_id = (json \ "item_id").as[Long]
                 val pref = (json \ "pref").as[Float]
-                Logger.info("%d,%d,%f".format(user_id, item_id, pref))
+                Logger.info("User clicks! userID={0},itemID={1},rate={2}.".format(user_id, item_id, pref))
 
                 val rating = Rating(user_id, item_id, pref, new Date())
                 val jsonRating: JsObject = Json.toJson(rating).as[JsObject]
