@@ -80,8 +80,7 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
 
     def register = Action.async(BodyParsers.parse.json) { implicit request =>
         val deviceid = (request.body \ DeviceID).as[String]
-        Logger.info(deviceid)
-        
+
         var found: Boolean = false
         val userIDFuture: Future[Long] = userRepo
             .find(Json.obj(DeviceID -> deviceid))
@@ -91,8 +90,8 @@ class Users @Inject() (val reactiveMongoApi: ReactiveMongoApi)
                 })
         
         val userID: Long = Await.result(userIDFuture, Duration.Inf)
-        Logger.info(userID toString)
-        Logger.info(found toString)
+
+        Logger.info("Users.register. Deviceid found:{0}, userID:{1}, deviceID:{2}".format(found toString, userID toString, deviceid))
         
         if (!found)
         {
