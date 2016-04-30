@@ -13,29 +13,14 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from guokr.items import GuokrItem
 
-def getout():
-    out = []
-    inputfile = open('out.json','r')
-    lines = inputfile.readlines()
-    inputfile.close()
-    for line in lines:
-        out.append(json.loads(line))
-    return out
-
 def cleanse(alist):
-    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
-
-def downloaded(link):
-    out = getout()
-    for js in out:
-        if js['link'] == link:
-            return True
-    return False
+    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''
 
 class GuokrSpider(scrapy.Spider):
     name = 'guokr'
     allowed_domains = ["www.guokr.com"]
     start_urls = ["http://www.guokr.com/scientific/"]
+    out = []
 
     def __init__(self):
         scrapy.Spider.__init__(self)
@@ -47,6 +32,22 @@ class GuokrSpider(scrapy.Spider):
     def __del__(self):
         self.driver.close()
 
+    def getout(self):
+        if len(self.out) == 0:
+            inputfile = open('out.json','r')
+            lines = inputfile.readlines()
+            inputfile.close()
+            for line in lines:
+                self.out.append(json.loads(line))
+        return self.out
+
+    def downloaded(self, link):
+        out = self.getout()
+        for js in out:
+            if js['link'] == link:
+                return True
+        return False
+        
     def parse(self, response):
 
         self.driver.get('http://www.guokr.com/scientific/')
@@ -62,18 +63,22 @@ class GuokrSpider(scrapy.Spider):
 
         hxs = scrapy.Selector(text = self.driver.page_source)
         for info in hxs.xpath('//*[@id="waterfall"]/div'):
-            item = GuokrItem()
-            item['title'] = cleanse(info.xpath('h3/a[@class="article-title"]/text()').extract())
-            item['description'] = cleanse(info.xpath('p[@class="article-summary"]/text()').extract())
-            item['piclink'] = cleanse(info.xpath('a/img/@src').extract())
-            item['courselink'] = u''
-            item['source'] = u'果壳网'
-            item['school'] = u'果壳网'
-            item['instructor'] = cleanse(info.xpath('div/a[1]/text()').extract())
-            item['language'] = u'中文'
-            item['tags'] = cleanse(info.xpath('a[@class="label label-common"]/text()').extract())
-            item['link'] = cleanse(info.xpath('a[@data-gaevent="scientific_image:v1.1.1.1:scientific"]/@href').extract())
-            yield item
+            link = cleanse(info.xpath('a[@data-gaevent="scientific_image:v1.1.1.1:scientific"]/@href').extract())
+            if not self.downloaded(link):
+                item = GuokrItem()
+                item['title'] = cleanse(info.xpath('h3/a[@class="article-title"]/text()').extract())
+                item['description'] = cleanse(info.xpath('p[@class="article-summary"]/text()').extract())
+                item['piclink'] = cleanse(info.xpath('a/img/@src').extract())
+                item['courselink'] = u''
+                item['source'] = u'果壳网'
+                item['school'] = u'果壳网'
+                item['instructor'] = cleanse(info.xpath('div/a[1]/text()').extract())
+                item['language'] = u'中文'
+                item['tags'] = cleanse(info.xpath('a[@class="label label-common"]/text()').extract())
+                item['link'] = link
+                item['posted'] = cleanse(info.xpath('div[@class="article-info"]/text()').extract())
+                item['crawled'] = time.strftime('%Y-%m-%d %H:%M', time.localtime())
+                yield item
 
 
 
