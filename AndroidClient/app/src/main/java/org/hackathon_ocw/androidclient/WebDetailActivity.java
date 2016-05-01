@@ -33,7 +33,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -236,6 +238,16 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         if(webUri != ""){
             browser=(WebView)findViewById(R.id.webview);
             browser.getSettings().setJavaScriptEnabled(true);
+            browser.getSettings().setUseWideViewPort(true);
+            browser.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+            browser.getSettings().setLoadWithOverviewMode(true);
+            browser.setWebViewClient(new WebViewClient(){
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+            });
             browser.loadUrl(webUri);
         }
     }
