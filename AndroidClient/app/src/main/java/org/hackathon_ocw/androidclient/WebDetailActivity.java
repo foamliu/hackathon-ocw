@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -241,6 +242,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
             browser.getSettings().setUseWideViewPort(true);
             browser.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             browser.getSettings().setLoadWithOverviewMode(true);
+            browser.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
             browser.setWebViewClient(new WebViewClient(){
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -248,6 +250,14 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
                     return true;
                 }
             });
+            browser.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH); // for ＜ API　18
+            if (Build.VERSION.SDK_INT >= 19) {
+                // chromium, enable hardware acceleration
+                browser.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            } else {
+                // older android version, disable hardware acceleration
+                browser.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            }
             browser.loadUrl(webUri);
         }
     }
