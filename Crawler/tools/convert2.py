@@ -8,8 +8,8 @@ output_file = codecs.open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI
 items = json.load(input_file, encoding='utf-8')
 
 for item in items:
-    if item['source'] == '一席':
-        item['school'] = '一席'
+    if item['source'] == '网易公开课' and item['courselink'] == '':
+        item['enabled'] = False
 
 
 json.dump(items, output_file, indent=4, ensure_ascii=False, sort_keys=True)
