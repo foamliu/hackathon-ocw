@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 //fetchTimeLineAsync(0);
-                Toast.makeText(getApplicationContext(), "正在刷新... ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "正在努力加载", Toast.LENGTH_SHORT).show();
                 mListAdapter.clear();
 
                 Download_data download_data = new Download_data((download_complete) MainActivity.this);
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "刷新完成!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "推荐引擎有20条更新", Toast.LENGTH_SHORT).show();
                         mRefreshLayout.setRefreshing(false);
                     }
                 }, 4000);
