@@ -8,7 +8,7 @@ from selenium import webdriver
 def getlinks():
     links = []
     base_url = "http://yixi.tv/lecture/"
-    count = 354
+    count = 356
     i = count
     while (i >= 1):
         url = base_url + str(i)
@@ -66,8 +66,8 @@ class YixiSpider(scrapy.Spider):
         item['language'] = u"中文"
         item['tags'] = u"一席"
         item['link'] = link
-        #item['posted'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[2]/span[1]/text()').extract())
-        #item['crawled'] = time.strftime("%Y-%m-%d")
+        item['posted'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[2]/span[1]/text()').extract())
+        item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
         return item
       
     def parse(self, response):
