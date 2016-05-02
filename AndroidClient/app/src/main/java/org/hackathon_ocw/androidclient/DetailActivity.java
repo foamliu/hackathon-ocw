@@ -299,10 +299,12 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         WXMediaMessage msg = new WXMediaMessage(webpageObject);
         msg.title = title;
         msg.description = description;
-        videoImage.getHeight();
-        Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
-        //videoImage.recycle();
-        msg.thumbData = bmpToByteArray(thumb, true);
+        if (videoImage != null) {
+            videoImage.getHeight();
+            Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
+            //videoImage.recycle();
+            msg.thumbData = bmpToByteArray(thumb, true);
+        }
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");
