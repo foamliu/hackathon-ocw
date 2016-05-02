@@ -112,7 +112,10 @@ public class ListAdapter extends BaseAdapter {
 
         title.setText(course.get(MainActivity.KEY_TITLE));
         //source.setText(course.get(MainActivity.KEY_SOURCE));
-        source.setText(course.get(MainActivity.KEY_SCHOOL));
+        String school = course.get(MainActivity.KEY_SCHOOL);
+        if (school.length() > 12)
+            school = school.substring(0, 12) + "..";
+        source.setText(school);
 
         if(course.get(MainActivity.KEY_DURATION).equals(""))
         {
