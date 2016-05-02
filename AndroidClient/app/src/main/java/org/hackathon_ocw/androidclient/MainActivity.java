@@ -573,7 +573,7 @@ public class MainActivity extends AppCompatActivity
         WXapi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
         if(!WXapi.isWXAppInstalled())
         {
-            Toast.makeText(getApplicationContext(), "请先安装微信应用", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "请先安装微信", Toast.LENGTH_SHORT).show();
             return;
         }
         WXapi.registerApp(Constants.APP_ID);

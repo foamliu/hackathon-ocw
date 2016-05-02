@@ -46,7 +46,7 @@ import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.RatingBar;
+//import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,7 +100,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private TextView titleToolBar;
     //private TextView descriptionDetail;
     private ViewPager viewPager;
-    private RatingBar ratingBar;
+    //private RatingBar ratingBar;
     private Button backBtn;
     private Button shareBtn;
     private PopupWindow popWindow;
@@ -167,7 +167,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         addListenerOnCommentButton();
         addListenerOnViewCommentButton();
         //addListenerOnFavoritesButton();
-        addListenerOnRatingBar();
+        //addListenerOnRatingBar();
 
         //Google Analytics tracker
         sendScreenImageName();
@@ -393,7 +393,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
     public void addListenerOnRatingBar() {
 
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+/*        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         //if rating value is changed,
         //display the current rating value in the result (textview) automatically
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -408,7 +408,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 Runnable networkTask = new NetworkThread(UserProfile.getUserProfile().getUserid(), courseId, rating);
                 new Thread(networkTask).start();
             }
-        });
+        });*/
     }
 
     public void addListenerOnCommentButton(){

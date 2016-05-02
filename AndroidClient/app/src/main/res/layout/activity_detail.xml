@@ -30,7 +30,7 @@
                 android:gravity="center_vertical"
                 />
 
-            <RatingBar
+<!--            <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:rating="2.0"
                 android:isIndicator="false"
                 style="?android:attr/ratingBarStyleSmall"
-                />
+                />-->
 
             <RelativeLayout
                 android:id="@+id/videoLayout"
