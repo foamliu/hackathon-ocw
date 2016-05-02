@@ -171,8 +171,8 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
         with MongoController with ReactiveMongoComponents {
 
     def index = Action {
-        Ok(views.html.index("hello"))
         //Ok("Your new application is ready.")
+        Ok(views.html.index("学啥"))
     }
 
     def getCandidates(userID: Long) = Action {

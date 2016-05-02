@@ -1,18 +1,15 @@
-@(message: String)
+@(title: String)
 
-@main("街口") {
-
-    安装学啥客户端：
-     <table border="1">
-         <tr>
-             <td>安卓</td>
-             <td></td>
-         </tr>
-         <tr>
-             <td>iOS</td>
-             <td></td>
-         </tr>
-     </table>
-     沪ICP备15046615号-1
-
+@main(title) {
+    <h2 class=center>@title</h2>
+	<header class=header>《学啥》聚合公开课资源，为您推荐喜欢的内容，解决“信息过载”的问题。 支持搜索和标签，微信登录后，可记录微笔记，分享此刻的收获。</header>
+	<div class=center>
+		<p>Android 下载</p>
+		<img src="@routes.Assets.versioned("images/QRCode/android.png")" title="Android 下载" />
+	</div>	
+	<div class=center>
+		<p>IOS 下载</p>
+		<img src="@routes.Assets.versioned("images/QRCode/ios.png")" title="IOS 下载" />
+	</div>	
+	<footer class=center>沪ICP备15046615号-1</footer>
 }

@@ -2,7 +2,6 @@
 bin/
 /db
 .eclipse
-/logs/
 /modules
 /project/target
 /target
@@ -15,6 +14,11 @@ server.pid
 
 *.class
 *.log
+
+prefs.csv
+RUNNING_PID
+
+!/logs/application.log
 
 # sbt specific
 .cache
@@ -30,4 +34,3 @@ project/plugins/project/
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
-
