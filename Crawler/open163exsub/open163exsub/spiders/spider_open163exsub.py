@@ -10,6 +10,9 @@ import time
 import json
 from selenium import webdriver
 from open163exsub.items import Open163ExSubItem
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def getlinks():
     inputfile = open('open163exsub/links.json','r')
@@ -88,6 +91,8 @@ class Open163ExSpider(scrapy.Spider):
         item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(language_pos)).extract())
         item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(tags_pos)).extract())
         item['link'] = link
+        item['posted'] = u''
+        item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
         return item
 
     def parse(self, response):
