@@ -18,24 +18,37 @@ def downloaded(items, link):
             return True
     return False
 
-input_file_1 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\Crawler\yixi\out.json', "r", encoding="utf-8")
+def getPos(items, link):
+    for i in range(0, len(items)-1):
+        if items[i]['link'] == link:
+            return i
+    return -1
+
+input_file_1 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\Crawler\open163exsub\out.json', "r", encoding="utf-8")
 input_file_2 = open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\items.json', "r", encoding="utf-8")
 output_file = codecs.open(r'C:\Users\Foam\Documents\GitHub\hackathon-ocw\FeedAPI\app\assets\jsons\output.json', "w", encoding="utf-8")
 
 items = json.load(input_file_2, encoding='utf-8')
 
 lines = input_file_1.readlines()
-i = 33014
+i = 33016
 for line in lines:
     line = line.replace('\\','\\\\')
     #print(line)
     item = json.loads(line)
-    if not downloaded(items, item['link']):
+    pos = getPos(items, item['link'])
+    if pos == -1:
         item['item_id'] = i
         item['duration'] = ''
         item['enabled'] = True
         items.append(item)
         i += 1
+    else:
+        item['item_id'] = items[pos]['item_id']
+        item['duration'] = items[pos]['duration']
+        item['enabled'] = items[pos]['enabled']
+        item['tags'] = items[pos]['tags']
+        items[pos] = item
 
 
 json.dump(items ,output_file, indent=4,ensure_ascii=False,sort_keys=True)
