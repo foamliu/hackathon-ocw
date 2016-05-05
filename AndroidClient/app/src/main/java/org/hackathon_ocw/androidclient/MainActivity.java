@@ -910,12 +910,12 @@ public class MainActivity extends AppCompatActivity
             CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
             imageView.setImageResource(R.drawable.ic_account_circle_black_48dp);
             TextView textView = (TextView)findViewById(R.id.userName);
-            textView.setText("未登陆");
+            textView.setText("未登录");
 
             Menu menu = navigationView.getMenu();
             MenuItem menuItem = menu.findItem(R.id.nav_login);
             if(login == false){
-                menuItem.setTitle("登陆");
+                menuItem.setTitle("登录");
             }
         }
     }
