@@ -10,5 +10,4 @@ import scrapy
 
 class InfoqArticleItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    link = scrapy.Field()         #链接，用于关联。
