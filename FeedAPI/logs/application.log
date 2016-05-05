@@ -6527,3 +6527,780 @@ User clicks! userID=556,itemID=891,rate=3.000000.
 2016-05-02 07:00:13,123 - [INFO] - from application in application-akka.actor.default-dispatcher-79 
 User clicks! userID=556,itemID=32041,rate=3.000000.
 
+2016-05-02 12:10:31,140 - [INFO] - from application in application-akka.actor.default-dispatcher-126 
+Users.register. Deviceid found:true, userID:556, deviceID:c3e6b7cc7a2bee9e
+
+2016-05-02 12:11:21,257 - [INFO] - from application in application-akka.actor.default-dispatcher-127 
+Users.register. Deviceid found:true, userID:556, deviceID:c3e6b7cc7a2bee9e
+
+2016-05-02 12:11:51,701 - [INFO] - from application in application-akka.actor.default-dispatcher-127 
+User clicks! userID=556,itemID=29547,rate=3.000000.
+
+2016-05-02 12:13:01,081 - [INFO] - from application in application-akka.actor.default-dispatcher-127 
+User clicks! userID=556,itemID=27591,rate=3.000000.
+
+2016-05-02 12:22:50,727 - [INFO] - from application in application-akka.actor.default-dispatcher-127 
+User clicks! userID=556,itemID=24941,rate=3.000000.
+
+2016-05-02 12:25:01,991 - [INFO] - from application in application-akka.actor.default-dispatcher-138 
+User clicks! userID=556,itemID=24941,rate=5.000000.
+
+2016-05-02 12:26:36,374 - [INFO] - from application in application-akka.actor.default-dispatcher-143 
+User clicks! userID=556,itemID=8280,rate=3.000000.
+
+2016-05-02 12:26:38,878 - [INFO] - from application in application-akka.actor.default-dispatcher-143 
+User clicks! userID=556,itemID=8278,rate=3.000000.
+
+2016-05-02 12:26:40,594 - [INFO] - from application in application-akka.actor.default-dispatcher-147 
+User clicks! userID=556,itemID=8278,rate=3.000000.
+
+2016-05-02 12:26:41,433 - [INFO] - from application in application-akka.actor.default-dispatcher-149 
+User clicks! userID=556,itemID=8278,rate=3.000000.
+
+2016-05-02 12:26:42,419 - [INFO] - from application in application-akka.actor.default-dispatcher-149 
+User clicks! userID=556,itemID=8278,rate=3.000000.
+
+2016-05-02 12:26:43,218 - [INFO] - from application in application-akka.actor.default-dispatcher-147 
+User clicks! userID=556,itemID=8272,rate=3.000000.
+
+2016-05-02 12:26:44,387 - [INFO] - from application in application-akka.actor.default-dispatcher-146 
+User clicks! userID=556,itemID=8272,rate=3.000000.
+
+2016-05-02 12:26:47,692 - [INFO] - from application in application-akka.actor.default-dispatcher-150 
+User clicks! userID=556,itemID=8271,rate=3.000000.
+
+2016-05-02 12:26:49,912 - [INFO] - from application in application-akka.actor.default-dispatcher-149 
+User clicks! userID=556,itemID=8271,rate=3.000000.
+
+2016-05-02 12:26:52,578 - [INFO] - from application in application-akka.actor.default-dispatcher-150 
+User clicks! userID=556,itemID=8274,rate=3.000000.
+
+2016-05-02 12:31:19,454 - [INFO] - from application in application-akka.actor.default-dispatcher-151 
+User clicks! userID=556,itemID=8277,rate=3.000000.
+
+2016-05-02 12:50:32,425 - [INFO] - from application in application-akka.actor.default-dispatcher-157 
+User clicks! userID=556,itemID=24636,rate=3.000000.
+
+2016-05-02 12:55:01,535 - [INFO] - from application in application-akka.actor.default-dispatcher-157 
+User clicks! userID=556,itemID=24636,rate=5.000000.
+
+2016-05-02 13:16:09,861 - [INFO] - from application in application-akka.actor.default-dispatcher-167 
+User clicks! userID=556,itemID=1036,rate=3.000000.
+
+2016-05-02 13:18:28,068 - [INFO] - from application in application-akka.actor.default-dispatcher-167 
+User clicks! userID=556,itemID=2796,rate=3.000000.
+
+2016-05-02 13:54:48,804 - [INFO] - from application in application-akka.actor.default-dispatcher-167 
+User clicks! userID=556,itemID=8390,rate=3.000000.
+
+2016-05-02 13:55:12,143 - [INFO] - from application in application-akka.actor.default-dispatcher-179 
+User clicks! userID=556,itemID=8390,rate=3.000000.
+
+2016-05-02 13:55:13,060 - [INFO] - from application in application-akka.actor.default-dispatcher-183 
+User clicks! userID=556,itemID=8390,rate=3.000000.
+
+2016-05-02 13:55:18,314 - [INFO] - from application in application-akka.actor.default-dispatcher-179 
+User clicks! userID=556,itemID=8277,rate=3.000000.
+
+2016-05-02 18:43:15,487 - [INFO] - from application in application-akka.actor.default-dispatcher-195 
+Real recommendations: userID=0, result size=20.
+
+2016-05-02 18:43:15,509 - [INFO] - from application in application-akka.actor.default-dispatcher-190 
+Users.register. Deviceid found:false, userID:561, deviceID:DB607AC4-90A0-471E-BF60-48621FC15453
+
+2016-05-02 18:43:22,781 - [INFO] - from application in application-akka.actor.default-dispatcher-194 
+User clicks! userID=561,itemID=1019,rate=3.000000.
+
+2016-05-02 18:43:29,849 - [INFO] - from application in application-akka.actor.default-dispatcher-194 
+Users.register. Deviceid found:true, userID:561, deviceID:DB607AC4-90A0-471E-BF60-48621FC15453
+
+2016-05-02 18:43:29,859 - [INFO] - from application in application-akka.actor.default-dispatcher-194 
+Real recommendations: userID=0, result size=20.
+
+2016-05-02 18:43:56,117 - [INFO] - from application in application-akka.actor.default-dispatcher-197 
+User clicks! userID=561,itemID=24,rate=3.000000.
+
+2016-05-03 13:21:26,389 - [INFO] - from application in application-akka.actor.default-dispatcher-266 
+User clicks! userID=556,itemID=28835,rate=3.000000.
+
+2016-05-03 13:27:09,296 - [INFO] - from application in application-akka.actor.default-dispatcher-266 
+User clicks! userID=556,itemID=8288,rate=3.000000.
+
+2016-05-03 13:27:12,956 - [INFO] - from application in application-akka.actor.default-dispatcher-273 
+User clicks! userID=556,itemID=8277,rate=3.000000.
+
+2016-05-03 13:28:52,834 - [INFO] - from application in application-akka.actor.default-dispatcher-274 
+User clicks! userID=556,itemID=23999,rate=3.000000.
+
+2016-05-03 13:30:08,643 - [INFO] - from application in application-akka.actor.default-dispatcher-274 
+User clicks! userID=556,itemID=758,rate=3.000000.
+
+2016-05-03 13:31:21,021 - [INFO] - from application in application-akka.actor.default-dispatcher-278 
+User clicks! userID=556,itemID=6778,rate=3.000000.
+
+2016-05-03 13:32:29,641 - [INFO] - from application in application-akka.actor.default-dispatcher-282 
+User clicks! userID=556,itemID=26933,rate=3.000000.
+
+2016-05-03 14:04:18,741 - [INFO] - from application in application-akka.actor.default-dispatcher-289 
+User clicks! userID=556,itemID=15765,rate=3.000000.
+
+2016-05-03 14:09:14,825 - [INFO] - from application in application-akka.actor.default-dispatcher-296 
+User clicks! userID=556,itemID=23102,rate=3.000000.
+
+2016-05-03 14:09:23,352 - [INFO] - from application in application-akka.actor.default-dispatcher-301 
+User clicks! userID=556,itemID=23102,rate=3.000000.
+
+2016-05-03 14:11:02,466 - [INFO] - from application in application-akka.actor.default-dispatcher-304 
+User clicks! userID=556,itemID=32530,rate=3.000000.
+
+2016-05-03 14:24:47,218 - [INFO] - from application in application-akka.actor.default-dispatcher-305 
+User clicks! userID=556,itemID=6554,rate=3.000000.
+
+2016-05-04 12:23:35,146 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-05-04 12:23:35,190 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-05-04 12:23:35,219 - [INFO] - from application in ForkJoinPool-2-worker-1 
+ReactiveMongoApi stopping...
+
+2016-05-04 12:23:35,234 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongoApi connections stopped. [Success(Closed)]
+
+2016-05-04 12:24:47,038 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-05-04 12:24:47,059 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-05-04 12:24:47,060 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-05-04 12:24:47,077 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-05-04 12:24:47,191 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-05-04 14:07:31,588 - [INFO] - from application in Thread-3 
+ReactiveMongoPlugin stops, closing connections...
+
+2016-05-04 14:07:31,781 - [INFO] - from application in ForkJoinPool-2-worker-3 
+ReactiveMongo Connections stopped. [Success(Closed)]
+
+2016-05-04 14:08:13,936 - [INFO] - from application in main 
+ReactiveMongoPlugin starting...
+
+2016-05-04 14:08:13,959 - [INFO] - from application in main 
+ReactiveMongoPlugin successfully started with db 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-05-04 14:08:13,960 - [INFO] - from application in main 
+Scheduling the data model refresh daemon
+
+2016-05-04 14:08:13,977 - [INFO] - from play.api.Play in main 
+Application started (Prod)
+
+2016-05-04 14:08:14,066 - [INFO] - from play.core.server.NettyServer in main 
+Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+2016-05-04 14:20:03,526 - [INFO] - from application in application-akka.actor.default-dispatcher-28 
+ReactiveMongoApi starting...
+
+2016-05-04 14:20:03,652 - [INFO] - from application in application-akka.actor.default-dispatcher-28 
+ReactiveMongoApi successfully started with DB 'jiekodb'! Servers:
+		[192.168.0.1:27017]
+
+2016-05-04 14:20:04,346 - [INFO] - from application in application-akka.actor.default-dispatcher-28 
+Users.register. Deviceid found:false, userID:562, deviceID:c1b035370c31cb39
+
+2016-05-04 14:20:40,343 - [INFO] - from application in application-akka.actor.default-dispatcher-31 
+User clicks! userID=562,itemID=18834,rate=3.000000.
+
+2016-05-04 14:20:57,481 - [INFO] - from application in application-akka.actor.default-dispatcher-31 
+Users.register. Deviceid found:false, userID:563, deviceID:f5db0e44c51f243d
+
+2016-05-04 14:21:10,481 - [INFO] - from application in application-akka.actor.default-dispatcher-32 
+User clicks! userID=562,itemID=24974,rate=3.000000.
+
+2016-05-04 14:21:22,188 - [INFO] - from application in application-akka.actor.default-dispatcher-32 
+User clicks! userID=562,itemID=15872,rate=3.000000.
+
+2016-05-04 14:22:33,145 - [INFO] - from application in application-akka.actor.default-dispatcher-33 
+User clicks! userID=563,itemID=21177,rate=3.000000.
+
+2016-05-04 14:23:51,171 - [INFO] - from application in application-akka.actor.default-dispatcher-42 
+Users.register. Deviceid found:false, userID:564, deviceID:6f310cacec98c99
+
+2016-05-04 14:29:24,762 - [INFO] - from application in application-akka.actor.default-dispatcher-48 
+User clicks! userID=563,itemID=21174,rate=3.000000.
+
+2016-05-04 14:30:07,870 - [INFO] - from application in application-akka.actor.default-dispatcher-55 
+User clicks! userID=556,itemID=9698,rate=3.000000.
+
+2016-05-04 14:32:10,766 - [INFO] - from application in application-akka.actor.default-dispatcher-61 
+Users.register. Deviceid found:false, userID:565, deviceID:b64d9f20b8f23fb0
+
+2016-05-04 14:32:42,258 - [INFO] - from application in application-akka.actor.default-dispatcher-68 
+User clicks! userID=564,itemID=29120,rate=3.000000.
+
+2016-05-04 14:33:07,863 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:11,711 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+User clicks! userID=565,itemID=27462,rate=3.000000.
+
+2016-05-04 14:33:12,867 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:14,699 - [INFO] - from application in application-akka.actor.default-dispatcher-67 
+User clicks! userID=565,itemID=27462,rate=3.000000.
+
+2016-05-04 14:33:14,747 - [INFO] - from application in application-akka.actor.default-dispatcher-67 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:16,078 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:17,266 - [INFO] - from application in application-akka.actor.default-dispatcher-70 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:18,349 - [INFO] - from application in application-akka.actor.default-dispatcher-70 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:19,484 - [INFO] - from application in application-akka.actor.default-dispatcher-70 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:20,465 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:21,266 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:25,284 - [INFO] - from application in application-akka.actor.default-dispatcher-70 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:26,522 - [INFO] - from application in application-akka.actor.default-dispatcher-70 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:33:27,750 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+Real recommendations: userID=413, result size=20.
+
+2016-05-04 14:34:04,718 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+User clicks! userID=564,itemID=29120,rate=5.000000.
+
+2016-05-04 14:34:07,398 - [INFO] - from application in application-akka.actor.default-dispatcher-65 
+User clicks! userID=564,itemID=29120,rate=3.000000.
+
+2016-05-04 14:34:08,025 - [INFO] - from application in application-akka.actor.default-dispatcher-71 
+User clicks! userID=564,itemID=29120,rate=2.000000.
+
+2016-05-04 14:39:41,508 - [INFO] - from application in application-akka.actor.default-dispatcher-80 
+User clicks! userID=565,itemID=21955,rate=3.000000.
+
+2016-05-04 14:42:13,972 - [INFO] - from application in application-akka.actor.default-dispatcher-87 
+Users.register. Deviceid found:false, userID:566, deviceID:1982e2a6d0d8a43e
+
+2016-05-04 14:42:53,106 - [INFO] - from application in application-akka.actor.default-dispatcher-87 
+User clicks! userID=566,itemID=11669,rate=3.000000.
+
+2016-05-04 14:43:07,523 - [INFO] - from application in application-akka.actor.default-dispatcher-87 
+Users.register. Deviceid found:false, userID:567, deviceID:43070a5c749e3b11
+
+2016-05-04 14:43:25,306 - [INFO] - from application in application-akka.actor.default-dispatcher-90 
+User clicks! userID=566,itemID=26499,rate=3.000000.
+
+2016-05-04 14:44:00,907 - [INFO] - from application in application-akka.actor.default-dispatcher-91 
+Users.register. Deviceid found:false, userID:568, deviceID:b1f54f2802adb8a5
+
+2016-05-04 14:44:10,181 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 14:44:12,294 - [INFO] - from application in application-akka.actor.default-dispatcher-94 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 14:44:14,382 - [INFO] - from application in application-akka.actor.default-dispatcher-98 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 14:44:39,844 - [INFO] - from application in application-akka.actor.default-dispatcher-87 
+User clicks! userID=566,itemID=16730,rate=3.000000.
+
+2016-05-04 14:45:34,059 - [INFO] - from application in application-akka.actor.default-dispatcher-102 
+User clicks! userID=568,itemID=55,rate=3.000000.
+
+2016-05-04 14:45:42,996 - [INFO] - from application in application-akka.actor.default-dispatcher-103 
+User clicks! userID=566,itemID=17076,rate=3.000000.
+
+2016-05-04 14:46:02,421 - [INFO] - from application in application-akka.actor.default-dispatcher-96 
+User clicks! userID=568,itemID=55,rate=3.000000.
+
+2016-05-04 14:46:06,223 - [INFO] - from application in application-akka.actor.default-dispatcher-101 
+User clicks! userID=568,itemID=55,rate=5.000000.
+
+2016-05-04 14:46:28,367 - [INFO] - from application in application-akka.actor.default-dispatcher-101 
+User clicks! userID=566,itemID=25466,rate=3.000000.
+
+2016-05-04 14:46:44,738 - [INFO] - from application in application-akka.actor.default-dispatcher-106 
+User clicks! userID=566,itemID=14473,rate=3.000000.
+
+2016-05-04 14:47:06,130 - [INFO] - from application in application-akka.actor.default-dispatcher-102 
+User clicks! userID=568,itemID=21364,rate=3.000000.
+
+2016-05-04 14:47:09,305 - [INFO] - from application in application-akka.actor.default-dispatcher-106 
+User clicks! userID=566,itemID=27041,rate=3.000000.
+
+2016-05-04 14:47:12,557 - [INFO] - from application in application-akka.actor.default-dispatcher-106 
+User clicks! userID=566,itemID=207,rate=3.000000.
+
+2016-05-04 14:47:15,086 - [INFO] - from application in application-akka.actor.default-dispatcher-101 
+User clicks! userID=566,itemID=22823,rate=3.000000.
+
+2016-05-04 14:50:57,563 - [INFO] - from application in application-akka.actor.default-dispatcher-107 
+User clicks! userID=566,itemID=2277,rate=3.000000.
+
+2016-05-04 14:51:03,416 - [INFO] - from application in application-akka.actor.default-dispatcher-111 
+User clicks! userID=566,itemID=2277,rate=3.000000.
+
+2016-05-04 14:51:47,942 - [INFO] - from application in application-akka.actor.default-dispatcher-109 
+User clicks! userID=566,itemID=29944,rate=3.000000.
+
+2016-05-04 14:54:43,874 - [INFO] - from application in application-akka.actor.default-dispatcher-114 
+User clicks! userID=566,itemID=21586,rate=3.000000.
+
+2016-05-04 14:54:45,711 - [INFO] - from application in application-akka.actor.default-dispatcher-115 
+User clicks! userID=567,itemID=11075,rate=3.000000.
+
+2016-05-04 14:55:01,370 - [INFO] - from application in application-akka.actor.default-dispatcher-110 
+User clicks! userID=567,itemID=26175,rate=3.000000.
+
+2016-05-04 14:55:02,669 - [INFO] - from application in application-akka.actor.default-dispatcher-120 
+User clicks! userID=556,itemID=32680,rate=3.000000.
+
+2016-05-04 14:55:08,801 - [INFO] - from application in application-akka.actor.default-dispatcher-110 
+User clicks! userID=564,itemID=14031,rate=3.000000.
+
+2016-05-04 14:55:12,650 - [INFO] - from application in application-akka.actor.default-dispatcher-110 
+User clicks! userID=566,itemID=9444,rate=3.000000.
+
+2016-05-04 14:55:17,670 - [INFO] - from application in application-akka.actor.default-dispatcher-114 
+User clicks! userID=566,itemID=28637,rate=3.000000.
+
+2016-05-04 14:55:36,999 - [INFO] - from application in application-akka.actor.default-dispatcher-116 
+User clicks! userID=567,itemID=21179,rate=3.000000.
+
+2016-05-04 14:55:59,540 - [INFO] - from application in application-akka.actor.default-dispatcher-121 
+User clicks! userID=564,itemID=14031,rate=3.000000.
+
+2016-05-04 14:56:02,048 - [INFO] - from application in application-akka.actor.default-dispatcher-122 
+User clicks! userID=566,itemID=32661,rate=3.000000.
+
+2016-05-04 14:56:42,587 - [INFO] - from application in application-akka.actor.default-dispatcher-114 
+User clicks! userID=564,itemID=26134,rate=3.000000.
+
+2016-05-04 14:59:14,769 - [INFO] - from application in application-akka.actor.default-dispatcher-127 
+User clicks! userID=564,itemID=28085,rate=3.000000.
+
+2016-05-04 14:59:24,627 - [INFO] - from application in application-akka.actor.default-dispatcher-129 
+User clicks! userID=564,itemID=23974,rate=3.000000.
+
+2016-05-04 14:59:27,548 - [INFO] - from application in application-akka.actor.default-dispatcher-131 
+User clicks! userID=564,itemID=19706,rate=3.000000.
+
+2016-05-04 15:01:41,257 - [INFO] - from application in application-akka.actor.default-dispatcher-135 
+User clicks! userID=567,itemID=32842,rate=3.000000.
+
+2016-05-04 15:05:24,020 - [INFO] - from application in application-akka.actor.default-dispatcher-132 
+User clicks! userID=567,itemID=24658,rate=3.000000.
+
+2016-05-04 15:05:31,819 - [INFO] - from application in application-akka.actor.default-dispatcher-142 
+User clicks! userID=567,itemID=24658,rate=3.000000.
+
+2016-05-04 15:07:36,677 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 15:07:40,639 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 15:08:09,310 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 15:08:18,037 - [INFO] - from application in application-akka.actor.default-dispatcher-145 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 15:08:34,266 - [INFO] - from application in application-akka.actor.default-dispatcher-144 
+Real recommendations: userID=568, result size=17.
+
+2016-05-04 15:19:16,013 - [INFO] - from application in application-akka.actor.default-dispatcher-153 
+User clicks! userID=567,itemID=19214,rate=3.000000.
+
+2016-05-04 15:29:45,866 - [INFO] - from application in application-akka.actor.default-dispatcher-164 
+User clicks! userID=556,itemID=22541,rate=3.000000.
+
+2016-05-04 16:43:08,287 - [INFO] - from application in application-akka.actor.default-dispatcher-169 
+User clicks! userID=567,itemID=32867,rate=3.000000.
+
+2016-05-04 16:43:25,044 - [INFO] - from application in application-akka.actor.default-dispatcher-172 
+User clicks! userID=567,itemID=8814,rate=3.000000.
+
+2016-05-04 16:43:26,049 - [INFO] - from application in application-akka.actor.default-dispatcher-173 
+User clicks! userID=567,itemID=15853,rate=3.000000.
+
+2016-05-04 16:43:27,649 - [INFO] - from application in application-akka.actor.default-dispatcher-175 
+User clicks! userID=567,itemID=15853,rate=3.000000.
+
+2016-05-04 16:43:33,269 - [INFO] - from application in application-akka.actor.default-dispatcher-175 
+User clicks! userID=567,itemID=15853,rate=3.000000.
+
+2016-05-05 00:46:11,422 - [INFO] - from application in application-akka.actor.default-dispatcher-266 
+User clicks! userID=556,itemID=6534,rate=3.000000.
+
+2016-05-05 01:40:49,538 - [INFO] - from application in application-akka.actor.default-dispatcher-277 
+User clicks! userID=567,itemID=26401,rate=3.000000.
+
+2016-05-05 02:12:42,893 - [INFO] - from application in application-akka.actor.default-dispatcher-278 
+User clicks! userID=567,itemID=23747,rate=3.000000.
+
+2016-05-05 02:13:26,877 - [INFO] - from application in application-akka.actor.default-dispatcher-281 
+User clicks! userID=567,itemID=21179,rate=3.000000.
+
+2016-05-05 02:20:54,210 - [INFO] - from application in application-akka.actor.default-dispatcher-281 
+User clicks! userID=567,itemID=27174,rate=3.000000.
+
+2016-05-05 02:21:30,586 - [INFO] - from application in application-akka.actor.default-dispatcher-281 
+User clicks! userID=567,itemID=14696,rate=3.000000.
+
+2016-05-05 02:42:11,311 - [INFO] - from application in application-akka.actor.default-dispatcher-297 
+User clicks! userID=567,itemID=19400,rate=3.000000.
+
+2016-05-05 03:31:23,709 - [INFO] - from application in application-akka.actor.default-dispatcher-312 
+Users.register. Deviceid found:true, userID:568, deviceID:b1f54f2802adb8a5
+
+2016-05-05 03:33:42,131 - [INFO] - from application in application-akka.actor.default-dispatcher-320 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 03:33:46,037 - [INFO] - from application in application-akka.actor.default-dispatcher-324 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 03:33:49,314 - [INFO] - from application in application-akka.actor.default-dispatcher-320 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 03:33:50,525 - [INFO] - from application in application-akka.actor.default-dispatcher-320 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 03:33:51,964 - [INFO] - from application in application-akka.actor.default-dispatcher-324 
+User clicks! userID=568,itemID=118,rate=3.000000.
+
+2016-05-05 03:34:02,567 - [INFO] - from application in application-akka.actor.default-dispatcher-324 
+Users.register. Deviceid found:false, userID:569, deviceID:524384ec479d16eb
+
+2016-05-05 03:35:31,448 - [INFO] - from application in application-akka.actor.default-dispatcher-329 
+User clicks! userID=569,itemID=13213,rate=3.000000.
+
+2016-05-05 03:39:50,737 - [INFO] - from application in application-akka.actor.default-dispatcher-339 
+Users.register. Deviceid found:false, userID:570, deviceID:fd30cf6379931482
+
+2016-05-05 03:40:23,605 - [INFO] - from application in application-akka.actor.default-dispatcher-339 
+User clicks! userID=570,itemID=25188,rate=3.000000.
+
+2016-05-05 03:42:52,844 - [INFO] - from application in application-akka.actor.default-dispatcher-345 
+User clicks! userID=570,itemID=16825,rate=3.000000.
+
+2016-05-05 04:10:01,330 - [INFO] - from application in application-akka.actor.default-dispatcher-360 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 04:10:07,689 - [INFO] - from application in application-akka.actor.default-dispatcher-360 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 04:10:23,714 - [INFO] - from application in application-akka.actor.default-dispatcher-362 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 04:10:27,473 - [INFO] - from application in application-akka.actor.default-dispatcher-362 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 04:14:33,878 - [INFO] - from application in application-akka.actor.default-dispatcher-365 
+Real recommendations: userID=568, result size=17.
+
+2016-05-05 06:05:41,003 - [INFO] - from application in application-akka.actor.default-dispatcher-377 
+Users.register. Deviceid found:false, userID:571, deviceID:dd3b972ca56973f
+
+2016-05-05 06:06:09,261 - [INFO] - from application in application-akka.actor.default-dispatcher-382 
+Real recommendations: userID=571, result size=1.
+
+2016-05-05 06:53:11,664 - [INFO] - from application in application-akka.actor.default-dispatcher-387 
+User clicks! userID=571,itemID=26487,rate=3.000000.
+
+2016-05-05 06:53:25,004 - [INFO] - from application in application-akka.actor.default-dispatcher-387 
+Real recommendations: userID=571, result size=1.
+
+2016-05-05 06:54:26,463 - [INFO] - from application in application-akka.actor.default-dispatcher-389 
+User clicks! userID=571,itemID=745,rate=3.000000.
+
+2016-05-05 06:58:06,676 - [INFO] - from application in application-akka.actor.default-dispatcher-392 
+User clicks! userID=571,itemID=28820,rate=3.000000.
+
+2016-05-05 06:58:12,385 - [INFO] - from application in application-akka.actor.default-dispatcher-396 
+Real recommendations: userID=571, result size=1.
+
+2016-05-05 06:58:18,994 - [INFO] - from application in application-akka.actor.default-dispatcher-396 
+Real recommendations: userID=571, result size=1.
+
+2016-05-05 06:58:24,835 - [INFO] - from application in application-akka.actor.default-dispatcher-396 
+Real recommendations: userID=571, result size=1.
+
+2016-05-05 07:01:35,307 - [INFO] - from application in application-akka.actor.default-dispatcher-398 
+User clicks! userID=571,itemID=21433,rate=3.000000.
+
+2016-05-05 07:01:51,064 - [INFO] - from application in application-akka.actor.default-dispatcher-397 
+Real recommendations: userID=571, result size=1.
+
+2016-05-05 07:02:09,297 - [INFO] - from application in application-akka.actor.default-dispatcher-401 
+Real recommendations: userID=571, result size=1.
+
+2016-05-05 07:46:12,985 - [INFO] - from application in application-akka.actor.default-dispatcher-404 
+Users.register. Deviceid found:false, userID:572, deviceID:61feadfab81d5d11
+
+2016-05-05 07:48:27,317 - [INFO] - from application in application-akka.actor.default-dispatcher-414 
+User clicks! userID=572,itemID=211,rate=3.000000.
+
+2016-05-05 07:51:10,965 - [INFO] - from application in application-akka.actor.default-dispatcher-418 
+User clicks! userID=572,itemID=159,rate=3.000000.
+
+2016-05-05 09:43:10,529 - [INFO] - from application in application-akka.actor.default-dispatcher-436 
+Users.register. Deviceid found:false, userID:573, deviceID:A417314820AB0000
+
+2016-05-05 09:44:30,199 - [INFO] - from application in application-akka.actor.default-dispatcher-436 
+User clicks! userID=573,itemID=28419,rate=3.000000.
+
+2016-05-05 09:44:46,376 - [INFO] - from application in application-akka.actor.default-dispatcher-448 
+User clicks! userID=573,itemID=12178,rate=3.000000.
+
+2016-05-05 09:44:53,965 - [INFO] - from application in application-akka.actor.default-dispatcher-449 
+User clicks! userID=573,itemID=4192,rate=3.000000.
+
+2016-05-05 09:45:20,652 - [INFO] - from application in application-akka.actor.default-dispatcher-451 
+User clicks! userID=573,itemID=1587,rate=3.000000.
+
+2016-05-05 09:45:35,514 - [INFO] - from application in application-akka.actor.default-dispatcher-451 
+User clicks! userID=573,itemID=1587,rate=3.000000.
+
+2016-05-05 09:47:44,844 - [INFO] - from application in application-akka.actor.default-dispatcher-446 
+User clicks! userID=573,itemID=23509,rate=3.000000.
+
+2016-05-05 09:53:42,575 - [ERROR] - from play.core.server.netty.PlayDefaultUpstreamHandler in New I/O worker #4 
+Exception caught in Netty
+java.lang.IllegalArgumentException: empty text
+	at org.jboss.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:89) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:62) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpRequestDecoder.createMessage(HttpRequestDecoder.java:75) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:191) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:102) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.callDecode(ReplayingDecoder.java:500) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.messageReceived(ReplayingDecoder.java:435) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:70) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42) [io.netty.netty-3.10.4.Final.jar:na]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_71]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_71]
+
+2016-05-05 09:53:42,579 - [ERROR] - from play.core.server.netty.PlayDefaultUpstreamHandler in New I/O worker #4 
+Exception caught in Netty
+java.lang.IllegalArgumentException: empty text
+	at org.jboss.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:89) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:62) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpRequestDecoder.createMessage(HttpRequestDecoder.java:75) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:191) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:102) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.callDecode(ReplayingDecoder.java:500) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.cleanup(ReplayingDecoder.java:554) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.frame.FrameDecoder.channelDisconnected(FrameDecoder.java:365) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:102) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireChannelDisconnected(Channels.java:396) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.close(AbstractNioWorker.java:360) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioServerSocketPipelineSink.handleAcceptedSocket(NioServerSocketPipelineSink.java:81) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioServerSocketPipelineSink.eventSunk(NioServerSocketPipelineSink.java:36) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendDownstream(DefaultChannelPipeline.java:779) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.oneone.OneToOneEncoder.handleDownstream(OneToOneEncoder.java:54) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendDownstream(DefaultChannelPipeline.java:591) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendDownstream(DefaultChannelPipeline.java:784) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.closeRequested(SimpleChannelHandler.java:334) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.handleDownstream(SimpleChannelHandler.java:260) [io.netty.netty-3.10.4.Final.jar:na]
+	at com.typesafe.netty.http.pipelining.HttpPipeliningHandler.handleDownstream(HttpPipeliningHandler.java:106) [com.typesafe.netty.netty-http-pipelining-1.1.4.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendDownstream(DefaultChannelPipeline.java:591) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendDownstream(DefaultChannelPipeline.java:582) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.close(Channels.java:812) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.AbstractChannel.close(AbstractChannel.java:206) [io.netty.netty-3.10.4.Final.jar:na]
+	at play.core.server.netty.PlayDefaultUpstreamHandler.exceptionCaught(PlayDefaultUpstreamHandler.scala:66) [com.typesafe.play.play-netty-server_2.11-2.4.4.jar:2.4.4]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:112) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendUpstream(DefaultChannelPipeline.java:791) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.exceptionCaught(SimpleChannelHandler.java:156) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.handleUpstream(SimpleChannelHandler.java:130) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendUpstream(DefaultChannelPipeline.java:791) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.exceptionCaught(SimpleChannelUpstreamHandler.java:153) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:112) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendUpstream(DefaultChannelPipeline.java:791) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.frame.FrameDecoder.exceptionCaught(FrameDecoder.java:377) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:112) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireExceptionCaught(Channels.java:525) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.AbstractChannelSink.exceptionCaught(AbstractChannelSink.java:48) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.notifyHandlerException(DefaultChannelPipeline.java:658) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:566) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42) [io.netty.netty-3.10.4.Final.jar:na]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_71]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_71]
+
+2016-05-05 09:53:50,157 - [ERROR] - from play.core.server.netty.PlayDefaultUpstreamHandler in New I/O worker #2 
+Exception caught in Netty
+java.lang.IllegalArgumentException: invalid version format: +IW TEST :TEST WUZ HERE
+	at org.jboss.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:94) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:62) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpRequestDecoder.createMessage(HttpRequestDecoder.java:75) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:191) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:102) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.callDecode(ReplayingDecoder.java:500) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.messageReceived(ReplayingDecoder.java:435) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:70) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42) [io.netty.netty-3.10.4.Final.jar:na]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_71]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_71]
+
+2016-05-05 09:53:50,159 - [ERROR] - from play.core.server.netty.PlayDefaultUpstreamHandler in New I/O worker #2 
+Exception caught in Netty
+java.lang.IllegalArgumentException: empty text
+	at org.jboss.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:89) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:62) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpRequestDecoder.createMessage(HttpRequestDecoder.java:75) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:191) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:102) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.callDecode(ReplayingDecoder.java:500) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.cleanup(ReplayingDecoder.java:554) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.frame.FrameDecoder.channelDisconnected(FrameDecoder.java:365) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:102) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireChannelDisconnected(Channels.java:396) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.close(AbstractNioWorker.java:360) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioServerSocketPipelineSink.handleAcceptedSocket(NioServerSocketPipelineSink.java:81) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioServerSocketPipelineSink.eventSunk(NioServerSocketPipelineSink.java:36) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendDownstream(DefaultChannelPipeline.java:779) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.oneone.OneToOneEncoder.handleDownstream(OneToOneEncoder.java:54) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendDownstream(DefaultChannelPipeline.java:591) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendDownstream(DefaultChannelPipeline.java:784) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.closeRequested(SimpleChannelHandler.java:334) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.handleDownstream(SimpleChannelHandler.java:260) [io.netty.netty-3.10.4.Final.jar:na]
+	at com.typesafe.netty.http.pipelining.HttpPipeliningHandler.handleDownstream(HttpPipeliningHandler.java:106) [com.typesafe.netty.netty-http-pipelining-1.1.4.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendDownstream(DefaultChannelPipeline.java:591) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendDownstream(DefaultChannelPipeline.java:582) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.close(Channels.java:812) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.AbstractChannel.close(AbstractChannel.java:206) [io.netty.netty-3.10.4.Final.jar:na]
+	at play.core.server.netty.PlayDefaultUpstreamHandler.exceptionCaught(PlayDefaultUpstreamHandler.scala:66) [com.typesafe.play.play-netty-server_2.11-2.4.4.jar:2.4.4]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:112) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendUpstream(DefaultChannelPipeline.java:791) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.exceptionCaught(SimpleChannelHandler.java:156) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelHandler.handleUpstream(SimpleChannelHandler.java:130) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendUpstream(DefaultChannelPipeline.java:791) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.exceptionCaught(SimpleChannelUpstreamHandler.java:153) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:112) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendUpstream(DefaultChannelPipeline.java:791) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.frame.FrameDecoder.exceptionCaught(FrameDecoder.java:377) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:112) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireExceptionCaught(Channels.java:525) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.AbstractChannelSink.exceptionCaught(AbstractChannelSink.java:48) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.notifyHandlerException(DefaultChannelPipeline.java:658) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:566) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42) [io.netty.netty-3.10.4.Final.jar:na]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_71]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_71]
+
+2016-05-05 10:50:13,586 - [INFO] - from application in application-akka.actor.default-dispatcher-463 
+User clicks! userID=556,itemID=31723,rate=3.000000.
+
+2016-05-05 10:50:45,801 - [INFO] - from application in application-akka.actor.default-dispatcher-465 
+User clicks! userID=556,itemID=8287,rate=3.000000.
+
+2016-05-05 10:50:46,977 - [INFO] - from application in application-akka.actor.default-dispatcher-468 
+User clicks! userID=556,itemID=8287,rate=3.000000.
+
+2016-05-05 11:51:04,300 - [INFO] - from application in application-akka.actor.default-dispatcher-484 
+User clicks! userID=541,itemID=14236,rate=3.000000.
+
+2016-05-05 12:11:29,652 - [ERROR] - from play.core.server.netty.PlayDefaultUpstreamHandler in New I/O worker #2 
+Exception caught in Netty
+java.lang.IllegalArgumentException: empty text
+	at org.jboss.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:89) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:62) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpRequestDecoder.createMessage(HttpRequestDecoder.java:75) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:191) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:102) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.callDecode(ReplayingDecoder.java:500) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.handler.codec.replay.ReplayingDecoder.messageReceived(ReplayingDecoder.java:435) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:70) ~[io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:89) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108) [io.netty.netty-3.10.4.Final.jar:na]
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42) [io.netty.netty-3.10.4.Final.jar:na]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_71]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_71]
+
