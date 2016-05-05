@@ -85,8 +85,6 @@ class InfoqSpider(scrapy.Spider):
                 item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
                 yield item
 
-            break
-
             next = self.driver.find_element_by_xpath('/html/body/div[1]/ul[1]/li[2]/a')
             aclass = next.get_attribute('class')
             if ('btn_inactive' in aclass):
