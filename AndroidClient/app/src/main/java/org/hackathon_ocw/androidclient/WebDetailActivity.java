@@ -1,5 +1,6 @@
 package org.hackathon_ocw.androidclient;
 
+import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -125,10 +126,8 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_webdetail);
-        // Makes Progress bar Visible
-        getWindow().setFeatureInt( Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
 
@@ -249,23 +248,35 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
             browser.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             browser.getSettings().setLoadWithOverviewMode(true);
             browser.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-            browser.setWebChromeClient(new WebChromeClient() {
-                public void onProgressChanged(WebView view, int progress)
-                {
-                    //Make the bar disappear after URL is loaded, and changes string to Loading...
-                    setTitle("加载中...");
-                    setProgress(progress * 100); //Make the bar disappear after URL is loaded
 
-                    // Return the app name after finish loading
-                    if(progress == 100)
-                        setTitle(R.string.app_name);
-                }
-            });
             browser.setWebViewClient(new WebViewClient(){
+                ProgressDialog progressDialog;
+
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     view.loadUrl(url);
                     return true;
+                }
+                @Override
+                //Show loader on url load
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    if (progressDialog == null) {
+                        // in standard case YourActivity.this
+                        progressDialog = new ProgressDialog(WebDetailActivity.this);
+                        progressDialog.setMessage("加载中...");
+                        progressDialog.show();
+                    }
+                }
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    try{
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                            progressDialog = null;
+                        }
+                    }catch(Exception exception){
+                        exception.printStackTrace();
+                    }
                 }
             });
             browser.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH); // for ＜ API　18
