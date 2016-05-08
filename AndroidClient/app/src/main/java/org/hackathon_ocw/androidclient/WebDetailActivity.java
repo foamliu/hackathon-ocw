@@ -32,8 +32,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -122,7 +124,11 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_webdetail);
+        // Makes Progress bar Visible
+        getWindow().setFeatureInt( Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
 
@@ -243,6 +249,18 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
             browser.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             browser.getSettings().setLoadWithOverviewMode(true);
             browser.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            browser.setWebChromeClient(new WebChromeClient() {
+                public void onProgressChanged(WebView view, int progress)
+                {
+                    //Make the bar disappear after URL is loaded, and changes string to Loading...
+                    setTitle("加载中...");
+                    setProgress(progress * 100); //Make the bar disappear after URL is loaded
+
+                    // Return the app name after finish loading
+                    if(progress == 100)
+                        setTitle(R.string.app_name);
+                }
+            });
             browser.setWebViewClient(new WebViewClient(){
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
