@@ -20,5 +20,5 @@ class GuokrItem(scrapy.Item):
     language = scrapy.Field()     #授课语言
     tags = scrapy.Field()         #类型
     link = scrapy.Field()         #链接，用于关联。
-    posted = scrapy.Field()
-    crawled = scrapy.Field()
+    posted = scrapy.Field()       #发布时间
+    crawled = scrapy.Field()      #爬取时间

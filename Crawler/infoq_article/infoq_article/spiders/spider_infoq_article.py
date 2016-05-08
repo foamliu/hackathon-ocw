@@ -62,9 +62,23 @@ class InfoqSpider(scrapy.Spider):
                 link = 'http://www.infoq.com{0}'.format(link)
                 if self.downloaded(link): return
                 item['link'] = link
+                item['title'] = cleanse(hxs.xpath('a[1]/text()').extract())
+                item['description'] = cleanse(hxs.xpath('a[2]/text()').extract())
+                item['piclink'] = cleanse(hxs.xpath('a[2]/img/@src').extract())
+                item['courselink'] = u''
+                item['source'] = u'InfoQ'
+                item['school'] = u'InfoQ'
+                item['instructor'] = cleanse(hxs.xpath('span/a/text()').extract())
+                item['language'] = u'中文'
+                item['tags'] = u'InfoQ'
+                p_year = cleanse(hxs.xpath('ul/li[1]/text()').extract())
+                p_month = cleanse(hxs.xpath('ul/li[2]/text()').extract())
+                p_day = cleanse(hxs.xpath('ul/li[3]/text()').extract())
+                item['posted'] = u'{0} {1} {2}'.format(p_year, p_month, p_day)
+                item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
                 yield item
 
-            next = self.driver.find_element_by_xpath('/html/body/div[1]/div/ul[1]/li[2]/a')
+            next = self.driver.find_element_by_xpath('/html/body/div[1]/ul[1]/li[2]/a')
             #print next.text
             time.sleep(2)
 
