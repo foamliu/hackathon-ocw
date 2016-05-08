@@ -912,10 +912,12 @@ public class MainActivity extends AppCompatActivity
             TextView textView = (TextView)findViewById(R.id.userName);
             textView.setText("未登录");
 
-            Menu menu = navigationView.getMenu();
-            MenuItem menuItem = menu.findItem(R.id.nav_login);
-            if(login == false){
-                menuItem.setTitle("登录");
+            if (null != navigationView) {
+                Menu menu = navigationView.getMenu();
+                MenuItem menuItem = menu.findItem(R.id.nav_login);
+                if (login == false) {
+                    menuItem.setTitle("登录");
+                }
             }
         }
     }
