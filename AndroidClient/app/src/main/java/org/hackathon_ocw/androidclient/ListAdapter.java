@@ -109,23 +109,23 @@ public class ListAdapter extends BaseAdapter {
         HashMap<String, String> course = new HashMap<>();
         course = data.get(position);
 
-        title.setText(course.get(MainActivity.KEY_TITLE));
+        title.setText(course.get(Constants.KEY_TITLE));
         //source.setText(course.get(MainActivity.KEY_SOURCE));
-        String school = course.get(MainActivity.KEY_SCHOOL);
+        String school = course.get(Constants.KEY_SCHOOL);
         if (school.length() > 12)
             school = school.substring(0, 12) + "..";
         source.setText(school);
 
-        if(course.get(MainActivity.KEY_DURATION).equals(""))
+        if(course.get(Constants.KEY_DURATION).equals(""))
         {
             videoOrElse.setText("---:---");
             //durationImg.setVisibility(View.INVISIBLE);
             //videoOrElse.setText(course.get(MainActivity.KEY_INSTRUCTOR));
         }
         else {
-            videoOrElse.setText(course.get(MainActivity.KEY_DURATION));
+            videoOrElse.setText(course.get(Constants.KEY_DURATION));
         }
-        imageLoader.DisplayImage(course.get(MainActivity.KEY_THUMB_URL), thumb_image);
+        imageLoader.DisplayImage(course.get(Constants.KEY_THUMB_URL), thumb_image);
 
         return vi;
     }

@@ -31,9 +31,6 @@ public class NetworkThread implements Runnable{
 
     @Override
     public void run() {
-
-        //long ipAddrLong = new GetUserIdFromIP().getUserId();
-        //Toast.makeText(getApplicationContext(), ipAddress, Toast.LENGTH_SHORT).show();
         try {
             SendPostRequest(Long.valueOf(userid), courseId, rating);
         } catch (Exception e) {
@@ -43,7 +40,6 @@ public class NetworkThread implements Runnable{
 
     public void SendPostRequest(Long userId, String itemId, float rating) throws Exception
     {
-        //String encoding="UTF-8";
         String params = "{\"user_id\":" + Long.toString(userId) + ",\"item_id\":" + itemId + ",\"pref\":" + Double.toString(rating) + "}";
         URL url = new URL(postUrl + Long.toString(userId) + "/Preferences");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

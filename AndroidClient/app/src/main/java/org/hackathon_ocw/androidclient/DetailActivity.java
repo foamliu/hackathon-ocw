@@ -110,9 +110,9 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         description = intent.getStringExtra("description");
         courseId = intent.getStringExtra("id");
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
-        UserProfile.getUserProfile().setNickname(intent.getStringExtra("nickname"));
-        UserProfile.getUserProfile().setHeadimgurl(intent.getStringExtra("headimgurl"));
-        UserProfile.getUserProfile().setUserid(intent.getStringExtra("userid"));
+        UserProfile.getInstance().setNickname(intent.getStringExtra("nickname"));
+        UserProfile.getInstance().setHeadimgurl(intent.getStringExtra("headimgurl"));
+        UserProfile.getInstance().setUserid(intent.getStringExtra("userid"));
         String videoUrl = intent.getStringExtra("videoImg");
 
         detailToolBarInit();
@@ -477,10 +477,10 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 int item_id = Integer.valueOf(courseId);
 
                 //Get author_id
-                int author_id = Integer.valueOf(UserProfile.getUserProfile().getUserid());
+                int author_id = Integer.valueOf(UserProfile.getInstance().getUserid());
                 String author_name;
-                if(UserProfile.getUserProfile().getNickname() != null) {
-                    author_name = UserProfile.getUserProfile().getNickname();
+                if(UserProfile.getInstance().getNickname() != null) {
+                    author_name = UserProfile.getInstance().getNickname();
                 }
                 else {
                     author_name = "匿名用户";
@@ -558,9 +558,9 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 map.put("comment", comment);
                 map.put("timeline", String.valueOf(timeline));
                 map.put("like", String.valueOf(like));
-                if(UserProfile.getUserProfile().getHeadimgurl() != null)
+                if(UserProfile.getInstance().getHeadimgurl() != null)
                 {
-                    map.put("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
+                    map.put("headimgurl", UserProfile.getInstance().getHeadimgurl());
                 }
 
                 PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter)viewPager.getAdapter();

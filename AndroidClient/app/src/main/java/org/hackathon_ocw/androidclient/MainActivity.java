@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,13 +26,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -43,8 +39,6 @@ import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.hackathon_ocw.androidclient.Download_data.download_complete;
 import org.hackathon_ocw.androidclient.wxapi.WXEntryActivity;
@@ -52,25 +46,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, download_complete {
+
+    private final static String Url = "http://api.jieko.cc/user/";
 
     //Views of the page
     public View footerLayout;
@@ -94,28 +79,13 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
     public static MainActivity Self;
 
-    static final String KEY_ID = "id";
-    static final String KEY_TITLE = "title";
-    static final String KEY_DESCRIPTION = "description";
-    static final String KEY_THUMB_URL = "thumb_url";
-    static final String KEY_VIDEOURL = "videoUrl";
-    static final String KEY_WEBURL = "webUrl";
-    static final String KEY_DURATION = "videoDuration";
-    static final String KEY_SOURCE = "source";
-    static final String KEY_INSTRUCTOR = "instructor";
-    static final String KEY_LANGUAGE = "language";
-    static final String KEY_SCHOOL = "school";
-    static final String KEY_TAGS = "tags";
-    static final String Url = "http://api.jieko.cc/user/";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(checkNetworkStatus())
-        {
-            getUserProfileFromFile();
+        if (checkNetworkStatus()) {
+            UserProfile.init(getApplicationContext());
 
             // Obtain the shared Tracker instance.
             CustomApplication application = (CustomApplication) getApplication();
@@ -135,51 +105,51 @@ public class MainActivity extends AppCompatActivity
         MainActivity.Self = this;
     }
 
-    public boolean checkNetworkStatus(){
+    public boolean checkNetworkStatus() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager.getActiveNetworkInfo() == null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                //builder.setIcon(R.drawable.ic_launcher);
-                builder.setTitle("网络提示信息");
-                builder.setMessage("网络不可用，如果继续，请先设置网络！");
-                builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = null;
-                        if (android.os.Build.VERSION.SDK_INT > 10) {
-                            intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
-                        } else {
-                            intent = new Intent();
-                            ComponentName component = new ComponentName(
-                                    "com.android.settings",
-                                    "com.android.settings.WirelessSettings");
-                            intent.setComponent(component);
-                            intent.setAction("android.intent.action.VIEW");
-                        }
-                        startActivity(intent);
-                        finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            //builder.setIcon(R.drawable.ic_launcher);
+            builder.setTitle("网络提示信息");
+            builder.setMessage("网络不可用，如果继续，请先设置网络！");
+            builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = null;
+                    if (android.os.Build.VERSION.SDK_INT > 10) {
+                        intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                    } else {
+                        intent = new Intent();
+                        ComponentName component = new ComponentName(
+                                "com.android.settings",
+                                "com.android.settings.WirelessSettings");
+                        intent.setComponent(component);
+                        intent.setAction("android.intent.action.VIEW");
                     }
-                });
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                builder.create();
-                builder.show();
-                return false;
-            }
+                }
+            });
+            builder.create();
+            builder.show();
+            return false;
+        }
         return true;
     }
 
-    public void naviViewInit(){
+    public void naviViewInit() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void drawerInit(){
+    public void drawerInit() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -192,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         mRefreshLayout = (RefreshLayout) findViewById(R.id.swipeContainer);
 
         footerLayout = getLayoutInflater().inflate(R.layout.listview_footer, null);
-        textMore = (TextView)footerLayout.findViewById(R.id.text_more);
+        textMore = (TextView) footerLayout.findViewById(R.id.text_more);
         progressBar = (ProgressBar) footerLayout.findViewById(R.id.load_progress_bar);
         textMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,11 +186,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 //fetchTimeLineAsync(0);
-                Toast.makeText(getApplicationContext(), "正在努力加载", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "玩命加载中...", Toast.LENGTH_SHORT).show();
                 mListAdapter.clear();
 
                 Download_data download_data = new Download_data(MainActivity.this);
-                download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
+                download_data.download_data_from_link(Url + UserProfile.getInstance().getUserid() + "/Candidates");
                 mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -241,23 +211,23 @@ public class MainActivity extends AppCompatActivity
 
 
         final Download_data download_data = new Download_data(this);
-        download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
+        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserid() + "/Candidates");
 
         mListView.setItemsCanFocus(true);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try{
+                try {
                     boolean isYixi = false;
 
-                    if(mListAdapter.getWebUrlbyPosition(position).contains("yixi")){
+                    if (mListAdapter.getWebUrlbyPosition(position).contains("yixi")) {
                         parseYixiCourseStep1(mListAdapter.getWebUrlbyPosition(position));
                         positionYixi = position;
                         isYixi = true;
                     }
 
-                    if(!mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi){
+                    if (!mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi) {
                         //Show subpage with videoUrl
                         Intent intent = new Intent();
                         intent.putExtra("id", mListAdapter.getIdbyPosition(position));
@@ -265,25 +235,24 @@ public class MainActivity extends AppCompatActivity
                         intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
                         intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
                         intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
-                        intent.putExtra("userid", UserProfile.getUserProfile().getUserid());
-                        if(UserProfile.getUserProfile().getNickname() != null) {
-                            intent.putExtra("nickname", UserProfile.getUserProfile().getNickname());
-                            intent.putExtra("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
+                        intent.putExtra("userid", UserProfile.getInstance().getUserid());
+                        if (UserProfile.getInstance().getNickname() != null) {
+                            intent.putExtra("nickname", UserProfile.getInstance().getNickname());
+                            intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
                         }
 
                         intent.setClass(MainActivity.this, DetailActivity.class);
                         startActivity(intent);
-                    }
-                    else if (mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi){
+                    } else if (mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi) {
                         //Show subpage with Webview
                         Intent intent = new Intent();
-                        intent.putExtra("webUrl",mListAdapter.getWebUrlbyPosition(position));
+                        intent.putExtra("webUrl", mListAdapter.getWebUrlbyPosition(position));
                         intent.putExtra("id", mListAdapter.getIdbyPosition(position));
                         intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
-                        intent.putExtra("userid", UserProfile.getUserProfile().getUserid());
-                        if(UserProfile.getUserProfile().getNickname() != null) {
-                            intent.putExtra("nickname", UserProfile.getUserProfile().getNickname());
-                            intent.putExtra("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
+                        intent.putExtra("userid", UserProfile.getInstance().getUserid());
+                        if (UserProfile.getInstance().getNickname() != null) {
+                            intent.putExtra("nickname", UserProfile.getInstance().getNickname());
+                            intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
                         }
 
                         intent.setClass(MainActivity.this, WebDetailActivity.class);
@@ -291,10 +260,9 @@ public class MainActivity extends AppCompatActivity
                     }
                     //Send post to server
                     String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
-                    Runnable networkTask = new NetworkThread(UserProfile.getUserProfile().getUserid(), courseId, 3);
+                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserid(), courseId, 3);
                     new Thread(networkTask).start();
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -322,17 +290,17 @@ public class MainActivity extends AppCompatActivity
     }
     */
 
-    public void parseYixiCourseStep1(String videoUrl){
+    public void parseYixiCourseStep1(String videoUrl) {
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, videoUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.contains("vid")){
+                        if (response.contains("vid")) {
                             Pattern pattern = Pattern.compile("(?<=vid: \').*(?=\')");
                             Matcher matcher = pattern.matcher(response);
-                            if(matcher.find()) {
+                            if (matcher.find()) {
                                 parseYixiCourseStep2(matcher.group(0));
                                 //Log.e("Get regex", matcher.group(0));
                             }
@@ -347,7 +315,7 @@ public class MainActivity extends AppCompatActivity
         queue.add(stringRequest);
     }
 
-    public void parseYixiCourseStep2(String token){
+    public void parseYixiCourseStep2(String token) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = "http://api.yixi.tv/youku.php?id=" + token;
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -357,7 +325,7 @@ public class MainActivity extends AppCompatActivity
                         try {
                             JSONArray jsonArray = response.getJSONObject("files").getJSONObject("3gphd").getJSONArray("segs");
                             JSONObject jsonObject = jsonArray.getJSONObject(0);
-                            String link = jsonObject.getString("url").replace("\\","");
+                            String link = jsonObject.getString("url").replace("\\", "");
 
                             //Show subpage with videoUrl
                             Intent intent = new Intent();
@@ -366,10 +334,10 @@ public class MainActivity extends AppCompatActivity
                             intent.putExtra("videoUrl", link);
                             intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(positionYixi));
                             intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(positionYixi));
-                            intent.putExtra("userid", UserProfile.getUserProfile().getUserid());
-                            if(UserProfile.getUserProfile().getNickname() != null) {
-                                intent.putExtra("nickname", UserProfile.getUserProfile().getNickname());
-                                intent.putExtra("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
+                            intent.putExtra("userid", UserProfile.getInstance().getUserid());
+                            if (UserProfile.getInstance().getNickname() != null) {
+                                intent.putExtra("nickname", UserProfile.getInstance().getNickname());
+                                intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
                             }
 
                             intent.setClass(MainActivity.this, DetailActivity.class);
@@ -429,7 +397,7 @@ public class MainActivity extends AppCompatActivity
         progressBar.setVisibility(View.VISIBLE);
 
         Download_data download_data = new Download_data(MainActivity.this);
-        download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
+        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserid() + "/Candidates");
         mListAdapter.addAll(courseList);
 
         new Handler().postDelayed(new Runnable() {
@@ -451,23 +419,22 @@ public class MainActivity extends AppCompatActivity
             courseList.clear();
             JSONObject object = new JSONObject(data);
             JSONArray data_array = object.getJSONArray("courses");
-            for (int i = 0 ; i < data_array.length() ; i++)
-            {
-                JSONObject obj=new JSONObject(data_array.get(i).toString());
+            for (int i = 0; i < data_array.length(); i++) {
+                JSONObject obj = new JSONObject(data_array.get(i).toString());
 
-                HashMap<String, String>map = new HashMap<String,String>();
-                map.put(KEY_ID,String.valueOf(obj.getInt("item_id")));
-                map.put(KEY_TITLE,obj.getString("title"));
-                map.put(KEY_DESCRIPTION,obj.getString("description"));
-                map.put(KEY_THUMB_URL,obj.getString("piclink"));
-                map.put(KEY_VIDEOURL,obj.getString("courselink"));
-                map.put(KEY_WEBURL,obj.getString("link"));
-                map.put(KEY_DURATION,obj.getString("duration"));
-                map.put(KEY_SOURCE,obj.getString("source"));
-                map.put(KEY_INSTRUCTOR,obj.getString("instructor"));
-                map.put(KEY_LANGUAGE,obj.getString("language"));
-                map.put(KEY_SCHOOL,obj.getString("school"));
-                map.put(KEY_TAGS,obj.getString("tags"));
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put(Constants.KEY_ID, String.valueOf(obj.getInt("item_id")));
+                map.put(Constants.KEY_TITLE, obj.getString("title"));
+                map.put(Constants.KEY_DESCRIPTION, obj.getString("description"));
+                map.put(Constants.KEY_THUMB_URL, obj.getString("piclink"));
+                map.put(Constants.KEY_VIDEOURL, obj.getString("courselink"));
+                map.put(Constants.KEY_WEBURL, obj.getString("link"));
+                map.put(Constants.KEY_DURATION, obj.getString("duration"));
+                map.put(Constants.KEY_SOURCE, obj.getString("source"));
+                map.put(Constants.KEY_INSTRUCTOR, obj.getString("instructor"));
+                map.put(Constants.KEY_LANGUAGE, obj.getString("language"));
+                map.put(Constants.KEY_SCHOOL, obj.getString("school"));
+                map.put(Constants.KEY_TAGS, obj.getString("tags"));
                 courseList.add(map);
 
             }
@@ -496,23 +463,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-    */
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -520,12 +470,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_login && !login) {
-            WXLogin();
+            UserProfile.getInstance().WXLogin();
             item.setChecked(false);
             item.setCheckable(true);
-        }
-        else if(id == R.id.nav_login && login){
-            WXLogout();
+        } else if (id == R.id.nav_login && login) {
+            UserProfile.getInstance().WXLogout();
             item.setChecked(false);
             item.setCheckable(true);
         }
@@ -549,70 +498,16 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    //Append Wechat login function
-    public static String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-    //获取用户个人信息
-    public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
-
-    private void WXLogin() {
-        IWXAPI WXapi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
-        if(!WXapi.isWXAppInstalled())
-        {
-            Toast.makeText(getApplicationContext(), "请先安装微信", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        WXapi.registerApp(Constants.APP_ID);
-        SendAuth.Req req = new SendAuth.Req();
-        req.scope = "snsapi_userinfo";
-        req.state = "hackathon_ocw";
-        boolean res = WXapi.sendReq(req);
-    }
-
-    private void WXLogout(){
-        //clear userprofile.json
-        UserProfile.getUserProfile().clearProfile();
-
-        updateNaviViewWithUserProfile();
-
-        //Update local user profile
-        JSONObject jsonObject = new JSONObject();
-        try
-        {
-            jsonObject.put("userid", UserProfile.getUserProfile().getUserid());
-            if(UserProfile.getUserProfile().getDeviceid() == null)
-            {
-                UserProfile.getUserProfile().setDeviceid(Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
-            }
-            jsonObject.put("deviceid", UserProfile.getUserProfile().getDeviceid());
-        }catch (Exception e)
-        {
-            Log.e("Json Error",e.toString());
-        }
-
-        //Write to local file
-        String fileName = "userProfile.json";
-        File userProfileFile = new File(getApplicationContext().getFilesDir(), fileName);
-        try {
-            FileWriter fw = new FileWriter(userProfileFile);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(jsonObject.toString());
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
 
         BaseResp resp = WXEntryActivity.mResp;
 
-        if(resp != null)
-        {
+        if (resp != null) {
             if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
                 String wechatCode = ((SendAuth.Resp) resp).code;
-                String get_access_token = getCodeRequest(wechatCode);
+                String get_access_token = Utils.getCodeRequest(wechatCode);
 
                 //Send Request here
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -625,10 +520,9 @@ public class MainActivity extends AppCompatActivity
                                     access_token = (String) response.get("access_token");
                                     openid = (String) response.get("openid");
 
-                                    if (access_token != null && openid != null)
-                                    {
-                                        String get_user_info_url = getUserInfo(access_token, openid);
-                                        WXGetUserInfo(get_user_info_url);
+                                    if (access_token != null && openid != null) {
+                                        String get_user_info_url = Utils.getUserInfo(access_token, openid);
+                                        UserProfile.getInstance().WXGetUserInfo(get_user_info_url);
                                     }
 
                                 } catch (Exception e) {
@@ -644,259 +538,54 @@ public class MainActivity extends AppCompatActivity
                 requestQueue.add(jsonRequest);
             }
         }
-
     }
 
-    public void WXGetUserInfo(String url)
-    {
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try{
-                            UserProfile.getUserProfile().setOpenid((String) response.get("openid"));
-                            UserProfile.getUserProfile().setNickname((String) response.get("nickname"));
-                            UserProfile.getUserProfile().setSex((Integer) response.get("sex"));
-                            UserProfile.getUserProfile().setCity((String) response.get("city"));
-                            UserProfile.getUserProfile().setProvince((String) response.get("province"));
-                            UserProfile.getUserProfile().setCountry((String) response.get("country"));
-                            UserProfile.getUserProfile().setHeadimgurl((String) response.get("headimgurl"));
-                            //Toast.makeText(getApplicationContext(), nickname + " " + country , Toast.LENGTH_SHORT).show();
-                            UpdateUserProfile();
-                        }catch(Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", error.getMessage(), error);
-            }
-        }) {
-
-            @Override
-            protected Response<JSONObject> parseNetworkResponse(
-                    NetworkResponse arg0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(new String(
-                            arg0.data, "UTF-8"));
-                    return Response.success(jsonObject,
-                            HttpHeaderParser.parseCacheHeaders(arg0));
-                } catch (UnsupportedEncodingException e) {
-                    return Response.error(new ParseError(e));
-                } catch (Exception je) {
-                    return Response.error(new ParseError(je));
-                }
-            }
-
-        };
-
-        requestQueue.add(jsonRequest);
-    }
-
-    public static String getUserInfo(String access_token,String openid){
-        String result = null;
-        GetUserInfo = GetUserInfo.replace("ACCESS_TOKEN",
-                urlEnodeUTF8(access_token));
-        GetUserInfo = GetUserInfo.replace("OPENID",
-                urlEnodeUTF8(openid));
-        result = GetUserInfo;
-        return result;
-    }
-
-    public static String getCodeRequest(String code) {
-        String result = null;
-        GetCodeRequest = GetCodeRequest.replace("APPID",
-                urlEnodeUTF8(Constants.APP_ID));
-        GetCodeRequest = GetCodeRequest.replace("SECRET",
-                urlEnodeUTF8(Constants.APP_SECRET));
-        GetCodeRequest = GetCodeRequest.replace("CODE",urlEnodeUTF8(code));
-        result = GetCodeRequest;
-        return result;
-    }
-
-
-    public static String urlEnodeUTF8(String str) {
-        String result = str;
-        try {
-            result = URLEncoder.encode(str, "UTF-8");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public void UpdateUserProfile()
-    {
+    public void updateUserProfile() {
         login = true;
         CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
-        com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);
-        imageLoader.get(UserProfile.getUserProfile().getHeadimgurl(), listener);
+        com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView, R.drawable.no_image, R.drawable.no_image);
+        imageLoader.get(UserProfile.getInstance().getHeadimgurl(), listener);
 
-        TextView textView = (TextView)findViewById(R.id.userName);
-        textView.setText(UserProfile.getUserProfile().getNickname());
+        TextView textView = (TextView) findViewById(R.id.userName);
+        textView.setText(UserProfile.getInstance().getNickname());
 
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.nav_login);
-        if(login){
+        if (login) {
             menuItem.setTitle("注销");
         }
 
-        //Update local user profile
-        JSONObject jsonObject = new JSONObject();
-        try
-        {
-            jsonObject.put("userid", UserProfile.getUserProfile().getUserid());
-            jsonObject.put("openid", UserProfile.getUserProfile().getOpenid());
-            jsonObject.put("nickname", UserProfile.getUserProfile().getNickname());
-            jsonObject.put("sex", UserProfile.getUserProfile().getSex());
-            jsonObject.put("city", UserProfile.getUserProfile().getCity());
-            jsonObject.put("province", UserProfile.getUserProfile().getProvince());
-            jsonObject.put("country", UserProfile.getUserProfile().getCountry());
-            jsonObject.put("headimgurl", UserProfile.getUserProfile().getHeadimgurl());
-            if(UserProfile.getUserProfile().getDeviceid() == null)
-            {
-                UserProfile.getUserProfile().setDeviceid(Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
-            }
-            jsonObject.put("deviceid", UserProfile.getUserProfile().getDeviceid());
-        }catch (Exception e)
-        {
-            Log.e("Json Error",e.toString());
-        }
-
-
-        //Write to local file
-        String fileName = "userProfile.json";
-        File userProfileFile = new File(getApplicationContext().getFilesDir(), fileName);
-        try {
-            FileWriter fw = new FileWriter(userProfileFile);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(jsonObject.toString());
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        //Send PATCH to server
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        jsonObject.remove("userid");
-        jsonObject.remove("sex");
-        try{
-            jsonObject.put("_id", Integer.valueOf(UserProfile.getUserProfile().getUserid()));
-            jsonObject.put("sex", Integer.valueOf(UserProfile.getUserProfile().getSex()));
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        String httpurl = "http://jieko.cc/user/" + UserProfile.getUserProfile().getUserid();
-
-        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, httpurl, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("Response", response.toString());
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Error.Response", error.toString());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-
-                return headers;
-            }
-        };
-        requestQueue.add(jsonRequest);
+        UserProfile.getInstance().updateLocalAndRemote();
     }
 
-    public void getUserProfileFromFile()
-    {
-        String str;
-        //Read from local user profile
-        try {
-            InputStream inputStream = openFileInput("userProfile.json");
-
-            if (inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-                inputStream.close();
-                str = stringBuilder.toString();
-                if(!str.contains("userid"))
-                {
-                    getUserId();
-                    return;
-                }
-                //Parse
-                try{
-                    JSONObject jsonObject = new JSONObject(str);
-                    UserProfile.getUserProfile().setUserid(jsonObject.getString("userid"));
-                    UserProfile.getUserProfile().setDeviceid(jsonObject.getString("deviceid"));
-                    UserProfile.getUserProfile().setOpenid(jsonObject.getString("openid"));
-                    UserProfile.getUserProfile().setNickname(jsonObject.getString("nickname"));
-                    UserProfile.getUserProfile().setSex(jsonObject.getInt("sex"));
-                    UserProfile.getUserProfile().setCity(jsonObject.getString("city"));
-                    UserProfile.getUserProfile().setProvince(jsonObject.getString("province"));
-                    UserProfile.getUserProfile().setCountry(jsonObject.getString("country"));
-                    UserProfile.getUserProfile().setHeadimgurl(jsonObject.getString("headimgurl"));
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-        catch (FileNotFoundException e) {
-            getUserId();
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-    }
-
-    public void updateNaviViewWithUserProfile(){
-        String nickName = UserProfile.getUserProfile().getNickname();
-        String headImgUrl = UserProfile.getUserProfile().getHeadimgurl();
-        if(nickName != null && !nickName.equals("")){
+    public void updateNaviViewWithUserProfile() {
+        String nickName = UserProfile.getInstance().getNickname();
+        String headImgUrl = UserProfile.getInstance().getHeadimgurl();
+        if (nickName != null && !nickName.equals("")) {
             login = true;
             CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
             RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
             com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
-            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);
-            if(headImgUrl != null && !headImgUrl.equals("")){
+            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView, R.drawable.no_image, R.drawable.no_image);
+            if (headImgUrl != null && !headImgUrl.equals("")) {
                 imageLoader.get(headImgUrl, listener);
             }
 
-            TextView textView = (TextView)findViewById(R.id.userName);
+            TextView textView = (TextView) findViewById(R.id.userName);
             textView.setText(nickName);
 
             Menu menu = navigationView.getMenu();
             MenuItem menuItem = menu.findItem(R.id.nav_login);
-            if(login){
+            if (login) {
                 menuItem.setTitle("注销");
             }
-        }
-        else {
+        } else {
             login = false;
             CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
             imageView.setImageResource(R.drawable.ic_account_circle_black_48dp);
-            TextView textView = (TextView)findViewById(R.id.userName);
+            TextView textView = (TextView) findViewById(R.id.userName);
             textView.setText("未登录");
 
             if (null != navigationView) {
@@ -907,73 +596,5 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
-    }
-
-    public void setUserProfile() {
-        JSONObject jsonObject = new JSONObject();
-        try
-        {
-            jsonObject.put("userid", UserProfile.getUserProfile().getUserid());
-            //Toast.makeText(getApplicationContext(),  userProfile.getUserid(), Toast.LENGTH_SHORT).show();
-        }catch (Exception e)
-        {
-            Log.e("Json Error",e.toString());
-        }
-
-        String fileName = "userProfile.json";
-        File userProfileFile = new File(getApplicationContext().getFilesDir(), fileName);
-        try {
-            FileWriter fw = new FileWriter(userProfileFile);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(jsonObject.toString());
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            userProfileFile = null;
-        }
-    }
-
-    public void getUserId(){
-        String url = "http://jieko.cc/user";
-        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        UserProfile.getUserProfile().setDeviceid(android_id);
-        //Send POST request
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JSONObject jsonObject = new JSONObject();
-        try
-        {
-            jsonObject.put("deviceid", android_id);
-        }catch (Exception e)
-        {
-            Log.e("Json Error",e.toString());
-        }
-        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try{
-                            UserProfile.getUserProfile().setUserid(String.valueOf((Long) response.getLong("userid")));
-                            setUserProfile();
-                        }catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Error.Response", error.toString());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }
-        };
-        requestQueue.add(jsonRequest);
     }
 }

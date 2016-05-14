@@ -2,11 +2,48 @@ package org.hackathon_ocw.androidclient;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 /**
  * Created by dianyang on 2016/2/29.
  */
 public class Utils {
+
+    //Append Wechat login function
+    public static String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+    //获取用户个人信息
+    public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+
+    public static String getUserInfo(String access_token,String openid){
+        String result = null;
+        GetUserInfo = GetUserInfo.replace("ACCESS_TOKEN",
+                urlEnodeUTF8(access_token));
+        GetUserInfo = GetUserInfo.replace("OPENID",
+                urlEnodeUTF8(openid));
+        result = GetUserInfo;
+        return result;
+    }
+
+    public static String getCodeRequest(String code) {
+        String result = null;
+        GetCodeRequest = GetCodeRequest.replace("APPID",
+                urlEnodeUTF8(Constants.APP_ID));
+        GetCodeRequest = GetCodeRequest.replace("SECRET",
+                urlEnodeUTF8(Constants.APP_SECRET));
+        GetCodeRequest = GetCodeRequest.replace("CODE",urlEnodeUTF8(code));
+        result = GetCodeRequest;
+        return result;
+    }
+
+    public static String urlEnodeUTF8(String str) {
+        String result = str;
+        try {
+            result = URLEncoder.encode(str, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     public static void CopyStream(InputStream is, OutputStream os)
     {

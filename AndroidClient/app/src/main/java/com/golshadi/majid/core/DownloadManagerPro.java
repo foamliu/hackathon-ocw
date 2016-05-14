@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
-import com.example.test.MyActivity;
 import com.golshadi.majid.Utils.helper.FileUtils;
 import com.golshadi.majid.core.chunkWorker.Moderator;
 import com.golshadi.majid.core.enums.QueueSort;

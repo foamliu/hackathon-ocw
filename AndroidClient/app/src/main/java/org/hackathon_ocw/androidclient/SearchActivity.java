@@ -87,7 +87,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchTagsInit() {
-        String url = "http://jieko.cc/user/" + UserProfile.getUserProfile().getUserid() + "/tags";
+        String url = "http://jieko.cc/user/" + UserProfile.getInstance().getUserid() + "/tags";
         //String url = "http://jieko.cc/user/5/tags";
         //Send Request here
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -160,7 +160,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchByTags(String query){
-        String Urlbytags = UrlbyTags + UserProfile.getUserProfile().getUserid() + "/Candidates/tag/";
+        String Urlbytags = UrlbyTags + UserProfile.getInstance().getUserid() + "/Candidates/tag/";
         final Download_data download_data = new Download_data(MainActivity.Self);
         try{
             String strUTF8 = URLEncoder.encode(query, "UTF-8");
