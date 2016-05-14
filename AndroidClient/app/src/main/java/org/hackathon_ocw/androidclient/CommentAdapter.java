@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -115,7 +116,7 @@ public class CommentAdapter extends BaseAdapter {
 
         //convert the time
         String commentTimeStr = comments.get(TabComment.KEY_COMMENTTIME);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         Calendar commentTimeCal = Calendar.getInstance();
@@ -137,7 +138,7 @@ public class CommentAdapter extends BaseAdapter {
         }
         else
         {
-            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd HH:mm");
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA);
             commentTime.setText(simpleDateFormat1.format(commentTimeCal.getTime()));
         }
         return vi;

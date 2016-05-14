@@ -18,7 +18,7 @@ public class Download_data implements Runnable  {
 
     public interface download_complete
     {
-        public void get_data(String data);
+        void get_data(String data);
     }
 
     Download_data(download_complete caller) {
@@ -41,7 +41,7 @@ public class Download_data implements Runnable  {
 
     private void threadMsg(String msg) {
 
-        if (!msg.equals(null) && !msg.equals("")) {
+        if (msg != null && !msg.equals("")) {
             Message msgObj = handler.obtainMessage();
             Bundle b = new Bundle();
             b.putString("message", msg);
@@ -67,7 +67,7 @@ public class Download_data implements Runnable  {
 
     public static String download(String url) {
         URL website;
-        StringBuilder response = null;
+        StringBuilder response;
         try {
             website = new URL(url);
 

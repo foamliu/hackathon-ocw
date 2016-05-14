@@ -75,9 +75,8 @@ public class ImageLoader {
             e.printStackTrace();
         }
         byte[] data = out.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
         //Drawable d = Drawable.createFromStream(i, "src");
-        return bitmap;
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
 
@@ -114,9 +113,7 @@ public class ImageLoader {
 
     boolean imageViewReused(PhotoToLoad photoToLoad){
         String tag=imageViews.get(photoToLoad.imageView);
-        if(tag==null || !tag.equals(photoToLoad.url))
-            return true;
-        return false;
+        return tag == null || !tag.equals(photoToLoad.url);
     }
 
     //用于显示位图在UI线程

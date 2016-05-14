@@ -712,7 +712,7 @@ public class FullscreenVideoView extends RelativeLayout implements SurfaceHolder
     /**
      * VideoView method (setVideoPath)
      */
-    public void setVideoPath(String path) throws IOException, IllegalStateException, SecurityException, IllegalArgumentException, RuntimeException {
+    public void setVideoPath(String path) throws IOException, RuntimeException {
         if (mediaPlayer != null) {
             if (currentState != State.IDLE)
                 throw new IllegalStateException("FullscreenVideoView Invalid State: " + currentState);
@@ -727,7 +727,7 @@ public class FullscreenVideoView extends RelativeLayout implements SurfaceHolder
     /**
      * VideoView method (setVideoURI)
      */
-    public void setVideoURI(Uri uri) throws IOException, IllegalStateException, SecurityException, IllegalArgumentException, RuntimeException {
+    public void setVideoURI(Uri uri) throws IOException, RuntimeException {
         if (mediaPlayer != null) {
             if (currentState != State.IDLE)
                 throw new IllegalStateException("FullscreenVideoView Invalid State: " + currentState);

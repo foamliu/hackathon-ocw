@@ -43,9 +43,7 @@ public class SearchActivity extends AppCompatActivity {
     static final String Url = "http://api.jieko.cc/items/search/";
     static final String UrlbyTags = "http://jieko.cc/user/";
 
-    private Button cancelBtn;
     private EditText editText;
-    private Toolbar searchToolbar;
     private TagGroup tagGroup;
 
     public ArrayList<String> tagsList = new ArrayList<String>();
@@ -67,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void detailToolBarInit(){
-        searchToolbar = (Toolbar) findViewById(R.id.searchToolbar);
+        Toolbar searchToolbar = (Toolbar) findViewById(R.id.searchToolbar);
         setSupportActionBar(searchToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         searchToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -136,7 +134,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void addListenerOnBackButton() {
-        cancelBtn = (Button)findViewById(R.id.cancelBtn);
+        Button cancelBtn = (Button) findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
@@ -158,7 +156,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(String query){
-        final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
+        final Download_data download_data = new Download_data(MainActivity.Self);
         try{
             String strUTF8 = URLEncoder.encode(query, "UTF-8");
             download_data.download_data_from_link(Url + strUTF8);
@@ -170,7 +168,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void searchByTags(String query){
         String Urlbytags = UrlbyTags + UserProfile.getUserProfile().getUserid() + "/Candidates/tag/";
-        final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
+        final Download_data download_data = new Download_data(MainActivity.Self);
         try{
             String strUTF8 = URLEncoder.encode(query, "UTF-8");
             download_data.download_data_from_link(Urlbytags + strUTF8);

@@ -17,15 +17,14 @@ import java.util.HashMap;
  */
 public class ListAdapter extends BaseAdapter {
 
-    private Activity activity;
     private ArrayList<HashMap<String, String>> data;
     private static LayoutInflater inflater=null;
     public ImageLoader imageLoader;
 
     public ListAdapter(Activity a, ArrayList<HashMap<String, String>> d){
-        activity = a;
+        Activity activity = a;
         data=d;
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader=new ImageLoader(activity.getApplicationContext());
     }
 
@@ -107,7 +106,7 @@ public class ListAdapter extends BaseAdapter {
         ImageView thumb_image = (ImageView) vi.findViewById(R.id.pic_link);
         ImageView durationImg = (ImageView) vi.findViewById(R.id.videoDurationImg);
 
-        HashMap<String, String> course = new HashMap<String, String>();
+        HashMap<String, String> course = new HashMap<>();
         course = data.get(position);
 
         title.setText(course.get(MainActivity.KEY_TITLE));

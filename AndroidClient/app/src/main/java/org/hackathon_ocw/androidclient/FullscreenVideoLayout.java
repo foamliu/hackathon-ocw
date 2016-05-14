@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class FullscreenVideoLayout extends FullscreenVideoView implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, MediaPlayer.OnPreparedListener, View.OnTouchListener {
 
     /**
@@ -126,9 +128,9 @@ public class FullscreenVideoLayout extends FullscreenVideoView implements View.O
             long h = (elapsed / (60 * 60)) % 24;
 
             if (h > 0)
-                textElapsed.setText(String.format("%d:%02d:%02d", h, m, s));
+                textElapsed.setText(String.format(Locale.CHINA, "%d:%02d:%02d", h, m, s));
             else
-                textElapsed.setText(String.format("%02d:%02d", m, s));
+                textElapsed.setText(String.format(Locale.CHINA, "%02d:%02d", m, s));
         }
     }
 
@@ -181,10 +183,10 @@ public class FullscreenVideoLayout extends FullscreenVideoView implements View.O
                 long h = (total / (60 * 60)) % 24;
                 if (h > 0) {
                     textElapsed.setText("00:00:00");
-                    textTotal.setText(String.format("%d:%02d:%02d", h, m, s));
+                    textTotal.setText(String.format(Locale.CHINA, "%d:%02d:%02d", h, m, s));
                 } else {
                     textElapsed.setText("00:00");
-                    textTotal.setText(String.format("%02d:%02d", m, s));
+                    textTotal.setText(String.format(Locale.CHINA, "%02d:%02d", m, s));
                 }
             }
 

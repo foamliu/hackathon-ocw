@@ -1,5 +1,6 @@
 package org.hackathon_ocw.androidclient;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
@@ -96,23 +97,15 @@ import java.util.TimeZone;
 public class WebDetailActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private IWXAPI api;
-    private Toolbar detailToolbar;
     private TextView titleDetail;
-    private TextView titleToolBar;
-
-    private Button backBtn;
-    private Button shareBtn;
 
     private PopupWindow popWindow;
     private InputMethodManager imm;
     private EditText editText;
 
     private String webUri;
-    private String courseId;
     private String title;
 
-    //User info
-    private UserProfile userProfile;
     private Tracker mTracker;
 
     private WebView browser= null;
@@ -131,11 +124,11 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
 
-        userProfile = new UserProfile();
+        UserProfile userProfile = new UserProfile();
 
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
-        courseId = intent.getStringExtra("id");
+        String courseId = intent.getStringExtra("id");
         webUri = intent.getStringExtra("webUrl");
 
         userProfile.setNickname(intent.getStringExtra("nickname"));
@@ -159,7 +152,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
     }
 
     public void detailToolBarInit(){
-        detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
+        Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -167,7 +160,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
-        titleToolBar=(TextView)findViewById(R.id.titleToolBar);
+        TextView titleToolBar = (TextView) findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
     }
 
@@ -182,7 +175,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
     }
 
     public void addListenerOnBackButton() {
-        backBtn = (Button)findViewById(R.id.backBtn);
+        Button backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onPause();
@@ -193,7 +186,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
     public void addListenerOnShareButton() {
         //Share to Wechat
-        shareBtn = (Button)findViewById(R.id.shareBtn);
+        Button shareBtn = (Button) findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(WebDetailActivity.this, v);
@@ -240,8 +233,9 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void loadWebview(){
-        if(webUri != ""){
+        if(!webUri.equals("")){
             browser=(WebView)findViewById(R.id.webview);
             browser.getSettings().setJavaScriptEnabled(true);
             browser.getSettings().setUseWideViewPort(true);

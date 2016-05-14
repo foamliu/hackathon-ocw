@@ -255,9 +255,9 @@ public final class MMAlert {
 		return alert;
 	}
 
-	public static Dialog showAlert(final Context context, final String title, final String[] items, String exit, final OnAlertSelectId alertDo) {
-		return showAlert(context, title, items, exit, null);
-	}
+	//public static Dialog showAlert(final Context context, final String title, final String[] items, String exit, final OnAlertSelectId alertDo) {
+	//	return showAlert(context, title, items, exit, null);
+	//}
 
 	public static ProgressDialog showProgressDlg(final Context context, final String title, final String message, final boolean indeterminate, final boolean cancelable, final OnCancelListener lCancel) {
 

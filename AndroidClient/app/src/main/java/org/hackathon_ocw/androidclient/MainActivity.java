@@ -83,22 +83,16 @@ public class MainActivity extends AppCompatActivity
     //Views of the page
     public View footerLayout;
     public ListView mListView;
-    private TextView titleMainToolBar;
     private TextView textMore;
     private NavigationView navigationView;
 
     //Toolbars
     private Toolbar toolbar;
-    private Button searchBtn;
     private ProgressBar progressBar;
 
     public ListAdapter mListAdapter;
     private RefreshLayout mRefreshLayout;
 
-    //Wechat login
-    private IWXAPI WXapi;
-    private String wechatCode;
-    private static String get_access_token = "";
     private String access_token;
     private String openid;
     private boolean login = false;
@@ -135,7 +129,7 @@ public class MainActivity extends AppCompatActivity
             CustomApplication application = (CustomApplication) getApplication();
             mTracker = application.getDefaultTracker();
 
-            titleMainToolBar=(TextView)findViewById(R.id.titleMainToolBar);
+            TextView titleMainToolBar = (TextView) findViewById(R.id.titleMainToolBar);
             titleMainToolBar.setText("学啥");
 
             toolbarInit();
@@ -233,7 +227,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "正在努力加载", Toast.LENGTH_SHORT).show();
                 mListAdapter.clear();
 
-                Download_data download_data = new Download_data((download_complete) MainActivity.this);
+                Download_data download_data = new Download_data(MainActivity.this);
                 download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
                 mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
@@ -254,7 +248,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        final Download_data download_data = new Download_data((download_complete) this);
+        final Download_data download_data = new Download_data(this);
         download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
 
         mListView.setItemsCanFocus(true);
@@ -338,9 +332,8 @@ public class MainActivity extends AppCompatActivity
 
     public void parseYixiCourseStep1(String videoUrl){
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = videoUrl;
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, videoUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -413,7 +406,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void searchBtnInit() {
-        searchBtn = (Button) findViewById(R.id.searchBtn);
+        Button searchBtn = (Button) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -443,7 +436,7 @@ public class MainActivity extends AppCompatActivity
         textMore.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
 
-        Download_data download_data = new Download_data((download_complete) MainActivity.this);
+        Download_data download_data = new Download_data(MainActivity.this);
         download_data.download_data_from_link(Url + UserProfile.getUserProfile().getUserid() + "/Candidates");
         mListAdapter.addAll(courseList);
 
@@ -534,12 +527,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_login && login == false) {
+        if (id == R.id.nav_login && !login) {
             WXLogin();
             item.setChecked(false);
             item.setCheckable(true);
         }
-        else if(id == R.id.nav_login && login == true){
+        else if(id == R.id.nav_login && login){
             WXLogout();
             item.setChecked(false);
             item.setCheckable(true);
@@ -570,7 +563,7 @@ public class MainActivity extends AppCompatActivity
     public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
 
     private void WXLogin() {
-        WXapi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
+        IWXAPI WXapi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
         if(!WXapi.isWXAppInstalled())
         {
             Toast.makeText(getApplicationContext(), "请先安装微信", Toast.LENGTH_SHORT).show();
@@ -626,8 +619,8 @@ public class MainActivity extends AppCompatActivity
         if(resp != null)
         {
             if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
-                wechatCode = ((SendAuth.Resp)resp).code;
-                get_access_token = getCodeRequest(wechatCode);
+                String wechatCode = ((SendAuth.Resp) resp).code;
+                String get_access_token = getCodeRequest(wechatCode);
 
                 //Send Request here
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -757,7 +750,7 @@ public class MainActivity extends AppCompatActivity
 
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.nav_login);
-        if(login == true){
+        if(login){
             menuItem.setTitle("注销");
         }
 
@@ -886,22 +879,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void updateNaviViewWithUserProfile(){
-        if(UserProfile.getUserProfile().getNickname() != "" && UserProfile.getUserProfile().getNickname() != null){
+        String nickName = UserProfile.getUserProfile().getNickname();
+        String headImgUrl = UserProfile.getUserProfile().getHeadimgurl();
+        if(nickName != null && !nickName.equals("")){
             login = true;
             CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
             RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
             com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
             com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView,R.drawable.no_image, R.drawable.no_image);
-            if(UserProfile.getUserProfile().getHeadimgurl() != ""){
-                imageLoader.get(UserProfile.getUserProfile().getHeadimgurl(), listener);
+            if(headImgUrl != null && !headImgUrl.equals("")){
+                imageLoader.get(headImgUrl, listener);
             }
 
             TextView textView = (TextView)findViewById(R.id.userName);
-            textView.setText(UserProfile.getUserProfile().getNickname());
+            textView.setText(nickName);
 
             Menu menu = navigationView.getMenu();
             MenuItem menuItem = menu.findItem(R.id.nav_login);
-            if(login == true){
+            if(login){
                 menuItem.setTitle("注销");
             }
         }
@@ -915,7 +910,7 @@ public class MainActivity extends AppCompatActivity
             if (null != navigationView) {
                 Menu menu = navigationView.getMenu();
                 MenuItem menuItem = menu.findItem(R.id.nav_login);
-                if (login == false) {
+                if (!login) {
                     menuItem.setTitle("登录");
                 }
             }
