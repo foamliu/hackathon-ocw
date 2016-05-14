@@ -43,13 +43,14 @@ public class FullscreenVideoView extends RelativeLayout implements SurfaceHolder
      */
     private final static String TAG = "FullscreenVideoView";
 
-    protected Context context;
-    protected Activity activity;
+    final Context context;
+    private Activity activity;
 
-    protected MediaPlayer mediaPlayer;
-    protected SurfaceHolder surfaceHolder;
-    protected SurfaceView surfaceView;
-    protected boolean videoIsReady, surfaceIsReady;
+    private MediaPlayer mediaPlayer;
+    private SurfaceHolder surfaceHolder;
+    private SurfaceView surfaceView;
+    private boolean videoIsReady;
+    private boolean surfaceIsReady;
     protected boolean detachedByFullscreen;
     protected State currentState;
     protected State lastState; // Tells onSeekCompletion what to do

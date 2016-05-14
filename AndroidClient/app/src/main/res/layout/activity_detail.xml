@@ -14,70 +14,58 @@
         android:layout_height="match_parent" />
 
 
-        <LinearLayout
-            android:orientation="vertical"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="70dp">
+
+        <TextView
+            android:id="@+id/titleDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="70dp">
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/titleDetail"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:gravity="center_vertical"
-                />
+        <RelativeLayout
+            android:id="@+id/videoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="460dp"
+            android:layout_gravity="center">
 
-<!--            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:numStars="5"
-                android:stepSize="1.0"
-                android:rating="2.0"
-                android:isIndicator="false"
-                style="?android:attr/ratingBarStyleSmall"
-                />-->
-
-            <RelativeLayout
-                android:id="@+id/videoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_gravity="center">
-                <org.hackathon_ocw.androidclient.FullscreenVideoLayout
-                    android:id="@+id/videoView"
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-
-
-            <LinearLayout
+            <org.hackathon_ocw.androidclient.FullscreenVideoLayout
+                android:id="@+id/videoView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_marginTop="15dp" />
+        </RelativeLayout>
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/detailTabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabIndicatorColor="@color/colorTab"
-                    app:tabMaxWidth="0dp"
-                    app:tabGravity="fill"
-                    app:tabMode="fixed" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/detailPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            </LinearLayout>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/detailTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/colorTab"
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/detailPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
         </LinearLayout>
+
+    </LinearLayout>
 
     <include
         layout="@layout/comment_bar_bottom"

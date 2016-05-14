@@ -73,7 +73,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private FullscreenVideoLayout videoLayout;
 
     private Uri uri;
-    //private TextView descriptionDetail;
     private ViewPager viewPager;
     private PopupWindow popWindow;
     private InputMethodManager imm;
@@ -87,7 +86,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private Tracker mTracker;
 
     private NestedScrollingChildHelper mChildHelper;
-    DisplayMetrics metrics = new DisplayMetrics();
+    private final DisplayMetrics metrics = new DisplayMetrics();
 
 
     @Override
@@ -112,7 +111,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         uri = Uri.parse(intent.getStringExtra("videoUrl"));
         UserProfile.getInstance().setNickname(intent.getStringExtra("nickname"));
         UserProfile.getInstance().setHeadimgurl(intent.getStringExtra("headimgurl"));
-        UserProfile.getInstance().setUserid(intent.getStringExtra("userid"));
+        UserProfile.getInstance().setUserId(intent.getStringExtra("userid"));
         String videoUrl = intent.getStringExtra("videoImg");
 
         detailToolBarInit();
@@ -127,9 +126,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         else{
             videoLayout.getLayoutParams().height = 460;
         }
-        /*
 
-        */
         getVideoImage(videoUrl);
 
         videoInit();
@@ -139,15 +136,12 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         addListenerOnCommentButton();
         addListenerOnViewCommentButton();
-        //addListenerOnFavoritesButton();
-        //addListenerOnRatingBar();
 
         //Google Analytics tracker
         sendScreenImageName();
-        //mChildHelper = new NestedScrollingChildHelper(findViewById(R.layout.activity_detail));
     }
 
-    public void viewPagerInit(){
+    private void viewPagerInit(){
         viewPager = (ViewPager) findViewById(R.id.detailPager);
         viewPager.setAdapter(new PageFragmentAdapter(getSupportFragmentManager(),
                 DetailActivity.this));
@@ -159,7 +153,8 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    public void detailToolBarInit(){
+    @SuppressWarnings("ConstantConditions")
+    private void detailToolBarInit(){
         Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -172,11 +167,11 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         titleToolBar.setText("学啥");
     }
 
-    public static boolean isTablet(Context context) {
+    private static boolean isTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    public void videoInit(){
+    private void videoInit(){
         videoLayout = (FullscreenVideoLayout)findViewById(R.id.videoView);
         videoLayout.setActivity(this);
         videoLayout.setShouldAutoplay(true);
@@ -189,7 +184,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         }
     }
 
-    public void getVideoImage(String url) {
+    private void getVideoImage(String url) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
@@ -215,7 +210,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     }
 
     // A method to find height of the status bar
-    public int getStatusBarHeight() {
+    private int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -224,7 +219,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         return result;
     }
 
-    public void addListenerOnBackButton() {
+    private void addListenerOnBackButton() {
         Button backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -233,7 +228,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         });
     }
 
-    public void addListenerOnShareButton() {
+    private void addListenerOnShareButton() {
         //Share to Wechat
         Button shareBtn = (Button) findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +256,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         }
     }
 
-    public void WXShare(boolean isTimelineCb){
+    private void WXShare(boolean isTimelineCb){
         //WXVideoObject videoObject = new WXVideoObject();
         //videoObject.videoUrl = uri.toString();
 
@@ -302,7 +297,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         return result;
     }
 
-    public void addListenerOnViewCommentButton(){
+    private void addListenerOnViewCommentButton(){
         //Change view
         Button viewComment = (Button)findViewById(R.id.ViewCommentBtn);
         viewComment.setOnClickListener(new View.OnClickListener() {
@@ -313,77 +308,11 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         });
     }
 
-    /*
-    public void addListenerOnFavoritesButton(){
-        //Add this course to favorites
-        ImageButton favorites = (ImageButton)this.findViewById(R.id.FavoritesBtn);
-        favorites.setColorFilter(Color.YELLOW);
-        favorites.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //Format jsonObject
-                JSONObject jsonObject = new JSONObject();
-                try
-                {
-                    jsonObject.put("courseId", courseId);
-                    jsonObject.put("title", title);
-                }catch (Exception e)
-                {
-                    Log.e("Local file Error",e.toString());
-                }
-                //Save to local stroage
-                try {
-                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("favorites.json", Context.MODE_PRIVATE));
-                    outputStreamWriter.write(jsonObject.toString());
-                    outputStreamWriter.close();
-                }
-                catch (IOException e) {
-                    Log.e("Exception", "File write failed: " + e.toString());
-                }
-            }
-        });
-        /*
-        favorites.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE) {
-                    //Change Favorites icon color
-                    favorites.setColorFilter(Color.YELLOW);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-
-    }
-    */
-
     private String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
-/*
-    public void addListenerOnRatingBar() {
 
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        //if rating value is changed,
-        //display the current rating value in the result (textview) automatically
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar ratingBar, float rating,
-                                        boolean fromUser) {
-
-                Toast.makeText(getApplicationContext(), "Your ratings: " + String.valueOf(rating), Toast.LENGTH_SHORT).show();
-                //txtRatingValue.setText(String.valueOf(rating));
-
-                //Send the ratings to server...
-                //Send post to server
-                Runnable networkTask = new NetworkThread(UserProfile.getUserProfile().getUserid(), courseId, rating);
-                new Thread(networkTask).start();
-            }
-        });
-    }*/
-
-    public void addListenerOnCommentButton(){
+    private void addListenerOnCommentButton(){
         editText = (EditText)findViewById(R.id.EditComment);
         if(isTablet(this.getApplicationContext())) {
             editText.getLayoutParams().width = metrics.widthPixels - 200;
@@ -410,7 +339,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         }
     }
 
-    public void commentShowPopup(final View parent){
+    private void commentShowPopup(final View parent){
 
         if(popWindow == null)
         {
@@ -477,7 +406,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 int item_id = Integer.valueOf(courseId);
 
                 //Get author_id
-                int author_id = Integer.valueOf(UserProfile.getInstance().getUserid());
+                int author_id = Integer.valueOf(UserProfile.getInstance().getUserId());
                 String author_name;
                 if(UserProfile.getInstance().getNickname() != null) {
                     author_name = UserProfile.getInstance().getNickname();
@@ -498,13 +427,10 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 String comment = editText.getText().toString();
 
                 //Get current timeline
-
                 int timeline = videoLayout.getCurrentPosition() / 1000;
 
                 //Get Url
                 String httpurl = "http://jieko.cc/item/" + courseId + "/Comments";
-                //For debug
-                //String httpurl = "http://jieko.cc/item/1/Comments";
 
                 //Send a POST message
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -552,7 +478,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
                 HashMap<String, String>map = new HashMap<String, String>();
                 map.put("commentId", String.valueOf(item_id));
-                //map.put("author_id", String.valueOf(author_id));
                 map.put("userName", author_name);
                 map.put("commentTime", currentTimeStr);
                 map.put("comment", comment);

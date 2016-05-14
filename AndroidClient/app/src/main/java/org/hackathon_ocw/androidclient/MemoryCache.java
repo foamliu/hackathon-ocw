@@ -10,7 +10,7 @@ import android.graphics.Bitmap;
  * Created by dianyang on 2016/2/29.
  */
 public class MemoryCache {
-    private Map<String, SoftReference<Bitmap>> cache=Collections.synchronizedMap(new HashMap<String, SoftReference<Bitmap>>());
+    private final Map<String, SoftReference<Bitmap>> cache=Collections.synchronizedMap(new HashMap<String, SoftReference<Bitmap>>());
 
     public Bitmap get(String id){
         if(!cache.containsKey(id))

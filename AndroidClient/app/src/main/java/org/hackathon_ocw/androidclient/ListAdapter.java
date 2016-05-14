@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,19 +20,18 @@ import java.util.HashMap;
 public class ListAdapter extends BaseAdapter {
 
     private ArrayList<HashMap<String, String>> data;
-    private static LayoutInflater inflater=null;
-    public ImageLoader imageLoader;
+    private static LayoutInflater inflater = null;
+    public final ImageLoader imageLoader;
 
-    public ListAdapter(Activity a, ArrayList<HashMap<String, String>> d){
-        Activity activity = a;
-        data=d;
-        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader=new ImageLoader(activity.getApplicationContext());
+    public ListAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
+        data = d;
+        inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageLoader = new ImageLoader(a.getApplicationContext());
     }
 
     @Override
     public int getCount() {
-        return  data.size();
+        return data.size();
     }
 
     @Override
@@ -43,89 +44,93 @@ public class ListAdapter extends BaseAdapter {
         return position;
     }
 
-    public String getVideoUrlbyPosition(int position) {
+    public String getVideoUrlByPosition(int position) {
         return data.get(position).get("videoUrl");
     }
 
-    public String getWebUrlbyPosition(int position) {
+    public String getWebUrlByPosition(int position) {
         return data.get(position).get("webUrl");
     }
 
-    public String getTitlebyPosition(int position) {
+    public String getTitleByPosition(int position) {
         return data.get(position).get("title");
     }
 
-    public String getIdbyPosition(int position) {
-        if(data.size() <= position)
-        {
-            return  data.get(position-1).get("id");
-        }
-        else
-        {
+    public String getIdByPosition(int position) {
+        if (data.size() <= position) {
+            return data.get(position - 1).get("id");
+        } else {
             return data.get(position).get("id");
         }
     }
 
-    public String getDiscriptionbyPosition(int position) {
+    public String getDescriptionByPosition(int position) {
         return data.get(position).get("description");
     }
 
-    public String getVideoImgbyPosition(int position){
+    public String getVideoImgByPosition(int position) {
         return data.get(position).get("thumb_url");
     }
 
-    public void clear()
-    {
+    public void clear() {
         data.clear();
         notifyDataSetChanged();
     }
 
-    public void addAll(ArrayList<HashMap<String, String>> d)
-    {
+    public void addAll(ArrayList<HashMap<String, String>> d) {
         data = d;
         notifyDataSetChanged();
     }
 
-    public void append(ArrayList<HashMap<String, String>> d)
-    {
+    public void append(ArrayList<HashMap<String, String>> d) {
         data.addAll(d);
         notifyDataSetChanged();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        View vi = convertView;
-        if(convertView == null)
-        {
-            vi = inflater.inflate(R.layout.cell,null);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View vi = null;
+        if( convertView != null )
+            vi = convertView;
+        else {
+            vi = inflater.inflate(R.layout.cell, parent, false);
         }
 
         TextView title = (TextView) vi.findViewById(R.id.title);
-        TextView videoOrElse = (TextView) vi.findViewById(R.id.videoOrElse);
-        TextView source = (TextView) vi.findViewById(R.id.source);
+        TextView duration = (TextView) vi.findViewById(R.id.duration);
+        TextView school = (TextView) vi.findViewById(R.id.school);
         ImageView thumb_image = (ImageView) vi.findViewById(R.id.pic_link);
-        ImageView durationImg = (ImageView) vi.findViewById(R.id.videoDurationImg);
+        ImageView downloadBtn = (ImageView) vi.findViewById(R.id.downloadBtn);
 
-        HashMap<String, String> course = new HashMap<>();
-        course = data.get(position);
-
-        title.setText(course.get(Constants.KEY_TITLE));
-        //source.setText(course.get(MainActivity.KEY_SOURCE));
-        String school = course.get(Constants.KEY_SCHOOL);
-        if (school.length() > 12)
-            school = school.substring(0, 12) + "..";
-        source.setText(school);
-
-        if(course.get(Constants.KEY_DURATION).equals(""))
-        {
-            videoOrElse.setText("---:---");
-            //durationImg.setVisibility(View.INVISIBLE);
-            //videoOrElse.setText(course.get(MainActivity.KEY_INSTRUCTOR));
+        HashMap<String, String> course = data.get(position);
+        final String strTitle = course.get(Constants.KEY_TITLE);
+        String strSchool = course.get(Constants.KEY_SCHOOL);
+        if (strSchool.length() > 12)
+            strSchool = strSchool.substring(0, 12) + "..";
+        String strDuration = course.get(Constants.KEY_DURATION);
+        if (duration == null || duration.equals("")) {
+            strDuration = "";
         }
-        else {
-            videoOrElse.setText(course.get(Constants.KEY_DURATION));
+        final String strThumbUrl = course.get(Constants.KEY_THUMB_URL);
+        final String strVideoUrl = course.get(Constants.KEY_VIDEOURL);
+
+        title.setText(strTitle);
+        school.setText(strSchool);
+        duration.setText(strDuration);
+
+        imageLoader.DisplayImage(strThumbUrl, thumb_image);
+
+        if (strVideoUrl == null || strVideoUrl.equals("") || strVideoUrl.trim().equals("")) {
+            downloadBtn.setVisibility(View.INVISIBLE);
+        } else {
+            downloadBtn.setVisibility(View.VISIBLE);
+            downloadBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
-        imageLoader.DisplayImage(course.get(Constants.KEY_THUMB_URL), thumb_image);
 
         return vi;
     }

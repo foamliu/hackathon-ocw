@@ -70,9 +70,9 @@ public class Moderator {
             // get any chunk file size calculate
             for (Chunk chunk : taskChunks) {
             	
-                downloaded = new Long(FileUtils
+                downloaded = Long.valueOf(FileUtils
                         .size(task.save_address, String.valueOf(chunk.id)));
-                totalSize = new Long(chunk.end - chunk.begin + 1);
+                totalSize = Long.valueOf(chunk.end - chunk.begin + 1);
                 
                 if (!task.resumable){
                     chunk.begin = 0;

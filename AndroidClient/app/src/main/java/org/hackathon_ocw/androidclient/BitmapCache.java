@@ -9,7 +9,7 @@ import com.android.volley.toolbox.ImageLoader;
  * Created by dianyang on 2016/3/21.
  */
 public class BitmapCache implements ImageLoader.ImageCache {
-    private LruCache<String, Bitmap> cache;
+    private final LruCache<String, Bitmap> cache;
     public BitmapCache() {
         cache = new LruCache<String, Bitmap>(8 * 1024 * 1024) {
             @Override

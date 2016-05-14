@@ -15,7 +15,7 @@ public class Utils {
     public static String GetUserInfo="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
 
     public static String getUserInfo(String access_token,String openid){
-        String result = null;
+        String result;
         GetUserInfo = GetUserInfo.replace("ACCESS_TOKEN",
                 urlEnodeUTF8(access_token));
         GetUserInfo = GetUserInfo.replace("OPENID",
@@ -25,7 +25,7 @@ public class Utils {
     }
 
     public static String getCodeRequest(String code) {
-        String result = null;
+        String result;
         GetCodeRequest = GetCodeRequest.replace("APPID",
                 urlEnodeUTF8(Constants.APP_ID));
         GetCodeRequest = GetCodeRequest.replace("SECRET",
@@ -61,6 +61,6 @@ public class Utils {
                 os.close();
             }
         }
-        catch(Exception ex){}
+        catch(Exception ignored){}
     }
 }

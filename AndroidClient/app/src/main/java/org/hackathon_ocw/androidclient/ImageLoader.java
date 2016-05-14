@@ -21,10 +21,10 @@ import android.widget.ImageView;
  * Created by dianyang on 2016/2/29.
  */
 public class ImageLoader {
-    MemoryCache memoryCache=new MemoryCache();
-    FileCache fileCache;
-    private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
-    ExecutorService executorService;
+    final MemoryCache memoryCache=new MemoryCache();
+    final FileCache fileCache;
+    private final Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
+    final ExecutorService executorService;
 
     public ImageLoader(Context context){
         fileCache=new FileCache(context);
@@ -54,16 +54,16 @@ public class ImageLoader {
     private Bitmap getBitmap(String url)
     {
         URL m;
-        InputStream i = null;
-        BufferedInputStream bis = null;
-        ByteArrayOutputStream out = null;
+        InputStream i;
+        BufferedInputStream bis;
+        ByteArrayOutputStream out;
         byte[] data = null;
         try {
             m = new URL(url);
             i = (InputStream) m.getContent();
             bis = new BufferedInputStream(i,1024 * 8);
             out = new ByteArrayOutputStream();
-            int len=0;
+            int len;
             byte[] buffer = new byte[1024];
             while((len = bis.read(buffer)) != -1){
                 out.write(buffer, 0, len);
@@ -84,8 +84,8 @@ public class ImageLoader {
 
     private class PhotoToLoad
     {
-        public String url;
-        public ImageView imageView;
+        public final String url;
+        public final ImageView imageView;
         public PhotoToLoad(String u, ImageView i){
             url=u;
             imageView=i;
@@ -93,7 +93,7 @@ public class ImageLoader {
     }
 
     class PhotosLoader implements Runnable {
-        PhotoToLoad photoToLoad;
+        final PhotoToLoad photoToLoad;
         PhotosLoader(PhotoToLoad photoToLoad){
             this.photoToLoad=photoToLoad;
         }
@@ -120,8 +120,8 @@ public class ImageLoader {
     //用于显示位图在UI线程
     class BitmapDisplayer implements Runnable
     {
-        Bitmap bitmap;
-        PhotoToLoad photoToLoad;
+        final Bitmap bitmap;
+        final PhotoToLoad photoToLoad;
         public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
         public void run()
         {

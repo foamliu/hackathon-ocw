@@ -24,7 +24,7 @@ public class QueueModerator
     private final List<Task> uncompletedTasks;
     private final int downloadTaskPerTime;
 
-    private HashMap<Integer, Thread> downloaderList;
+    private final HashMap<Integer, Thread> downloaderList;
     private boolean pauseFlag = false;
 
 

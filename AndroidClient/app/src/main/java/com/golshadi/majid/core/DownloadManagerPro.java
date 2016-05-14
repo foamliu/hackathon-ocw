@@ -1,6 +1,5 @@
 package com.golshadi.majid.core;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
@@ -89,7 +88,7 @@ public class DownloadManagerPro {
         if (!saveFolder.exists())
             saveFolder.mkdirs();
 
-        SAVE_FILE_FOLDER = saveFolder.getPath().toString();
+        SAVE_FILE_FOLDER = saveFolder.getPath();
         maximumUserChunks = setMaxChunk(maxChunks);
         downloadManagerListener = new DownloadManagerListenerModerator(listener);
     }

@@ -26,10 +26,8 @@ public class TasksDataSource {
     }
 
     public long insertTask(Task task){
-        long id = database
+        return database
                     .insert(TABLES.TASKS, null, task.convertToContentValues());
-
-        return id;
     }
 
     public boolean update(Task task){
@@ -64,6 +62,7 @@ public class TasksDataSource {
             }
         }
 
+        assert cr != null;
         cr.close();
 
         return tasks;
@@ -154,6 +153,7 @@ public class TasksDataSource {
         if (cr != null && cr.moveToFirst()) {
             task.cursorToTask(cr);
         }
+        assert cr != null;
         cr.close();
 
         return task;

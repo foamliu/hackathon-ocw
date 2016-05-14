@@ -18,7 +18,7 @@ import org.hackathon_ocw.androidclient.Constants;
  */
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
-    private static String TAG = "WXEntryActivity";
+    private static final String TAG = "WXEntryActivity";
     private IWXAPI api;
     public static BaseResp mResp = null;
 

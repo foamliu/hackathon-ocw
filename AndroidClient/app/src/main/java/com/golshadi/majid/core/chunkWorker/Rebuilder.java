@@ -39,13 +39,14 @@ public class Rebuilder extends Thread{
         }
 
         byte[] readBuffer = new byte[1024];
-        int read = 0;
+        int read;
         for (Chunk chunk : taskChunks) {
             FileInputStream chFileIn =
                     FileUtils.getInputStream(task.save_address, String.valueOf(chunk.id));
 
             try {
                 while ((read = chFileIn.read(readBuffer)) > 0) {
+                    assert finalFile != null;
                     finalFile.write(readBuffer, 0, read);
                 }
             } catch (IOException e) {

@@ -72,7 +72,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         userProfile.setNickname(intent.getStringExtra("nickname"));
         userProfile.setHeadimgurl(intent.getStringExtra("headimgurl"));
-        userProfile.setUserid(intent.getStringExtra("userid"));
+        userProfile.setUserId(intent.getStringExtra("userid"));
 
         detailToolBarInit();
 
@@ -90,6 +90,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         //mChildHelper = new NestedScrollingChildHelper(findViewById(R.layout.activity_detail));
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void detailToolBarInit(){
         Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);

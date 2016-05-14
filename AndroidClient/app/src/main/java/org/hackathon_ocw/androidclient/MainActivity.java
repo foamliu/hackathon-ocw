@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     private int positionYixi;
     private Tracker mTracker;
 
-    public ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
+    public final ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
     public static MainActivity Self;
 
     @Override
@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity
             toolbarInit();
             searchBtnInit();
             listViewInit();
-            //floatingButtonInit();
             drawerInit();
             naviViewInit();
         }
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity
             builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = null;
+                    Intent intent;
                     if (android.os.Build.VERSION.SDK_INT > 10) {
                         intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
                     } else {
@@ -190,7 +189,7 @@ public class MainActivity extends AppCompatActivity
                 mListAdapter.clear();
 
                 Download_data download_data = new Download_data(MainActivity.this);
-                download_data.download_data_from_link(Url + UserProfile.getInstance().getUserid() + "/Candidates");
+                download_data.download_data_from_link(Url + UserProfile.getInstance().getUserId() + "/Candidates");
                 mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -211,7 +210,7 @@ public class MainActivity extends AppCompatActivity
 
 
         final Download_data download_data = new Download_data(this);
-        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserid() + "/Candidates");
+        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserId() + "/Candidates");
 
         mListView.setItemsCanFocus(true);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -221,21 +220,21 @@ public class MainActivity extends AppCompatActivity
                 try {
                     boolean isYixi = false;
 
-                    if (mListAdapter.getWebUrlbyPosition(position).contains("yixi")) {
-                        parseYixiCourseStep1(mListAdapter.getWebUrlbyPosition(position));
+                    if (mListAdapter.getWebUrlByPosition(position).contains("yixi")) {
+                        parseYixiCourseStep1(mListAdapter.getWebUrlByPosition(position));
                         positionYixi = position;
                         isYixi = true;
                     }
 
-                    if (!mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi) {
+                    if (!mListAdapter.getVideoUrlByPosition(position).equals("") && !isYixi) {
                         //Show subpage with videoUrl
                         Intent intent = new Intent();
-                        intent.putExtra("id", mListAdapter.getIdbyPosition(position));
-                        intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
-                        intent.putExtra("videoUrl", mListAdapter.getVideoUrlbyPosition(position));
-                        intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(position));
-                        intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(position));
-                        intent.putExtra("userid", UserProfile.getInstance().getUserid());
+                        intent.putExtra("id", mListAdapter.getIdByPosition(position));
+                        intent.putExtra("title", mListAdapter.getTitleByPosition(position));
+                        intent.putExtra("videoUrl", mListAdapter.getVideoUrlByPosition(position));
+                        intent.putExtra("description", mListAdapter.getDescriptionByPosition(position));
+                        intent.putExtra("videoImg", mListAdapter.getVideoImgByPosition(position));
+                        intent.putExtra("userid", UserProfile.getInstance().getUserId());
                         if (UserProfile.getInstance().getNickname() != null) {
                             intent.putExtra("nickname", UserProfile.getInstance().getNickname());
                             intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
@@ -243,13 +242,13 @@ public class MainActivity extends AppCompatActivity
 
                         intent.setClass(MainActivity.this, DetailActivity.class);
                         startActivity(intent);
-                    } else if (mListAdapter.getVideoUrlbyPosition(position).equals("") && !isYixi) {
+                    } else if (mListAdapter.getVideoUrlByPosition(position).equals("") && !isYixi) {
                         //Show subpage with Webview
                         Intent intent = new Intent();
-                        intent.putExtra("webUrl", mListAdapter.getWebUrlbyPosition(position));
-                        intent.putExtra("id", mListAdapter.getIdbyPosition(position));
-                        intent.putExtra("title", mListAdapter.getTitlebyPosition(position));
-                        intent.putExtra("userid", UserProfile.getInstance().getUserid());
+                        intent.putExtra("webUrl", mListAdapter.getWebUrlByPosition(position));
+                        intent.putExtra("id", mListAdapter.getIdByPosition(position));
+                        intent.putExtra("title", mListAdapter.getTitleByPosition(position));
+                        intent.putExtra("userid", UserProfile.getInstance().getUserId());
                         if (UserProfile.getInstance().getNickname() != null) {
                             intent.putExtra("nickname", UserProfile.getInstance().getNickname());
                             intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
@@ -259,8 +258,8 @@ public class MainActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                     //Send post to server
-                    String courseId = MainActivity.this.mListAdapter.getIdbyPosition(position);
-                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserid(), courseId, 3);
+                    String courseId = MainActivity.this.mListAdapter.getIdByPosition(position);
+                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), courseId, 3);
                     new Thread(networkTask).start();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -270,25 +269,12 @@ public class MainActivity extends AppCompatActivity
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory("Mainpage")
                         .setAction("Click the ocw item")
-                        .setLabel(mListAdapter.getIdbyPosition(position))
+                        .setLabel(mListAdapter.getIdByPosition(position))
                         .setValue(1)
                         .build());
             }
         });
     }
-
-    /*
-    public void floatingButtonInit() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Foam like it!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
-    */
 
     public void parseYixiCourseStep1(String videoUrl) {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -329,12 +315,12 @@ public class MainActivity extends AppCompatActivity
 
                             //Show subpage with videoUrl
                             Intent intent = new Intent();
-                            intent.putExtra("id", mListAdapter.getIdbyPosition(positionYixi));
-                            intent.putExtra("title", mListAdapter.getTitlebyPosition(positionYixi));
+                            intent.putExtra("id", mListAdapter.getIdByPosition(positionYixi));
+                            intent.putExtra("title", mListAdapter.getTitleByPosition(positionYixi));
                             intent.putExtra("videoUrl", link);
-                            intent.putExtra("description", mListAdapter.getDiscriptionbyPosition(positionYixi));
-                            intent.putExtra("videoImg", mListAdapter.getVideoImgbyPosition(positionYixi));
-                            intent.putExtra("userid", UserProfile.getInstance().getUserid());
+                            intent.putExtra("description", mListAdapter.getDescriptionByPosition(positionYixi));
+                            intent.putExtra("videoImg", mListAdapter.getVideoImgByPosition(positionYixi));
+                            intent.putExtra("userid", UserProfile.getInstance().getUserId());
                             if (UserProfile.getInstance().getNickname() != null) {
                                 intent.putExtra("nickname", UserProfile.getInstance().getNickname());
                                 intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
@@ -355,6 +341,7 @@ public class MainActivity extends AppCompatActivity
         requestQueue.add(jsonRequest);
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void toolbarInit() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -397,14 +384,12 @@ public class MainActivity extends AppCompatActivity
         progressBar.setVisibility(View.VISIBLE);
 
         Download_data download_data = new Download_data(MainActivity.this);
-        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserid() + "/Candidates");
+        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserId() + "/Candidates");
         mListAdapter.addAll(courseList);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Toast.makeText(getApplicationContext(), "刷新完成!", Toast.LENGTH_SHORT).show();
-                //swipeContainer.setRefreshing(false);
                 mRefreshLayout.setLoading(false);
                 mListAdapter.notifyDataSetChanged();
                 textMore.setVisibility(View.VISIBLE);
@@ -477,10 +462,10 @@ public class MainActivity extends AppCompatActivity
             UserProfile.getInstance().WXLogout();
             item.setChecked(false);
             item.setCheckable(true);
+        } else if (id == R.id.nav_download) {
+            Toast.makeText(getApplicationContext(), "下载管理", Toast.LENGTH_SHORT).show();
         }
         /*
-        else if (id == R.id.nav_gallery) {
-        }
         else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

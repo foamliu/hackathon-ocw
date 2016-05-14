@@ -18,9 +18,9 @@ public class NetworkThread implements Runnable{
 
     private float rating = 5;
 
-    private String courseId;
+    private final String courseId;
 
-    private String userid;
+    private final String userid;
 
     public NetworkThread(String userid, String courseId, float rating)
     {

@@ -55,7 +55,7 @@ public class FullscreenVideoLayout extends FullscreenVideoView implements View.O
      * Handler and Runnable to keep tracking on elapsed time
      */
     protected static final Handler TIME_THREAD = new Handler();
-    protected Runnable updateTimeRunnable = new Runnable() {
+    protected final Runnable updateTimeRunnable = new Runnable() {
         public void run() {
             updateCounter();
 

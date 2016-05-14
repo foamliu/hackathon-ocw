@@ -40,7 +40,7 @@ public class UserProfile {
 
     private static UserProfile instance = null;
 
-    private String userid;
+    private String userId;
     private String deviceid;
     private String nickname;
     private int sex;
@@ -64,7 +64,7 @@ public class UserProfile {
         return instance;
     }
 
-    public String getOpenid() {
+    public String getOpenId() {
         return openid;
     }
 
@@ -74,20 +74,20 @@ public class UserProfile {
 
     private String openid;
 
-    public String getDeviceid() {
+    public String getDeviceId() {
         return deviceid;
     }
 
-    public void setDeviceid(String deviceid) {
-        this.deviceid = deviceid;
+    public void setDeviceId(String deviceId) {
+        this.deviceid = deviceId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getNickname() {
@@ -155,7 +155,7 @@ public class UserProfile {
             if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
+                String receiveString;
                 StringBuilder stringBuilder = new StringBuilder();
 
                 while ((receiveString = bufferedReader.readLine()) != null) {
@@ -170,7 +170,7 @@ public class UserProfile {
                 //Parse
                 try {
                     JSONObject jsonObject = new JSONObject(str);
-                    this.userid = jsonObject.getString("userid");
+                    this.userId = jsonObject.getString("userid");
                     this.deviceid = jsonObject.getString("deviceid");
                     this.openid = jsonObject.getString("openid");
                     this.nickname = jsonObject.getString("nickname");
@@ -194,7 +194,7 @@ public class UserProfile {
     public void retrieveUserId() {
         String url = "http://jieko.cc/user";
         String android_id = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-        UserProfile.getInstance().setDeviceid(android_id);
+        UserProfile.getInstance().setDeviceId(android_id);
         //Send POST request
         RequestQueue requestQueue = Volley.newRequestQueue(appContext);
         JSONObject jsonObject = new JSONObject();
@@ -208,7 +208,7 @@ public class UserProfile {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            UserProfile.getInstance().setUserid(String.valueOf((Long) response.getLong("userid")));
+                            UserProfile.getInstance().setUserId(String.valueOf((Long) response.getLong("userid")));
                             setUserProfile();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -234,7 +234,7 @@ public class UserProfile {
     public void setUserProfile() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", this.userid);
+            jsonObject.put("userid", this.userId);
         } catch (Exception e) {
             Log.e("Json Error", e.toString());
         }
@@ -248,7 +248,6 @@ public class UserProfile {
             bw.close();
         } catch (Exception e) {
             e.printStackTrace();
-            userProfileFile = null;
         }
     }
 
@@ -257,7 +256,7 @@ public class UserProfile {
         //Update local user profile
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", this.userid);
+            jsonObject.put("userid", this.userId);
             jsonObject.put("openid", this.openid);
             jsonObject.put("nickname", this.nickname);
             jsonObject.put("sex", this.sex);
@@ -286,19 +285,18 @@ public class UserProfile {
             e.printStackTrace();
         }
 
-
         //Send PATCH to server
         RequestQueue requestQueue = Volley.newRequestQueue(appContext);
         jsonObject.remove("userid");
         jsonObject.remove("sex");
         try {
-            jsonObject.put("_id", Integer.valueOf(this.userid));
+            jsonObject.put("_id", Integer.valueOf(this.userId));
             jsonObject.put("sex", Integer.valueOf(this.sex));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String httpurl = "http://jieko.cc/user/" + this.userid;
+        String httpurl = "http://jieko.cc/user/" + this.userId;
 
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, httpurl, jsonObject,
                 new Response.Listener<JSONObject>() {
@@ -347,11 +345,11 @@ public class UserProfile {
         //Update local user profile
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", UserProfile.getInstance().getUserid());
-            if (UserProfile.getInstance().getDeviceid() == null) {
-                UserProfile.getInstance().setDeviceid(Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.ANDROID_ID));
+            jsonObject.put("userid", this.userId);
+            if (UserProfile.getInstance().getDeviceId() == null) {
+                UserProfile.getInstance().setDeviceId(Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.ANDROID_ID));
             }
-            jsonObject.put("deviceid", UserProfile.getInstance().getDeviceid());
+            jsonObject.put("deviceid", UserProfile.getInstance().getDeviceId());
         } catch (Exception e) {
             Log.e("Json Error", e.toString());
         }

@@ -46,28 +46,8 @@
                 android:background="@drawable/ic_chat_black_18dp"
                 android:alpha="0.5"/>
 
-            <!--
-
-            <ImageButton
-                android:id="@+id/FavoritesBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="40dp"
-                android:background="@drawable/ic_grade_black_18dp"
-                android:alpha="0.5"/>
-
-            <Button
-                android:id="@+id/VideoShareBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="40dp"
-                android:background="@drawable/ic_launch_black_18dp"
-                android:alpha="0.5"/>
-            -->
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>

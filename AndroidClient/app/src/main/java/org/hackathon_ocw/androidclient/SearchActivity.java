@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText editText;
     private TagGroup tagGroup;
 
-    public ArrayList<String> tagsList = new ArrayList<String>();
+    public final ArrayList<String> tagsList = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
         addListenerOnSearchButton();
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void detailToolBarInit(){
         Toolbar searchToolbar = (Toolbar) findViewById(R.id.searchToolbar);
         setSupportActionBar(searchToolbar);
@@ -87,7 +88,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchTagsInit() {
-        String url = "http://jieko.cc/user/" + UserProfile.getInstance().getUserid() + "/tags";
+        String url = "http://jieko.cc/user/" + UserProfile.getInstance().getUserId() + "/tags";
         //String url = "http://jieko.cc/user/5/tags";
         //Send Request here
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -160,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchByTags(String query){
-        String Urlbytags = UrlbyTags + UserProfile.getInstance().getUserid() + "/Candidates/tag/";
+        String Urlbytags = UrlbyTags + UserProfile.getInstance().getUserId() + "/Candidates/tag/";
         final Download_data download_data = new Download_data(MainActivity.Self);
         try{
             String strUTF8 = URLEncoder.encode(query, "UTF-8");

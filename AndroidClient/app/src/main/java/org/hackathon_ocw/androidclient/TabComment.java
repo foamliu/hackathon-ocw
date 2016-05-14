@@ -42,7 +42,7 @@ public class TabComment extends Fragment implements Download_data.download_compl
     static final String getCommentUrl = "http://jieko.cc/item/";
     int iterator;
 
-    public ArrayList<HashMap<String, String>> commentList = new ArrayList<HashMap<String, String>>();
+    public final ArrayList<HashMap<String, String>> commentList = new ArrayList<HashMap<String, String>>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

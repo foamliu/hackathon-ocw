@@ -33,21 +33,21 @@ import java.util.TimeZone;
  */
 public class CommentAdapter extends BaseAdapter {
 
-    private Activity activity;
-    private ArrayList<HashMap<String, String>> data;
-    private static LayoutInflater inflater=null;
-    public ImageLoader imageLoader;
+    private final Activity activity;
+    private final ArrayList<HashMap<String, String>> data;
+    private LayoutInflater inflater = null;
+    public final ImageLoader imageLoader;
 
-    public CommentAdapter(Activity a, ArrayList<HashMap<String, String>> d){
+    public CommentAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
-        data=d;
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader=new ImageLoader(activity.getApplicationContext());
+        data = d;
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageLoader = new ImageLoader(activity.getApplicationContext());
     }
 
     @Override
     public int getCount() {
-        return  data.size();
+        return data.size();
     }
 
     @Override
@@ -61,35 +61,31 @@ public class CommentAdapter extends BaseAdapter {
     }
 
     //Add new comments to front
-    public void AddComments(HashMap<String, String> d){
+    public void AddComments(HashMap<String, String> d) {
         data.add(0, d);
         notifyDataSetChanged();
     }
 
 
-
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
-        if(convertView == null)
-        {
-            vi = inflater.inflate(R.layout.comment,null);
+        if (convertView == null) {
+            vi = inflater.inflate(R.layout.comment, null);
         }
 
         //Username, UserImage, Comments, Timestamp, Like
-        TextView userName = (TextView)vi.findViewById(R.id.userName);
+        TextView userName = (TextView) vi.findViewById(R.id.userName);
         CircularImage userImageView = (CircularImage) vi.findViewById(R.id.userCommentHeadImage);
-        TextView comment = (TextView)vi.findViewById(R.id.comment);
-        TextView commentTime = (TextView)vi.findViewById(R.id.commentTime);
-        TextView like = (TextView)vi.findViewById(R.id.like);
+        TextView comment = (TextView) vi.findViewById(R.id.comment);
+        TextView commentTime = (TextView) vi.findViewById(R.id.commentTime);
+        TextView like = (TextView) vi.findViewById(R.id.like);
 
-        HashMap<String, String> comments = new HashMap<String, String>();
-        comments = data.get(position);
+        HashMap<String, String> comments = data.get(position);
 
         //Add a null hint
-        if(comments == null)
-        {
-            TextView tv=(TextView)vi;
+        if (comments == null) {
+            TextView tv = (TextView) vi;
             tv.setText("还没有笔记，留下所思所感吧");
             tv.setGravity(Gravity.CENTER);
         }
@@ -101,11 +97,10 @@ public class CommentAdapter extends BaseAdapter {
         like.setText(comments.get(TabComment.KEY_LIKE));
         String headimgurl = comments.get(TabComment.KEY_USERIMAGE);
 
-        if(headimgurl != null)
-        {
+        if (headimgurl != null) {
             RequestQueue mQueue = Volley.newRequestQueue(activity.getApplicationContext());
             com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
-            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(userImageView,R.drawable.no_image, R.drawable.no_image);
+            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(userImageView, R.drawable.no_image, R.drawable.no_image);
             imageLoader.get(headimgurl, listener);
         }
 
@@ -115,32 +110,27 @@ public class CommentAdapter extends BaseAdapter {
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         Calendar commentTimeCal = Calendar.getInstance();
-        try{
+        try {
             commentTimeCal.setTime(simpleDateFormat.parse(commentTimeStr));
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             commentTimeCal = Calendar.getInstance();
         }
 
         Calendar currentTimeCal = Calendar.getInstance();
         long diffDate = currentTimeCal.get(Calendar.HOUR) - commentTimeCal.get(Calendar.HOUR);
-        if(currentTimeCal.get(Calendar.DATE) == commentTimeCal.get(Calendar.DATE))
-        {
-            if(diffDate < 24 && diffDate > 0)
-            {
+        if (currentTimeCal.get(Calendar.DATE) == commentTimeCal.get(Calendar.DATE)) {
+            if (diffDate < 24 && diffDate > 0) {
                 commentTime.setText(diffDate + "小时前");
             }
-        }
-        else
-        {
+        } else {
             SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA);
             commentTime.setText(simpleDateFormat1.format(commentTimeCal.getTime()));
         }
         return vi;
     }
 
-    public void addListenerOnLikeButton(final View vi,final HashMap<String, String> comments){
-        final ImageButton likeBtn = (ImageButton)vi.findViewById(R.id.likeBtn);
+    public void addListenerOnLikeButton(final View vi, final HashMap<String, String> comments) {
+        final ImageButton likeBtn = (ImageButton) vi.findViewById(R.id.likeBtn);
         likeBtn.setColorFilter(Color.parseColor("#64B5F6"));
         likeBtn.setAlpha((float) 0.5);
         likeBtn.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +138,7 @@ public class CommentAdapter extends BaseAdapter {
                 //Toast.makeText(getApplicationContext(), "Back",Toast.LENGTH_SHORT).show();
 
                 //Update the like num
-                TextView like = (TextView)vi.findViewById(R.id.like);
+                TextView like = (TextView) vi.findViewById(R.id.like);
                 int comment = Integer.parseInt(comments.get(TabComment.KEY_LIKE)) + 1;
                 like.setText(String.valueOf(comment));
 
@@ -156,19 +146,17 @@ public class CommentAdapter extends BaseAdapter {
                 String id = comments.get(TabComment.KEY_COMMENT_ID);
 
                 RequestQueue queue = Volley.newRequestQueue(vi.getContext());
-                String url ="http://jieko.cc/item/Comments/" + id + "/like";
+                String url = "http://jieko.cc/item/Comments/" + id + "/like";
 
                 JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>()
-                        {
+                        new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 // display response
                                 Log.d("Response", response.toString());
                             }
                         },
-                        new Response.ErrorListener()
-                        {
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.d("Error.Response", error.toString());

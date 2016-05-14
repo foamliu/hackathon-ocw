@@ -12,8 +12,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class PageFragmentAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 2;
-    private String tabTitles[] = new String[] { "简介", "笔记"};
-    private Context context;
+    private final String[] tabTitles = new String[] { "简介", "笔记"};
+    private final Context context;
     public TabComment tabComment;
 
     public PageFragmentAdapter(FragmentManager fm, Context context){

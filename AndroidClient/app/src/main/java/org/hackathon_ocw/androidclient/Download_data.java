@@ -14,7 +14,7 @@ import android.os.Message;
  */
 public class Download_data implements Runnable  {
 
-    public download_complete caller;
+    private final download_complete caller;
 
     public interface download_complete
     {
@@ -62,10 +62,7 @@ public class Download_data implements Runnable  {
         }
     };
 
-
-
-
-    public static String download(String url) {
+    private static String download(String url) {
         URL website;
         StringBuilder response;
         try {
@@ -89,7 +86,6 @@ public class Download_data implements Runnable  {
         } catch (Exception  e) {
             return "";
         }
-
 
         return response.toString();
     }
