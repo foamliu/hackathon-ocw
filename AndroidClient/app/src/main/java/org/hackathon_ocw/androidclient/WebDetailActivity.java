@@ -1,93 +1,34 @@
 package org.hackathon_ocw.androidclient;
 
-import android.app.Service;
-import android.content.Context;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.NestedScrollingChild;
-import android.support.v4.view.NestedScrollingChildHelper;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXTextObject;
-import com.tencent.mm.sdk.modelmsg.WXVideoObject;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-
-import org.hackathon_ocw.androidclient.FullscreenVideoLayout;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * Created by dianyang on 2016/4/19.
@@ -95,23 +36,15 @@ import java.util.TimeZone;
 public class WebDetailActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private IWXAPI api;
-    private Toolbar detailToolbar;
     private TextView titleDetail;
-    private TextView titleToolBar;
-
-    private Button backBtn;
-    private Button shareBtn;
 
     private PopupWindow popWindow;
     private InputMethodManager imm;
     private EditText editText;
 
     private String webUri;
-    private String courseId;
     private String title;
 
-    //User info
-    private UserProfile userProfile;
     private Tracker mTracker;
 
     private WebView browser= null;
@@ -125,18 +58,16 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_webdetail);
-        // Makes Progress bar Visible
-        getWindow().setFeatureInt( Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
 
-        userProfile = new UserProfile();
+        UserProfile userProfile = new UserProfile();
 
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
-        courseId = intent.getStringExtra("id");
+        //String courseId = intent.getStringExtra("id");
         webUri = intent.getStringExtra("webUrl");
 
         userProfile.setNickname(intent.getStringExtra("nickname"));
@@ -160,7 +91,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
     }
 
     public void detailToolBarInit(){
-        detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
+        Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -168,7 +99,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
-        titleToolBar=(TextView)findViewById(R.id.titleToolBar);
+        TextView titleToolBar = (TextView) findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
     }
 
@@ -183,7 +114,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
     }
 
     public void addListenerOnBackButton() {
-        backBtn = (Button)findViewById(R.id.backBtn);
+        Button backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onPause();
@@ -194,7 +125,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
     public void addListenerOnShareButton() {
         //Share to Wechat
-        shareBtn = (Button)findViewById(R.id.shareBtn);
+        Button shareBtn = (Button) findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(WebDetailActivity.this, v);
@@ -224,7 +155,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         //videoObject.videoUrl = uri.toString();
 
         WXWebpageObject webpageObject = new WXWebpageObject();
-        webpageObject.webpageUrl = webUri.toString();
+        webpageObject.webpageUrl = webUri;
 
         WXMediaMessage msg = new WXMediaMessage(webpageObject);
         msg.title = title;
@@ -241,31 +172,44 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void loadWebview(){
-        if(webUri != ""){
+        if(!webUri.equals("")){
             browser=(WebView)findViewById(R.id.webview);
             browser.getSettings().setJavaScriptEnabled(true);
             browser.getSettings().setUseWideViewPort(true);
             browser.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             browser.getSettings().setLoadWithOverviewMode(true);
             browser.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-            browser.setWebChromeClient(new WebChromeClient() {
-                public void onProgressChanged(WebView view, int progress)
-                {
-                    //Make the bar disappear after URL is loaded, and changes string to Loading...
-                    setTitle("加载中...");
-                    setProgress(progress * 100); //Make the bar disappear after URL is loaded
 
-                    // Return the app name after finish loading
-                    if(progress == 100)
-                        setTitle(R.string.app_name);
-                }
-            });
             browser.setWebViewClient(new WebViewClient(){
+                ProgressDialog progressDialog;
+
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     view.loadUrl(url);
                     return true;
+                }
+                @Override
+                //Show loader on url load
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    if (progressDialog == null) {
+                        // in standard case YourActivity.this
+                        progressDialog = new ProgressDialog(WebDetailActivity.this);
+                        progressDialog.setMessage("加载中...");
+                        progressDialog.show();
+                    }
+                }
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    try{
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                            progressDialog = null;
+                        }
+                    }catch(Exception exception){
+                        exception.printStackTrace();
+                    }
                 }
             });
             browser.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH); // for ＜ API　18

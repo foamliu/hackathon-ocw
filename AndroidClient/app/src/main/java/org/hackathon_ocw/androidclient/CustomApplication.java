@@ -1,51 +1,18 @@
 package org.hackathon_ocw.androidclient;
 
-import android.app.AlertDialog;
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.os.Environment;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.widget.Toast;
 import android.net.NetworkInfo.State;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 
-import org.acra.*;
 import org.acra.ACRA;
 import org.acra.ReportField;
-import org.acra.annotation.*;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
-import org.acra.collector.CrashReportData;
 import org.acra.sender.HttpSender;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.UUID;
 
 /**
  * Created by dianyang on 2016/3/9.

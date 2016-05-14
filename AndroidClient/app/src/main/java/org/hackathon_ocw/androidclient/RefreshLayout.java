@@ -101,6 +101,6 @@ public class RefreshLayout extends SwipeRefreshLayout {
     }
 
     public interface OnLoadListener {
-        public void onLoad();
+        void onLoad();
     }
 }

@@ -1,9 +1,5 @@
 package org.hackathon_ocw.androidclient;
 
-import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +8,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,12 +21,10 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import me.gujun.android.taggroup.TagGroup;
 
@@ -43,9 +36,7 @@ public class SearchActivity extends AppCompatActivity {
     static final String Url = "http://api.jieko.cc/items/search/";
     static final String UrlbyTags = "http://jieko.cc/user/";
 
-    private Button cancelBtn;
     private EditText editText;
-    private Toolbar searchToolbar;
     private TagGroup tagGroup;
 
     public ArrayList<String> tagsList = new ArrayList<String>();
@@ -67,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void detailToolBarInit(){
-        searchToolbar = (Toolbar) findViewById(R.id.searchToolbar);
+        Toolbar searchToolbar = (Toolbar) findViewById(R.id.searchToolbar);
         setSupportActionBar(searchToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         searchToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -136,7 +127,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void addListenerOnBackButton() {
-        cancelBtn = (Button)findViewById(R.id.cancelBtn);
+        Button cancelBtn = (Button) findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
@@ -158,7 +149,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(String query){
-        final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
+        final Download_data download_data = new Download_data(MainActivity.Self);
         try{
             String strUTF8 = URLEncoder.encode(query, "UTF-8");
             download_data.download_data_from_link(Url + strUTF8);
@@ -170,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void searchByTags(String query){
         String Urlbytags = UrlbyTags + UserProfile.getUserProfile().getUserid() + "/Candidates/tag/";
-        final Download_data download_data = new Download_data((Download_data.download_complete) MainActivity.Self);
+        final Download_data download_data = new Download_data(MainActivity.Self);
         try{
             String strUTF8 = URLEncoder.encode(query, "UTF-8");
             download_data.download_data_from_link(Urlbytags + strUTF8);

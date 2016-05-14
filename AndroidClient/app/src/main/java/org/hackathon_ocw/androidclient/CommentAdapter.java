@@ -3,8 +3,6 @@ package org.hackathon_ocw.androidclient;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.media.Image;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -28,8 +24,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -100,7 +96,7 @@ public class CommentAdapter extends BaseAdapter {
 
         addListenerOnLikeButton(vi, comments);
 
-        userName.setText(comments.get(TabComment.KEY_USERNAME));
+        userName.setText(comments != null ? comments.get(TabComment.KEY_USERNAME) : "");
         comment.setText(comments.get(TabComment.KEY_COMMENT));
         like.setText(comments.get(TabComment.KEY_LIKE));
         String headimgurl = comments.get(TabComment.KEY_USERIMAGE);
@@ -115,7 +111,7 @@ public class CommentAdapter extends BaseAdapter {
 
         //convert the time
         String commentTimeStr = comments.get(TabComment.KEY_COMMENTTIME);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         Calendar commentTimeCal = Calendar.getInstance();
@@ -137,7 +133,7 @@ public class CommentAdapter extends BaseAdapter {
         }
         else
         {
-            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd HH:mm");
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA);
             commentTime.setText(simpleDateFormat1.format(commentTimeCal.getTime()));
         }
         return vi;

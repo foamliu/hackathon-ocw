@@ -56,7 +56,8 @@ public class ImageLoader {
         URL m;
         InputStream i = null;
         BufferedInputStream bis = null;
-        ByteArrayOutputStream out =null;
+        ByteArrayOutputStream out = null;
+        byte[] data = null;
         try {
             m = new URL(url);
             i = (InputStream) m.getContent();
@@ -67,6 +68,7 @@ public class ImageLoader {
             while((len = bis.read(buffer)) != -1){
                 out.write(buffer, 0, len);
             }
+            data = out.toByteArray();
             out.close();
             bis.close();
         } catch (MalformedURLException e1) {
@@ -74,10 +76,8 @@ public class ImageLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        byte[] data = out.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
         //Drawable d = Drawable.createFromStream(i, "src");
-        return bitmap;
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
 
@@ -114,9 +114,7 @@ public class ImageLoader {
 
     boolean imageViewReused(PhotoToLoad photoToLoad){
         String tag=imageViews.get(photoToLoad.imageView);
-        if(tag==null || !tag.equals(photoToLoad.url))
-            return true;
-        return false;
+        return tag == null || !tag.equals(photoToLoad.url);
     }
 
     //用于显示位图在UI线程

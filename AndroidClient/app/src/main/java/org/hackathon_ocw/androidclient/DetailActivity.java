@@ -6,51 +6,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.ShapeDrawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 //import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -64,25 +49,18 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXTextObject;
-import com.tencent.mm.sdk.modelmsg.WXVideoObject;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import org.hackathon_ocw.androidclient.FullscreenVideoLayout;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -95,14 +73,8 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private FullscreenVideoLayout videoLayout;
 
     private Uri uri;
-    private Toolbar detailToolbar;
-    private TextView titleDetail;
-    private TextView titleToolBar;
     //private TextView descriptionDetail;
     private ViewPager viewPager;
-    //private RatingBar ratingBar;
-    private Button backBtn;
-    private Button shareBtn;
     private PopupWindow popWindow;
     private InputMethodManager imm;
     private EditText editText;
@@ -111,7 +83,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private String courseId;
     private String description;
     private String title;
-    private String videoUrl;
 
     private Tracker mTracker;
 
@@ -128,6 +99,8 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_detail);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
@@ -140,11 +113,11 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         UserProfile.getUserProfile().setNickname(intent.getStringExtra("nickname"));
         UserProfile.getUserProfile().setHeadimgurl(intent.getStringExtra("headimgurl"));
         UserProfile.getUserProfile().setUserid(intent.getStringExtra("userid"));
-        videoUrl = intent.getStringExtra("videoImg");
+        String videoUrl = intent.getStringExtra("videoImg");
 
         detailToolBarInit();
 
-        titleDetail=(TextView)findViewById(R.id.titleDetail);
+        TextView titleDetail = (TextView) findViewById(R.id.titleDetail);
         titleDetail.setText(title);
 
         RelativeLayout videoLayout = (RelativeLayout) findViewById(R.id.videoLayout);
@@ -187,7 +160,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     }
 
     public void detailToolBarInit(){
-        detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
+        Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -195,7 +168,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
-        titleToolBar=(TextView) findViewById(R.id.titleToolBar);
+        TextView titleToolBar = (TextView) findViewById(R.id.titleToolBar);
         titleToolBar.setText("学啥");
     }
 
@@ -252,7 +225,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     }
 
     public void addListenerOnBackButton() {
-        backBtn = (Button)findViewById(R.id.backBtn);
+        Button backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
@@ -262,7 +235,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
     public void addListenerOnShareButton() {
         //Share to Wechat
-        shareBtn = (Button)findViewById(R.id.shareBtn);
+        Button shareBtn = (Button) findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -303,7 +276,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
             videoImage.getHeight();
             Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
             //videoImage.recycle();
-            msg.thumbData = bmpToByteArray(thumb, true);
+            msg.thumbData = bmpToByteArray(thumb);
         }
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -314,12 +287,11 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
     }
 
-    private byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+    private byte[] bmpToByteArray(final Bitmap bmp) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, output);
-        if (needRecycle) {
-            bmp.recycle();
-        }
+        bmp.recycle();
+
         byte[] result = output.toByteArray();
         try {
             output.close();
@@ -390,10 +362,10 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
-
+/*
     public void addListenerOnRatingBar() {
 
-/*        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         //if rating value is changed,
         //display the current rating value in the result (textview) automatically
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -408,8 +380,8 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 Runnable networkTask = new NetworkThread(UserProfile.getUserProfile().getUserid(), courseId, rating);
                 new Thread(networkTask).start();
             }
-        });*/
-    }
+        });
+    }*/
 
     public void addListenerOnCommentButton(){
         editText = (EditText)findViewById(R.id.EditComment);
@@ -423,7 +395,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                     commentShowPopup(v);
                     editText.clearFocus();
                     popUpInputMethodWindow();
-                } else {
                 }
             }
         });
@@ -518,7 +489,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
                 //Get post time
                 Calendar currentTime = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
                 simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
                 String currentTimeStr = simpleDateFormat.format(currentTime.getTime());
 
@@ -568,7 +539,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 {
                     @Override
                     public Map<String, String> getHeaders() {
-                        HashMap<String, String> headers = new HashMap<String, String>();
+                        HashMap<String, String> headers = new HashMap<>();
                         headers.put("Accept", "application/json");
                         headers.put("Content-Type", "application/json; charset=UTF-8");
 
