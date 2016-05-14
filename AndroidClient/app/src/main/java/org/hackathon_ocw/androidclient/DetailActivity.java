@@ -290,9 +290,8 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private byte[] bmpToByteArray(final Bitmap bmp) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, output);
-        if (true) {
-            bmp.recycle();
-        }
+        bmp.recycle();
+
         byte[] result = output.toByteArray();
         try {
             output.close();

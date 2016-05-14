@@ -3,7 +3,6 @@ package org.hackathon_ocw.androidclient;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
-import com.android.volley.toolbox.*;
 import com.android.volley.toolbox.ImageLoader;
 
 /**

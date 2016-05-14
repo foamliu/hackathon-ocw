@@ -56,7 +56,8 @@ public class ImageLoader {
         URL m;
         InputStream i = null;
         BufferedInputStream bis = null;
-        ByteArrayOutputStream out =null;
+        ByteArrayOutputStream out = null;
+        byte[] data = null;
         try {
             m = new URL(url);
             i = (InputStream) m.getContent();
@@ -67,6 +68,7 @@ public class ImageLoader {
             while((len = bis.read(buffer)) != -1){
                 out.write(buffer, 0, len);
             }
+            data = out.toByteArray();
             out.close();
             bis.close();
         } catch (MalformedURLException e1) {
@@ -74,7 +76,6 @@ public class ImageLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        byte[] data = out.toByteArray();
         //Drawable d = Drawable.createFromStream(i, "src");
         return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
