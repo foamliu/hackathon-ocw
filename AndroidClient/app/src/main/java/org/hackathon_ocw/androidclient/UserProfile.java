@@ -39,6 +39,7 @@ import java.util.Map;
 public class UserProfile {
 
     private static UserProfile instance = null;
+    private final static String TAG = "UserProfile";
 
     private String userId;
     private String deviceid;
@@ -185,9 +186,9 @@ public class UserProfile {
             }
         } catch (FileNotFoundException e) {
             retrieveUserId();
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e(TAG, "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e(TAG, "Can not read file: " + e.toString());
         }
     }
 

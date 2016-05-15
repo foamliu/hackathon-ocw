@@ -109,6 +109,7 @@ public class ListAdapter extends BaseAdapter {
         final int iPosition = position;
         final String strItemId = this.getIdByPosition(position);
         final String strTitle = course.get(Constants.KEY_TITLE);
+        final String strDescription = course.get(Constants.KEY_DESCRIPTION);
         String strSchool = course.get(Constants.KEY_SCHOOL);
         if (strSchool.length() > 12)
             strSchool = strSchool.substring(0, 12) + "..";
@@ -132,14 +133,16 @@ public class ListAdapter extends BaseAdapter {
             downloadBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
 
                     //Show subpage with videoUrl
                     Intent intent = new Intent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("id", strItemId);
-                    intent.putExtra("title", strTitle);
-                    intent.putExtra("videoUrl", strVideoUrl);
+                    intent.putExtra(Constants.KEY_ID, strItemId);
+                    intent.putExtra(Constants.KEY_TITLE, strTitle);
+                    intent.putExtra(Constants.KEY_DESCRIPTION, strDescription);
+                    intent.putExtra(Constants.KEY_THUMB_URL, strThumbUrl);
+                    intent.putExtra(Constants.KEY_VIDEOURL, strVideoUrl);
 
                     intent.setClass(appContext, DownloadListActivity.class);
                     appContext.startActivity(intent);

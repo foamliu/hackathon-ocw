@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,7 +18,17 @@ import com.golshadi.majid.core.DownloadManagerPro;
 import com.golshadi.majid.report.listener.DownloadManagerListener;
 import com.google.android.gms.analytics.Tracker;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class DownloadListActivity extends AppCompatActivity implements DownloadManagerListener {
     private DownloadManagerPro dm;
@@ -68,29 +79,48 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         super.onResume();
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
-        String courseId = intent.getStringExtra("id");
-        String url = intent.getStringExtra("videoUrl");
+        String title = intent.getStringExtra(Constants.KEY_TITLE);
+        String description = intent.getStringExtra(Constants.KEY_DESCRIPTION);
+        String courseId = intent.getStringExtra(Constants.KEY_ID);
+        String videoUrl = intent.getStringExtra(Constants.KEY_VIDEOURL);
+        String thumbUrl = intent.getStringExtra(Constants.KEY_THUMB_URL);
 
-        if (url != null && !url.equals(""))
-        {
+        if (videoUrl != null && !videoUrl.equals("")) {
             StringBuilder sb = new StringBuilder();
+            sb.append("开始下载：\"");
             sb.append(title);
-            sb.append(courseId);
-            sb.append(url);
+            sb.append("\"");
+
             Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
 
-            int taskToken = dm.addTask("save_name", url, false, false);
+            int taskToken = dm.addTask(courseId, videoUrl, false, false);
             try {
                 dm.startDownload(taskToken);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            HashMap<String, String> item = new HashMap<>();
+            item.put(Constants.KEY_ID, courseId);
+            item.put(Constants.KEY_TITLE, title);
+            item.put(Constants.KEY_DESCRIPTION, description);
+            item.put(Constants.KEY_THUMB_URL, thumbUrl);
+
+            downloadListAdapter.addItem(item);
         }
+
+        downloadListAdapter.loadData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        downloadListAdapter.updateData();
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void detailToolBarInit(){
+    private void detailToolBarInit() {
         Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -108,7 +138,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         });
 
         TextView titleToolBar = (TextView) findViewById(R.id.titleToolBar);
-        titleToolBar.setText("下载管理");
+        titleToolBar.setText("下载");
 
         Button shareBtn = (Button) findViewById(R.id.shareBtn);
         shareBtn.setVisibility(View.GONE);
@@ -126,41 +156,41 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
 
     @Override
     public void OnDownloadStarted(long taskId) {
-
+        Toast.makeText(this, "OnDownloadStarted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void OnDownloadPaused(long taskId) {
-
+        Toast.makeText(this, "OnDownloadPaused", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDownloadProcess(long taskId, double percent, long downloadedLength) {
-
+        Toast.makeText(this, "onDownloadProcess " + percent, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void OnDownloadFinished(long taskId) {
-
+        Toast.makeText(this, "OnDownloadFinished", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void OnDownloadRebuildStart(long taskId) {
-
+        Toast.makeText(this, "OnDownloadRebuildStart", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void OnDownloadRebuildFinished(long taskId) {
-
+        Toast.makeText(this, "OnDownloadRebuildFinished", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void OnDownloadCompleted(long taskId) {
-
+        Toast.makeText(this, "OnDownloadCompleted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void connectionLost(long taskId) {
-
+        Toast.makeText(this, "connectionLost", Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,13 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="100dip"
     android:gravity="center_vertical"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
@@ -22,30 +22,18 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:max="100" />
-
-        <TextView
-            android:id="@+id/speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_pause"
+            android:id="@+id/btn_play"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
-            android:text="暂停" />
-
-        <Button
-            android:id="@+id/btn_continue"
-            android:layout_width="wrap_content"
-            android:layout_height="40dip"
-            android:text="继续"
-            android:visibility="gone" />
+            android:text="播放" />
 
         <Button
             android:id="@+id/btn_delete"
@@ -53,5 +41,4 @@
             android:layout_height="40dip"
             android:text="删除" />
     </LinearLayout>
-
 </LinearLayout>
