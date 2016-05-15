@@ -41,7 +41,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         downloadList.setAdapter(downloadListAdapter);
 
         detailToolBarInit();
-        addListenerOnBackButton();
 
         if (!StorageUtils.isSDCardPresent()) {
             Toast.makeText(this, "未发现SD卡", Toast.LENGTH_LONG).show();
@@ -100,8 +99,16 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
 
+        Button backBtn = (Button) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         TextView titleToolBar = (TextView) findViewById(R.id.titleToolBar);
-        titleToolBar.setText("学啥");
+        titleToolBar.setText("下载管理");
 
         Button shareBtn = (Button) findViewById(R.id.shareBtn);
         shareBtn.setVisibility(View.GONE);
@@ -115,15 +122,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
-    }
-
-    private void addListenerOnBackButton() {
-        Button backBtn = (Button) findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override

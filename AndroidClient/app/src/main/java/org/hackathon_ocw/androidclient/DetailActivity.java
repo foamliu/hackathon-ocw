@@ -167,8 +167,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         titleToolBar.setText("学啥");
     }
 
-
-
     private void videoInit(){
         videoLayout = (FullscreenVideoLayout)findViewById(R.id.videoView);
         videoLayout.setActivity(this);
