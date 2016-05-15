@@ -125,35 +125,40 @@ public class DownloadListAdapter extends BaseAdapter {
         try {
             String fileName = "download.json";
             File file = new File(StorageUtils.FILE_ROOT, fileName);
-            InputStream inputStream = new FileInputStream(file);
 
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString;
-                StringBuilder stringBuilder = new StringBuilder();
+            if (file.exists()) {
+                InputStream inputStream = new FileInputStream(file);
 
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-                inputStream.close();
-                str = stringBuilder.toString();
+                if (inputStream != null) {
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String receiveString;
+                    StringBuilder stringBuilder = new StringBuilder();
 
-                JSONArray list = new JSONArray(str);
-                for (int i = 0; i < list.length(); i++) {
-                    JSONObject jObject = list.getJSONObject(i);
-                    Iterator<?> keys = jObject.keys();
-
-                    HashMap<String, String> item = new HashMap<>();
-
-                    while (keys.hasNext()) {
-                        String key = (String) keys.next();
-                        if (jObject.get(key) instanceof String) {
-                            item.put(key, (String) jObject.get(key));
-                        }
+                    while ((receiveString = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(receiveString);
                     }
-                    dataList.add(item);
+                    inputStream.close();
+                    str = stringBuilder.toString();
+
+                    JSONArray list = new JSONArray(str);
+                    for (int i = 0; i < list.length(); i++) {
+                        JSONObject jObject = list.getJSONObject(i);
+                        Iterator<?> keys = jObject.keys();
+
+                        HashMap<String, String> item = new HashMap<>();
+
+                        while (keys.hasNext()) {
+                            String key = (String) keys.next();
+                            if (jObject.get(key) instanceof String) {
+                                item.put(key, (String) jObject.get(key));
+                            }
+                        }
+                        dataList.add(item);
+                    }
                 }
+
+                updateData();
             }
 
             notifyDataSetChanged();
@@ -169,7 +174,20 @@ public class DownloadListAdapter extends BaseAdapter {
         }
     }
 
+    private void repairData() {
+        for (int i = dataList.size() - 1; i > 0; i--) {
+            HashMap<String, String> item = dataList.get(i);
+            String courseId = item.get("id");
+            File file = new File(StorageUtils.FILE_ROOT, courseId + ".mp4");
+            if (!file.exists()) {
+                dataList.remove(i);
+            }
+        }
+    }
+
     public void updateData() {
+        repairData();
+
         JSONArray list = new JSONArray();
         try {
             int index = 0;
@@ -199,8 +217,7 @@ public class DownloadListAdapter extends BaseAdapter {
         }
     }
 
-    public void addItem(HashMap<String, String> item)
-    {
+    public void addItem(HashMap<String, String> item) {
         dataList.add(item);
         updateData();
         notifyDataSetChanged();
