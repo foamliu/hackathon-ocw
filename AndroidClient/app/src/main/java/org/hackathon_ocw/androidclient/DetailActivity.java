@@ -120,7 +120,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         titleDetail.setText(title);
 
         RelativeLayout videoLayout = (RelativeLayout) findViewById(R.id.videoLayout);
-        if(isTablet(this.getApplicationContext())) {
+        if(Utils.isTablet(this.getApplicationContext())) {
             videoLayout.getLayoutParams().height = 1000;
         }
         else{
@@ -167,9 +167,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         titleToolBar.setText("学啥");
     }
 
-    private static boolean isTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
+
 
     private void videoInit(){
         videoLayout = (FullscreenVideoLayout)findViewById(R.id.videoView);
@@ -271,7 +269,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
             videoImage.getHeight();
             Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
             //videoImage.recycle();
-            msg.thumbData = bmpToByteArray(thumb);
+            msg.thumbData = Utils.bmpToByteArray(thumb);
         }
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -280,21 +278,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         req.scene = isTimelineCb ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         api.sendReq(req);
 
-    }
-
-    private byte[] bmpToByteArray(final Bitmap bmp) {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, output);
-        bmp.recycle();
-
-        byte[] result = output.toByteArray();
-        try {
-            output.close();
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-        return result;
     }
 
     private void addListenerOnViewCommentButton(){
@@ -314,7 +297,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
     private void addListenerOnCommentButton(){
         editText = (EditText)findViewById(R.id.EditComment);
-        if(isTablet(this.getApplicationContext())) {
+        if(Utils.isTablet(this.getApplicationContext())) {
             editText.getLayoutParams().width = metrics.widthPixels - 200;
         }
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -353,7 +336,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         }
         //popWindow.setAnimationStyle(R.style.pop);
         EditText writeCommentPopWin = (EditText) popWindow.getContentView().findViewById(R.id.WriteCommentPopWin);
-        if(isTablet(this.getApplicationContext())) {
+        if(Utils.isTablet(this.getApplicationContext())) {
             writeCommentPopWin.getLayoutParams().width = metrics.widthPixels - 200;
         }
         popWindow.setBackgroundDrawable(new ShapeDrawable());

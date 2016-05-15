@@ -464,6 +464,9 @@ public class MainActivity extends AppCompatActivity
             item.setCheckable(true);
         } else if (id == R.id.nav_download) {
             Toast.makeText(getApplicationContext(), "下载管理", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setClass(this, DownloadListActivity.class);
+            startActivity(intent);
         }
         /*
         else if (id == R.id.nav_slideshow) {

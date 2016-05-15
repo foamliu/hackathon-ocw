@@ -171,7 +171,7 @@ public class AsyncStartDownload extends Thread{
 
     private void makeFileForChunks(int firstId, Task task){
         for (int endId = firstId+task.chunks; firstId<endId ; firstId++)
-            FileUtils.create(task.save_address, String.valueOf(firstId));
+            FileUtils.forceCreate(task.save_address, String.valueOf(firstId));
 
     }
 

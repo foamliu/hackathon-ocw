@@ -1,5 +1,10 @@
 package org.hackathon_ocw.androidclient;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
@@ -62,5 +67,24 @@ public class Utils {
             }
         }
         catch(Exception ignored){}
+    }
+
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    public static byte[] bmpToByteArray(final Bitmap bmp) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, output);
+        bmp.recycle();
+
+        byte[] result = output.toByteArray();
+        try {
+            output.close();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return result;
     }
 }

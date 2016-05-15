@@ -2,6 +2,7 @@ package org.hackathon_ocw.androidclient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,15 @@ import java.util.HashMap;
 public class ListAdapter extends BaseAdapter {
 
     private ArrayList<HashMap<String, String>> data;
-    private static LayoutInflater inflater = null;
+    private final LayoutInflater inflater;
     public final ImageLoader imageLoader;
+    private final Context appContext;
 
-    public ListAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
-        data = d;
-        inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(a.getApplicationContext());
+    public ListAdapter(Activity activity, ArrayList<HashMap<String, String>> data) {
+        this.data = data;
+        this.appContext = activity.getApplicationContext();
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageLoader = new ImageLoader(activity.getApplicationContext());
     }
 
     @Override
@@ -90,7 +93,7 @@ public class ListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = null;
-        if( convertView != null )
+        if (convertView != null)
             vi = convertView;
         else {
             vi = inflater.inflate(R.layout.cell, parent, false);
@@ -103,6 +106,8 @@ public class ListAdapter extends BaseAdapter {
         ImageView downloadBtn = (ImageView) vi.findViewById(R.id.downloadBtn);
 
         HashMap<String, String> course = data.get(position);
+        final int iPosition = position;
+        final String strItemId = this.getIdByPosition(position);
         final String strTitle = course.get(Constants.KEY_TITLE);
         String strSchool = course.get(Constants.KEY_SCHOOL);
         if (strSchool.length() > 12)
@@ -128,6 +133,16 @@ public class ListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
+
+                    //Show subpage with videoUrl
+                    Intent intent = new Intent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("id", strItemId);
+                    intent.putExtra("title", strTitle);
+                    intent.putExtra("videoUrl", strVideoUrl);
+
+                    intent.setClass(appContext, DownloadListActivity.class);
+                    appContext.startActivity(intent);
                 }
             });
         }

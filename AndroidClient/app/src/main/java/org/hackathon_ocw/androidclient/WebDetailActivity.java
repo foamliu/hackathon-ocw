@@ -57,8 +57,8 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_webdetail);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
@@ -67,7 +67,6 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
-        //String courseId = intent.getStringExtra("id");
         webUri = intent.getStringExtra("webUrl");
 
         userProfile.setNickname(intent.getStringExtra("nickname"));
@@ -81,13 +80,8 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         loadWebview();
 
-        //addListenerOnCommentButton();
-        //addListenerOnViewCommentButton();
-        //addListenerOnRatingBar();
-
         //Google Analytics tracker
         sendScreenImageName();
-        //mChildHelper = new NestedScrollingChildHelper(findViewById(R.layout.activity_detail));
     }
 
     @SuppressWarnings("ConstantConditions")
