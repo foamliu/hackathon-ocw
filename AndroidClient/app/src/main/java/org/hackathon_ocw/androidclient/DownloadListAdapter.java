@@ -43,9 +43,15 @@ public class DownloadListAdapter extends BaseAdapter {
 
     public DownloadListAdapter(Activity activity) {
         this.appContext = activity.getApplicationContext();
-        this.dataList = new ArrayList<HashMap<String, String>>();
+        this.dataList = new ArrayList<>();
 
+        init();
+    }
+
+    private void init() {
         this.loadData();
+        this.repairData();
+        this.updateData();
     }
 
     @Override
@@ -73,18 +79,20 @@ public class DownloadListAdapter extends BaseAdapter {
             vi = LayoutInflater.from(appContext).inflate(R.layout.download_list_item, parent, false);
         }
 
-        HashMap<String, String> course = dataList.get(position);
-        final String strItemId = course.get(Constants.KEY_ID);
-        final String strTitle = course.get(Constants.KEY_TITLE);
-        final String description = course.get(Constants.KEY_DESCRIPTION);
-        final String thumbUrl = course.get(Constants.KEY_THUMB_URL);
+        HashMap<String, String> item = dataList.get(position);
+        final String strItemId = item.get(Constants.KEY_ID);
+        final String strTitle = item.get(Constants.KEY_TITLE);
+        final String description = item.get(Constants.KEY_DESCRIPTION);
+        final String thumbUrl = item.get(Constants.KEY_THUMB_URL);
         final String videoUrl = StorageUtils.FILE_ROOT + strItemId + ".mp4";
+        String strPercent = item.get("percent");
+        double percent = Double.parseDouble(strPercent);
 
         TextView title = (TextView) vi.findViewById(R.id.title);
         ProgressBar progress = (ProgressBar) vi.findViewById(R.id.progress_bar);
 
         title.setText(strTitle);
-        progress.setProgress(100);
+        progress.setProgress((int)Math.round(percent));
 
         Button playButton = (Button) vi.findViewById(R.id.btn_play);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -157,8 +165,6 @@ public class DownloadListAdapter extends BaseAdapter {
                         dataList.add(item);
                     }
                 }
-
-                updateData();
             }
 
             notifyDataSetChanged();
@@ -175,7 +181,7 @@ public class DownloadListAdapter extends BaseAdapter {
     }
 
     private void repairData() {
-        for (int i = dataList.size() - 1; i > 0; i--) {
+        for (int i = dataList.size() - 1; i >= 0; i--) {
             HashMap<String, String> item = dataList.get(i);
             String courseId = item.get("id");
             File file = new File(StorageUtils.FILE_ROOT, courseId + ".mp4");
@@ -186,8 +192,6 @@ public class DownloadListAdapter extends BaseAdapter {
     }
 
     public void updateData() {
-        repairData();
-
         JSONArray list = new JSONArray();
         try {
             int index = 0;
@@ -219,7 +223,15 @@ public class DownloadListAdapter extends BaseAdapter {
 
     public void addItem(HashMap<String, String> item) {
         dataList.add(item);
-        updateData();
         notifyDataSetChanged();
+    }
+
+    public void updateProgress(long taskId, double percent)
+    {
+        for (HashMap<String, String> item : dataList) {
+            if (String.valueOf(taskId).equals(item.get("taskId"))) {
+                item.put("percent", String.valueOf(percent));
+            }
+        }
     }
 }

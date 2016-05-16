@@ -5,11 +5,12 @@ import android.util.Log;
 import java.io.*;
 
 public class FileUtils {
+    private final static String TAG = "FileUtils";
 
     public static File create(String folder, String fileName){
         File file = new File(
                 address(folder, fileName));
-        Log.d("---------------------------------------", "Create file address: " + address(folder, fileName));
+        Log.d(TAG, "Create file address: " + address(folder, fileName));
         try {
             file.createNewFile();
         } catch (IOException e) {

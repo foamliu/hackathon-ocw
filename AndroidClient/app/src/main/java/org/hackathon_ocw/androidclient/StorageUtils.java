@@ -3,13 +3,17 @@ package org.hackathon_ocw.androidclient;
 /**
  * Created by Foam on 2016/5/15.
  */
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import java.io.File;
@@ -22,7 +26,7 @@ public class StorageUtils {
 
     private static final String SDCARD_ROOT = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + "/";
-    public static final String FILE_ROOT = SDCARD_ROOT + "Download/";
+    public static final String FILE_ROOT = SDCARD_ROOT + "xuesha/";
 
     private static final long LOW_STORAGE_THRESHOLD = 1024 * 1024 * 10;
 
@@ -114,6 +118,34 @@ public class StorageUtils {
         } else {
             Log.e(null, "File does not exist.");
             return false;
+        }
+    }
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
         }
     }
 }

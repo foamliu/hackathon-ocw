@@ -35,6 +35,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     private ListView downloadList;
     private DownloadListAdapter downloadListAdapter;
     private Tracker mTracker;
+    private final static String TAG = "DownloadListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +71,10 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
             e.printStackTrace();
         }
 
+        StorageUtils.verifyStoragePermissions(this);
+
         this.dm = new DownloadManagerPro(this.getApplicationContext());
-        dm.init("Download", 1, this);
+        dm.init("xuesha", 6, this);
     }
 
     @Override
@@ -93,9 +96,9 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
 
             Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
 
-            int taskToken = dm.addTask(courseId, videoUrl, false, false);
+            int taskId = dm.addTask(courseId, videoUrl, true, false);
             try {
-                dm.startDownload(taskToken);
+                dm.startDownload(taskId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,18 +108,17 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
             item.put(Constants.KEY_TITLE, title);
             item.put(Constants.KEY_DESCRIPTION, description);
             item.put(Constants.KEY_THUMB_URL, thumbUrl);
+            item.put("taskId", String.valueOf(taskId));
+            item.put("percent", "0");
 
             downloadListAdapter.addItem(item);
         }
 
-        downloadListAdapter.loadData();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        downloadListAdapter.updateData();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -156,41 +158,43 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
 
     @Override
     public void OnDownloadStarted(long taskId) {
-        Toast.makeText(this, "OnDownloadStarted", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "OnDownloadStarted");
     }
 
     @Override
     public void OnDownloadPaused(long taskId) {
-        Toast.makeText(this, "OnDownloadPaused", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "OnDownloadPaused");
     }
 
     @Override
     public void onDownloadProcess(long taskId, double percent, long downloadedLength) {
-        Toast.makeText(this, "onDownloadProcess " + percent, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onDownloadProcess " + percent);
+        downloadListAdapter.updateProgress(taskId, percent);
     }
 
     @Override
     public void OnDownloadFinished(long taskId) {
-        Toast.makeText(this, "OnDownloadFinished", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "OnDownloadStarted");
     }
 
     @Override
     public void OnDownloadRebuildStart(long taskId) {
-        Toast.makeText(this, "OnDownloadRebuildStart", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "OnDownloadRebuildStart");
     }
 
     @Override
     public void OnDownloadRebuildFinished(long taskId) {
-        Toast.makeText(this, "OnDownloadRebuildFinished", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "OnDownloadRebuildFinished");
     }
 
     @Override
     public void OnDownloadCompleted(long taskId) {
-        Toast.makeText(this, "OnDownloadCompleted", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "OnDownloadCompleted");
+        downloadListAdapter.updateData();
     }
 
     @Override
     public void connectionLost(long taskId) {
-        Toast.makeText(this, "connectionLost", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "connectionLost");
     }
 }

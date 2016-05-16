@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,14 +53,14 @@ public class UserProfile {
 
     private Context appContext;
 
-    public static void init(Context context){
+    public static void init(Context context) {
         instance = new UserProfile();
         instance.appContext = context;
         instance.getUserProfileFromFile();
     }
 
-    public static UserProfile getInstance(){
-        if (instance == null){
+    public static UserProfile getInstance() {
+        if (instance == null) {
             instance = new UserProfile();
         }
         return instance;
@@ -139,7 +140,7 @@ public class UserProfile {
         this.headimgurl = headimgurl;
     }
 
-    public void clearProfile(){
+    public void clearProfile() {
         this.nickname = "";
         this.sex = -1;
         this.province = "";
@@ -151,39 +152,39 @@ public class UserProfile {
         String str;
         //Read from local user profile
         try {
-            InputStream inputStream = appContext.openFileInput("userProfile.json");
+            String fileName = StorageUtils.FILE_ROOT + "userProfile.json";
+            File file = new File(fileName);
+            InputStream inputStream = new FileInputStream(file);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String receiveString;
+            StringBuilder stringBuilder = new StringBuilder();
 
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString;
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-                inputStream.close();
-                str = stringBuilder.toString();
-                if (!str.contains("userid")) {
-                    retrieveUserId();
-                    return;
-                }
-                //Parse
-                try {
-                    JSONObject jsonObject = new JSONObject(str);
-                    this.userId = jsonObject.getString("userid");
-                    this.deviceid = jsonObject.getString("deviceid");
-                    this.openid = jsonObject.getString("openid");
-                    this.nickname = jsonObject.getString("nickname");
-                    this.sex = jsonObject.getInt("sex");
-                    this.city = jsonObject.getString("city");
-                    this.province = jsonObject.getString("province");
-                    this.country = jsonObject.getString("country");
-                    this.headimgurl = jsonObject.getString("headimgurl");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            while ((receiveString = bufferedReader.readLine()) != null) {
+                stringBuilder.append(receiveString);
             }
+            inputStream.close();
+            str = stringBuilder.toString();
+            if (!str.contains("userid")) {
+                retrieveUserId();
+                return;
+            }
+            //Parse
+            try {
+                JSONObject jsonObject = new JSONObject(str);
+                this.userId = jsonObject.getString("userid");
+                this.deviceid = jsonObject.getString("deviceid");
+                this.openid = jsonObject.getString("openid");
+                this.nickname = jsonObject.getString("nickname");
+                this.sex = jsonObject.getInt("sex");
+                this.city = jsonObject.getString("city");
+                this.province = jsonObject.getString("province");
+                this.country = jsonObject.getString("country");
+                this.headimgurl = jsonObject.getString("headimgurl");
+            } catch (Exception e) {
+                Log.w("UserProfile", e.getMessage());
+            }
+
         } catch (FileNotFoundException e) {
             retrieveUserId();
             Log.e(TAG, "File not found: " + e.toString());
@@ -236,14 +237,19 @@ public class UserProfile {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("userid", this.userId);
+            jsonObject.put("deviceid", this.deviceid);
         } catch (Exception e) {
             Log.e("Json Error", e.toString());
         }
 
-        final String fileName = "userProfile.json";
-        File userProfileFile = new File(appContext.getFilesDir(), fileName);
+        String fileName = StorageUtils.FILE_ROOT + "userProfile.json";
+        File file = new File(fileName);
+
         try {
-            FileWriter fw = new FileWriter(userProfileFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(jsonObject.toString());
             bw.close();
