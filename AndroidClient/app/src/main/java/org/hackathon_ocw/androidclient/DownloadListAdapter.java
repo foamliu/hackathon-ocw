@@ -50,8 +50,8 @@ public class DownloadListAdapter extends BaseAdapter {
 
     private void init() {
         this.loadData();
-        this.repairData();
-        this.updateData();
+        //this.repairData();
+        //this.updateData();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class DownloadListAdapter extends BaseAdapter {
         ProgressBar progress = (ProgressBar) vi.findViewById(R.id.progress_bar);
 
         title.setText(strTitle);
-        progress.setProgress((int)Math.round(percent));
+        progress.setProgress((int) Math.round(percent));
 
         Button playButton = (Button) vi.findViewById(R.id.btn_play);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +119,7 @@ public class DownloadListAdapter extends BaseAdapter {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DownloadListAdapter.this.delete(Long.parseLong(strItemId));
             }
         });
 
@@ -127,7 +127,6 @@ public class DownloadListAdapter extends BaseAdapter {
     }
 
     public void loadData() {
-        String str;
         dataList.clear();
 
         try {
@@ -147,7 +146,7 @@ public class DownloadListAdapter extends BaseAdapter {
                         stringBuilder.append(receiveString);
                     }
                     inputStream.close();
-                    str = stringBuilder.toString();
+                    String str = stringBuilder.toString();
 
                     JSONArray list = new JSONArray(str);
                     for (int i = 0; i < list.length(); i++) {
@@ -166,8 +165,6 @@ public class DownloadListAdapter extends BaseAdapter {
                     }
                 }
             }
-
-            notifyDataSetChanged();
         } catch (FileNotFoundException e) {
             Toast.makeText(appContext, e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG, "File not found: " + e.toString());
@@ -223,14 +220,22 @@ public class DownloadListAdapter extends BaseAdapter {
 
     public void addItem(HashMap<String, String> item) {
         dataList.add(item);
-        notifyDataSetChanged();
     }
 
-    public void updateProgress(long taskId, double percent)
-    {
+    public void updateProgress(long taskId, double percent) {
         for (HashMap<String, String> item : dataList) {
             if (String.valueOf(taskId).equals(item.get("taskId"))) {
                 item.put("percent", String.valueOf(percent));
+            }
+        }
+    }
+
+    private void delete(long itemId) {
+        for (int i = 0; i < dataList.size(); i++) {
+            HashMap<String, String> item = dataList.get(i);
+            if (String.valueOf(itemId).equals(item.get(Constants.KEY_ID))) {
+                dataList.remove(i);
+                return;
             }
         }
     }

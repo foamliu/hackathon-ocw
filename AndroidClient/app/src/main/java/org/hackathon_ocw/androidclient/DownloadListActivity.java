@@ -53,28 +53,8 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         downloadList.setAdapter(downloadListAdapter);
 
         detailToolBarInit();
+        downloadManagerInit();
 
-        if (!StorageUtils.isSDCardPresent()) {
-            Toast.makeText(this, "未发现SD卡", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (!StorageUtils.isSdCardWrittenable()) {
-            Toast.makeText(this, "SD卡不能读写", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        try {
-            StorageUtils.mkdir();
-        } catch (IOException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-
-        StorageUtils.verifyStoragePermissions(this);
-
-        this.dm = new DownloadManagerPro(this.getApplicationContext());
-        dm.init("xuesha", 6, this);
     }
 
     @Override
@@ -154,6 +134,31 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    private void downloadManagerInit() {
+
+        if (!StorageUtils.isSDCardPresent()) {
+            Toast.makeText(this, "未发现SD卡", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!StorageUtils.isSdCardWrittenable()) {
+            Toast.makeText(this, "SD卡不能读写", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        try {
+            StorageUtils.mkdir();
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        StorageUtils.verifyStoragePermissions(this);
+
+        this.dm = new DownloadManagerPro(this.getApplicationContext());
+        dm.init("xuesha", 6, this);
     }
 
     @Override
