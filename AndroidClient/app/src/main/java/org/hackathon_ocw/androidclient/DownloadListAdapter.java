@@ -14,6 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.golshadi.majid.core.DownloadManagerPro;
+import com.golshadi.majid.core.enums.TaskStates;
+import com.golshadi.majid.report.ReportStructure;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,18 +44,18 @@ public class DownloadListAdapter extends BaseAdapter {
     private final static String TAG = "DownloadListAdapter";
     private final Context appContext;
     private ArrayList<HashMap<String, String>> dataList;
+    private DownloadManagerPro downloadManager;
 
-    public DownloadListAdapter(Activity activity) {
+    public DownloadListAdapter(Activity activity, DownloadManagerPro dm) {
         this.appContext = activity.getApplicationContext();
         this.dataList = new ArrayList<>();
+        this.downloadManager = dm;
 
         init();
     }
 
     private void init() {
         this.loadData();
-        //this.repairData();
-        //this.updateData();
     }
 
     @Override
@@ -81,18 +85,26 @@ public class DownloadListAdapter extends BaseAdapter {
 
         HashMap<String, String> item = dataList.get(position);
         final String strItemId = item.get(Constants.KEY_ID);
-        final String strTitle = item.get(Constants.KEY_TITLE);
+        String strTemp = item.get(Constants.KEY_TITLE);
+        if (strTemp.length() > 20)
+            strTemp = strTemp.substring(0, 20) + "..";
+        final String strTitle = strTemp;
         final String description = item.get(Constants.KEY_DESCRIPTION);
         final String thumbUrl = item.get(Constants.KEY_THUMB_URL);
         final String videoUrl = StorageUtils.FILE_ROOT + strItemId + ".mp4";
+        final String strTaskId = item.get("taskId");
+        final int taskId = Integer.parseInt(strTaskId);
         String strPercent = item.get("percent");
         double percent = Double.parseDouble(strPercent);
+        if (percent > 99.5)
+            percent = 100.00;
 
         TextView title = (TextView) vi.findViewById(R.id.title);
-        ProgressBar progress = (ProgressBar) vi.findViewById(R.id.progress_bar);
+        //ProgressBar progress = (ProgressBar) vi.findViewById(R.id.progress_bar);
+        TextView progress = (TextView) vi.findViewById(R.id.progress);
 
         title.setText(strTitle);
-        progress.setProgress((int) Math.round(percent));
+        progress.setText(String.format("%.2f", percent) + "%");
 
         Button playButton = (Button) vi.findViewById(R.id.btn_play);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +132,9 @@ public class DownloadListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 DownloadListAdapter.this.delete(Long.parseLong(strItemId));
+                DownloadListAdapter.this.downloadManager.delete(taskId, true);
+                DownloadListAdapter.this.notifyDataSetChanged();
+                DownloadListAdapter.this.writeToDisk();
             }
         });
 
@@ -188,7 +203,7 @@ public class DownloadListAdapter extends BaseAdapter {
         }
     }
 
-    public void updateData() {
+    public void writeToDisk() {
         JSONArray list = new JSONArray();
         try {
             int index = 0;
@@ -219,13 +234,47 @@ public class DownloadListAdapter extends BaseAdapter {
     }
 
     public void addItem(HashMap<String, String> item) {
-        dataList.add(item);
+        if (!contains(item)) {
+            dataList.add(item);
+            writeToDisk();
+        }
     }
 
-    public void updateProgress(long taskId, double percent) {
+    public boolean contains(HashMap<String, String> item) {
+        for (HashMap<String, String> i : dataList) {
+            if (item.get(Constants.KEY_ID).equals(i.get(Constants.KEY_ID)))
+                return true;
+        }
+        return false;
+    }
+
+    public void updateProgress() {
         for (HashMap<String, String> item : dataList) {
-            if (String.valueOf(taskId).equals(item.get("taskId"))) {
-                item.put("percent", String.valueOf(percent));
+            int taskId = Integer.parseInt(item.get("taskId"));
+            ReportStructure report = downloadManager.singleDownloadStatus(taskId);
+            JSONObject result = report.toJsonObject();
+            try {
+                int state = (int)result.get("state");
+                boolean resumable = (boolean)result.get("resumable");
+                long fileSize = (long)result.get("fileSize");
+
+                if (state == TaskStates.INIT || state == TaskStates.READY) {
+                    item.put("percent", "0.00");
+                }
+                else if (state == TaskStates.DOWNLOADING || state == TaskStates.PAUSED) {
+                    double percent = (double) result.get("percent");
+                    item.put("percent", String.valueOf(percent));
+                } else if (state == TaskStates.DOWNLOAD_FINISHED || state == TaskStates.END){
+                    item.put("percent", "100.00");
+                }
+
+                if (state == TaskStates.PAUSED && resumable) {
+                    downloadManager.startDownload(taskId);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
