@@ -28,14 +28,16 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7)
 
 SPEC CHECKSUMS:
-  Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
-  Cosmos: 87c49100c69d2cb2eebfa4eb8d1e801fe29ff774
-  Google: 61379f0072bc561a7e174d23a6cbe41bd6d8599c
-  GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
-  GoogleInterchangeUtilities: 427382e42d8a340038bec37c6fdfd316e14b5fa2
-  GoogleNetworkingUtilities: ec1e9911aca811eb18b7144394fee6168b607785
-  GoogleSymbolUtilities: eb3965ea12710569c7b80db198a39e39b18613f7
-  GoogleUtilities: 85f8ad6b251544286a97163133d042ec95f889c5
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  Alamofire: d6c212c0a46dd445d303053b468c12de7a2edfe7
+  Cosmos: 255ea26e59c7eb9b4f6479be0d4490dc3e61c850
+  Google: 11cb5f2c32032d504762eaef8230f39bdfa53c74
+  GoogleAnalytics: 7ea7098da6b58fb892cce5f944be750f82aec887
+  GoogleInterchangeUtilities: 77aa69a2960c0df5e946d22a647a90be453c52c2
+  GoogleNetworkingUtilities: 7c44acfa650ae778bbcea14c704a61433cff43f8
+  GoogleSymbolUtilities: b25ba836f703c0cb712fd9faa9baec0a66987601
+  GoogleUtilities: f76eadf64738f73506a708e38e3b3b9492027c07
+  SDWebImage: 4dd2ac7f06226981fb95acc38f6b5b437b341d5b
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 2271fec776d473a6bdfc5949a72eb7668ca84c6d
+
+COCOAPODS: 1.0.0

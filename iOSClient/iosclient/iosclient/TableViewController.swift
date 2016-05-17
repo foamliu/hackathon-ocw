@@ -43,7 +43,9 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
             //self.tableView.registerClass(MGSwipeTableCell.self, forCellReuseIdentifier: "CourseCell")
             getInitId()
             jsonParsingFromUrl()
-            self.navigationItem.leftBarButtonItem = nil
+            if WXApi.isWXAppInstalled() == false {
+                self.navigationItem.leftBarButtonItem = nil;
+            }
             
             if self.revealViewController() != nil {
                 menuButton.target = self.revealViewController()
