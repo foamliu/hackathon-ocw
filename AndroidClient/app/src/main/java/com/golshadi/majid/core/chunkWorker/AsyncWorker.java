@@ -84,8 +84,6 @@ public class AsyncWorker extends Thread{
         	observer.connectionLost(task.id);
         	puaseRelatedTask();
         	
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
