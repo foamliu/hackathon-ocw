@@ -42,30 +42,29 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         if(isInternetConnected == true){
             //self.tableView.registerClass(MGSwipeTableCell.self, forCellReuseIdentifier: "CourseCell")
             getInitId()
-            jsonParsingFromUrl()
             if WXApi.isWXAppInstalled() == false {
                 self.navigationItem.leftBarButtonItem = nil;
             }
-            
-            if self.revealViewController() != nil {
-                menuButton.target = self.revealViewController()
-                menuButton.action = "revealToggle:"
-                self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            }
-            
-            self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-            self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-            
-            self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
-            self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-            self.tableView?.addSubview(customRefreshControl)
-            
-            self.setupInfiniteScrollingView()
-            
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "search:", name: "newSearchNotification", object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "searchByTags:", name: "newSearchByTagNotification", object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "deleteRow:", name: "deleteRowNotification", object: nil)
         }
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
+        self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        
+        self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
+        self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView?.addSubview(customRefreshControl)
+        
+        self.setupInfiniteScrollingView()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "search:", name: "newSearchNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "searchByTags:", name: "newSearchByTagNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "deleteRow:", name: "deleteRowNotification", object: nil)
     }
     
     func checkInternetConnection(){
@@ -76,8 +75,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         }
         //If the user is not connected to the internet, you may want to show them an alert dialog to notify them.
         if Reachability.isConnectedToNetwork() == true {
+            isInternetConnected = true
             print("Internet connection OK")
         } else {
+            self.navigationItem.leftBarButtonItem = nil;
             isInternetConnected = false
             print("Internet connection FAILED")
             let alert = UIAlertView(title: "没有网络连接", message: "请确认您已连接到互联网", delegate: nil, cancelButtonTitle: "OK")
@@ -86,6 +87,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     }
     
     func getInitId(){
+        //使用deviceid换取userid
         User.sharedManager.deviceid = UIDevice.currentDevice().identifierForVendor!.UUIDString
         //检查本地userProfile文件
         let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
@@ -103,7 +105,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     }
     
     func getInitFromServer(){
-        //使用deviceid换取userid
         var basicProfile = [String: AnyObject]()
         basicProfile["deviceid"] = User.sharedManager.deviceid
         let url = "http://jieko.cc/user"
@@ -113,7 +114,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         
         do{
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(basicProfile, options: [])
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { data, response, error -> Void in
                 guard error == nil && data != nil else {                                                          // check for fundamental networking error
                     print("error=\(error)")
                     return
@@ -127,11 +128,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String: Int]
                     User.sharedManager.userid = result!["userid"]
+                    self.jsonParsingFromUrl()
                 } catch let error as NSError {
                     print(error)
                 }
                 
-            }
+            })
             task.resume()
         } catch _{
             print("Error json")
@@ -151,8 +153,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
  
     
     func refresh(customRefreshControl: UIRefreshControl){
-        jsonParsingFromUrl()
-        
+        checkInternetConnection()
+        getInitId()
         let now = NSDate()
         let updateString = "更新于 " + self.dateFormatter.stringFromDate(now)
         self.customRefreshControl.attributedTitle = NSAttributedString(string: updateString)
@@ -168,21 +170,21 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     }
     
     func jsonParsingFromUrl(){
-        let url = NSURL(string: "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates")
-        let request = NSURLRequest(URL: url!)
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
+        Alamofire.request(.GET, "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates").responseJSON { response in
+            if response.result.isSuccess {
+                self.startParsingCourses(response.result.value!["courses"] as! NSArray)
+            }
         }
     }
     
-    func startParsing(data: NSData){
-        let dict: NSDictionary!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
-        if (clearCourses == true && (dict.valueForKey("courses") as! NSArray).count > 1){
+    func startParsingCourses(data: NSArray){
+        if (clearCourses == true && data.count > 1){
             courses.removeAllObjects()
             clearCourses = false
         }
-        if ((dict.valueForKey("courses") as! NSArray).count > 1){
-            for i in 0...((dict.valueForKey("courses") as! NSArray).count - 1){
-                courses.addObject((dict.valueForKey("courses") as! NSArray) .objectAtIndex(i))
+        if (data.count > 1){
+            for i in 0...(data.count - 1){
+                courses.addObject(data.objectAtIndex(i))
             }
         }
         tableView.reloadData()
@@ -392,10 +394,13 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         let keywords: String = notif.userInfo!["newSearch"] as! String
         let keywordsUTF8: String = keywords.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         //Send to server
-        let url = NSURL(string: "http://jieko.cc/items/search/" + keywordsUTF8)
-        let request = NSURLRequest(URL: url!)
+        let url = "http://jieko.cc/items/search/" + keywordsUTF8
         clearCourses = true
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
+        
+        Alamofire.request(.GET, url).responseJSON { response in
+            if response.result.isSuccess {
+                self.startParsingCourses(response.result.value!["courses"] as! NSArray)
+            }
         }
     }
     
@@ -403,10 +408,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         let keywords: String = notif.userInfo!["newSearchByTag"] as! String
         let keywordsUTF8: String = keywords.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         //Send to server
-        let url = NSURL(string: "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates/tag/" + keywordsUTF8)
-        let request = NSURLRequest(URL: url!)
+        let url = "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates/tag/" + keywordsUTF8
         clearCourses = true
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startParsing(data!)
+        Alamofire.request(.GET, url).responseJSON { response in
+            if response.result.isSuccess {
+                self.startParsingCourses(response.result.value!["courses"] as! NSArray)
+            }
         }
     }
     

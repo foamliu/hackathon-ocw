@@ -76,9 +76,12 @@ class CommentViewController: UITableViewController {
     }
     
     func loadCommentsFromUrl(){
-        let url = NSURL(string: "http://jieko.cc/item/" + String(courseId!) + "/Comments")
-        let request = NSURLRequest(URL: url!)
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){(response, data, error) in self.startCommentsParsing(data!)
+        let url = "http://jieko.cc/item/" + String(courseId!) + "/Comments"
+        
+        Alamofire.request(.GET, url).responseJSON { response in
+            if response.result.isSuccess {
+                self.startCommentsParsing(response.result.value! as! NSArray)
+            }
         }
     }
     
@@ -104,8 +107,7 @@ class CommentViewController: UITableViewController {
         sendComment(newComment)
     }
     
-    func startCommentsParsing(data: NSData){
-        let dict: NSArray!=(try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSArray
+    func startCommentsParsing(dict: NSArray){
         if (dict.count > 1){
             for i in 0...(dict.count - 1){
                 comments.addObject(dict.objectAtIndex(i))

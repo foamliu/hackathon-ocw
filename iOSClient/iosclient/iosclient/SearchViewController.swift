@@ -55,13 +55,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, TagListViewDe
         tagListView.paddingY = 8
         tagListView.borderColor = UIColor.lightGrayColor()
         tagListView.borderWidth = 1
-        
         //Get tags from server
         Alamofire.request(.GET, "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/tags").responseJSON { response in
-            let json = response.result.value!["tags"] as! NSArray
-            for element in json{
-                let ele = element as! NSArray
-                self.tagListView.addTag(ele[0] as! String)
+            if response.result.isSuccess {
+                let json = response.result.value!["tags"] as! NSArray
+                for element in json{
+                    let ele = element as! NSArray
+                    self.tagListView.addTag(ele[0] as! String)
+                }
             }
         }
     }
