@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
     private EditText editText;
     private TagGroup tagGroup;
 
-    public final ArrayList<String> tagsList = new ArrayList<String>();
+    public final ArrayList<String> tagsList = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState)
     {

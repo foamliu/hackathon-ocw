@@ -2,7 +2,6 @@ package org.hackathon_ocw.androidclient;
 
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -55,7 +54,6 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

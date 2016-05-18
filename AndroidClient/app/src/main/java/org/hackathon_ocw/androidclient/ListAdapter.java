@@ -7,10 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,7 +90,7 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View vi = null;
+        View vi;
         if (convertView != null)
             vi = convertView;
         else {
@@ -114,7 +112,7 @@ public class ListAdapter extends BaseAdapter {
         if (strSchool.length() > 12)
             strSchool = strSchool.substring(0, 12) + "..";
         String strDuration = course.get(Constants.KEY_DURATION);
-        if (duration == null || duration.equals("")) {
+        if (strDuration == null ) {
             strDuration = "";
         }
         final String strThumbUrl = course.get(Constants.KEY_THUMB_URL);

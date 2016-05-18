@@ -3,15 +3,12 @@ package org.hackathon_ocw.androidclient;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -218,9 +215,8 @@ public class DownloadListAdapter extends BaseAdapter {
             int index = 0;
             for (HashMap<String, String> item : dataList) {
                 JSONObject jsonObject = new JSONObject();
-                Iterator it = item.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry) it.next();
+                for (Object o : item.entrySet()) {
+                    Map.Entry pair = (Map.Entry) o;
                     jsonObject.put((String) pair.getKey(), (String) pair.getValue());
                 }
                 list.put(index, jsonObject);
@@ -235,8 +231,6 @@ public class DownloadListAdapter extends BaseAdapter {
             bw.write(list.toString());
             bw.close();
 
-        } catch (JSONException e) {
-            Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -283,9 +277,7 @@ public class DownloadListAdapter extends BaseAdapter {
                 if (state == TaskStates.PAUSED && resumable) {
                     downloadManager.startDownload(taskId);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
         }

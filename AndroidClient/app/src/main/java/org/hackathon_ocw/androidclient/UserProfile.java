@@ -224,7 +224,7 @@ public class UserProfile {
         }) {
             @Override
             public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<String, String>();
+                HashMap<String, String> headers = new HashMap<>();
                 headers.put("Accept", "application/json");
                 headers.put("Content-Type", "application/json; charset=UTF-8");
                 return headers;

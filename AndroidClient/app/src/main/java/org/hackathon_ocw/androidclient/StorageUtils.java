@@ -5,12 +5,9 @@ package org.hackathon_ocw.androidclient;
  */
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.v4.app.ActivityCompat;
@@ -32,11 +29,8 @@ public class StorageUtils {
 
     public static boolean isSdCardWrittenable() {
 
-        if (android.os.Environment.getExternalStorageState().equals(
-                android.os.Environment.MEDIA_MOUNTED)) {
-            return true;
-        }
-        return false;
+        return Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED);
     }
 
     public static long getAvailableStorage() {
