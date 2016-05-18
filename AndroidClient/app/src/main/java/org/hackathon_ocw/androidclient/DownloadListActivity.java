@@ -1,7 +1,7 @@
 package org.hackathon_ocw.androidclient;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,24 +18,18 @@ import com.golshadi.majid.core.DownloadManagerPro;
 import com.golshadi.majid.report.listener.DownloadManagerListener;
 import com.google.android.gms.analytics.Tracker;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DownloadListActivity extends AppCompatActivity implements DownloadManagerListener {
-    private DownloadManagerPro dm;
+    private DownloadManagerPro downloadManager;
     private ListView downloadList;
     private DownloadListAdapter downloadListAdapter;
     private Tracker mTracker;
     private final static String TAG = "DownloadListActivity";
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +42,47 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_download_list);
 
-        downloadList = (ListView) findViewById(R.id.download_list);
-        downloadListAdapter = new DownloadListAdapter(this);
-        downloadList.setAdapter(downloadListAdapter);
-
         detailToolBarInit();
         downloadManagerInit();
+
+        downloadList = (ListView) findViewById(R.id.download_list);
+        downloadListAdapter = new DownloadListAdapter(this, downloadManager);
+        downloadList.setAdapter(downloadListAdapter);
+
+        setTimerForDownloadProgress();
+    }
+
+    void setTimerForDownloadProgress() {
+        timer = new Timer();
+        TimerTask updateProfile = new CustomTimerTask();
+        timer.scheduleAtFixedRate(updateProfile, 1000, 1000);
+    }
+
+    public class CustomTimerTask extends TimerTask
+    {
+        private Handler mHandler = new Handler();
+
+        @Override
+        public void run()
+        {
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mHandler.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            downloadListAdapter.updateProgress();
+                            downloadListAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }).start();
+
+        }
 
     }
 
@@ -69,29 +98,35 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         String thumbUrl = intent.getStringExtra(Constants.KEY_THUMB_URL);
 
         if (videoUrl != null && !videoUrl.equals("")) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("开始下载：\"");
-            sb.append(title);
-            sb.append("\"");
-
-            Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
-
-            int taskId = dm.addTask(courseId, videoUrl, true, false);
-            try {
-                dm.startDownload(taskId);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             HashMap<String, String> item = new HashMap<>();
             item.put(Constants.KEY_ID, courseId);
             item.put(Constants.KEY_TITLE, title);
             item.put(Constants.KEY_DESCRIPTION, description);
             item.put(Constants.KEY_THUMB_URL, thumbUrl);
-            item.put("taskId", String.valueOf(taskId));
-            item.put("percent", "0");
 
-            downloadListAdapter.addItem(item);
+            if (!downloadListAdapter.contains(item))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.append("开始下载：\"");
+                sb.append(title);
+                sb.append("\"");
+
+                Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
+
+                int taskId = downloadManager.addTask(courseId, videoUrl, true, false);
+                try {
+                    downloadManager.startDownload(taskId);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                item.put("taskId", String.valueOf(taskId));
+                item.put("percent", "0");
+
+                downloadListAdapter.addItem(item);
+            }
+
         }
 
     }
@@ -157,8 +192,8 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
 
         StorageUtils.verifyStoragePermissions(this);
 
-        this.dm = new DownloadManagerPro(this.getApplicationContext());
-        dm.init("xuesha", 6, this);
+        this.downloadManager = new DownloadManagerPro(this.getApplicationContext());
+        downloadManager.init("xuesha", 6, this);
     }
 
     @Override
@@ -174,7 +209,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     @Override
     public void onDownloadProcess(long taskId, double percent, long downloadedLength) {
         Log.d(TAG, "onDownloadProcess " + percent);
-        downloadListAdapter.updateProgress(taskId, percent);
     }
 
     @Override
@@ -195,7 +229,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     @Override
     public void OnDownloadCompleted(long taskId) {
         Log.d(TAG, "OnDownloadCompleted");
-        downloadListAdapter.updateData();
     }
 
     @Override
