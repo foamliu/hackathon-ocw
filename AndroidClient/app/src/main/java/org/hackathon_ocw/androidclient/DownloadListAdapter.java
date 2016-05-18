@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,17 +97,18 @@ public class DownloadListAdapter extends BaseAdapter {
         final int taskId = Integer.parseInt(strTaskId);
         String strPercent = item.get("percent");
         double percent = Double.parseDouble(strPercent);
-        if (percent > 99.5)
-            percent = 100.00;
+        int state = Integer.parseInt(item.get("state"));
+        long lFileSize = Long.parseLong(item.get("fileSize"));
 
         TextView title = (TextView) vi.findViewById(R.id.title);
-        //ProgressBar progress = (ProgressBar) vi.findViewById(R.id.progress_bar);
         TextView progress = (TextView) vi.findViewById(R.id.progress);
+        TextView fileSize = (TextView) vi.findViewById(R.id.fileSize);
 
         title.setText(strTitle);
         progress.setText(String.format("%.2f", percent) + "%");
+        fileSize.setText(String.format("%.1f", 1.0*lFileSize/1024/1024) + "M");
 
-        Button playButton = (Button) vi.findViewById(R.id.btn_play);
+        ImageButton playButton = (ImageButton) vi.findViewById(R.id.btn_play);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,8 +128,15 @@ public class DownloadListAdapter extends BaseAdapter {
                 appContext.startActivity(intent);
             }
         });
+        if (state == TaskStates.END)
+        {
+            playButton.setEnabled(true);
+        } else {
+            playButton.setEnabled(false);
+        }
 
-        Button deleteButton = (Button) vi.findViewById(R.id.btn_delete);
+
+        ImageButton deleteButton = (ImageButton) vi.findViewById(R.id.btn_delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,6 +266,9 @@ public class DownloadListAdapter extends BaseAdapter {
                 int state = (int)result.get("state");
                 boolean resumable = (boolean)result.get("resumable");
                 long fileSize = (long)result.get("fileSize");
+
+                item.put("state", String.valueOf(state));
+                item.put("fileSize", String.valueOf(fileSize));
 
                 if (state == TaskStates.INIT || state == TaskStates.READY) {
                     item.put("percent", "0.00");

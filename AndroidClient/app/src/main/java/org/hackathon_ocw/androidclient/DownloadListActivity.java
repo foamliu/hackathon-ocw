@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.golshadi.majid.core.DownloadManagerPro;
+import com.golshadi.majid.core.enums.TaskStates;
 import com.golshadi.majid.report.listener.DownloadManagerListener;
 import com.google.android.gms.analytics.Tracker;
 
@@ -58,23 +59,17 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         timer.scheduleAtFixedRate(updateProfile, 1000, 1000);
     }
 
-    public class CustomTimerTask extends TimerTask
-    {
+    public class CustomTimerTask extends TimerTask {
         private Handler mHandler = new Handler();
 
         @Override
-        public void run()
-        {
-            new Thread(new Runnable()
-            {
+        public void run() {
+            new Thread(new Runnable() {
                 @Override
-                public void run()
-                {
-                    mHandler.post(new Runnable()
-                    {
+                public void run() {
+                    mHandler.post(new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             downloadListAdapter.updateProgress();
                             downloadListAdapter.notifyDataSetChanged();
                         }
@@ -105,8 +100,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
             item.put(Constants.KEY_DESCRIPTION, description);
             item.put(Constants.KEY_THUMB_URL, thumbUrl);
 
-            if (!downloadListAdapter.contains(item))
-            {
+            if (!downloadListAdapter.contains(item)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("开始下载：\"");
                 sb.append(title);
@@ -123,12 +117,13 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
 
                 item.put("taskId", String.valueOf(taskId));
                 item.put("percent", "0");
+                item.put("state", String.valueOf(TaskStates.INIT));
+                item.put("fileSize", "0");
 
                 downloadListAdapter.addItem(item);
             }
 
         }
-
     }
 
     @Override
