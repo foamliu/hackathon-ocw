@@ -62,20 +62,16 @@ class InfoqSpider(scrapy.Spider):
                 if self.downloaded(link): return
                 print (self.downloaded(link))
                 item['link'] = link
-                item['title'] = cleanse(info.xpath('a[1]/text()').extract())
+                item['title'] = cleanse(info.xpath('a[2]/text()').extract())
                 item['description'] = cleanse(info.xpath('a[2]/text()').extract())
-                item['piclink'] = cleanse(info.xpath('a[2]/img/@src').extract())
+                item['piclink'] = cleanse(info.xpath('a[1]/img/@src').extract())
                 item['courselink'] = u''
                 item['source'] = u'InfoQ'
                 item['school'] = u'InfoQ'
                 item['instructor'] = cleanse(info.xpath('span/a/text()').extract())
                 item['language'] = u'中文'
-                item['tags'] = u'InfoQ文章'
-                p_year = cleanse(info.xpath('ul/li[1]/text()').extract())
-                p_month = cleanse(info.xpath('ul/li[2]/text()').extract())
-                p_day = cleanse(info.xpath('ul/li[3]/text()').extract())
-                item['posted'] = u'{0} {1} {2}'.format(p_year, p_month, p_day)
-                print u'{0} {1} {2}'.format(p_year, p_month, p_day)
+                item['tags'] = u'InfoQ'
+                item['posted'] = cleanse(info.xpath('a[1]/span/text()').extract())
                 item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
                 yield item
  
