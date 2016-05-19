@@ -10,4 +10,15 @@ import scrapy
 
 class InfoqItem(scrapy.Item):
     # define the fields for your item here like:
+    title = scrapy.Field()        #名称
+    description = scrapy.Field()  #简介
+    piclink = scrapy.Field()      #图片地址
+    courselink = scrapy.Field()   #课程地址
+    source = scrapy.Field()       #来源
+    school = scrapy.Field()       #学校
+    instructor = scrapy.Field()   #讲师
+    language = scrapy.Field()     #授课语言
+    tags = scrapy.Field()         #类型
     link = scrapy.Field()         #链接，用于关联。
+    posted = scrapy.Field()       #发布时间
+    crawled = scrapy.Field()      #爬取时间

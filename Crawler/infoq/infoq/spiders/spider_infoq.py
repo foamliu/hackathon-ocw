@@ -11,29 +11,14 @@ import json
 from selenium import webdriver
 from infoq.items import InfoqItem
 
-def getout():
-    out = []
-    inputfile = open('out.json','r')
-    lines = inputfile.readlines()
-    inputfile.close()
-    for line in lines:
-        out.append(json.loads(line))
-    return out
-
 def cleanse(alist):
     return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
-
-def downloaded(link):
-    out = getout()
-    for js in out:
-        if js['link'] == link:
-            return True
-    return False
 
 class InfoqSpider(scrapy.Spider):
     name = 'infoq'
     allowed_domains = ["www.infoq.com"]
     start_urls = ["http://www.infoq.com/cn/presentations"]
+    out = []
 
     def __init__(self):
         scrapy.Spider.__init__(self)
@@ -44,6 +29,22 @@ class InfoqSpider(scrapy.Spider):
 
     def __del__(self):
         self.driver.close()
+        
+    def getout(self):
+        if len(self.out) == 0:
+            inputfile = open('out.json','r')
+            lines = inputfile.readlines()
+            inputfile.close()
+            for line in lines:
+                self.out.append(json.loads(line))
+        return self.out
+
+    def downloaded(self, link):
+        out = self.getout()
+        for js in out:
+            if js['link'] == link:
+                return True
+        return False
 
     def parse(self, response):
 
@@ -57,10 +58,27 @@ class InfoqSpider(scrapy.Spider):
                 item = InfoqItem()
                 link = cleanse(info.xpath('a[1]/@href').extract())
                 link = 'http://www.infoq.com{0}'.format(link)
-                if downloaded(link): return
+                print (link)
+                if self.downloaded(link): return
+                print (self.downloaded(link))
                 item['link'] = link
+                item['title'] = cleanse(info.xpath('a[1]/text()').extract())
+                item['description'] = cleanse(info.xpath('a[2]/text()').extract())
+                item['piclink'] = cleanse(info.xpath('a[2]/img/@src').extract())
+                item['courselink'] = u''
+                item['source'] = u'InfoQ'
+                item['school'] = u'InfoQ'
+                item['instructor'] = cleanse(info.xpath('span/a/text()').extract())
+                item['language'] = u'中文'
+                item['tags'] = u'InfoQ文章'
+                p_year = cleanse(info.xpath('ul/li[1]/text()').extract())
+                p_month = cleanse(info.xpath('ul/li[2]/text()').extract())
+                p_day = cleanse(info.xpath('ul/li[3]/text()').extract())
+                item['posted'] = u'{0} {1} {2}'.format(p_year, p_month, p_day)
+                print u'{0} {1} {2}'.format(p_year, p_month, p_day)
+                item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
                 yield item
-
+ 
             next = self.driver.find_element_by_xpath('/html/body/div[1]/div/ul[1]/li[2]/a')
             #print next.text
             time.sleep(2)
