@@ -10,6 +10,10 @@ import time
 import json
 from selenium import webdriver
 from infoq.items import InfoqItem
+from selenium.webdriver.common.action_chains import ActionChains
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def cleanse(alist):
     return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
@@ -76,11 +80,15 @@ class InfoqSpider(scrapy.Spider):
                 yield item
  
             next = self.driver.find_element_by_xpath('/html/body/div[1]/div/ul[1]/li[2]/a')
+            aclass = next.get_attribute('class')
+            if ('btn_inactive' in aclass):
+                break
             #print next.text
-            time.sleep(2)
 
             try:
-                next.click()
+                #next.click()
+                ActionChains(self.driver).move_to_element(next).click().perform()
+                time.sleep(5)
 
             except Exception as err:
                 print(err)
