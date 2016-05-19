@@ -67,7 +67,7 @@ class InfoqSpider(scrapy.Spider):
                 print (self.downloaded(link))
                 item['link'] = link
                 item['title'] = cleanse(info.xpath('a[2]/text()').extract())
-                item['description'] = cleanse(info.xpath('a[2]/text()').extract())
+                item['description'] = cleanse(info.xpath('a[3]/text()').extract())
                 item['piclink'] = cleanse(info.xpath('a[1]/img/@src').extract())
                 item['courselink'] = u''
                 item['source'] = u'InfoQ'
