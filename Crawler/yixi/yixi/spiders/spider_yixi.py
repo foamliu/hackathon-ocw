@@ -8,7 +8,7 @@ from selenium import webdriver
 def getlinks():
     links = []
     base_url = "http://yixi.tv/lecture/"
-    count = 356
+    count = 363
     i = count
     while (i >= 1):
         url = base_url + str(i)
@@ -16,29 +16,15 @@ def getlinks():
         i = i - 1
     return links
 
-def getout():
-    out = []
-    inputfile = open('out.json','r')
-    lines = inputfile.readlines()
-    inputfile.close()
-    for line in lines:
-        out.append(json.loads(line))
-    return out
-
 def cleanse(alist):
     return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
 
-def downloaded(link):
-    out = getout()
-    for js in out:
-        if js['link'] == link:
-            return True
-    return False
 
 class YixiSpider(scrapy.Spider):
     name = "yixi"
     allowed_domains = ["yixi.tv"]
     start_urls = ["http://yixi.tv/lecture/"]
+    out = []
 
     def __init__(self):
       scrapy.Spider.__init__(self)
@@ -46,6 +32,22 @@ class YixiSpider(scrapy.Spider):
 
     def __del__(self):
       self.driver.close()
+
+    def getout(self):
+        if len(self.out) == 0:
+            inputfile = open('out.json','r')
+            lines = inputfile.readlines()
+            inputfile.close()
+            for line in lines:
+                self.out.append(json.loads(line))
+        return self.out
+
+    def downloaded(self, link):
+        out = self.getout()
+        for js in out:
+            if js['link'] == link:
+                return True
+        return False
 
     def download(self, link):
         self.driver.get(link)
@@ -74,7 +76,7 @@ class YixiSpider(scrapy.Spider):
         
         for link in getlinks():
             print link
-            isdownloaded = downloaded(link)
+            isdownloaded = self.downloaded(link)
             print 'is downloaded: {0}'.format(isdownloaded)
 
             if not isdownloaded:
@@ -86,6 +88,6 @@ class YixiSpider(scrapy.Spider):
                     yield item
                 except Exception as err:
                     print(err)
-                    #time.sleep(100)
-                    break
+                    time.sleep(100)
+                    #break
 
