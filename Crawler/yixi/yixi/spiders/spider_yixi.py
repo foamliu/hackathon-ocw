@@ -63,7 +63,7 @@ class YixiSpider(scrapy.Spider):
         item['piclink'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[1]/div/div/img/@src').extract())
         item['courselink'] = u""
         item['source'] = u"一席"
-        item['school'] = cleanse(hxs.xpath('/html/body/div[1]/div[2]/section[2]/span[2]/text()').extract())
+        item['school'] =  u"一席"
         item['instructor'] = cleanse(hxs.xpath('(//span[contains(@class,"speakerName")])/text()').extract())
         item['language'] = u"中文"
         item['tags'] = u"一席"
