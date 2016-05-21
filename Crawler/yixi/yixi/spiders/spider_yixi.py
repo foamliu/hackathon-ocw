@@ -8,7 +8,7 @@ from selenium import webdriver
 def getlinks():
     links = []
     base_url = "http://yixi.tv/lecture/"
-    count = 363
+    count = 366
     i = count
     while (i >= 1):
         url = base_url + str(i)
