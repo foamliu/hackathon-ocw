@@ -163,7 +163,7 @@ object Application {
 
     private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
         val items: Seq[Course] = getCourses
-        scala.util.Random.shuffle(items.filter(_.tags.contains(tag)).take(howMany))
+        scala.util.Random.shuffle(items.filter(_.tags.contains(tag))).take(howMany)
     }
 }
 
