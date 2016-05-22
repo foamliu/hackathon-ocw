@@ -7,29 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,135 +20,58 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 
-import org.hackathon_ocw.androidclient.Download_data.download_complete;
 import org.hackathon_ocw.androidclient.wxapi.WXEntryActivity;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-
-public class MainActivity extends FragmentActivity //AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, download_complete {
-
-    private final static String Url = "http://api.jieko.cc/user/";
-
-    //Views of the page
-    public View footerLayout;
-    public ListView mListView;
-    private TextView textMore;
-    private NavigationView navigationView;
-
-    //Toolbars
-    private Toolbar toolbar;
-    private ProgressBar progressBar;
-
-    public ListAdapter mListAdapter;
-    private RefreshLayout mRefreshLayout;
+public class MainActivity extends FragmentActivity {
 
     private String access_token;
     private String openid;
     private boolean login = false;
-    private int positionYixi;
-    private Tracker mTracker;
-
-    public final ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
-    public static MainActivity Self;
-
-    private CategoryTabStrip tabs;
-    private ViewPager pager;
-    private MyPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        if (checkNetworkStatus()) {
-//            UserProfile.init(getApplicationContext());
-//
-//            // Obtain the shared Tracker instance.
-//            CustomApplication application = (CustomApplication) getApplication();
-//            mTracker = application.getDefaultTracker();
-//
-//            TextView titleMainToolBar = (TextView) findViewById(R.id.titleMainToolBar);
-//            titleMainToolBar.setText("学啥");
-//
-//            toolbarInit();
-//            searchBtnInit();
-//            listViewInit();
-//            drawerInit();
-//            naviViewInit();
-//        }
-//
-//        MainActivity.Self = this;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tabs = (CategoryTabStrip) findViewById(R.id.category_strip);
-        pager = (ViewPager) findViewById(R.id.view_pager);
-        adapter = new MyPagerAdapter(getSupportFragmentManager());
+        CategoryTabStrip tabs = (CategoryTabStrip) findViewById(R.id.category_strip);
+        ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
+        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
 
         pager.setAdapter(adapter);
 
         tabs.setViewPager(pager);
+
+        if (checkNetworkStatus()) {
+            UserProfile.init(getApplicationContext());
+        }
     }
 
-
     public class MyPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<String> catalogs = new ArrayList<String>();
-
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
-            catalogs.add("推荐");
-            catalogs.add("TED");
-            catalogs.add("互联网");
-            catalogs.add("数学");
-            catalogs.add("生物");
-            catalogs.add("物理");
-            catalogs.add("化学");
-            catalogs.add("心理");
-            catalogs.add("InfoQ");
-            catalogs.add("电子");
-            catalogs.add("历史");
-            catalogs.add("社会");
-            catalogs.add("计算机");
-            catalogs.add("纪录片");
-            catalogs.add("环境");
-            catalogs.add("哲学");
-            catalogs.add("技能");
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return catalogs.get(position);
+            return Constants.catalogs.get(position);
         }
 
         @Override
         public int getCount() {
-            return catalogs.size();
+            return Constants.catalogs.size();
         }
 
         @Override
         public Fragment getItem(int position) {
             return NewsFragment.newInstance(position);
         }
-
     }
 
     public boolean checkNetworkStatus() {
@@ -174,7 +80,7 @@ public class MainActivity extends FragmentActivity //AppCompatActivity
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             //builder.setIcon(R.drawable.ic_launcher);
             builder.setTitle("网络提示信息");
-            builder.setMessage("网络不可用，如果继续，请先设置网络！");
+            builder.setMessage("网络不可用！");
             builder.setPositiveButton("设置", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -204,349 +110,6 @@ public class MainActivity extends FragmentActivity //AppCompatActivity
             builder.show();
             return false;
         }
-        return true;
-    }
-
-    public void naviViewInit() {
-        //navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    public void drawerInit() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
-//        toggle.syncState();
-    }
-
-    public void listViewInit() {
-        mListView = (ListView) findViewById(R.id.list);
-        mRefreshLayout = (RefreshLayout) findViewById(R.id.swipeContainer);
-
-        footerLayout = getLayoutInflater().inflate(R.layout.listview_footer, null);
-        textMore = (TextView) footerLayout.findViewById(R.id.text_more);
-        progressBar = (ProgressBar) footerLayout.findViewById(R.id.load_progress_bar);
-        textMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoadData();
-            }
-        });
-
-        mListView.addFooterView(footerLayout);
-        mRefreshLayout.setChildView(mListView);
-        mListAdapter = new ListAdapter(this, courseList);
-        mListView.setAdapter(mListAdapter);
-
-        mRefreshLayout.setColorSchemeResources(android.R.color.holo_green_dark,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light,
-                android.R.color.holo_blue_bright);
-
-
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //fetchTimeLineAsync(0);
-                Toast.makeText(getApplicationContext(), "玩命加载中...", Toast.LENGTH_SHORT).show();
-                mListAdapter.clear();
-
-                Download_data download_data = new Download_data(MainActivity.this);
-                download_data.download_data_from_link(Url + UserProfile.getInstance().getUserId() + "/Candidates");
-                mListAdapter.addAll(courseList);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "推荐引擎有20条更新", Toast.LENGTH_SHORT).show();
-                        mRefreshLayout.setRefreshing(false);
-                    }
-                }, 4000);
-            }
-        });
-
-        mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
-            @Override
-            public void onLoad() {
-                LoadData();
-            }
-        });
-
-
-        final Download_data download_data = new Download_data(this);
-        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserId() + "/Candidates");
-
-        mListView.setItemsCanFocus(true);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        mListView.setOnItemClickListener(new ListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    boolean isYixi = false;
-
-                    if (mListAdapter.getWebUrlByPosition(position).contains("yixi")) {
-                        parseYixiCourseStep1(mListAdapter.getWebUrlByPosition(position));
-                        positionYixi = position;
-                        isYixi = true;
-                    }
-
-                    if (!mListAdapter.getVideoUrlByPosition(position).equals("") && !isYixi) {
-                        //Show subpage with videoUrl
-                        Intent intent = new Intent();
-                        intent.putExtra("id", mListAdapter.getIdByPosition(position));
-                        intent.putExtra("title", mListAdapter.getTitleByPosition(position));
-                        intent.putExtra("videoUrl", mListAdapter.getVideoUrlByPosition(position));
-                        intent.putExtra("description", mListAdapter.getDescriptionByPosition(position));
-                        intent.putExtra("videoImg", mListAdapter.getVideoImgByPosition(position));
-                        intent.putExtra("userid", UserProfile.getInstance().getUserId());
-                        if (UserProfile.getInstance().getNickname() != null) {
-                            intent.putExtra("nickname", UserProfile.getInstance().getNickname());
-                            intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
-                        }
-
-                        intent.setClass(MainActivity.this, DetailActivity.class);
-                        startActivity(intent);
-                    } else if (mListAdapter.getVideoUrlByPosition(position).equals("") && !isYixi) {
-                        //Show subpage with Webview
-                        Intent intent = new Intent();
-                        intent.putExtra("webUrl", mListAdapter.getWebUrlByPosition(position));
-                        intent.putExtra("id", mListAdapter.getIdByPosition(position));
-                        intent.putExtra("title", mListAdapter.getTitleByPosition(position));
-                        intent.putExtra("userid", UserProfile.getInstance().getUserId());
-                        if (UserProfile.getInstance().getNickname() != null) {
-                            intent.putExtra("nickname", UserProfile.getInstance().getNickname());
-                            intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
-                        }
-
-                        intent.setClass(MainActivity.this, WebDetailActivity.class);
-                        startActivity(intent);
-                    }
-                    //Send post to server
-                    String courseId = MainActivity.this.mListAdapter.getIdByPosition(position);
-                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), courseId, 3);
-                    new Thread(networkTask).start();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                //Send event to Google Analytics
-                mTracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Mainpage")
-                        .setAction("Click the ocw item")
-                        .setLabel(mListAdapter.getIdByPosition(position))
-                        .setValue(1)
-                        .build());
-            }
-        });
-    }
-
-    public void parseYixiCourseStep1(String videoUrl) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, videoUrl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if (response.contains("vid")) {
-                            Pattern pattern = Pattern.compile("(?<=vid: \').*(?=\')");
-                            Matcher matcher = pattern.matcher(response);
-                            if (matcher.find()) {
-                                parseYixiCourseStep2(matcher.group(0));
-                                //Log.e("Get regex", matcher.group(0));
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Get error", error.toString());
-            }
-        });
-        queue.add(stringRequest);
-    }
-
-    public void parseYixiCourseStep2(String token) {
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://api.yixi.tv/youku.php?id=" + token;
-        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONObject("files").getJSONObject("3gphd").getJSONArray("segs");
-                            JSONObject jsonObject = jsonArray.getJSONObject(0);
-                            String link = jsonObject.getString("url").replace("\\", "");
-
-                            //Show subpage with videoUrl
-                            Intent intent = new Intent();
-                            intent.putExtra("id", mListAdapter.getIdByPosition(positionYixi));
-                            intent.putExtra("title", mListAdapter.getTitleByPosition(positionYixi));
-                            intent.putExtra("videoUrl", link);
-                            intent.putExtra("description", mListAdapter.getDescriptionByPosition(positionYixi));
-                            intent.putExtra("videoImg", mListAdapter.getVideoImgByPosition(positionYixi));
-                            intent.putExtra("userid", UserProfile.getInstance().getUserId());
-                            if (UserProfile.getInstance().getNickname() != null) {
-                                intent.putExtra("nickname", UserProfile.getInstance().getNickname());
-                                intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
-                            }
-
-                            intent.setClass(MainActivity.this, DetailActivity.class);
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Error.Response", error.toString());
-            }
-        });
-        requestQueue.add(jsonRequest);
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    public void toolbarInit() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
-    }
-
-    public void searchBtnInit() {
-        Button searchBtn = (Button) findViewById(R.id.searchBtn);
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //onSearchRequested();
-                //TODO:create a new view
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    private void LoadData() {
-        // start to load
-        Toast.makeText(getApplicationContext(), "加载更多", Toast.LENGTH_SHORT).show();
-
-        textMore.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
-
-        Download_data download_data = new Download_data(MainActivity.this);
-        download_data.download_data_from_link(Url + UserProfile.getInstance().getUserId() + "/Candidates");
-        mListAdapter.addAll(courseList);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setLoading(false);
-                mListAdapter.notifyDataSetChanged();
-                textMore.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-            }
-        }, 4000);
-    }
-
-    @Override
-    public void get_data(String data) {
-        try {
-            courseList.clear();
-            JSONObject object = new JSONObject(data);
-            JSONArray data_array = object.getJSONArray("courses");
-            for (int i = 0; i < data_array.length(); i++) {
-                JSONObject obj = new JSONObject(data_array.get(i).toString());
-
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put(Constants.KEY_ID, String.valueOf(obj.getInt("item_id")));
-                map.put(Constants.KEY_TITLE, obj.getString("title"));
-                map.put(Constants.KEY_DESCRIPTION, obj.getString("description"));
-                map.put(Constants.KEY_THUMB_URL, obj.getString("piclink"));
-                map.put(Constants.KEY_VIDEOURL, obj.getString("courselink"));
-                map.put(Constants.KEY_WEBURL, obj.getString("link"));
-                map.put(Constants.KEY_DURATION, obj.getString("duration"));
-                map.put(Constants.KEY_SOURCE, obj.getString("source"));
-                map.put(Constants.KEY_INSTRUCTOR, obj.getString("instructor"));
-                map.put(Constants.KEY_LANGUAGE, obj.getString("language"));
-                map.put(Constants.KEY_SCHOOL, obj.getString("school"));
-                map.put(Constants.KEY_TAGS, obj.getString("tags"));
-                courseList.add(map);
-
-            }
-            mListAdapter.notifyDataSetChanged();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        updateNaviViewWithUserProfile();
-        return true;
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_login && !login) {
-            UserProfile.getInstance().WXLogin();
-            item.setChecked(false);
-            item.setCheckable(true);
-        } else if (id == R.id.nav_login && login) {
-            UserProfile.getInstance().WXLogout();
-            item.setChecked(false);
-            item.setCheckable(true);
-        } else if (id == R.id.nav_download) {
-            //Toast.makeText(getApplicationContext(), "下载管理", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent();
-            intent.setClass(this, DownloadListActivity.class);
-            startActivity(intent);
-        }
-        /*
-        else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        }
-        else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-        */
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -592,61 +155,4 @@ public class MainActivity extends FragmentActivity //AppCompatActivity
         }
     }
 
-    public void updateUserProfile() {
-        login = true;
-        CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
-        RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
-        com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
-        com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView, R.drawable.no_image, R.drawable.no_image);
-        imageLoader.get(UserProfile.getInstance().getHeadimgurl(), listener);
-
-        TextView textView = (TextView) findViewById(R.id.userName);
-        textView.setText(UserProfile.getInstance().getNickname());
-
-        Menu menu = navigationView.getMenu();
-        MenuItem menuItem = menu.findItem(R.id.nav_login);
-        if (login) {
-            menuItem.setTitle("注销");
-        }
-
-        UserProfile.getInstance().updateLocalAndRemote();
-    }
-
-    public void updateNaviViewWithUserProfile() {
-        String nickName = UserProfile.getInstance().getNickname();
-        String headImgUrl = UserProfile.getInstance().getHeadimgurl();
-        if (nickName != null && !nickName.equals("")) {
-            login = true;
-            CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
-            RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
-            com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
-            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView, R.drawable.no_image, R.drawable.no_image);
-            if (headImgUrl != null && !headImgUrl.equals("")) {
-                imageLoader.get(headImgUrl, listener);
-            }
-
-            TextView textView = (TextView) findViewById(R.id.userName);
-            textView.setText(nickName);
-
-            Menu menu = navigationView.getMenu();
-            MenuItem menuItem = menu.findItem(R.id.nav_login);
-            if (login) {
-                menuItem.setTitle("注销");
-            }
-        } else {
-            login = false;
-            CircularImage imageView = (CircularImage) findViewById(R.id.userHeadImage);
-            imageView.setImageResource(R.drawable.ic_account_circle_black_48dp);
-            TextView textView = (TextView) findViewById(R.id.userName);
-            textView.setText("未登录");
-
-            if (null != navigationView) {
-                Menu menu = navigationView.getMenu();
-                MenuItem menuItem = menu.findItem(R.id.nav_login);
-                if (!login) {
-                    menuItem.setTitle("登录");
-                }
-            }
-        }
-    }
 }

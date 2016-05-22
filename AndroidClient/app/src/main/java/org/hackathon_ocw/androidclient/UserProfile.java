@@ -347,7 +347,7 @@ public class UserProfile {
         //clear userprofile.json
         UserProfile.getInstance().clearProfile();
 
-        MainActivity.Self.updateNaviViewWithUserProfile();
+        //MainActivity.Self.updateNaviViewWithUserProfile();
 
         //Update local user profile
         JSONObject jsonObject = new JSONObject();
@@ -388,7 +388,7 @@ public class UserProfile {
                             UserProfile.getInstance().setProvince((String) response.get("province"));
                             UserProfile.getInstance().setCountry((String) response.get("country"));
                             UserProfile.getInstance().setHeadimgurl((String) response.get("headimgurl"));
-                            MainActivity.Self.updateUserProfile();
+                            //MainActivity.Self.updateUserProfile();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

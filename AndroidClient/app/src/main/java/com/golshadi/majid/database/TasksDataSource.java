@@ -84,9 +84,9 @@ public class TasksDataSource {
                 completedTasks.add(task);
                 cr.moveToNext();
             }
-        }
 
-        cr.close();
+            cr.close();
+        }
 
         return completedTasks;
     }

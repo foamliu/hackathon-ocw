@@ -36,7 +36,6 @@ public class SearchActivity extends AppCompatActivity {
     static final String Url = "http://api.jieko.cc/items/search/";
     static final String UrlbyTags = "http://jieko.cc/user/";
 
-    private EditText editText;
     private TagGroup tagGroup;
 
     public final ArrayList<String> tagsList = new ArrayList<>();
@@ -53,8 +52,8 @@ public class SearchActivity extends AppCompatActivity {
         tagGroup = (TagGroup)findViewById(R.id.tagGroup);
         editSearchInit();
         searchTagsInit();
-        searchTagsListener();
-        addListenerOnSearchButton();
+        //searchTagsListener();
+        //addListenerOnSearchButton();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -80,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void editSearchInit(){
-        editText = (EditText)findViewById(R.id.editSearch);
+        EditText editText = (EditText) findViewById(R.id.editSearch);
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
@@ -117,15 +116,15 @@ public class SearchActivity extends AppCompatActivity {
         requestQueue.add(jsonRequest);
     }
 
-    public void searchTagsListener(){
-        tagGroup.setOnTagClickListener(new TagGroup.OnTagClickListener() {
-            @Override
-            public void onTagClick(String tag) {
-                editText.setText(tag);
-                searchByTags(tag);
-            }
-        });
-    }
+//    public void searchTagsListener(){
+//        tagGroup.setOnTagClickListener(new TagGroup.OnTagClickListener() {
+//            @Override
+//            public void onTagClick(String tag) {
+//                editText.setText(tag);
+//                searchByTags(tag);
+//            }
+//        });
+//    }
 
     public void addListenerOnBackButton() {
         Button cancelBtn = (Button) findViewById(R.id.cancelBtn);
@@ -136,39 +135,39 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    public void addListenerOnSearchButton(){
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                    search(editText.getText().toString());
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
+//    public void addListenerOnSearchButton(){
+//        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+//                    search(editText.getText().toString());
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+//    }
 
-    public void search(String query){
-        final Download_data download_data = new Download_data(MainActivity.Self);
-        try{
-            String strUTF8 = URLEncoder.encode(query, "UTF-8");
-            download_data.download_data_from_link(Url + strUTF8);
-            finish();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void searchByTags(String query){
-        String Urlbytags = UrlbyTags + UserProfile.getInstance().getUserId() + "/Candidates/tag/";
-        final Download_data download_data = new Download_data(MainActivity.Self);
-        try{
-            String strUTF8 = URLEncoder.encode(query, "UTF-8");
-            download_data.download_data_from_link(Urlbytags + strUTF8);
-            finish();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    public void search(String query){
+//        final Download_data download_data = new Download_data(MainActivity.Self);
+//        try{
+//            String strUTF8 = URLEncoder.encode(query, "UTF-8");
+//            download_data.download_data_from_link(Url + strUTF8);
+//            finish();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void searchByTags(String query){
+//        String Urlbytags = UrlbyTags + UserProfile.getInstance().getUserId() + "/Candidates/tag/";
+//        final Download_data download_data = new Download_data(MainActivity.Self);
+//        try{
+//            String strUTF8 = URLEncoder.encode(query, "UTF-8");
+//            download_data.download_data_from_link(Urlbytags + strUTF8);
+//            finish();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -26,18 +26,15 @@ import java.util.TimerTask;
 
 public class DownloadListActivity extends AppCompatActivity implements DownloadManagerListener {
     private DownloadManagerPro downloadManager;
-    private ListView downloadList;
     private DownloadListAdapter downloadListAdapter;
-    private Tracker mTracker;
     private final static String TAG = "DownloadListActivity";
-    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         CustomApplication application = (CustomApplication) getApplication();
-        mTracker = application.getDefaultTracker();
+        Tracker mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -46,7 +43,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         detailToolBarInit();
         downloadManagerInit();
 
-        downloadList = (ListView) findViewById(R.id.download_list);
+        ListView downloadList = (ListView) findViewById(R.id.download_list);
         downloadListAdapter = new DownloadListAdapter(this, downloadManager);
         downloadList.setAdapter(downloadListAdapter);
 
@@ -54,7 +51,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     }
 
     void setTimerForDownloadProgress() {
-        timer = new Timer();
+        Timer timer = new Timer();
         TimerTask updateProfile = new CustomTimerTask();
         timer.scheduleAtFixedRate(updateProfile, 1000, 1000);
     }
@@ -101,12 +98,9 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
             item.put(Constants.KEY_THUMB_URL, thumbUrl);
 
             if (!downloadListAdapter.contains(item)) {
-                StringBuilder sb = new StringBuilder();
-                sb.append("开始下载：\"");
-                sb.append(title);
-                sb.append("\"");
+                String sb = "开始下载：\"" + title + "\"";
 
-                Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, sb, Toast.LENGTH_LONG).show();
 
                 int taskId = downloadManager.addTask(courseId, videoUrl, true, false);
                 try {

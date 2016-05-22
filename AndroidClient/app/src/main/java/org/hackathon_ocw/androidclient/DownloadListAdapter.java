@@ -74,7 +74,7 @@ public class DownloadListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View vi = null;
+        View vi;
         if (convertView != null)
             vi = convertView;
         else {
@@ -103,7 +103,7 @@ public class DownloadListAdapter extends BaseAdapter {
 
         title.setText(strTitle);
         progress.setText(String.format("%.2f", percent) + "%");
-        fileSize.setText(String.format("%.1f", 1.0*lFileSize/1024/1024) + "M");
+        fileSize.setText(String.format("%.1f", 1.0 * lFileSize / 1024 / 1024) + "M");
 
         ImageButton playButton = (ImageButton) vi.findViewById(R.id.btn_play);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +125,7 @@ public class DownloadListAdapter extends BaseAdapter {
                 appContext.startActivity(intent);
             }
         });
-        if (state == TaskStates.END)
-        {
+        if (state == TaskStates.END) {
             playButton.setEnabled(true);
         } else {
             playButton.setEnabled(false);
@@ -157,33 +156,31 @@ public class DownloadListAdapter extends BaseAdapter {
             if (file.exists()) {
                 InputStream inputStream = new FileInputStream(file);
 
-                if (inputStream != null) {
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    String receiveString;
-                    StringBuilder stringBuilder = new StringBuilder();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString;
+                StringBuilder stringBuilder = new StringBuilder();
 
-                    while ((receiveString = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(receiveString);
-                    }
-                    inputStream.close();
-                    String str = stringBuilder.toString();
+                while ((receiveString = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                String str = stringBuilder.toString();
 
-                    JSONArray list = new JSONArray(str);
-                    for (int i = 0; i < list.length(); i++) {
-                        JSONObject jObject = list.getJSONObject(i);
-                        Iterator<?> keys = jObject.keys();
+                JSONArray list = new JSONArray(str);
+                for (int i = 0; i < list.length(); i++) {
+                    JSONObject jObject = list.getJSONObject(i);
+                    Iterator<?> keys = jObject.keys();
 
-                        HashMap<String, String> item = new HashMap<>();
+                    HashMap<String, String> item = new HashMap<>();
 
-                        while (keys.hasNext()) {
-                            String key = (String) keys.next();
-                            if (jObject.get(key) instanceof String) {
-                                item.put(key, (String) jObject.get(key));
-                            }
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        if (jObject.get(key) instanceof String) {
+                            item.put(key, (String) jObject.get(key));
                         }
-                        dataList.add(item);
                     }
+                    dataList.add(item);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -217,7 +214,7 @@ public class DownloadListAdapter extends BaseAdapter {
                 JSONObject jsonObject = new JSONObject();
                 for (Object o : item.entrySet()) {
                     Map.Entry pair = (Map.Entry) o;
-                    jsonObject.put((String) pair.getKey(), (String) pair.getValue());
+                    jsonObject.put((String) pair.getKey(), pair.getValue());
                 }
                 list.put(index, jsonObject);
                 index += 1;
@@ -257,20 +254,19 @@ public class DownloadListAdapter extends BaseAdapter {
             ReportStructure report = downloadManager.singleDownloadStatus(taskId);
             JSONObject result = report.toJsonObject();
             try {
-                int state = (int)result.get("state");
-                boolean resumable = (boolean)result.get("resumable");
-                long fileSize = (long)result.get("fileSize");
+                int state = (int) result.get("state");
+                boolean resumable = (boolean) result.get("resumable");
+                long fileSize = (long) result.get("fileSize");
 
                 item.put("state", String.valueOf(state));
                 item.put("fileSize", String.valueOf(fileSize));
 
                 if (state == TaskStates.INIT || state == TaskStates.READY) {
                     item.put("percent", "0.00");
-                }
-                else if (state == TaskStates.DOWNLOADING || state == TaskStates.PAUSED) {
+                } else if (state == TaskStates.DOWNLOADING || state == TaskStates.PAUSED) {
                     double percent = (double) result.get("percent");
                     item.put("percent", String.valueOf(percent));
-                } else if (state == TaskStates.DOWNLOAD_FINISHED || state == TaskStates.END){
+                } else if (state == TaskStates.DOWNLOAD_FINISHED || state == TaskStates.END) {
                     item.put("percent", "100.00");
                 }
 
