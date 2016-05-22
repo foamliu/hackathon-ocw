@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,7 +35,6 @@ public class MainActivity extends FragmentActivity {
 
     private String access_token;
     private String openid;
-    private boolean login = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +44,20 @@ public class MainActivity extends FragmentActivity {
         CategoryTabStrip tabs = (CategoryTabStrip) findViewById(R.id.category_strip);
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
+        ImageView topHead = (ImageView) findViewById(R.id.top_head);
 
         pager.setAdapter(adapter);
-
         tabs.setViewPager(pager);
+        topHead.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!UserProfile.getInstance().isLogin()) {
+                    UserProfile.getInstance().WXLogin();
+                }
+            }
+        });
 
         if (checkNetworkStatus()) {
-            UserProfile.init(getApplicationContext());
+            UserProfile.init(this);
         }
     }
 

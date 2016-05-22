@@ -10,7 +10,7 @@
             android:paddingRight="10.0dip"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent">
-            <ImageView android:layout_gravity="center_vertical"
+            <org.hackathon_ocw.androidclient.CircularImage android:layout_gravity="center_vertical"
                 android:id="@+id/top_head"
                 android:contentDescription="@string/app_name"
                 android:background="@drawable/bg_head"

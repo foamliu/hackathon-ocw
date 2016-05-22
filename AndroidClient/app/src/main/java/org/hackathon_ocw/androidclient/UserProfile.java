@@ -1,8 +1,10 @@
 package org.hackathon_ocw.androidclient;
 
+import android.app.Activity;
 import android.content.Context;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -51,11 +53,15 @@ public class UserProfile {
     private String country;
     private String headimgurl;
 
-    private Context appContext;
+    private boolean login = false;
 
-    public static void init(Context context) {
+    private Context appContext;
+    private Activity activity;
+
+    public static void init(Activity activity) {
         instance = new UserProfile();
-        instance.appContext = context;
+        instance.activity = activity;
+        instance.appContext = activity.getApplicationContext();
         instance.getUserProfileFromFile();
     }
 
@@ -138,6 +144,14 @@ public class UserProfile {
 
     public void setHeadimgurl(String headimgurl) {
         this.headimgurl = headimgurl;
+    }
+
+    public boolean isLogin() {
+        return login;
+    }
+
+    public void setLogin(boolean login) {
+        this.login = login;
     }
 
     public void clearProfile() {
@@ -258,9 +272,80 @@ public class UserProfile {
         }
     }
 
+    public void WXLogin() {
+        IWXAPI WXapi = WXAPIFactory.createWXAPI(appContext, Constants.APP_ID, true);
+        if (!WXapi.isWXAppInstalled()) {
+            Toast.makeText(appContext, "请先安装微信", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        WXapi.registerApp(Constants.APP_ID);
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "hackathon_ocw";
+        boolean res = WXapi.sendReq(req);
+    }
 
-    public void updateLocalAndRemote() {
-        //Update local user profile
+    public void WXGetUserInfo(String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(appContext);
+        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            login = true;
+                            UserProfile.getInstance().setOpenid((String) response.get("openid"));
+                            UserProfile.getInstance().setNickname((String) response.get("nickname"));
+                            UserProfile.getInstance().setSex((Integer) response.get("sex"));
+                            UserProfile.getInstance().setCity((String) response.get("city"));
+                            UserProfile.getInstance().setProvince((String) response.get("province"));
+                            UserProfile.getInstance().setCountry((String) response.get("country"));
+                            UserProfile.getInstance().setHeadimgurl((String) response.get("headimgurl"));
+
+                            UserProfile.this.updateImage();
+                            JSONObject jsonObject = UserProfile.this.getJSONObject();
+                            UserProfile.this.updateLocal(jsonObject);
+                            UserProfile.this.updateRemote(jsonObject);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+            }
+        }) {
+
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(
+                    NetworkResponse arg0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(new String(
+                            arg0.data, "UTF-8"));
+                    return Response.success(jsonObject,
+                            HttpHeaderParser.parseCacheHeaders(arg0));
+                } catch (UnsupportedEncodingException e) {
+                    return Response.error(new ParseError(e));
+                } catch (Exception je) {
+                    return Response.error(new ParseError(je));
+                }
+            }
+
+        };
+
+        requestQueue.add(jsonRequest);
+    }
+
+    public void updateImage() {
+        login = true;
+        ImageView imageView = (ImageView) activity.findViewById(R.id.top_head);
+        RequestQueue mQueue = Volley.newRequestQueue(activity.getApplicationContext());
+        com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
+        com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView, R.drawable.no_image, R.drawable.no_image);
+        imageLoader.get(UserProfile.getInstance().getHeadimgurl(), listener);
+    }
+
+    private JSONObject getJSONObject() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("userid", this.userId);
@@ -279,7 +364,11 @@ public class UserProfile {
             Log.e("Json Error", e.toString());
         }
 
+        return jsonObject;
+    }
 
+    public void updateLocal(JSONObject jsonObject) {
+        //Update local user profile
         //Write to local file
         String fileName = "userProfile.json";
         File userProfileFile = new File(appContext.getFilesDir(), fileName);
@@ -291,7 +380,9 @@ public class UserProfile {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void updateRemote(JSONObject jsonObject) {
         //Send PATCH to server
         RequestQueue requestQueue = Volley.newRequestQueue(appContext);
         jsonObject.remove("userid");
@@ -327,96 +418,6 @@ public class UserProfile {
                 return headers;
             }
         };
-        requestQueue.add(jsonRequest);
-    }
-
-    public void WXLogin() {
-        IWXAPI WXapi = WXAPIFactory.createWXAPI(appContext, Constants.APP_ID, true);
-        if (!WXapi.isWXAppInstalled()) {
-            Toast.makeText(appContext, "请先安装微信", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        WXapi.registerApp(Constants.APP_ID);
-        SendAuth.Req req = new SendAuth.Req();
-        req.scope = "snsapi_userinfo";
-        req.state = "hackathon_ocw";
-        boolean res = WXapi.sendReq(req);
-    }
-
-    public void WXLogout() {
-        //clear userprofile.json
-        UserProfile.getInstance().clearProfile();
-
-        //MainActivity.Self.updateNaviViewWithUserProfile();
-
-        //Update local user profile
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("userid", this.userId);
-            if (UserProfile.getInstance().getDeviceId() == null) {
-                UserProfile.getInstance().setDeviceId(Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.ANDROID_ID));
-            }
-            jsonObject.put("deviceid", UserProfile.getInstance().getDeviceId());
-        } catch (Exception e) {
-            Log.e("Json Error", e.toString());
-        }
-
-        //Write to local file
-        String fileName = "userProfile.json";
-        File userProfileFile = new File(appContext.getFilesDir(), fileName);
-        try {
-            FileWriter fw = new FileWriter(userProfileFile);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(jsonObject.toString());
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void WXGetUserInfo(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(appContext);
-        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            UserProfile.getInstance().setOpenid((String) response.get("openid"));
-                            UserProfile.getInstance().setNickname((String) response.get("nickname"));
-                            UserProfile.getInstance().setSex((Integer) response.get("sex"));
-                            UserProfile.getInstance().setCity((String) response.get("city"));
-                            UserProfile.getInstance().setProvince((String) response.get("province"));
-                            UserProfile.getInstance().setCountry((String) response.get("country"));
-                            UserProfile.getInstance().setHeadimgurl((String) response.get("headimgurl"));
-                            //MainActivity.Self.updateUserProfile();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", error.getMessage(), error);
-            }
-        }) {
-
-            @Override
-            protected Response<JSONObject> parseNetworkResponse(
-                    NetworkResponse arg0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(new String(
-                            arg0.data, "UTF-8"));
-                    return Response.success(jsonObject,
-                            HttpHeaderParser.parseCacheHeaders(arg0));
-                } catch (UnsupportedEncodingException e) {
-                    return Response.error(new ParseError(e));
-                } catch (Exception je) {
-                    return Response.error(new ParseError(je));
-                }
-            }
-
-        };
-
         requestQueue.add(jsonRequest);
     }
 }

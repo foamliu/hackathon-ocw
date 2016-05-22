@@ -28,6 +28,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     private DownloadManagerPro downloadManager;
     private DownloadListAdapter downloadListAdapter;
     private final static String TAG = "DownloadListActivity";
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     }
 
     void setTimerForDownloadProgress() {
-        Timer timer = new Timer();
+        timer = new Timer();
         TimerTask updateProfile = new CustomTimerTask();
         timer.scheduleAtFixedRate(updateProfile, 1000, 1000);
     }
