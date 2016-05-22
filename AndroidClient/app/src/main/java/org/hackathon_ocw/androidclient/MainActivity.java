@@ -9,10 +9,15 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -48,11 +53,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends FragmentActivity //AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, download_complete {
 
     private final static String Url = "http://api.jieko.cc/user/";
@@ -79,29 +85,87 @@ public class MainActivity extends AppCompatActivity
     public final ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
     public static MainActivity Self;
 
+    private CategoryTabStrip tabs;
+    private ViewPager pager;
+    private MyPagerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//
+//        if (checkNetworkStatus()) {
+//            UserProfile.init(getApplicationContext());
+//
+//            // Obtain the shared Tracker instance.
+//            CustomApplication application = (CustomApplication) getApplication();
+//            mTracker = application.getDefaultTracker();
+//
+//            TextView titleMainToolBar = (TextView) findViewById(R.id.titleMainToolBar);
+//            titleMainToolBar.setText("学啥");
+//
+//            toolbarInit();
+//            searchBtnInit();
+//            listViewInit();
+//            drawerInit();
+//            naviViewInit();
+//        }
+//
+//        MainActivity.Self = this;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (checkNetworkStatus()) {
-            UserProfile.init(getApplicationContext());
+        tabs = (CategoryTabStrip) findViewById(R.id.category_strip);
+        pager = (ViewPager) findViewById(R.id.view_pager);
+        adapter = new MyPagerAdapter(getSupportFragmentManager());
 
-            // Obtain the shared Tracker instance.
-            CustomApplication application = (CustomApplication) getApplication();
-            mTracker = application.getDefaultTracker();
+        pager.setAdapter(adapter);
 
-            TextView titleMainToolBar = (TextView) findViewById(R.id.titleMainToolBar);
-            titleMainToolBar.setText("学啥");
+        tabs.setViewPager(pager);
+    }
 
-            toolbarInit();
-            searchBtnInit();
-            listViewInit();
-            drawerInit();
-            naviViewInit();
+
+    public class MyPagerAdapter extends FragmentPagerAdapter {
+
+        private final List<String> catalogs = new ArrayList<String>();
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+            catalogs.add("推荐");
+            catalogs.add("TED");
+            catalogs.add("互联网");
+            catalogs.add("数学");
+            catalogs.add("生物");
+            catalogs.add("物理");
+            catalogs.add("化学");
+            catalogs.add("心理");
+            catalogs.add("InfoQ");
+            catalogs.add("电子");
+            catalogs.add("历史");
+            catalogs.add("社会");
+            catalogs.add("计算机");
+            catalogs.add("纪录片");
+            catalogs.add("环境");
+            catalogs.add("哲学");
+            catalogs.add("技能");
         }
 
-        MainActivity.Self = this;
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return catalogs.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return catalogs.size();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return NewsFragment.newInstance(position);
+        }
+
     }
 
     public boolean checkNetworkStatus() {
@@ -144,16 +208,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void naviViewInit() {
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
     }
 
     public void drawerInit() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
     }
 
     public void listViewInit() {
@@ -344,8 +408,8 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("ConstantConditions")
     public void toolbarInit() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);

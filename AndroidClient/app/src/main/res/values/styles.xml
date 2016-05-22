@@ -43,5 +43,10 @@
         <item name="atg_horizontalPadding">12dp</item>
         <item name="atg_verticalPadding">3dp</item>
     </style>
-
+    
+    <style name="main_title_bar_style">
+        <item name="android:background">@drawable/bg_titlebar_main</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/title_bar_height</item>
+    </style>
 </resources>
