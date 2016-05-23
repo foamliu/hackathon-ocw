@@ -156,4 +156,13 @@ public class StorageUtils {
             }
         }
     }
+
+    public static void delete(long itemId)
+    {
+        File f = new File(FILE_ROOT, itemId + ".mp4");
+        if (f.exists()) {
+            f.delete();
+        }
+
+    }
 }

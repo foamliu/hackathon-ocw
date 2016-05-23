@@ -89,6 +89,7 @@ public class DownloadListAdapter extends BaseAdapter {
 
         HashMap<String, String> item = dataList.get(position);
         final String strItemId = item.get(Constants.KEY_ID);
+        final long itemId = Long.parseLong(strItemId);
         String strTemp = item.get(Constants.KEY_TITLE);
         if (strTemp.length() > 20)
             strTemp = strTemp.substring(0, 20) + "..";
@@ -147,7 +148,8 @@ public class DownloadListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 downloadManager.pauseDownload(taskId);
                 downloadManager.delete(taskId, true);
-                delete(Long.parseLong(strItemId));
+                StorageUtils.delete(itemId);
+                delete(itemId);
                 notifyDataSetChanged();
                 writeToDisk();
             }
