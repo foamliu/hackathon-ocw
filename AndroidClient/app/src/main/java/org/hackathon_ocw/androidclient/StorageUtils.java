@@ -142,4 +142,18 @@ public class StorageUtils {
             );
         }
     }
+
+    public static void clean()
+    {
+        String regex = "\\d+";
+        File f = new File(FILE_ROOT);
+        File files[] = f.listFiles();
+        for (File file : files)
+        {
+            if (file.getName().matches(regex))
+            {
+                file.delete();
+            }
+        }
+    }
 }

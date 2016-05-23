@@ -1,52 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="60dip"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp">
+
+        <ImageView
+            android:id="@+id/pic_link"
+            android:layout_width="120dip"
+            android:layout_height="80dip" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:textColor="@color/black"
-        android:text="测试课程"/>
-
-    <TextView
-        android:id="@+id/fileSize"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:textColor="@color/black"
-        android:text="20MB"/>
-
-    <TextView
-        android:id="@+id/progress"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:textColor="@color/black"
-        android:text="75.00%"/>
-
-    <ImageButton
-        android:id="@+id/btn_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="播放"
-        android:src="@drawable/ic_play_black_64dp"
-        android:background="@color/white"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
-    <ImageButton
-        android:id="@+id/btn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="删除"
-        android:src="@drawable/ic_delete_black_64dp"
-        android:background="@color/white"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/fileSize"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingLeft="5dp"
+            android:textColor="@color/grey"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/progress"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingLeft="5dp"
+            android:text="75.00%"
+            android:textColor="@color/grey"
+            android:textSize="12sp"/>
+
+        <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="right"
+            android:paddingLeft="10dp"
+            android:src="@drawable/ic_play_48dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="right"
+            android:paddingLeft="10dp"
+            android:src="@drawable/ic_delete_48dp"/>
+
+    </LinearLayout>
+</RelativeLayout>

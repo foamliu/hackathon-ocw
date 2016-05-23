@@ -3,12 +3,15 @@ package org.hackathon_ocw.androidclient;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,16 +46,19 @@ public class DownloadListAdapter extends BaseAdapter {
     private final Context appContext;
     private ArrayList<HashMap<String, String>> dataList;
     private DownloadManagerPro downloadManager;
+    public final ImageLoader imageLoader;
 
     public DownloadListAdapter(Activity activity, DownloadManagerPro dm) {
         this.appContext = activity.getApplicationContext();
         this.dataList = new ArrayList<>();
         this.downloadManager = dm;
+        imageLoader = new ImageLoader(activity.getApplicationContext());
 
         init();
     }
 
     private void init() {
+        StorageUtils.clean();
         this.loadData();
     }
 
@@ -97,10 +103,12 @@ public class DownloadListAdapter extends BaseAdapter {
         int state = Integer.parseInt(item.get("state"));
         long lFileSize = Long.parseLong(item.get("fileSize"));
 
+        ImageView thumbImage = (ImageView) vi.findViewById(R.id.pic_link);
         TextView title = (TextView) vi.findViewById(R.id.title);
         TextView progress = (TextView) vi.findViewById(R.id.progress);
         TextView fileSize = (TextView) vi.findViewById(R.id.fileSize);
 
+        imageLoader.DisplayImage(thumbUrl, thumbImage);
         title.setText(strTitle);
         progress.setText(String.format("%.2f", percent) + "%");
         fileSize.setText(String.format("%.1f", 1.0 * lFileSize / 1024 / 1024) + "M");
@@ -127,23 +135,40 @@ public class DownloadListAdapter extends BaseAdapter {
         });
         if (state == TaskStates.END) {
             playButton.setEnabled(true);
+            setUnlocked(playButton);
         } else {
+            setLocked(playButton);
             playButton.setEnabled(false);
         }
-
 
         ImageButton deleteButton = (ImageButton) vi.findViewById(R.id.btn_delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadListAdapter.this.delete(Long.parseLong(strItemId));
-                DownloadListAdapter.this.downloadManager.delete(taskId, true);
-                DownloadListAdapter.this.notifyDataSetChanged();
-                DownloadListAdapter.this.writeToDisk();
+                downloadManager.pauseDownload(taskId);
+                downloadManager.delete(taskId, true);
+                delete(Long.parseLong(strItemId));
+                notifyDataSetChanged();
+                writeToDisk();
             }
         });
 
         return vi;
+    }
+
+    public static void  setLocked(ImageView v)
+    {
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);  //0 means grayscale
+        ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
+        v.setColorFilter(cf);
+        v.setAlpha(128);   // 128 = 0.5
+    }
+
+    public static void  setUnlocked(ImageView v)
+    {
+        v.setColorFilter(null);
+        v.setAlpha(255);
     }
 
     public void loadData() {

@@ -3,6 +3,9 @@ package org.hackathon_ocw.androidclient;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -150,5 +153,4 @@ public class ListAdapter extends BaseAdapter {
 
         return vi;
     }
-
 }
