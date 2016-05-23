@@ -149,7 +149,7 @@ public class SearchActivity extends AppCompatActivity {
 //    }
 
 //    public void search(String query){
-//        final Download_data download_data = new Download_data(MainActivity.Self);
+//        final Downloader download_data = new Downloader(MainActivity.Self);
 //        try{
 //            String strUTF8 = URLEncoder.encode(query, "UTF-8");
 //            download_data.download_data_from_link(Url + strUTF8);
@@ -161,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
 //
 //    public void searchByTags(String query){
 //        String Urlbytags = UrlbyTags + UserProfile.getInstance().getUserId() + "/Candidates/tag/";
-//        final Download_data download_data = new Download_data(MainActivity.Self);
+//        final Downloader download_data = new Downloader(MainActivity.Self);
 //        try{
 //            String strUTF8 = URLEncoder.encode(query, "UTF-8");
 //            download_data.download_data_from_link(Urlbytags + strUTF8);

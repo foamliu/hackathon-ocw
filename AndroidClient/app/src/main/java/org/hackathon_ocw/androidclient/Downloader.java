@@ -12,7 +12,7 @@ import android.os.Message;
 /**
  * Created by dianyang on 2016/2/28.
  */
-public class Download_data implements Runnable  {
+public class Downloader implements Runnable  {
 
     private final download_complete caller;
 
@@ -21,7 +21,7 @@ public class Download_data implements Runnable  {
         void get_data(String data);
     }
 
-    Download_data(download_complete caller) {
+    Downloader(download_complete caller) {
         this.caller = caller;
     }
 

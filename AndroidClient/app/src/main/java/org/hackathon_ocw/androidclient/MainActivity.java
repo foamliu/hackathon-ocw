@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         ImageView topHead = (ImageView) findViewById(R.id.top_head);
+        ImageView btnDownload = (ImageView) findViewById(R.id.icon_download);
 
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
@@ -53,6 +54,13 @@ public class MainActivity extends FragmentActivity {
                 if (!UserProfile.getInstance().isLogin()) {
                     UserProfile.getInstance().WXLogin();
                 }
+            }
+        });
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, DownloadListActivity.class);
+                startActivity(intent);
             }
         });
 

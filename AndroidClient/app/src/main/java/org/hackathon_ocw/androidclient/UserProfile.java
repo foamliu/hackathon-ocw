@@ -62,7 +62,8 @@ public class UserProfile {
         instance = new UserProfile();
         instance.activity = activity;
         instance.appContext = activity.getApplicationContext();
-        instance.getUserProfileFromFile();
+        instance.getLocal();
+        instance.setImage();
     }
 
     public static UserProfile getInstance() {
@@ -162,7 +163,7 @@ public class UserProfile {
         this.headimgurl = "";
     }
 
-    public void getUserProfileFromFile() {
+    public void getLocal() {
         String str;
         //Read from local user profile
         try {
@@ -180,7 +181,7 @@ public class UserProfile {
             inputStream.close();
             str = stringBuilder.toString();
             if (!str.contains("userid")) {
-                retrieveUserId();
+                getRemote();
                 return;
             }
             //Parse
@@ -200,14 +201,14 @@ public class UserProfile {
             }
 
         } catch (FileNotFoundException e) {
-            retrieveUserId();
+            getRemote();
             Log.e(TAG, "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e(TAG, "Can not read file: " + e.toString());
         }
     }
 
-    public void retrieveUserId() {
+    public void getRemote() {
         String url = "http://jieko.cc/user";
         String android_id = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.ANDROID_ID);
         UserProfile.getInstance().setDeviceId(android_id);
@@ -301,10 +302,10 @@ public class UserProfile {
                             UserProfile.getInstance().setCountry((String) response.get("country"));
                             UserProfile.getInstance().setHeadimgurl((String) response.get("headimgurl"));
 
-                            UserProfile.this.updateImage();
+                            UserProfile.this.setImage();
                             JSONObject jsonObject = UserProfile.this.getJSONObject();
-                            UserProfile.this.updateLocal(jsonObject);
-                            UserProfile.this.updateRemote(jsonObject);
+                            UserProfile.this.setLocal(jsonObject);
+                            UserProfile.this.setRemote(jsonObject);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -336,13 +337,15 @@ public class UserProfile {
         requestQueue.add(jsonRequest);
     }
 
-    public void updateImage() {
-        login = true;
-        ImageView imageView = (ImageView) activity.findViewById(R.id.top_head);
-        RequestQueue mQueue = Volley.newRequestQueue(activity.getApplicationContext());
-        com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
-        com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView, R.drawable.no_image, R.drawable.no_image);
-        imageLoader.get(UserProfile.getInstance().getHeadimgurl(), listener);
+    public void setImage() {
+        if (UserProfile.getInstance().getHeadimgurl() != null) {
+            login = true;
+            ImageView imageView = (ImageView) activity.findViewById(R.id.top_head);
+            RequestQueue mQueue = Volley.newRequestQueue(activity.getApplicationContext());
+            com.android.volley.toolbox.ImageLoader imageLoader = new com.android.volley.toolbox.ImageLoader(mQueue, new BitmapCache());
+            com.android.volley.toolbox.ImageLoader.ImageListener listener = com.android.volley.toolbox.ImageLoader.getImageListener(imageView, R.drawable.no_image, R.drawable.no_image);
+            imageLoader.get(UserProfile.getInstance().getHeadimgurl(), listener);
+        }
     }
 
     private JSONObject getJSONObject() {
@@ -367,13 +370,13 @@ public class UserProfile {
         return jsonObject;
     }
 
-    public void updateLocal(JSONObject jsonObject) {
+    public void setLocal(JSONObject jsonObject) {
         //Update local user profile
         //Write to local file
-        String fileName = "userProfile.json";
-        File userProfileFile = new File(appContext.getFilesDir(), fileName);
+        String fileName = StorageUtils.FILE_ROOT + "userProfile.json";
+        File file = new File(fileName);
         try {
-            FileWriter fw = new FileWriter(userProfileFile);
+            FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(jsonObject.toString());
             bw.close();
@@ -382,7 +385,7 @@ public class UserProfile {
         }
     }
 
-    public void updateRemote(JSONObject jsonObject) {
+    public void setRemote(JSONObject jsonObject) {
         //Send PATCH to server
         RequestQueue requestQueue = Volley.newRequestQueue(appContext);
         jsonObject.remove("userid");

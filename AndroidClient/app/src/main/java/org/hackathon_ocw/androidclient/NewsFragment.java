@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NewsFragment extends Fragment
-        implements Download_data.download_complete {
+        implements Downloader.download_complete {
 
     private static final String ARG_POSITION = "position";
     private static final String BaseUrl = "http://api.jieko.cc/user/";
@@ -99,7 +98,7 @@ public class NewsFragment extends Fragment
                 Toast.makeText(getActivity(), "玩命加载中...", Toast.LENGTH_SHORT).show();
                 mListAdapter.clear();
 
-                Download_data download_data = new Download_data(NewsFragment.this);
+                Downloader download_data = new Downloader(NewsFragment.this);
                 download_data.download_data_from_link(getUrl());
                 mListAdapter.addAll(courseList);
                 new Handler().postDelayed(new Runnable() {
@@ -119,7 +118,7 @@ public class NewsFragment extends Fragment
             }
         });
 
-        final Download_data download_data = new Download_data(this);
+        final Downloader download_data = new Downloader(this);
         download_data.download_data_from_link(getUrl());
 
         mListView.setItemsCanFocus(true);
@@ -198,7 +197,7 @@ public class NewsFragment extends Fragment
         // start to load
         Toast.makeText(getActivity(), "加载更多", Toast.LENGTH_SHORT).show();
 
-        Download_data download_data = new Download_data(NewsFragment.this);
+        Downloader download_data = new Downloader(NewsFragment.this);
         download_data.download_data_from_link(getUrl());
         mListAdapter.addAll(courseList);
 

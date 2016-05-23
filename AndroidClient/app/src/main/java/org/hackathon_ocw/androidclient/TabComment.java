@@ -25,7 +25,7 @@ import java.util.HashMap;
  * Created by dianyang on 2016/3/14.
  */
 
-public class TabComment extends Fragment implements Download_data.download_complete {
+public class TabComment extends Fragment implements Downloader.download_complete {
 
     public ListView mCommentView;
     public CommentAdapter mCommentAdapter;
@@ -51,7 +51,7 @@ public class TabComment extends Fragment implements Download_data.download_compl
         Bundle b = getActivity().getIntent().getExtras();
         String courseid = b.getString("id");
 
-        final Download_data download_data = new Download_data(this);
+        final Downloader download_data = new Downloader(this);
         download_data.download_data_from_link(getCommentUrl + courseid + "/Comments");
 
         mCommentView = (ListView) inflatedView.findViewById(R.id.commentList);
