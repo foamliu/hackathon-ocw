@@ -274,16 +274,20 @@ public class UserProfile {
     }
 
     public void WXLogin() {
-        IWXAPI WXapi = WXAPIFactory.createWXAPI(appContext, Constants.APP_ID, true);
-        if (!WXapi.isWXAppInstalled()) {
-            Toast.makeText(appContext, "请先安装微信", Toast.LENGTH_SHORT).show();
-            return;
+        try {
+            IWXAPI WXapi = WXAPIFactory.createWXAPI(appContext, Constants.APP_ID, true);
+            if (!WXapi.isWXAppInstalled()) {
+                Toast.makeText(appContext, "请先安装微信", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            WXapi.registerApp(Constants.APP_ID);
+            SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = "hackathon_ocw";
+            boolean res = WXapi.sendReq(req);
         }
-        WXapi.registerApp(Constants.APP_ID);
-        SendAuth.Req req = new SendAuth.Req();
-        req.scope = "snsapi_userinfo";
-        req.state = "hackathon_ocw";
-        boolean res = WXapi.sendReq(req);
+        catch(Exception e)
+        {}
     }
 
     public void WXGetUserInfo(String url) {
