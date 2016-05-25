@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.Tracker;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends FragmentActivity {
 
+    private Tracker mTracker;
     private String access_token;
     private String openid;
 
@@ -66,6 +68,10 @@ public class MainActivity extends FragmentActivity {
 
         if (checkNetworkStatus()) {
             UserProfile.init(this);
+
+            // Obtain the shared Tracker instance.
+            CustomApplication application = (CustomApplication) getApplication();
+            mTracker = application.getDefaultTracker();
         }
     }
 

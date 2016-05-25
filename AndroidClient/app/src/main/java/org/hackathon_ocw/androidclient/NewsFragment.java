@@ -28,6 +28,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +45,9 @@ import java.util.regex.Pattern;
 public class NewsFragment extends Fragment
         implements Downloader.download_complete {
 
+    private Tracker mTracker;
     private static final String ARG_POSITION = "position";
+    private static final String TAG = "NewsFragment";
     private static final String BaseUrl = "http://api.jieko.cc/user/";
 
     private String catalog;
@@ -68,6 +72,11 @@ public class NewsFragment extends Fragment
 
         int position = getArguments().getInt(ARG_POSITION);
         this.catalog = Constants.catalogs.get(position);
+
+        CustomApplication application = (CustomApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+        mTracker.setScreenName("Catalog~" + catalog);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -114,7 +123,7 @@ public class NewsFragment extends Fragment
         mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                LoadData();
+                loadData();
             }
         });
 
@@ -173,6 +182,14 @@ public class NewsFragment extends Fragment
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                //Send event to Google Analytics
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Mainpage:" + catalog)
+                        .setAction("Click the ocw item")
+                        .setLabel(mListAdapter.getIdByPosition(position))
+                        .setValue(1)
+                        .build());
             }
         });
     }
@@ -193,7 +210,7 @@ public class NewsFragment extends Fragment
         return url;
     }
 
-    private void LoadData() {
+    private void loadData() {
         // start to load
         Toast.makeText(getActivity(), "加载更多", Toast.LENGTH_SHORT).show();
 
