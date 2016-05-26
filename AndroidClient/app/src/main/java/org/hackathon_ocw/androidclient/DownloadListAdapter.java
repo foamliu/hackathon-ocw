@@ -132,6 +132,10 @@ public class DownloadListAdapter extends BaseAdapter {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setClass(appContext, DetailActivity.class);
                 appContext.startActivity(intent);
+
+                //Send post to server
+                Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), String.valueOf(itemId), 3);
+                new Thread(networkTask).start();
             }
         });
         if (state == TaskStates.END) {

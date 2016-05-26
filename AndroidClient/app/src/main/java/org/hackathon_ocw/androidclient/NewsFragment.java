@@ -105,7 +105,7 @@ public class NewsFragment extends Fragment
             @Override
             public void onRefresh() {
                 Toast.makeText(getActivity(), "玩命加载中...", Toast.LENGTH_SHORT).show();
-                mListAdapter.clear();
+                //mListAdapter.clear();
 
                 Downloader download_data = new Downloader(NewsFragment.this);
                 download_data.download_data_from_link(getUrl());
