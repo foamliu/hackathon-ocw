@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,22 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by dianyang on 2016/2/28.
@@ -25,6 +40,7 @@ public class ListAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
     public final ImageLoader imageLoader;
     private final Context appContext;
+    private int positionYixi; //TODO
 
     public ListAdapter(Activity activity, ArrayList<HashMap<String, String>> data) {
         this.data = data;
@@ -120,6 +136,7 @@ public class ListAdapter extends BaseAdapter {
         }
         final String strThumbUrl = course.get(Constants.KEY_THUMB_URL);
         final String strVideoUrl = course.get(Constants.KEY_VIDEOURL);
+        final String strWebUrl = course.get(Constants.KEY_WEBURL);
 
         title.setText(strTitle);
         school.setText(strSchool);
@@ -127,15 +144,13 @@ public class ListAdapter extends BaseAdapter {
 
         imageLoader.DisplayImage(strThumbUrl, thumb_image);
 
-        if (strVideoUrl == null || strVideoUrl.equals("") || strVideoUrl.trim().equals("")) {
-            downloadBtn.setVisibility(View.INVISIBLE);
-        } else {
+        if (strVideoUrl != null && !strVideoUrl.trim().equals(""))
+        {
             downloadBtn.setVisibility(View.VISIBLE);
             downloadBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
-
                     //Show subpage with videoUrl
                     Intent intent = new Intent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -150,7 +165,80 @@ public class ListAdapter extends BaseAdapter {
                 }
             });
         }
+        else if (strWebUrl.contains("yixi")) {
+            downloadBtn.setVisibility(View.VISIBLE);
+            downloadBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    parseYixiCourseStep1(ListAdapter.this.getWebUrlByPosition(iPosition));
+                    positionYixi = iPosition;
+                }
+            });
+        }
+        else {
+            downloadBtn.setVisibility(View.INVISIBLE);
+        }
 
         return vi;
+    }
+
+    public void parseYixiCourseStep1(String videoUrl) {
+        RequestQueue queue = Volley.newRequestQueue(appContext);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, videoUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.contains("vid")) {
+                            Pattern pattern = Pattern.compile("(?<=vid: \').*(?=\')");
+                            Matcher matcher = pattern.matcher(response);
+                            if (matcher.find()) {
+                                parseYixiCourseStep2(matcher.group(0));
+                                //Log.e("Get regex", matcher.group(0));
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get error", error.toString());
+            }
+        });
+        queue.add(stringRequest);
+    }
+
+    public void parseYixiCourseStep2(String token) {
+        RequestQueue requestQueue = Volley.newRequestQueue(appContext);
+        String url = "http://api.yixi.tv/youku.php?id=" + token;
+        JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONObject("files").getJSONObject("3gphd").getJSONArray("segs");
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String link = jsonObject.getString("url").replace("\\", "");
+
+                            Intent intent = new Intent();
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra(Constants.KEY_ID, ListAdapter.this.getIdByPosition(positionYixi));
+                            intent.putExtra(Constants.KEY_TITLE, ListAdapter.this.getTitleByPosition(positionYixi));
+                            intent.putExtra(Constants.KEY_DESCRIPTION, ListAdapter.this.getDescriptionByPosition(positionYixi));
+                            intent.putExtra(Constants.KEY_THUMB_URL, ListAdapter.this.getVideoImgByPosition(positionYixi));
+                            intent.putExtra(Constants.KEY_VIDEOURL, link);
+
+                            intent.setClass(appContext, DownloadListActivity.class);
+                            appContext.startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+            }
+        });
+        requestQueue.add(jsonRequest);
     }
 }

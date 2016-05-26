@@ -146,8 +146,12 @@ public class DownloadListAdapter extends BaseAdapter {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                downloadManager.pauseDownload(taskId);
+                try {
+                    downloadManager.pauseDownload(taskId);
+                } catch (Exception ex){}
+                try {
                 downloadManager.delete(taskId, true);
+                } catch (Exception ex){}
                 StorageUtils.delete(itemId);
                 delete(itemId);
                 notifyDataSetChanged();
@@ -219,17 +223,6 @@ public class DownloadListAdapter extends BaseAdapter {
         } catch (JSONException e) {
             Toast.makeText(appContext, e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Can not parse json string: " + e.toString());
-        }
-    }
-
-    private void repairData() {
-        for (int i = dataList.size() - 1; i >= 0; i--) {
-            HashMap<String, String> item = dataList.get(i);
-            String courseId = item.get("id");
-            File file = new File(StorageUtils.FILE_ROOT, courseId + ".mp4");
-            if (!file.exists()) {
-                dataList.remove(i);
-            }
         }
     }
 

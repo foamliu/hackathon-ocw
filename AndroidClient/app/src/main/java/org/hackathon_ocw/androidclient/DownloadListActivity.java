@@ -103,7 +103,8 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
 
                 Toast.makeText(this, sb, Toast.LENGTH_LONG).show();
 
-                int taskId = downloadManager.addTask(courseId, videoUrl, true, false);
+                String saveName = courseId;
+                int taskId = downloadManager.addTask(saveName, videoUrl, true, false);
                 try {
                     downloadManager.startDownload(taskId);
                 } catch (IOException e) {
