@@ -16,8 +16,12 @@ import android.widget.Toast;
 
 import com.golshadi.majid.core.DownloadManagerPro;
 import com.golshadi.majid.core.enums.TaskStates;
+import com.golshadi.majid.report.ReportStructure;
 import com.golshadi.majid.report.listener.DownloadManagerListener;
 import com.google.android.gms.analytics.Tracker;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,36 +51,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         ListView downloadList = (ListView) findViewById(R.id.download_list);
         downloadListAdapter = new DownloadListAdapter(this, downloadManager);
         downloadList.setAdapter(downloadListAdapter);
-
-        setTimerForDownloadProgress();
-    }
-
-    void setTimerForDownloadProgress() {
-        timer = new Timer();
-        TimerTask updateProfile = new CustomTimerTask();
-        timer.scheduleAtFixedRate(updateProfile, 1000, 1000);
-    }
-
-    public class CustomTimerTask extends TimerTask {
-        private Handler mHandler = new Handler();
-
-        @Override
-        public void run() {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            downloadListAdapter.updateProgress();
-                            downloadListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                }
-            }).start();
-
-        }
-
     }
 
     @Override
@@ -188,8 +162,16 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     }
 
     @Override
-    public void OnDownloadStarted(long taskId) {
+    public void OnDownloadStarted(final long taskId) {
         Log.d(TAG, "OnDownloadStarted");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //stuff that updates ui
+                downloadListAdapter.OnDownloadStarted(taskId);
+                downloadListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -198,8 +180,15 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     }
 
     @Override
-    public void onDownloadProcess(long taskId, double percent, long downloadedLength) {
-        Log.d(TAG, "onDownloadProcess " + percent);
+    public void onDownloadProcess(final long taskId, final double percent, long downloadedLength) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //stuff that updates ui
+                downloadListAdapter.onDownloadProcess(taskId, percent);
+                downloadListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -218,12 +207,39 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     }
 
     @Override
-    public void OnDownloadCompleted(long taskId) {
+    public void OnDownloadCompleted(final long taskId) {
         Log.d(TAG, "OnDownloadCompleted");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //stuff that updates ui
+                downloadListAdapter.OnDownloadCompleted(taskId);
+                downloadListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void connectionLost(long taskId) {
         Log.d(TAG, "connectionLost");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            ReportStructure report = downloadManager.singleDownloadStatus((int)taskId);
+            JSONObject result = report.toJsonObject();
+            boolean resumable = (boolean) result.get("resumable");
+
+            if (resumable) {
+                downloadManager.startDownload((int)taskId);
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -152,10 +152,12 @@ public class DownloadListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 try {
                     downloadManager.pauseDownload(taskId);
-                } catch (Exception ex){}
+                } catch (Exception ex) {
+                }
                 try {
-                downloadManager.delete(taskId, true);
-                } catch (Exception ex){}
+                    downloadManager.delete(taskId, true);
+                } catch (Exception ex) {
+                }
                 StorageUtils.delete(itemId);
                 delete(itemId);
                 notifyDataSetChanged();
@@ -166,8 +168,7 @@ public class DownloadListAdapter extends BaseAdapter {
         return vi;
     }
 
-    public static void  setLocked(ImageView v)
-    {
+    public static void setLocked(ImageView v) {
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);  //0 means grayscale
         ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
@@ -175,8 +176,7 @@ public class DownloadListAdapter extends BaseAdapter {
         v.setAlpha(128);   // 128 = 0.5
     }
 
-    public static void  setUnlocked(ImageView v)
-    {
+    public static void setUnlocked(ImageView v) {
         v.setColorFilter(null);
         v.setAlpha(255);
     }
@@ -259,47 +259,8 @@ public class DownloadListAdapter extends BaseAdapter {
 
     public void addItem(HashMap<String, String> item) {
         if (!contains(item)) {
-            dataList.add(item);
+            dataList.add(0, item);
             writeToDisk();
-        }
-    }
-
-    public boolean contains(HashMap<String, String> item) {
-        for (HashMap<String, String> i : dataList) {
-            if (item.get(Constants.KEY_ID).equals(i.get(Constants.KEY_ID)))
-                return true;
-        }
-        return false;
-    }
-
-    public void updateProgress() {
-        for (HashMap<String, String> item : dataList) {
-            int taskId = Integer.parseInt(item.get("taskId"));
-            ReportStructure report = downloadManager.singleDownloadStatus(taskId);
-            JSONObject result = report.toJsonObject();
-            try {
-                int state = (int) result.get("state");
-                boolean resumable = (boolean) result.get("resumable");
-                long fileSize = (long) result.get("fileSize");
-
-                item.put("state", String.valueOf(state));
-                item.put("fileSize", String.valueOf(fileSize));
-
-                if (state == TaskStates.INIT || state == TaskStates.READY) {
-                    item.put("percent", "0.00");
-                } else if (state == TaskStates.DOWNLOADING || state == TaskStates.PAUSED) {
-                    double percent = (double) result.get("percent");
-                    item.put("percent", String.valueOf(percent));
-                } else if (state == TaskStates.DOWNLOAD_FINISHED || state == TaskStates.END) {
-                    item.put("percent", "100.00");
-                }
-
-                if (state == TaskStates.PAUSED && resumable) {
-                    downloadManager.startDownload(taskId);
-                }
-            } catch (JSONException | IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -312,4 +273,63 @@ public class DownloadListAdapter extends BaseAdapter {
             }
         }
     }
+
+    public boolean contains(HashMap<String, String> item) {
+        for (HashMap<String, String> i : dataList) {
+            if (item.get(Constants.KEY_ID).equals(i.get(Constants.KEY_ID)))
+                return true;
+        }
+        return false;
+    }
+
+    private int getPos(long taskId) {
+        int pos = -1;
+        HashMap<String, String> item = null;
+        for (int i = 0; i < dataList.size(); i++) {
+            item = dataList.get(i);
+            String strTaskId = item.get("taskId");
+            int thisTaskId = Integer.parseInt(strTaskId);
+            if (thisTaskId == taskId) {
+                pos = i;
+                break;
+            }
+        }
+        return pos;
+    }
+
+    public void OnDownloadStarted(long taskId) {
+        int pos = getPos(taskId);
+        HashMap<String, String> item = dataList.get(pos);
+
+        if (pos != -1 && item != null) {
+            ReportStructure report = downloadManager.singleDownloadStatus((int)taskId);
+            JSONObject result = report.toJsonObject();
+            try {
+                long fileSize = (long) result.get("fileSize");
+                item.put("fileSize", String.valueOf(fileSize));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void onDownloadProcess(long taskId, double percent) {
+        int pos = getPos(taskId);
+        HashMap<String, String> item = dataList.get(pos);
+
+        if (pos != -1 && item != null) {
+            item.put("percent", String.valueOf(percent));
+        }
+    }
+
+    public void OnDownloadCompleted(long taskId) {
+        int pos = getPos(taskId);
+        HashMap<String, String> item = dataList.get(pos);
+
+        if (pos != -1 && item != null) {
+            item.put("percent", String.valueOf(100.00));
+            item.put("state", String.valueOf(TaskStates.END));
+        }
+    }
+
 }
