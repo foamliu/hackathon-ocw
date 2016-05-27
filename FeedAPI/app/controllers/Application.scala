@@ -45,30 +45,26 @@ object Application {
 
     private var courses: Seq[Course] = null
     private var recommender: Recommender = null
+    private var tags: Seq[(String, Int)] = null
 
     private def getCourses(): Seq[Course] = {
 
         if (courses == null) {
-            val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
-            val json: JsValue = Json.parse(source)
-
-            courses = json.as[Seq[Course]].filter(_.enabled)
+            courses = loadCourses
         }
 
         courses
     }
+    
+    private def getTags(userID: Long): Seq[(String, Int)] = {
+        
+        if (tags == null) {
+            tags = calculateTags
+        }
 
-    private def search(keyword: String): Seq[Course] = {
-        getCourses().filter(_.title.contains(keyword)).take(howMany)
+        tags
     }
-
-    private def createNewRecommender: Recommender = {
-        val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", false, false, null)
-        var similarity: UserSimilarity = new CachingUserSimilarity(new LogLikelihoodSimilarity(model), model)
-        var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, Double.NegativeInfinity, similarity, model, 1.0)
-        new GenericBooleanPrefUserBasedRecommender(model, neighborhood, similarity)
-    }
-
+    
     private def getRecommender(): Recommender = {
 
         if (recommender == null) {
@@ -76,6 +72,40 @@ object Application {
         }
 
         recommender
+    }
+    
+    private def loadCourses(): Seq[Course] = {
+        val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
+        val json: JsValue = Json.parse(source)
+        json.as[Seq[Course]].filter(_.enabled)
+    }
+    
+    private def calculateTags(): Seq[(String, Int)] = {
+        val items: Seq[Course] = getCourses
+
+        val allTags = scala.collection.mutable.Map[String, Int]() //所有标签
+        for (item <- items) {
+            val tagList: Array[String] = item.tags.split(" ")
+            for (tag <- tagList) {
+                if (!tag.isEmpty()) {
+                    val number: Int = allTags.getOrElse(tag, 0)
+                    allTags.update(tag, number + 1)
+                }
+            }
+        }
+
+        allTags.toSeq
+    }
+    
+    private def createNewRecommender: Recommender = {
+        val model = new MongoDBDataModel(mongoHost.get, mongoPort.get, mongoDBName.get, "ratings", false, false, null)
+        var similarity: UserSimilarity = new CachingUserSimilarity(new LogLikelihoodSimilarity(model), model)
+        var neighborhood: UserNeighborhood = new NearestNUserNeighborhood(n, Double.NegativeInfinity, similarity, model, 1.0)
+        new GenericBooleanPrefUserBasedRecommender(model, neighborhood, similarity)
+    }
+
+    private def search(keyword: String): Seq[Course] = {
+        getCourses().filter(_.title.contains(keyword)).take(howMany)
     }
 
     private def recommend(userID: Long): List[Long] = {
@@ -115,50 +145,12 @@ object Application {
         if (null != getRecommender) {
             val t0 = System.nanoTime()
             recommender = createNewRecommender
+            courses = loadCourses
+            tags = calculateTags
             val t1 = System.nanoTime()
 
             Logger.debug("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
         }
-    }
-
-    // 标签列表排序：用户看过的以课程标签多到少排列，未看过的随机排列
-    private def getTags(userID: Long, itemIDs: ListBuffer[Long]): Seq[(String, Int)] = {
-        val items: Seq[Course] = getCourses
-
-        val allTags = scala.collection.mutable.Map[String, Int]() //所有标签
-        for (item <- items) {
-            val tagList: Array[String] = item.tags.split(" ")
-            for (tag <- tagList) {
-                if (!tag.isEmpty()) {
-                    val number: Int = allTags.getOrElse(tag, 0)
-                    allTags.update(tag, number + 1)
-                }
-            }
-        }
-
-        val interestedItems = items.filter(item => itemIDs.contains(item.itemID))
-        val interested = scala.collection.mutable.Map[String, Int]() //用户学过课程的标签
-        for (item <- interestedItems) {
-            val tagList: Array[String] = item.tags.split(" ")
-            for (tag <- tagList) {
-                val number: Int = interested.getOrElse(tag, 0)
-                interested.update(tag, number + 1)
-            }
-        }
-
-        val tags = scala.collection.mutable.Map[String, Int]()
-        for (tag <- allTags.keys) {
-            val number: Int = interested.getOrElse(tag, 0)
-            tags.update(tag, number)
-        }
-
-        val pairs: List[(String, Int)] = tags.toList sortBy { _._2 }
-        val resultList: ListBuffer[(String, Int)] = new ListBuffer[(String, Int)]()
-        for (tag <- pairs.reverse.map(_._1)) {
-            resultList.append((tag, allTags.getOrElse(tag, 0)))
-        }
-
-        resultList.toSeq
     }
 
     private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
@@ -222,8 +214,7 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
     }
 
     def getTags(userID: Long) = Action {
-        val itemIDs = getItemIDs(userID)
-        val tags = Application.getTags(userID, itemIDs)
+        val tags = Application.getTags(userID)
         val json: JsValue = Json.obj("tags" -> tags)
         Ok(Json.stringify(json))
     }
