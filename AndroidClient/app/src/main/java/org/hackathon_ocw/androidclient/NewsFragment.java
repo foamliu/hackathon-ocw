@@ -201,8 +201,8 @@ public class NewsFragment extends Fragment
         // start to load
         //Toast.makeText(getActivity(), "玩命加载中...", Toast.LENGTH_SHORT).show();
         courseList.clear();
-        Downloader download_data = new Downloader(NewsFragment.this);
-        download_data.download_data_from_link(getUrl());
+        Downloader downloader = new Downloader(NewsFragment.this);
+        downloader.download_data_from_link(getUrl());
     }
 
     @Override
@@ -232,7 +232,7 @@ public class NewsFragment extends Fragment
             mListAdapter.notifyDataSetChanged();
             mRefreshLayout.setLoading(false);
             mRefreshLayout.setRefreshing(false);
-            Toast.makeText(getActivity(), "推荐引擎有20条更新", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "推荐引擎有20条更新", Toast.LENGTH_SHORT).show();
 
         } catch (JSONException e) {
             e.printStackTrace();
