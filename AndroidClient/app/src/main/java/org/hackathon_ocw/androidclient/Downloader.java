@@ -18,7 +18,7 @@ public class Downloader implements Runnable  {
 
     public interface download_complete
     {
-        void get_data(String data);
+        void onDataLoaded(String data);
     }
 
     Downloader(download_complete caller) {
@@ -34,7 +34,7 @@ public class Downloader implements Runnable  {
     }
 
     public void run() {
-        //	caller.get_data(download(this.link));
+        //	caller.onDataLoaded(download(this.link));
         threadMsg(download(this.link));
 
     }
@@ -57,7 +57,7 @@ public class Downloader implements Runnable  {
 
             String Response = msg.getData().getString("message");
 
-            caller.get_data(Response);
+            caller.onDataLoaded(Response);
 
         }
     };

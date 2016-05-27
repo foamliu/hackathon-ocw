@@ -97,8 +97,13 @@ public class ListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addAll(int index, ArrayList<HashMap<String, String>> d) {
+        data.addAll(index, d);
+        notifyDataSetChanged();
+    }
+
     public void addAll(ArrayList<HashMap<String, String>> d) {
-        data = d;
+        data.addAll(d);
         notifyDataSetChanged();
     }
 

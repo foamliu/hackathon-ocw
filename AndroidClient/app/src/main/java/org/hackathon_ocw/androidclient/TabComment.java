@@ -62,7 +62,7 @@ public class TabComment extends Fragment implements Downloader.download_complete
     }
 
     @Override
-    public void get_data(String data) {
+    public void onDataLoaded(String data) {
         try {
             JSONArray data_array=new JSONArray(data);
             //JSONObject object = new JSONObject(data);

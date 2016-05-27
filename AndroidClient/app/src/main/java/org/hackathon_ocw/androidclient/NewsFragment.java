@@ -104,31 +104,18 @@ public class NewsFragment extends Fragment
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(getActivity(), "玩命加载中...", Toast.LENGTH_SHORT).show();
-                //mListAdapter.clear();
-
-                Downloader download_data = new Downloader(NewsFragment.this);
-                download_data.download_data_from_link(getUrl());
-                mListAdapter.addAll(courseList);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(), "推荐引擎有20条更新", Toast.LENGTH_SHORT).show();
-                        mRefreshLayout.setRefreshing(false);
-                    }
-                }, 4000);
+                startLoadingData();
             }
         });
 
         mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                loadData();
+                startLoadingData();
             }
         });
 
-        final Downloader download_data = new Downloader(this);
-        download_data.download_data_from_link(getUrl());
+        startLoadingData();
 
         mListView.setItemsCanFocus(true);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -210,27 +197,17 @@ public class NewsFragment extends Fragment
         return url;
     }
 
-    private void loadData() {
+    private void startLoadingData() {
         // start to load
-        Toast.makeText(getActivity(), "加载更多", Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(getActivity(), "玩命加载中...", Toast.LENGTH_SHORT).show();
+        courseList.clear();
         Downloader download_data = new Downloader(NewsFragment.this);
         download_data.download_data_from_link(getUrl());
-        mListAdapter.addAll(courseList);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setLoading(false);
-                mListAdapter.notifyDataSetChanged();
-            }
-        }, 4000);
     }
 
     @Override
-    public void get_data(String data) {
+    public void onDataLoaded(String data) {
         try {
-            courseList.clear();
             JSONObject object = new JSONObject(data);
             JSONArray data_array = object.getJSONArray("courses");
             for (int i = 0; i < data_array.length(); i++) {
@@ -250,9 +227,12 @@ public class NewsFragment extends Fragment
                 map.put(Constants.KEY_SCHOOL, obj.getString("school"));
                 map.put(Constants.KEY_TAGS, obj.getString("tags"));
                 courseList.add(map);
-
             }
+
             mListAdapter.notifyDataSetChanged();
+            mRefreshLayout.setLoading(false);
+            mRefreshLayout.setRefreshing(false);
+            Toast.makeText(getActivity(), "推荐引擎有20条更新", Toast.LENGTH_SHORT).show();
 
         } catch (JSONException e) {
             e.printStackTrace();
