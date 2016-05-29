@@ -36,7 +36,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     private DownloadManagerPro downloadManager;
     private DownloadListAdapter downloadListAdapter;
     private final static String TAG = "DownloadListActivity";
-    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +95,8 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
 
                 downloadListAdapter.addItem(item);
             }
-
         }
+
     }
 
     @Override

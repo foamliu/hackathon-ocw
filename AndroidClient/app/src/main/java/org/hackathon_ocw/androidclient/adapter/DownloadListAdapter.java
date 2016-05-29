@@ -336,6 +336,7 @@ public class DownloadListAdapter extends BaseAdapter {
         if (pos != -1 && item != null) {
             item.put("percent", String.valueOf(100.00));
             item.put("state", String.valueOf(TaskStates.END));
+            writeToDisk();
         }
     }
 
