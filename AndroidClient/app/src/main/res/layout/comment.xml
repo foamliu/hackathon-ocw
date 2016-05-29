@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:layout_centerVertical="true">
 
-        <org.hackathon_ocw.androidclient.CircularImage
+        <org.hackathon_ocw.androidclient.util.CircularImage
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/userCommentHeadImage"

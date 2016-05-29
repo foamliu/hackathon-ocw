@@ -10,7 +10,8 @@
             android:paddingRight="10.0dip"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent">
-            <org.hackathon_ocw.androidclient.CircularImage android:layout_gravity="center_vertical"
+            <org.hackathon_ocw.androidclient.util.CircularImage
+                android:layout_gravity="center_vertical"
                 android:id="@+id/top_head"
                 android:contentDescription="@string/app_name"
                 android:background="@drawable/bg_head"
@@ -75,7 +76,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true">
 
-            <org.hackathon_ocw.androidclient.CategoryTabStrip
+            <org.hackathon_ocw.androidclient.widget.CategoryTabStrip
                 android:id="@+id/category_strip"
                 android:paddingLeft="6.0dip"
                 android:paddingRight="6.0dip"

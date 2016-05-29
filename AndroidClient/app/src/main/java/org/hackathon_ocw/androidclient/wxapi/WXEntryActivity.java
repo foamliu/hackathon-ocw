@@ -11,7 +11,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import org.hackathon_ocw.androidclient.Constants;
+import org.hackathon_ocw.androidclient.util.Constants;
 
 /**
  * Created by dianyang on 2016/3/21.

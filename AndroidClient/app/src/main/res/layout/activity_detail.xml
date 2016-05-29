@@ -35,7 +35,7 @@
             android:layout_height="460dp"
             android:layout_gravity="center">
 
-            <org.hackathon_ocw.androidclient.FullscreenVideoLayout
+            <org.hackathon_ocw.androidclient.widget.FullscreenVideoLayout
                 android:id="@+id/videoView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

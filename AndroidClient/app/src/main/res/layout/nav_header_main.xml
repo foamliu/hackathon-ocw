@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <org.hackathon_ocw.androidclient.CircularImage
+    <org.hackathon_ocw.androidclient.util.CircularImage
         android:id="@+id/userHeadImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
