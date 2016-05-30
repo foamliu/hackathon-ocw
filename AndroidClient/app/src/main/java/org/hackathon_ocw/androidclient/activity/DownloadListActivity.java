@@ -1,6 +1,7 @@
 package org.hackathon_ocw.androidclient.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -96,12 +97,26 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
                 downloadListAdapter.addItem(item);
             }
         }
+        else {
+            downloadListAdapter.loadData();
+            downloadListAdapter.onResume();
+
+            final Handler h = new Handler();
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    downloadListAdapter.notifyDataSetChanged();
+                }
+            } , 1000);
+        }
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
+        downloadListAdapter.writeToDisk();
     }
 
     @SuppressWarnings("ConstantConditions")

@@ -51,15 +51,15 @@ public class DownloadListAdapter extends BaseAdapter {
 
     private final static String TAG = "DownloadListAdapter";
     private final Context appContext;
-    private ArrayList<HashMap<String, String>> dataList;
     private DownloadManagerPro downloadManager;
-    public final ImageLoader imageLoader;
+    private ArrayList<HashMap<String, String>> dataList;
+    private final ImageLoader imageLoader;
 
     public DownloadListAdapter(Activity activity, DownloadManagerPro dm) {
         this.appContext = activity.getApplicationContext();
-        this.dataList = new ArrayList<>();
         this.downloadManager = dm;
-        imageLoader = new ImageLoader(activity.getApplicationContext());
+        this.dataList = new ArrayList<>();
+        this.imageLoader = new ImageLoader(activity.getApplicationContext());
 
         init();
     }
@@ -168,7 +168,6 @@ public class DownloadListAdapter extends BaseAdapter {
                 StorageUtils.delete(itemId);
                 delete(itemId);
                 notifyDataSetChanged();
-                writeToDisk();
             }
         });
 
@@ -276,6 +275,7 @@ public class DownloadListAdapter extends BaseAdapter {
             HashMap<String, String> item = dataList.get(i);
             if (String.valueOf(itemId).equals(item.get(Constants.KEY_ID))) {
                 dataList.remove(i);
+                writeToDisk();
                 return;
             }
         }
@@ -337,6 +337,25 @@ public class DownloadListAdapter extends BaseAdapter {
             item.put("percent", String.valueOf(100.00));
             item.put("state", String.valueOf(TaskStates.END));
             writeToDisk();
+        }
+    }
+
+    public void onResume() {
+        for (HashMap<String, String> item: dataList) {
+            String strTaskId = item.get("taskId");
+            int taskId = Integer.parseInt(strTaskId);
+            ReportStructure report = downloadManager.singleDownloadStatus(taskId);
+            JSONObject result = report.toJsonObject();
+            try {
+                int state = Integer.parseInt(String.valueOf(result.get("state")));
+                boolean resumable = Boolean.parseBoolean(String.valueOf(result.get("resumable")));
+                if (state != TaskStates.END && resumable) {
+                    downloadManager.startDownload(taskId);
+                }
+            } catch (JSONException|IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
