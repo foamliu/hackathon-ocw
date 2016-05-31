@@ -16,8 +16,8 @@ android {
         applicationId "org.hackathon_ocw.androidclient"
         minSdkVersion 9
         targetSdkVersion 19
-        versionCode 9
-        versionName "0.1.6.0"
+        versionCode 10
+        versionName "0.1.7.0"
     }
     buildTypes {
         release {
