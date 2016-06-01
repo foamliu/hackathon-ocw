@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ public class UserProfile {
     private String city;
     private String country;
     private String headimgurl;
+    private ArrayList<HistoryEntry> history = new ArrayList<>();
 
     private boolean login = false;
 
@@ -75,6 +77,10 @@ public class UserProfile {
             instance = new UserProfile();
         }
         return instance;
+    }
+
+    private UserProfile() {
+
     }
 
     public String getOpenId() {
