@@ -83,7 +83,7 @@ public class UserProfile {
         return instance;
     }
 
-    private UserProfile() {
+    public UserProfile() {
 
     }
 
