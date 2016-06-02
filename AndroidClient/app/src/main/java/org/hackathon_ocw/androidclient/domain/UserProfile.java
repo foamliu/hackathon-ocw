@@ -25,6 +25,8 @@ import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.util.BitmapCache;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.StorageUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,8 +39,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,7 +61,7 @@ public class UserProfile {
     private String city;
     private String country;
     private String headimgurl;
-    private ArrayList<HistoryEntry> history = new ArrayList<>();
+    private List<HistoryEntry> history = new ArrayList<>();
 
     private boolean login = false;
 
@@ -206,6 +210,18 @@ public class UserProfile {
                 this.province = jsonObject.getString("province");
                 this.country = jsonObject.getString("country");
                 this.headimgurl = jsonObject.getString("headimgurl");
+
+                JSONArray jArray = jsonObject.getJSONArray("history");
+                if (jArray != null) {
+                    for (int i = 0; i < jArray.length(); i++) {
+                        JSONObject obj = jArray.getJSONObject(i);
+                        HistoryEntry entry = new HistoryEntry();
+                        entry.course = parseCourse(obj.getJSONObject("course"));
+                        entry.position = obj.getInt("position");
+                        entry.watchedTime = Date.valueOf(obj.getString("watchedTime"));
+                        history.add(entry);
+                    }
+                }
             } catch (Exception e) {
                 Log.w("UserProfile", e.getMessage());
             }
@@ -216,6 +232,21 @@ public class UserProfile {
         } catch (IOException e) {
             Log.e(TAG, "Can not read file: " + e.toString());
         }
+    }
+
+    private Course parseCourse(JSONObject obj) {
+        Course c = new Course();
+        try {
+            c.itemid = obj.getInt("itemid");
+            c.title = obj.getString("title");
+            c.description = obj.getString("description");
+            c.link = obj.getString("link");
+            c.piclink = obj.getString("piclink");
+            c.courselink = obj.getString("courselink");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return c;
     }
 
     public void getRemote() {
@@ -295,9 +326,8 @@ public class UserProfile {
             req.scope = "snsapi_userinfo";
             req.state = "hackathon_ocw";
             boolean res = WXapi.sendReq(req);
+        } catch (Exception e) {
         }
-        catch(Exception e)
-        {}
     }
 
     public void WXGetUserInfo(String url) {
@@ -377,6 +407,7 @@ public class UserProfile {
                 this.deviceid = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.ANDROID_ID);
             }
             jsonObject.put("deviceid", this.deviceid);
+            jsonObject.put("history", this.history);
         } catch (Exception e) {
             Log.e("Json Error", e.toString());
         }
