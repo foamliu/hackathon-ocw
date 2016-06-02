@@ -76,7 +76,7 @@ class InfoqSpider(scrapy.Spider):
                 item['school'] = u'InfoQ'
                 item['instructor'] = cleanse(info.xpath('span/a/text()').extract())
                 item['language'] = u'中文'
-                item['tags'] = u'InfoQ文章'
+                item['tags'] = u'InfoQ'
                 p_year = cleanse(info.xpath('ul/li[1]/text()').extract())
                 p_month = cleanse(info.xpath('ul/li[2]/text()').extract())
                 p_day = cleanse(info.xpath('ul/li[3]/text()').extract())
