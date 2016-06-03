@@ -53,11 +53,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoDisplay"/>
         <activity
-            android:name=".activity.SearchActivity"
-            android:label="@string/title_activity_search"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
             android:name=".activity.DownloadListActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="false"
