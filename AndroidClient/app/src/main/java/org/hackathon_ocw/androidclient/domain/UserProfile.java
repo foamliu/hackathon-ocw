@@ -507,4 +507,24 @@ public class UserProfile {
         JSONObject jsonObject = getJSONObject();
         this.setLocal(jsonObject);
     }
+
+    public void setPosition(long courseId, int position) {
+        for (HistoryEntry entry : history) {
+            if (entry.course.itemid == courseId) {
+                entry.position = position;
+                JSONObject jsonObject = getJSONObject();
+                this.setLocal(jsonObject);
+                return;
+            }
+        }
+    }
+
+    public int getPosition(long courseId) {
+        for (HistoryEntry entry : history) {
+            if (entry.course.itemid == courseId) {
+                return entry.position;
+            }
+        }
+        return 0;
+    }
 }

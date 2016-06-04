@@ -147,6 +147,24 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         sendScreenImageName();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //Get current timeline
+        int position = videoLayout.getCurrentPosition();
+        UserProfile.getInstance().setPosition(Long.valueOf(courseId), position);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        int position = UserProfile.getInstance().getPosition(Long.valueOf(courseId));
+        videoLayout.seekTo(position);
+    }
+
+
     private void viewPagerInit(){
         viewPager = (ViewPager) findViewById(R.id.detailPager);
         viewPager.setAdapter(new PageFragmentAdapter(getSupportFragmentManager(),
