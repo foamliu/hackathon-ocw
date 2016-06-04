@@ -19,6 +19,7 @@ import com.golshadi.majid.core.DownloadManagerPro;
 import com.golshadi.majid.core.enums.TaskStates;
 import com.golshadi.majid.report.ReportStructure;
 
+import org.hackathon_ocw.androidclient.domain.Course;
 import org.hackathon_ocw.androidclient.util.ImageLoader;
 import org.hackathon_ocw.androidclient.util.NetworkThread;
 import org.hackathon_ocw.androidclient.R;
@@ -104,6 +105,7 @@ public class DownloadListAdapter extends BaseAdapter {
         final String description = item.get(Constants.KEY_DESCRIPTION);
         final String thumbUrl = item.get(Constants.KEY_THUMB_URL);
         final String videoUrl = StorageUtils.FILE_ROOT + strItemId + ".mp4";
+        final String webUrl = item.get(Constants.KEY_WEBURL);
         final String strTaskId = item.get("taskId");
         final int taskId = Integer.parseInt(strTaskId);
         String strPercent = item.get("percent");
@@ -140,8 +142,9 @@ public class DownloadListAdapter extends BaseAdapter {
                 intent.setClass(appContext, DetailActivity.class);
                 appContext.startActivity(intent);
 
+                Course course = new Course(itemId,strTitle,description,thumbUrl,videoUrl,webUrl);
                 //Send post to server
-                Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), String.valueOf(itemId), 3);
+                Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), course, 3);
                 new Thread(networkTask).start();
             }
         });

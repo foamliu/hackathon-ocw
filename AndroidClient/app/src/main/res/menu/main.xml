@@ -2,13 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/shareWXSession"
+        android:id="@+id/history"
         android:orderInCategory="100"
-        android:title="@string/share_WXSession"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/shareWXTimeline"
-        android:orderInCategory="100"
-        android:title="@string/share_WXTimeline"
-        app:showAsAction="never" />
+        android:title="学习历史"
+        app:showAsAction="never"/>
 </menu>

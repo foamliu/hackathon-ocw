@@ -238,7 +238,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
                 PopupMenu popupMenu = new PopupMenu(DetailActivity.this, v);
                 popupMenu.setOnMenuItemClickListener(DetailActivity.this);
-                popupMenu.inflate(R.menu.main);
+                popupMenu.inflate(R.menu.detail);
                 popupMenu.show();
 
             }

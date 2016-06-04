@@ -131,7 +131,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(WebDetailActivity.this, v);
                 popupMenu.setOnMenuItemClickListener(WebDetailActivity.this);
-                popupMenu.inflate(R.menu.main);
+                popupMenu.inflate(R.menu.detail);
                 popupMenu.show();
 
             }

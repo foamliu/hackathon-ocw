@@ -61,12 +61,17 @@ public class UserProfile {
     private String city;
     private String country;
     private String headimgurl;
+
     private List<HistoryEntry> history = new ArrayList<>();
 
     private boolean login = false;
 
     private Context appContext;
     private Activity activity;
+
+    public UserProfile() {
+
+    }
 
     public static void init(Activity activity) {
         instance = new UserProfile();
@@ -81,10 +86,6 @@ public class UserProfile {
             instance = new UserProfile();
         }
         return instance;
-    }
-
-    public UserProfile() {
-
     }
 
     public String getOpenId() {
@@ -169,6 +170,11 @@ public class UserProfile {
         this.login = login;
     }
 
+    public List<HistoryEntry> getHistory() {
+        return history;
+    }
+
+
     public void clearProfile() {
         this.nickname = "";
         this.sex = -1;
@@ -203,13 +209,6 @@ public class UserProfile {
                 JSONObject jsonObject = new JSONObject(str);
                 this.userId = jsonObject.getString("userid");
                 this.deviceid = jsonObject.getString("deviceid");
-                this.openid = jsonObject.getString("openid");
-                this.nickname = jsonObject.getString("nickname");
-                this.sex = jsonObject.getInt("sex");
-                this.city = jsonObject.getString("city");
-                this.province = jsonObject.getString("province");
-                this.country = jsonObject.getString("country");
-                this.headimgurl = jsonObject.getString("headimgurl");
 
                 JSONArray jArray = jsonObject.getJSONArray("history");
                 if (jArray != null) {
@@ -218,10 +217,19 @@ public class UserProfile {
                         HistoryEntry entry = new HistoryEntry();
                         entry.course = parseCourse(obj.getJSONObject("course"));
                         entry.position = obj.getInt("position");
-                        entry.watchedTime = Date.valueOf(obj.getString("watchedTime"));
+                        entry.watchedTime = obj.getString("watchedTime");
                         history.add(entry);
                     }
                 }
+
+                this.openid = jsonObject.getString("openid");
+                this.nickname = jsonObject.getString("nickname");
+                this.sex = jsonObject.getInt("sex");
+                this.city = jsonObject.getString("city");
+                this.province = jsonObject.getString("province");
+                this.country = jsonObject.getString("country");
+                this.headimgurl = jsonObject.getString("headimgurl");
+
             } catch (Exception e) {
                 Log.w("UserProfile", e.getMessage());
             }
@@ -240,13 +248,28 @@ public class UserProfile {
             c.itemid = obj.getInt("itemid");
             c.title = obj.getString("title");
             c.description = obj.getString("description");
-            c.link = obj.getString("link");
+            c.webUrl = obj.getString("link");
             c.piclink = obj.getString("piclink");
             c.courselink = obj.getString("courselink");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return c;
+    }
+
+    private JSONObject genCourse(Course c) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("itemid", c.getItemid());
+            obj.put("title", c.getTitle());
+            obj.put("description", c.getDescription());
+            obj.put("piclink", c.getPiclink());
+            obj.put("courselink", c.getCourselink());
+            obj.put("link", c.getWebUrl());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
     public void getRemote() {
@@ -395,6 +418,15 @@ public class UserProfile {
     private JSONObject getJSONObject() {
         JSONObject jsonObject = new JSONObject();
         try {
+            JSONArray historyArray = new JSONArray();
+            for (HistoryEntry he : history) {
+                JSONObject jsonEntry = new JSONObject();
+                jsonEntry.put("course", genCourse(he.course));
+                jsonEntry.put("watchedTime", he.watchedTime);
+                jsonEntry.put("position", he.position);
+                historyArray.put(jsonEntry);
+            }
+
             jsonObject.put("userid", this.userId);
             jsonObject.put("openid", this.openid);
             jsonObject.put("nickname", this.nickname);
@@ -407,7 +439,7 @@ public class UserProfile {
                 this.deviceid = Settings.Secure.getString(appContext.getContentResolver(), Settings.Secure.ANDROID_ID);
             }
             jsonObject.put("deviceid", this.deviceid);
-            jsonObject.put("history", this.history);
+            jsonObject.put("history", historyArray);
         } catch (Exception e) {
             Log.e("Json Error", e.toString());
         }
@@ -467,5 +499,12 @@ public class UserProfile {
             }
         };
         requestQueue.add(jsonRequest);
+    }
+
+    public void addHistoryEntry(HistoryEntry he) {
+        history.add(he);
+
+        JSONObject jsonObject = getJSONObject();
+        this.setLocal(jsonObject);
     }
 }

@@ -7,6 +7,7 @@ package org.hackathon_ocw.androidclient.widget;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import org.hackathon_ocw.androidclient.domain.Course;
 import org.hackathon_ocw.androidclient.util.NetworkThread;
 import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.domain.UserProfile;
@@ -138,15 +140,23 @@ public class NewsFragment extends Fragment
                         isYixi = true;
                     }
 
-                    if (!mListAdapter.getVideoUrlByPosition(position).equals("") && !isYixi) {
+                    long itemId = Long.valueOf(mListAdapter.getIdByPosition(position));
+                    String title = mListAdapter.getTitleByPosition(position);
+                    String description = mListAdapter.getDescriptionByPosition(position);
+                    String thumbUrl = mListAdapter.getVideoImgByPosition(position);
+                    String videoUrl = mListAdapter.getVideoUrlByPosition(position);
+                    String webUrl = mListAdapter.getWebUrlByPosition(position);
+                    String userId = UserProfile.getInstance().getUserId();
+
+                    if (!"".equals(videoUrl) && !isYixi) {
                         //Show subpage with videoUrl
                         Intent intent = new Intent();
-                        intent.putExtra("id", mListAdapter.getIdByPosition(position));
-                        intent.putExtra("title", mListAdapter.getTitleByPosition(position));
-                        intent.putExtra("videoUrl", mListAdapter.getVideoUrlByPosition(position));
-                        intent.putExtra("description", mListAdapter.getDescriptionByPosition(position));
-                        intent.putExtra("videoImg", mListAdapter.getVideoImgByPosition(position));
-                        intent.putExtra("userid", UserProfile.getInstance().getUserId());
+                        intent.putExtra("id", String.valueOf(itemId));
+                        intent.putExtra("title", title);
+                        intent.putExtra("videoUrl", videoUrl);
+                        intent.putExtra("description", description);
+                        intent.putExtra("videoImg", thumbUrl);
+                        intent.putExtra("userid", userId);
                         if (UserProfile.getInstance().getNickname() != null) {
                             intent.putExtra("nickname", UserProfile.getInstance().getNickname());
                             intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
@@ -157,10 +167,10 @@ public class NewsFragment extends Fragment
                     } else if (mListAdapter.getVideoUrlByPosition(position).equals("") && !isYixi) {
                         //Show subpage with Webview
                         Intent intent = new Intent();
-                        intent.putExtra("webUrl", mListAdapter.getWebUrlByPosition(position));
-                        intent.putExtra("id", mListAdapter.getIdByPosition(position));
-                        intent.putExtra("title", mListAdapter.getTitleByPosition(position));
-                        intent.putExtra("userid", UserProfile.getInstance().getUserId());
+                        intent.putExtra("webUrl", webUrl);
+                        intent.putExtra("id", String.valueOf(itemId));
+                        intent.putExtra("title", title);
+                        intent.putExtra("userid", userId);
                         if (UserProfile.getInstance().getNickname() != null) {
                             intent.putExtra("nickname", UserProfile.getInstance().getNickname());
                             intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
@@ -170,8 +180,8 @@ public class NewsFragment extends Fragment
                         startActivity(intent);
                     }
                     //Send post to server
-                    String courseId = NewsFragment.this.mListAdapter.getIdByPosition(position);
-                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), courseId, 3);
+                    Course course = new Course(itemId,title,description,thumbUrl,videoUrl,webUrl);
+                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), course, 3);
                     new Thread(networkTask).start();
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -2,11 +2,18 @@ package org.hackathon_ocw.androidclient.util;
 
 import android.util.Log;
 
+import org.hackathon_ocw.androidclient.domain.Course;
+import org.hackathon_ocw.androidclient.domain.HistoryEntry;
+import org.hackathon_ocw.androidclient.domain.UserProfile;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by dianyang on 2016/3/7.
@@ -17,28 +24,36 @@ public class NetworkThread implements Runnable{
     static final String postUrl = "http://api.jieko.cc/user/";
 
     private float rating = 5;
-
-    private final String courseId;
+    private final Course course;
 
     private final String userid;
 
-    public NetworkThread(String userid, String courseId, float rating)
+    public NetworkThread(String userid, Course course, float rating)
     {
         this.userid = userid;
-        this.courseId = courseId;
+        this.course = course;
         this.rating = rating;
     }
 
     @Override
     public void run() {
         try {
-            SendPostRequest(Long.valueOf(userid), courseId, rating);
+            setLocal(course);
+            SendPostRequest(Long.valueOf(userid), course.getItemid(), rating);
         } catch (Exception e) {
             //Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void SendPostRequest(Long userId, String itemId, float rating) throws Exception
+    private void setLocal(Course course) {
+        HistoryEntry he = new HistoryEntry();
+        he.course = course;
+        String timeString = Constants.DateFormat.format(new Date());
+        he.watchedTime = timeString;
+        UserProfile.getInstance().addHistoryEntry(he);
+    }
+
+    public void SendPostRequest(Long userId, long itemId, float rating) throws Exception
     {
         String params = "{\"user_id\":" + Long.toString(userId) + ",\"item_id\":" + itemId + ",\"pref\":" + Double.toString(rating) + "}";
         URL url = new URL(postUrl + Long.toString(userId) + "/Preferences");

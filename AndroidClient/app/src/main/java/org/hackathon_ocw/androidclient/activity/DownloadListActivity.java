@@ -119,7 +119,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         downloadListAdapter.writeToDisk();
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void detailToolBarInit() {
         Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(detailToolbar);
