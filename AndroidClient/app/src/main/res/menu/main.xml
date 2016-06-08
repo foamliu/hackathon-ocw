@@ -4,6 +4,11 @@
     <item
         android:id="@+id/history"
         android:orderInCategory="100"
-        android:title="学习历史"
+        android:title="历史记录"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/download"
+        android:orderInCategory="100"
+        android:title="下载列表"
         app:showAsAction="never"/>
 </menu>

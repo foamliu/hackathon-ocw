@@ -57,7 +57,7 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         ImageView topHead = (ImageView) findViewById(R.id.top_head);
-        ImageView btnDownload = (ImageView) findViewById(R.id.icon_download);
+        ImageView btnExpand = (ImageView) findViewById(R.id.icon_expand);
         ImageView menu = (ImageView) findViewById(R.id.top_more);
 
         pager.setAdapter(adapter);
@@ -77,11 +77,9 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 popupMenu.show();
             }
         });
-        btnDownload.setOnClickListener(new View.OnClickListener() {
+        btnExpand.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, DownloadListActivity.class);
-                startActivity(intent);
+
             }
         });
 
@@ -199,13 +197,17 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        Intent intent = new Intent();
+
         switch (item.getItemId()){
             case R.id.history:
-                Intent intent = new Intent();
                 intent.setClass(this, HistoryActivity.class);
                 startActivity(intent);
                 return true;
-
+            case R.id.download:
+                intent.setClass(MainActivity.this, DownloadListActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return false;
         }
