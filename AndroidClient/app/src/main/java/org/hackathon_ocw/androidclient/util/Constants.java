@@ -1,7 +1,10 @@
 package org.hackathon_ocw.androidclient.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by dianyang on 2016/3/5.
@@ -27,7 +30,9 @@ public class Constants {
 
     public static final List<String> catalogs = new ArrayList<>();
 
-    static  {
+    public static final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E", Locale.CHINA);
+
+    static {
         catalogs.add("推荐");
         catalogs.add("TED");
         catalogs.add("互联网");
@@ -46,6 +51,10 @@ public class Constants {
         catalogs.add("环境");
         catalogs.add("哲学");
         catalogs.add("技能");
+
+        DateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
     }
+
+
 
 }

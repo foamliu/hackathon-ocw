@@ -137,4 +137,5 @@
 
     <string name="search_hint">搜索</string>
     <string name="title_activity_search">搜索</string>
+    <string name="title_activity_history">HistoryActivity</string>
 </resources>

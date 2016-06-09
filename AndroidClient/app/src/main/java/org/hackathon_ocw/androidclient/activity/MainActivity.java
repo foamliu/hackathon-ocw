@@ -7,14 +7,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,18 +31,18 @@ import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 
-import org.hackathon_ocw.androidclient.util.CustomApplication;
-import org.hackathon_ocw.androidclient.widget.NewsFragment;
 import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.domain.UserProfile;
-import org.hackathon_ocw.androidclient.util.Utils;
 import org.hackathon_ocw.androidclient.util.Constants;
+import org.hackathon_ocw.androidclient.util.CustomApplication;
+import org.hackathon_ocw.androidclient.util.Utils;
 import org.hackathon_ocw.androidclient.widget.CategoryTabStrip;
+import org.hackathon_ocw.androidclient.widget.NewsFragment;
 import org.hackathon_ocw.androidclient.wxapi.WXEntryActivity;
 import org.json.JSONObject;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuItemClickListener {
 
     private Tracker mTracker;
     private String access_token;
@@ -54,7 +57,8 @@ public class MainActivity extends FragmentActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         ImageView topHead = (ImageView) findViewById(R.id.top_head);
-        ImageView btnDownload = (ImageView) findViewById(R.id.icon_download);
+        ImageView btnExpand = (ImageView) findViewById(R.id.icon_expand);
+        ImageView menu = (ImageView) findViewById(R.id.top_more);
 
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
@@ -65,13 +69,20 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
-        btnDownload.setOnClickListener(new View.OnClickListener() {
+        menu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, DownloadListActivity.class);
-                startActivity(intent);
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
+                popupMenu.setOnMenuItemClickListener(MainActivity.this);
+                popupMenu.inflate(R.menu.main);
+                popupMenu.show();
             }
         });
+        btnExpand.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
 
         if (checkNetworkStatus()) {
             UserProfile.init(this);
@@ -184,4 +195,21 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Intent intent = new Intent();
+
+        switch (item.getItemId()){
+            case R.id.history:
+                intent.setClass(this, HistoryActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.download:
+                intent.setClass(MainActivity.this, DownloadListActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return false;
+        }
+    }
 }

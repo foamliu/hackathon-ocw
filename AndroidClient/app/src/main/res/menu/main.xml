@@ -2,15 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/shareWXSession"
+        android:id="@+id/history"
         android:orderInCategory="100"
-        android:title="@string/share_WXSession"
-        android:icon="@drawable/ic_share_weixing_friends_45dp"
-        app:showAsAction="never" />
+        android:title="历史记录"
+        app:showAsAction="never"/>
     <item
-        android:id="@+id/shareWXTimeline"
+        android:id="@+id/download"
         android:orderInCategory="100"
-        android:title="@string/share_WXTimeline"
-        android:icon="@drawable/ic_share_weixing_pyq45dp"
-        app:showAsAction="never" />
+        android:title="下载列表"
+        app:showAsAction="never"/>
 </menu>

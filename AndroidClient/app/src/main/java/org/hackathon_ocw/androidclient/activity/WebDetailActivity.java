@@ -152,7 +152,7 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
                     e.printStackTrace();
                 }
                 popupMenu.setOnMenuItemClickListener(WebDetailActivity.this);
-                popupMenu.inflate(R.menu.main);
+                popupMenu.inflate(R.menu.detail);
                 popupMenu.show();
 
             }
