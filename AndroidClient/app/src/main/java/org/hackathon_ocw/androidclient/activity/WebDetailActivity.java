@@ -36,6 +36,9 @@ import org.hackathon_ocw.androidclient.domain.UserProfile;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 /**
  * Created by dianyang on 2016/4/19.
  */
@@ -130,6 +133,24 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         shareBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(WebDetailActivity.this, v);
+                //Use reflect to solve the issue that icon can't show in android 3.0+
+                try {
+                    Field[] fields = popupMenu.getClass().getDeclaredFields();
+                    for (Field field : fields) {
+                        if ("mPopup".equals(field.getName())) {
+                            field.setAccessible(true);
+                            Object menuPopupHelper = field.get(popupMenu);
+                            Class<?> classPopupHelper = Class.forName(menuPopupHelper
+                                    .getClass().getName());
+                            Method setForceIcons = classPopupHelper.getMethod(
+                                    "setForceShowIcon", boolean.class);
+                            setForceIcons.invoke(menuPopupHelper, true);
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 popupMenu.setOnMenuItemClickListener(WebDetailActivity.this);
                 popupMenu.inflate(R.menu.main);
                 popupMenu.show();

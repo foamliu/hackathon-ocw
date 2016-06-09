@@ -19,6 +19,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,6 +64,8 @@ import org.hackathon_ocw.androidclient.util.Utils;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -237,6 +240,24 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
             public void onClick(View v) {
 
                 PopupMenu popupMenu = new PopupMenu(DetailActivity.this, v);
+                //Use reflect to solve the issue that icon can't show in android 3.0+
+                try {
+                    Field[] fields = popupMenu.getClass().getDeclaredFields();
+                    for (Field field : fields) {
+                        if ("mPopup".equals(field.getName())) {
+                            field.setAccessible(true);
+                            Object menuPopupHelper = field.get(popupMenu);
+                            Class<?> classPopupHelper = Class.forName(menuPopupHelper
+                                    .getClass().getName());
+                            Method setForceIcons = classPopupHelper.getMethod(
+                                    "setForceShowIcon", boolean.class);
+                            setForceIcons.invoke(menuPopupHelper, true);
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 popupMenu.setOnMenuItemClickListener(DetailActivity.this);
                 popupMenu.inflate(R.menu.main);
                 popupMenu.show();
