@@ -502,7 +502,13 @@ public class UserProfile {
     }
 
     public void addHistoryEntry(HistoryEntry he) {
-        history.add(he);
+        long itemId = he.course.getItemid();
+        if (contains(itemId)) {
+            setEntry(itemId, he.position, he.watchedTime);
+        }
+        else {
+            history.add(he);
+        }
 
         JSONObject jsonObject = getJSONObject();
         this.setLocal(jsonObject);
@@ -515,6 +521,24 @@ public class UserProfile {
                 JSONObject jsonObject = getJSONObject();
                 this.setLocal(jsonObject);
                 return;
+            }
+        }
+    }
+
+    private boolean contains(long itemId) {
+        for (HistoryEntry entry : history) {
+            if (entry.course.getItemid() == itemId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void setEntry(long itemId, int position, String watchedTime) {
+        for (HistoryEntry entry : history) {
+            if (entry.course.getItemid() == itemId) {
+                entry.position = position;
+                entry.watchedTime = watchedTime;
             }
         }
     }

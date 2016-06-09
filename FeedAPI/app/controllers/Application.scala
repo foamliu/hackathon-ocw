@@ -3,6 +3,9 @@ package controllers
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Await
+import scala.concurrent.Future
+import scala.concurrent.duration.Duration
 import scala.io.Codec.string2codec
 import scala.io.Source
 
@@ -17,9 +20,12 @@ import org.apache.mahout.cf.taste.recommender.Recommender
 import org.apache.mahout.cf.taste.similarity.UserSimilarity
 
 import javax.inject.Inject
+import play.api.Play.current
 import play.api.Logger
 import play.api.Play
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.JsArray
+import play.api.libs.json.JsObject
 import play.api.libs.json.JsValue
 import play.api.libs.json.JsValue.jsValueToJsLookup
 import play.api.libs.json.Json
@@ -31,6 +37,7 @@ import play.api.mvc.Controller
 import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.ReactiveMongoApi
 import play.modules.reactivemongo.ReactiveMongoComponents
+import play.modules.reactivemongo.json.collection.JSONCollection
 import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
 
 object Application {
@@ -46,6 +53,10 @@ object Application {
     private var courses: Seq[Course] = null
     private var recommender: Recommender = null
     private var tags: Seq[(String, Int)] = null
+    
+    lazy val reactiveMongoApi = current.injector.instanceOf[ReactiveMongoApi]
+    def courseRepo = new backend.CourseRepo(reactiveMongoApi)
+
 
     private def getCourses(): Seq[Course] = {
 
@@ -75,9 +86,12 @@ object Application {
     }
     
     private def loadCourses(): Seq[Course] = {
-        val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
-        val json: JsValue = Json.parse(source)
-        json.as[Seq[Course]].filter(_.enabled)
+        //val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
+        //val json: JsValue = Json.parse(source)
+        //json.as[Seq[Course]].filter(_.enabled)
+        val futureCourses: Future[JsArray] = courseRepo.list().map(courses => Json.arr(courses))
+        val courses: JsArray = Await.result(futureCourses, Duration.Inf)
+        courses.as[Seq[Course]].filter(_.enabled)
     }
     
     private def calculateTags(): Seq[(String, Int)] = {
@@ -141,6 +155,11 @@ object Application {
         candidates
     }
 
+    private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
+        val items: Seq[Course] = getCourses
+        scala.util.Random.shuffle(items.filter(_.tags.contains(tag))).take(howMany)
+    }
+    
     def refresh() = {
         if (null != getRecommender) {
             val t0 = System.nanoTime()
@@ -151,11 +170,6 @@ object Application {
 
             Logger.debug("Data model refreshment is done, elapsed time: %f sec, number of users: %d, number of items: %d.".format((t1 - t0) / 1000000000.0, recommender.getDataModel.getNumUsers, recommender.getDataModel.getNumItems))
         }
-    }
-
-    private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
-        val items: Seq[Course] = getCourses
-        scala.util.Random.shuffle(items.filter(_.tags.contains(tag))).take(howMany)
     }
 }
 
