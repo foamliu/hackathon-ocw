@@ -1,5 +1,60 @@
 # 用今日头条的方法推荐公开课
-做了个APP，名字很土，叫《学啥》。《学啥》用今日头条的方法推荐公开课。服务端是阿里云CentOS7 + Play! + Scala + Docker + Apache Mahout, 爬虫是Python写的，基于Scrapy框架。有安卓和iOS客户端。代码开源在：https://github.com/foamliu/hackathon-ocw, 可以在 http://jieko.cc 扫二维码下载体验。服务端框架很简单，客户端通过REST API与服务端通信；服务端为用户推荐适合的公开课视频，后台定时任务负责爬取课程更新和训练模型。
+做了个APP，名字很土，叫《学啥》，用今日头条的方法推荐公开课。服务端是阿里云的CentOS-7 + Play! + Scala + Docker + Apache Mahout, 爬虫是Python写的，基于Scrapy框架；安卓客户端用Android Studio开发，iOS客户端基于swift。代码开源在：https://github.com/foamliu/hackathon-ocw, 可以在 http://jieko.cc 扫二维码体验。服务端提供简洁的 REST API，客户端基于此与服务端通信，为用户推荐公开课视频，后台定时任务负责爬取更新和训练模型。
 
-平时我会用它来学点东西，还是不少问题，欢迎有兴趣的同学加入，希望它对有情怀的你们也有用！ :-)
+平时我会用它来学点东西，还是有不少问题的。欢迎有兴趣的同学加入，愿它对上进的你有用！ :-)
 
+## 开发环境
+1. 安装 Java SDK：http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+2. 安装 GitHub desktop： https://desktop.github.com/
+3. Git Clone 代码库：https://github.com/foamliu/hackathon-ocw.git
+4. 开发环境：
+	a. Feed API：打开命令行窗口，进入FeedAPI目录，输入：activator ui 回车，即可开发 FeedAPI 项目。
+	b. 也可执行 activator eclipse，然后用ScalaIDE（http://scala-ide.org/）导入，体验更好。
+	c. Android Client：安装Android Studio http://developer.android.com/sdk/index.html ，导入即可开发Android Client。
+	d. iOS Client：需要配置OS X + xcode，如果没有苹果机器，可以在Windows上装一个虚拟机（https://xuanwo.org/2015/08/09/vmware-mac-os-x-intro/）。
+	e. 爬虫：是Python + Scrapy框架，目前用CentOS下的gedit开发。
+
+可用 pull request 提交合并，若需写权限请发 GitHub 账号给 foamliu@yeah.net。
+    
+## 部署服务端：
+1. SSH 连接(e.g. PuTTY)到 Linux VM (如CentOS-7, "207.46.137.89", user = "root", pass = "#Bugsfor$").
+
+2. 系统更新:
+	    yum update
+3. 安装 企业版 Linux 附加软件包 (EPEL - Extra Packages for Enterprise Linux):
+		sudo yum install epel-release
+4. 安装 Git:
+		yum install git
+	在 /root 目录下 git clone https://github.com/foamliu/hackathon-ocw.git
+
+5. 安装 docker:
+		curl -fsSL https://get.docker.com/ | sh
+		sudo service docker start
+		sudo docker run hello-world
+6. 安装 mongodb:
+		sudo rpm --import https://www.mongodb.org/static/pgp/server-3.2.asc
+		vi /etc/yum.repos.d/mongodb-org-3.2.repo
+把下边这段贴入保存退出：
+```
+[mongodb-org-3.2]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.2/x86_64/
+gpgcheck=1
+enabled=1
+```
+		sudo yum install -y mongodb-org
+		vi /etc/mongod.conf
+注释掉： "bindIp: 127.0.0.1"
+		sudo setenforce 0
+		sudo service mongod start
+7. 导入数据:
+		cd /root/hackathon-ocw/FeedAPI/mongodb
+		mongoimport --db jiekodb --collection ratings --file ratings.json
+		mongoimport --db jiekodb --collection users --file users.json
+		mongoimport --db jiekodb --collection counters --file counters.json
+		mongoimport --db jiekodb --collection comments --file comments.json
+8. 启动docker：
+		docker run -i -t -v "/root/hackathon-ocw/FeedAPI:/root/Code" -p 80:9000 -p 9999:9999 -p 8888:8888 foamliu/play-framework
+		activator clean stage
+		target/universal/stage/bin/play-scala
+访问 Linux VM，看到客户端安装二维码，即表示部署成功。
