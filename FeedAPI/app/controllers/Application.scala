@@ -84,12 +84,20 @@ object Application {
     }
     
     private def loadCourses(): Seq[Course] = {
+      try {
         //val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
         //val json: JsValue = Json.parse(source)
         //json.as[Seq[Course]].filter(_.enabled)
         val futureCourses: Future[JsArray] = courseRepo.list().map(courses => Json.arr(courses))
         val courses: JsArray = Await.result(futureCourses, Duration.Inf)
         courses.as[Seq[Course]].filter(_.enabled)
+      } catch {
+        case e: Exception              => Logger.warn(e.getMessage)
+        e.printStackTrace()
+        val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
+        val json: JsValue = Json.parse(source)
+        json.as[Seq[Course]].filter(_.enabled)
+      }
     }
     
     /*
