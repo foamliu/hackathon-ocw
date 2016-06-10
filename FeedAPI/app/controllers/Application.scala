@@ -92,6 +92,7 @@ object Application {
         Logger.info(futureCourses.toString())
         val courses: JsArray = Await.result(futureCourses, Duration.Inf)
         Logger.info(courses.toString())
+        Logger.info(courses.head.toString())
         courses.as[Seq[Course]].filter(_.enabled)
       } catch {
         case e: Exception              => Logger.warn(e.getMessage)
