@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     signingConfigs {
         debug {
-            storeFile file('C:/Users/Foam/Documents/GitHub/hackathon-ocw/AndroidClient/keystore.jks')
+            storeFile file('keystore.jks')
             storePassword "#Bugsfor\$" //你的store密码
             keyAlias "keystore"  //别名
             keyPassword "#Bugsfor\$"  //别名密码
