@@ -5,6 +5,9 @@ import scala.collection.mutable.ListBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Codec.string2codec
 import scala.io.Source
+import scala.concurrent.Await
+import scala.concurrent.Future
+import scala.concurrent.duration.Duration
 
 import org.apache.mahout.cf.taste.common.NoSuchUserException
 import org.apache.mahout.cf.taste.impl.model.mongodb.MongoDBDataModel
@@ -81,14 +84,17 @@ object Application {
     }
     
     private def loadCourses(): Seq[Course] = {
-        val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
-        val json: JsValue = Json.parse(source)
-        json.as[Seq[Course]].filter(_.enabled)
-        //val futureCourses: Future[JsArray] = courseRepo.list().map(courses => Json.arr(courses))
-        //val courses: JsArray = Await.result(futureCourses, Duration.Inf)
-        //courses.as[Seq[Course]].filter(_.enabled)
+        //val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
+        //val json: JsValue = Json.parse(source)
+        //json.as[Seq[Course]].filter(_.enabled)
+        val futureCourses: Future[JsArray] = courseRepo.list().map(courses => Json.arr(courses))
+        val courses: JsArray = Await.result(futureCourses, Duration.Inf)
+        courses.as[Seq[Course]].filter(_.enabled)
     }
     
+    /*
+     * 得到二元组列表: 标签 -> 出现次数。
+     */
     private def calculateTags(): Seq[(String, Int)] = {
         val items: Seq[Course] = getCourses
 
@@ -117,6 +123,9 @@ object Application {
         getCourses().filter(_.title.contains(keyword)).take(howMany)
     }
 
+    /*
+     * 进行推荐，得到课程ID的列表.
+     */
     private def recommend(userID: Long): List[Long] = {
         //Logger.debug("userID=%d".format(userID))
         var list = List[Long]()
@@ -137,6 +146,9 @@ object Application {
         list
     }
 
+    /*
+     * 目前推荐栏会调用服务器这个方法。
+     */
     private def getCandidates(userID: Long): Seq[Course] = {
 
         val items: Seq[Course] = getCourses
@@ -150,11 +162,17 @@ object Application {
         candidates
     }
 
+    /*
+     * 目前基于标签的推荐实际上是随机得出的。
+     */
     private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
         val items: Seq[Course] = getCourses
         scala.util.Random.shuffle(items.filter(_.tags.contains(tag))).take(howMany)
     }
     
+    /*
+     * 指定用户看过哪些课程，
+     */
     private def getItemIDs(userID: Long): ListBuffer[Long] = {
         val itemIDs: ListBuffer[Long] = new ListBuffer[Long]()
         ratingRepo.find(Json.obj("user_id" -> userID)).map(ratings => {
