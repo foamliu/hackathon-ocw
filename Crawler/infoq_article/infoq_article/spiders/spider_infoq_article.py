@@ -18,6 +18,33 @@ sys.setdefaultencoding('utf-8')
 def cleanse(alist):
     return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''
 
+def getMonth(monthInChinese):
+    if (monthInChinese == '一月'):
+        return '01'
+    if (monthInChinese == '二月'):
+        return '02'
+    if (monthInChinese == '三月'):
+        return '03'
+    if (monthInChinese == '四月'):
+        return '04'
+    if (monthInChinese == '五月'):
+        return '05'
+    if (monthInChinese == '六月'):
+        return '06'
+    if (monthInChinese == '七月'):
+        return '07'
+    if (monthInChinese == '八月'):
+        return '08'
+    if (monthInChinese == '九月'):
+        return '09'
+    if (monthInChinese == '十月'):
+        return '10'
+    if (monthInChinese == '十一月'):
+        return '11'
+    if (monthInChinese == '十二月'):
+        return '12'
+    return '00'
+    
 class InfoqSpider(scrapy.Spider):
     name = 'infoq_article'
     allowed_domains = ["www.infoq.com"]
@@ -80,8 +107,8 @@ class InfoqSpider(scrapy.Spider):
                 p_year = cleanse(info.xpath('ul/li[1]/text()').extract())
                 p_month = cleanse(info.xpath('ul/li[2]/text()').extract())
                 p_day = cleanse(info.xpath('ul/li[3]/text()').extract())
-                item['posted'] = u'{0} {1} {2}'.format(p_year, p_month, p_day)
-                print u'{0} {1} {2}'.format(p_year, p_month, p_day)
+                item['posted'] = u'{0}-{1}-{2}'.format(p_year, getMonth(p_month), p_day)
+                print u'{0}-{1}-{2}'.format(p_year, getMonth(p_month), p_day)
                 item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
                 yield item
 

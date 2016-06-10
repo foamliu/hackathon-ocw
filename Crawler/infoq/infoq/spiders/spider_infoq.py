@@ -76,7 +76,8 @@ class InfoqSpider(scrapy.Spider):
                 item['language'] = u'中文'
                 item['tags'] = u'InfoQ'
                 item['posted'] = cleanse(info.xpath('a[1]/span/text()').extract())
-                item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
+                item['posted'] = item['posted'].replace('年','-').replace('月','-').replace('日','')
+                item['crawled'] = time.strftime('%Y-%m-%d %H:%M')                
                 yield item
  
             next = self.driver.find_element_by_xpath('/html/body/div[1]/div/ul[1]/li[2]/a')
