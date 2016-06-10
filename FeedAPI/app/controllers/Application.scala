@@ -89,7 +89,9 @@ object Application {
         //val json: JsValue = Json.parse(source)
         //json.as[Seq[Course]].filter(_.enabled)
         val futureCourses: Future[JsArray] = courseRepo.list().map(courses => Json.arr(courses))
+        Logger.info(futureCourses.toString())
         val courses: JsArray = Await.result(futureCourses, Duration.Inf)
+        Logger.info(courses.toString())
         courses.as[Seq[Course]].filter(_.enabled)
       } catch {
         case e: Exception              => Logger.warn(e.getMessage)
