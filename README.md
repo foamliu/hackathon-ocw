@@ -4,15 +4,17 @@
 平时我会用它来学点东西，还是有不少问题的。欢迎有兴趣的同学加入，愿它对上进的你有用！ :-)
 
 ## 开发环境
-1. 安装 Java SDK：http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-2. 安装 GitHub desktop： https://desktop.github.com/
-3. Git Clone 代码库：https://github.com/foamliu/hackathon-ocw.git
-4. 开发环境：
-	a. Feed API：打开命令行窗口，进入FeedAPI目录，输入：activator ui 回车，即可开发 FeedAPI 项目。
-	b. 也可执行 activator eclipse，然后用ScalaIDE（http://scala-ide.org/）导入，体验更好。
-	c. Android Client：安装Android Studio http://developer.android.com/sdk/index.html ，导入即可开发Android Client。
-	d. iOS Client：需要配置OS X + xcode，如果没有苹果机器，可以在Windows上装一个虚拟机（https://xuanwo.org/2015/08/09/vmware-mac-os-x-intro/）。
-	e. 爬虫：是Python + Scrapy框架，目前用CentOS下的gedit开发。
+1. 安装 [Java SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
+2. 安装 ： [GitHub desktop](https://desktop.github.com/).
+3. Git Clone 代码库：
+```git clone https://github.com/foamliu/hackathon-ocw.git```
+
+5. 开发环境：
+	a. Feed API: 打开命令行窗口, 进入FeedAPI目录, 输入：`activator ui` 回车, 即可开发 FeedAPI 项目.
+也可执行 `activator eclipse`, 用 [ScalaIDE](http://scala-ide.org/) 导入, 体验更好.
+    b. 安卓客户端：安装 [Android Studio](http://developer.android.com/sdk/index.html), 导入即可开发.
+	c. iOS 客户端：配置OS X + xcode，若没有苹果电脑，可以在 Windows 上装一个虚拟机, 参见 [这里](https://xuanwo.org/2015/08/09/vmware-mac-os-x-intro/).
+	d. 爬虫：基于 Python 和 Scrapy框架，目前在 CentOS 下用 gedit 开发， 简单够用.
 
 可用 pull request 提交合并，若需写权限请发 GitHub 账号给 foamliu@yeah.net。
 
