@@ -35,6 +35,7 @@ curl -fsSL https://get.docker.com/ | sh
 sudo service docker start
 sudo docker run hello-world
 ```
+
 6. 安装 mongodb:
 ```
 sudo rpm --import https://www.mongodb.org/static/pgp/server-3.2.asc
@@ -59,6 +60,7 @@ vi /etc/mongod.conf
 sudo setenforce 0
 sudo service mongod start
 ```
+
 7. 导入数据:
 ```
 cd /root/hackathon-ocw/FeedAPI/mongodb
@@ -67,6 +69,7 @@ mongoimport --db jiekodb --collection users --file users.json
 mongoimport --db jiekodb --collection counters --file counters.json
 mongoimport --db jiekodb --collection comments --file comments.json
 ```
+
 8. 启动docker：
 ```
 docker run -i -t -v "/root/hackathon-ocw/FeedAPI:/root/Code" -p 80:9000 -p 9999:9999 -p 8888:8888 foamliu/play-framework
