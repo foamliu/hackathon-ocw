@@ -15,12 +15,14 @@
 	e. 爬虫：是Python + Scrapy框架，目前用CentOS下的gedit开发。
 
 可用 pull request 提交合并，若需写权限请发 GitHub 账号给 foamliu@yeah.net。
-    
+
 ## 部署服务端：
 1. SSH 连接(e.g. PuTTY)到 Linux VM (如CentOS-7, "207.46.137.89", user = "root", pass = "#Bugsfor$").
 
 2. 系统更新:
-	    yum update
+```
+yum update
+```
 3. 安装 企业版 Linux 附加软件包 (EPEL - Extra Packages for Enterprise Linux):
 		sudo yum install epel-release
 4. 安装 Git:
@@ -28,12 +30,16 @@
 	在 /root 目录下 git clone https://github.com/foamliu/hackathon-ocw.git
 
 5. 安装 docker:
-		curl -fsSL https://get.docker.com/ | sh
-		sudo service docker start
-		sudo docker run hello-world
+```
+curl -fsSL https://get.docker.com/ | sh
+sudo service docker start
+sudo docker run hello-world
+```
 6. 安装 mongodb:
-		sudo rpm --import https://www.mongodb.org/static/pgp/server-3.2.asc
-		vi /etc/yum.repos.d/mongodb-org-3.2.repo
+```
+sudo rpm --import https://www.mongodb.org/static/pgp/server-3.2.asc
+vi /etc/yum.repos.d/mongodb-org-3.2.repo
+```
 把下边这段贴入保存退出：
 ```
 [mongodb-org-3.2]
@@ -42,19 +48,29 @@ baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.2/x86_64/
 gpgcheck=1
 enabled=1
 ```
-		sudo yum install -y mongodb-org
-		vi /etc/mongod.conf
+然后执行：
+```
+sudo yum install -y mongodb-org
+vi /etc/mongod.conf
+```
 注释掉： "bindIp: 127.0.0.1"
-		sudo setenforce 0
-		sudo service mongod start
+执行：
+```
+sudo setenforce 0
+sudo service mongod start
+```
 7. 导入数据:
-		cd /root/hackathon-ocw/FeedAPI/mongodb
-		mongoimport --db jiekodb --collection ratings --file ratings.json
-		mongoimport --db jiekodb --collection users --file users.json
-		mongoimport --db jiekodb --collection counters --file counters.json
-		mongoimport --db jiekodb --collection comments --file comments.json
+```
+cd /root/hackathon-ocw/FeedAPI/mongodb
+mongoimport --db jiekodb --collection ratings --file ratings.json
+mongoimport --db jiekodb --collection users --file users.json
+mongoimport --db jiekodb --collection counters --file counters.json
+mongoimport --db jiekodb --collection comments --file comments.json
+```
 8. 启动docker：
-		docker run -i -t -v "/root/hackathon-ocw/FeedAPI:/root/Code" -p 80:9000 -p 9999:9999 -p 8888:8888 foamliu/play-framework
-		activator clean stage
-		target/universal/stage/bin/play-scala
-访问 Linux VM，看到客户端安装二维码，即表示部署成功。
+```
+docker run -i -t -v "/root/hackathon-ocw/FeedAPI:/root/Code" -p 80:9000 -p 9999:9999 -p 8888:8888 foamliu/play-framework
+activator clean stage
+target/universal/stage/bin/play-scala
+```
+浏览器访问 Linux VM 的 80 端口，看到客户端安装二维码，即表示部署成功。
