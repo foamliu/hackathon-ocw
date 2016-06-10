@@ -24,12 +24,16 @@
 yum update
 ```
 
-4. 安装 企业版 Linux 附加软件包 (EPEL - Extra Packages for Enterprise Linux):
-		sudo yum install epel-release
+3. 安装 企业版 Linux 附加软件包 (EPEL - Extra Packages for Enterprise Linux):
+```
+sudo yum install epel-release
+```
 
-5. 安装 Git:
-		yum install git
-	在 /root 目录下 git clone https://github.com/foamliu/hackathon-ocw.git
+4. 安装 Git:
+```
+yum install git
+```
+在 /root 目录下 git clone https://github.com/foamliu/hackathon-ocw.git
 
 5. 安装 docker:
 ```
@@ -43,7 +47,7 @@ sudo docker run hello-world
 sudo rpm --import https://www.mongodb.org/static/pgp/server-3.2.asc
 vi /etc/yum.repos.d/mongodb-org-3.2.repo
 ```
-把下边这段贴入保存退出：
+把下边这段贴入保存并退出:
 ```
 [mongodb-org-3.2]
 name=MongoDB Repository
@@ -51,13 +55,12 @@ baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.2/x86_64/
 gpgcheck=1
 enabled=1
 ```
-然后执行：
+然后执行:
 ```
 sudo yum install -y mongodb-org
 vi /etc/mongod.conf
 ```
-注释掉： "bindIp: 127.0.0.1"
-执行：
+注释掉: "bindIp: 127.0.0.1", 然后执行:
 ```
 sudo setenforce 0
 sudo service mongod start
@@ -78,4 +81,4 @@ docker run -i -t -v "/root/hackathon-ocw/FeedAPI:/root/Code" -p 80:9000 -p 9999:
 activator clean stage
 target/universal/stage/bin/play-scala
 ```
-浏览器访问 Linux VM 的 80 端口，看到客户端安装二维码，即表示部署成功。
+浏览器访问 Linux VM 的 80 端口，看到二维码，即表示部署成功。
