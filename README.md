@@ -23,9 +23,11 @@
 ```
 yum update
 ```
-3. 安装 企业版 Linux 附加软件包 (EPEL - Extra Packages for Enterprise Linux):
+
+4. 安装 企业版 Linux 附加软件包 (EPEL - Extra Packages for Enterprise Linux):
 		sudo yum install epel-release
-4. 安装 Git:
+
+5. 安装 Git:
 		yum install git
 	在 /root 目录下 git clone https://github.com/foamliu/hackathon-ocw.git
 
