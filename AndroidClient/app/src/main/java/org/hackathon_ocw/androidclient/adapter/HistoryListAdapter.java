@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -106,8 +107,8 @@ public class HistoryListAdapter extends BaseAdapter {
         title.setText(strTitle);
         watchedTime.setText(entry.watchedTime);
 
-        ImageButton playButton = (ImageButton) vi.findViewById(R.id.btn_play);
-        playButton.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout relative =  (RelativeLayout) vi.findViewById(R.id.history_list_item);
+        relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
