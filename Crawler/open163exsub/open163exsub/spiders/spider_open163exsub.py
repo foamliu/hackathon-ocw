@@ -90,9 +90,15 @@ class Open163ExSpider(scrapy.Spider):
         item['instructor'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(instructor_pos)).extract())
         item['language'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(language_pos)).extract())
         item['tags'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[{0}]/p/text()'.format(tags_pos)).extract())
-        item['link'] = link
-        item['posted'] = u''
+        item['link'] = link        
         item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
+        item['posted'] = u''
+        if item['courselink'] != '' and item['courselink'] != 'http://mov.bn.netease.com/movie/nofile/list.mp4':
+            alist = item['courselink'].split("/")
+            if (item['courselink'].startswith('http://mov.bn.netease.com/movie/')):
+                item['posted'] = alist[4] + '-' + alist[5]
+            else:
+                item['posted'] = alist[6]+'-'+alist[7]+'-'+alist[8]
         return item
 
     def parse(self, response):
