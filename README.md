@@ -5,8 +5,8 @@
 
 ## 开发环境
 1. 安装 [Java SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
-2. 安装 ： [GitHub desktop](https://desktop.github.com/).
-3. Git Clone 代码库：
+2. 安装 [GitHub desktop](https://desktop.github.com/).
+3. Git Clone 代码库:
 ```git clone https://github.com/foamliu/hackathon-ocw.git```
 
 5. 开发环境：
@@ -18,7 +18,7 @@
 
 可用 pull request 提交合并，若需写权限请发 GitHub 账号给 foamliu@yeah.net。
 
-## 部署服务端：
+## 部署服务端
 1. SSH 连接(e.g. PuTTY)到 Linux VM (如CentOS-7, "207.46.137.89", user = "root", pass = "#Bugsfor$").
 
 2. 系统更新:
