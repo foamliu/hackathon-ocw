@@ -143,7 +143,7 @@ object Application {
     try {
       val futureRatings: Future[JsArray] = ratingRepo.list().map(ratings => Json.arr(ratings))
       val ratings: JsArray = Await.result(futureRatings, Duration.Inf)
-      var rates: Seq[Rating] = ratings.head.as[Seq[Rating]]      
+      rates = ratings.head.as[Seq[Rating]]      
     } catch {
       case e: Exception =>
         Logger.warn(e.getMessage)
