@@ -168,7 +168,12 @@ object Application {
           )
         val formatter : DateTimeFormatter = new DateTimeFormatterBuilder().append( null, parsers ).toFormatter()
 
-        val d1: DateTime = formatter.parseDateTime(item.posted)
+        var d1: DateTime = formatter.parseDateTime("2000-01-01")
+        try {
+          d1 = formatter.parseDateTime(item.posted)
+        } catch {
+          case e: Exception => Logger.warn(e.getMessage)
+        }
         val d2: DateTime = DateTime.now
         val hours = Hours.hoursBetween(d1, d2).getHours
         val rank: Double = (clicks + 1) / Math.pow(hours + 2, 0.01)
