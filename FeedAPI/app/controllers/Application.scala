@@ -139,32 +139,52 @@ object Application {
   }
   
   private def loadRates(): Seq[Rating] = {
-    val futureRatings: Future[JsArray] = ratingRepo.list().map(ratings => Json.arr(ratings))
-    val ratings: JsArray = Await.result(futureRatings, Duration.Inf)
-    val rates: Seq[Rating] = ratings.head.as[Seq[Rating]]
+    var rates: Seq[Rating] = null
+    try {
+      val futureRatings: Future[JsArray] = ratingRepo.list().map(ratings => Json.arr(ratings))
+      val ratings: JsArray = Await.result(futureRatings, Duration.Inf)
+      var rates: Seq[Rating] = ratings.head.as[Seq[Rating]]      
+    } catch {
+      case e: Exception =>
+        Logger.warn(e.getMessage)
+        e.printStackTrace()
+    }
+    
     rates
   }
 
   private def calculateRanks(): Seq[(Long, Double)] = {
     val allRanks = scala.collection.mutable.Map[Long, Double]()
-    for (item <- getCourses.filter(_.enabled)) {
-      val id: Long = item.itemID
-      val clicks: Int = getRates.filter(_.item_id == id).length
-      val d1: DateTime = DateTime.parse(item.posted)
-      val d2: DateTime = DateTime.now
-      val hours = Hours.hoursBetween(d1, d2).getHours
-      val rank: Double = (clicks + 1) / Math.pow(hours + 2, 0.01)
-      allRanks.update(id, rank)
-    }
+    try {
+      for (item <- getCourses.filter(_.enabled)) {
+        val id: Long = item.itemID
+        val clicks: Int = getRates.filter(_.item_id == id).length
+        val d1: DateTime = DateTime.parse(item.posted)
+        val d2: DateTime = DateTime.now
+        val hours = Hours.hoursBetween(d1, d2).getHours
+        val rank: Double = (clicks + 1) / Math.pow(hours + 2, 0.01)
+        allRanks.update(id, rank)
+      }
+    } catch {
+      case e: Exception =>
+        Logger.warn(e.getMessage)
+        e.printStackTrace()
+    }      
     allRanks.toSeq
   }
   
   private def calculateVisited(): scala.collection.mutable.Map[Long, ListBuffer[Long]] = {
     val visited = scala.collection.mutable.Map[Long, ListBuffer[Long]]()
-    for (rate <- getRates) {
-      var alist : ListBuffer[Long] = visited.getOrElse(rate.user_id, new ListBuffer[Long])
-      alist.+= (rate.item_id)
-      visited.update(rate.user_id, alist)
+    try {
+      for (rate <- getRates) {
+        var alist : ListBuffer[Long] = visited.getOrElse(rate.user_id, new ListBuffer[Long])
+        alist.+= (rate.item_id)
+        visited.update(rate.user_id, alist)
+      }
+    } catch {
+      case e: Exception =>
+        Logger.warn(e.getMessage)
+        e.printStackTrace()
     }
     visited
   }
@@ -210,12 +230,18 @@ object Application {
 
     val items: Seq[Course] = getCourses
     var itemIDs: Seq[Long] = recommend(userID)
-
-    if (itemIDs.size == 0) {
-      //candidates = scala.util.Random.shuffle(items).take(howMany)
-      val myVisited = getVisited.getOrElse(userID, new ListBuffer[Long]())
-      itemIDs = ranks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(howMany).map(f => f._1)
+    try {
+      if (itemIDs.size == 0) {
+        //candidates = scala.util.Random.shuffle(items).take(howMany)
+        val myVisited = getVisited.getOrElse(userID, new ListBuffer[Long]())
+        itemIDs = ranks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(howMany).map(f => f._1)
+      }
+    } catch {
+      case e: Exception =>
+        Logger.warn(e.getMessage)
+        e.printStackTrace()
     }
+    
     var candidates: Seq[Course] = items.filter(i => itemIDs.contains(i.itemID))
     candidates
   }

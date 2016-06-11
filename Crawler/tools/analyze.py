@@ -9,11 +9,12 @@ items = json.load(input_file, encoding='utf-8')
 
 count = 0
 for item in items:
-    if item['enabled'] and ('posted' not in item.keys() or item['posted'] == ''):
+    if 'posted' not in item.keys():
         print(item)
+        item['posted'] = ''
         count += 1
 
 print(count)
-#json.dump(items ,output_file, indent=4,ensure_ascii=False,sort_keys=True)
+json.dump(items, output_file, indent=4,ensure_ascii=False,sort_keys=True)
 
 
