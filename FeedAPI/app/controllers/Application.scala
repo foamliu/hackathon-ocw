@@ -161,7 +161,7 @@ object Application {
         val id: Long = item.itemID
         val clicks: Int = getRates.filter(_.item_id == id).length
         val parsers  = Array( 
-          DateTimeFormat.forPattern( "yyyy-MM-dd hh:mm" ).getParser(),
+          DateTimeFormat.forPattern( "yyyy-MM-dd HH:mm" ).getParser(),
           DateTimeFormat.forPattern( "yyyy-MM-dd" ).getParser(),
           DateTimeFormat.forPattern( "yyyy-MM" ).getParser(),
           DateTimeFormat.forPattern( "yyyy-M" ).getParser()
