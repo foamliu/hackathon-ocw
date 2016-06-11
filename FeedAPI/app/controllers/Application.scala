@@ -1,7 +1,6 @@
 package controllers
 
 import org.joda.time._
-
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -10,7 +9,6 @@ import scala.io.Source
 import scala.concurrent.Await
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
-
 import org.apache.mahout.cf.taste.common.NoSuchUserException
 import org.apache.mahout.cf.taste.impl.model.mongodb.MongoDBDataModel
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood
@@ -20,7 +18,6 @@ import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood
 import org.apache.mahout.cf.taste.recommender.Recommender
 import org.apache.mahout.cf.taste.similarity.UserSimilarity
-
 import javax.inject.Inject
 import play.api.Logger
 import play.api.Play
@@ -38,6 +35,10 @@ import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.ReactiveMongoApi
 import play.modules.reactivemongo.ReactiveMongoComponents
 import reactivemongo.core.actors.Exceptions.PrimaryUnavailableException
+import org.joda.time.format.DateTimeParser
+import org.joda.time.format.DateTimeFormatter
+import org.joda.time.format.DateTimeFormatterBuilder
+import org.joda.time.format.DateTimeFormat
 
 object Application {
 
@@ -159,7 +160,15 @@ object Application {
       for (item <- getCourses.filter(_.enabled)) {
         val id: Long = item.itemID
         val clicks: Int = getRates.filter(_.item_id == id).length
-        val d1: DateTime = DateTime.parse(item.posted)
+        val parsers  = Array( 
+          DateTimeFormat.forPattern( "yyyy-MM-dd hh:mm" ).getParser(),
+          DateTimeFormat.forPattern( "yyyy-MM-dd" ).getParser(),
+          DateTimeFormat.forPattern( "yyyy-MM" ).getParser(),
+          DateTimeFormat.forPattern( "yyyy-M" ).getParser()
+          )
+        val formatter : DateTimeFormatter = new DateTimeFormatterBuilder().append( null, parsers ).toFormatter()
+
+        val d1: DateTime = formatter.parseDateTime(item.posted)
         val d2: DateTime = DateTime.now
         val hours = Hours.hoursBetween(d1, d2).getHours
         val rank: Double = (clicks + 1) / Math.pow(hours + 2, 0.01)
