@@ -66,7 +66,7 @@ class GuokrSpider(scrapy.Spider):
             link = cleanse(info.xpath('a[@data-gaevent="scientific_image:v1.1.1.1:scientific"]/@href').extract())
             if not self.downloaded(link):
                 title = cleanse(info.xpath('h3/a[@class="article-title"]/text()').extract())
-                if (title != ''):
+                if (title != '' and link != ''):
                     try:
                         item = GuokrItem()
                         item['title'] = title
