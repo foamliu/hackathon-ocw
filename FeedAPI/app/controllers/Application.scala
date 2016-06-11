@@ -248,7 +248,7 @@ object Application {
       if (itemIDs.size == 0) {
         //candidates = scala.util.Random.shuffle(items).take(howMany)
         val myVisited = getVisited.getOrElse(userID, new ListBuffer[Long]())
-        itemIDs = ranks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(howMany).map(f => f._1)
+        itemIDs = getRanks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(howMany).map(f => f._1)
       }
     } catch {
       case e: Exception =>
