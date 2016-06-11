@@ -249,9 +249,9 @@ object Application {
         //candidates = scala.util.Random.shuffle(items).take(howMany)
         val myVisited = getVisited.getOrElse(userID, null)
         if (myVisited != null) {
-          itemIDs = getRanks.filter(r => !myVisited.contains(r._1)).take(50).map(f => f._1)
+          itemIDs = getRanks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(50).map(f => f._1)
         } else {
-          itemIDs = getRanks.take(50).map(f => f._1)
+          itemIDs = getRanks.sortBy(f => f._2).reverse.take(50).map(f => f._1)
         }
         
       }
