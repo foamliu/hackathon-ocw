@@ -12,7 +12,7 @@ import play.api.libs.json.Reads.StringReads
 import play.api.libs.json.Reads.functorReads
 import play.api.libs.json.Writes
 
-case class Course(itemID: Long, var title: String, description: String, piclink: String, courselink: String, duration: String, source: String, school: String, instructor: String, language: String, tags: String, link: String, enabled: Boolean)
+case class Course(itemID: Long, var title: String, description: String, piclink: String, courselink: String, duration: String, source: String, school: String, instructor: String, language: String, tags: String, link: String, enabled: Boolean, posted: String)
 
 object Course {
 
@@ -29,7 +29,8 @@ object Course {
         (JsPath \\ "language").read[String] and
         (JsPath \\ "tags").read[String] and
         (JsPath \\ "link").read[String] and
-        (JsPath \\ "enabled").read[Boolean])(Course.apply _)
+        (JsPath \\ "enabled").read[Boolean] and
+        (JsPath \\ "posted").read[String])(Course.apply _)
 
     implicit val courseWrites = new Writes[Course] {
         def writes(c: Course): JsValue =
@@ -46,6 +47,7 @@ object Course {
                 "language" -> c.language,
                 "tags" -> c.tags,
                 "link" -> c.link,
-                "enabled" -> c.enabled)
+                "enabled" -> c.enabled,
+                "posted" -> c.posted)
     }
 }
