@@ -159,7 +159,7 @@ object Application {
     try {
       for (item <- getCourses.filter(_.enabled)) {
         val id: Long = item.itemID
-        val clicks: Int = getRates.filter(_.item_id == id).length
+        val clicks: Int = getRates.filter(_.item_id == id).map(r => r.user_id).distinct.length
         val parsers  = Array( 
           DateTimeFormat.forPattern( "yyyy-MM-dd HH:mm" ).getParser(),
           DateTimeFormat.forPattern( "yyyy-MM-dd" ).getParser(),
@@ -248,7 +248,7 @@ object Application {
       if (itemIDs.size == 0) {
         //candidates = scala.util.Random.shuffle(items).take(howMany)
         val myVisited = getVisited.getOrElse(userID, new ListBuffer[Long]())
-        itemIDs = getRanks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(howMany).map(f => f._1)
+        itemIDs = getRanks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(50).map(f => f._1)
       }
     } catch {
       case e: Exception =>
