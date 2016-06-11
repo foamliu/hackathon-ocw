@@ -92,7 +92,7 @@ object Application {
   
   private def getRanks(): Seq[(Long, Double)] = {    
     if (ranks == null) {
-      ranks = calculateRanks
+      ranks = calculateRanks.sortBy(f => f._2).reverse
     }
     ranks
   }
@@ -247,8 +247,13 @@ object Application {
     try {
       if (itemIDs.size == 0) {
         //candidates = scala.util.Random.shuffle(items).take(howMany)
-        val myVisited = getVisited.getOrElse(userID, new ListBuffer[Long]())
-        itemIDs = getRanks.filter(r => !myVisited.contains(r._1)).sortBy(f => f._2).reverse.take(50).map(f => f._1)
+        val myVisited = getVisited.getOrElse(userID, null)
+        if (myVisited != null) {
+          itemIDs = getRanks.filter(r => !myVisited.contains(r._1)).take(50).map(f => f._1)
+        } else {
+          itemIDs = getRanks.take(50).map(f => f._1)
+        }
+        
       }
     } catch {
       case e: Exception =>
