@@ -7,7 +7,7 @@ items = json.load(input_file, encoding='utf-8')
 
 count = 0
 for item in items:
-    if item['source'] == '网易公开课' and item['courselink'] == '':
+    if item['enabled'] and 'posted' in item.keys() and item['posted'] == '':
         #item['enabled'] = False
         count += 1
 
