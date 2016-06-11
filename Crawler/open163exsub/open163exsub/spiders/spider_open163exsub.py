@@ -71,6 +71,8 @@ class Open163ExSpider(scrapy.Spider):
         item['description'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[2]/text()').extract())
         item['piclink'] = cleanse(hxs.xpath('/html/body/div/div[1]/div[4]/a/img/@src').extract())
         item['courselink'] = cleanse(hxs.xpath('/html/body/div/div[1]/video/@src').extract())
+        if item['courselink'] == u'http://mov.bn.netease.com/movie/nofile/list.mp4':
+            item['courselink'] = u''
         item['source'] = u'网易公开课'.encode('utf-8')
 
         label = cleanse(hxs.xpath('/html/body/div/div[1]/div[5]/p/span/text()').extract())
@@ -93,14 +95,18 @@ class Open163ExSpider(scrapy.Spider):
         item['link'] = link        
         item['crawled'] = time.strftime('%Y-%m-%d %H:%M')
         item['posted'] = u''
-        if item['courselink'] != '' and item['courselink'] != 'http://mov.bn.netease.com/movie/nofile/list.mp4':
-            alist = item['courselink'].split("/")
-            if (item['courselink'].startswith('http://mov.bn.netease.com/movie/')):
-                item['posted'] = alist[4] + '-' + alist[5]
+        if item['courselink'] != '':
+            if item['courselink'] != 'http://mov.bn.netease.com/movie/nofile/list.mp4':
+                alist = item['courselink'].split("/")
+                if (item['courselink'].startswith('http://mov.bn.netease.com/movie/')):
+                    item['posted'] = alist[4] + '-' + alist[5]
+                else:
+                    item['posted'] = alist[6]+'-'+alist[7]+'-'+alist[8]
             else:
-                item['posted'] = alist[6]+'-'+alist[7]+'-'+alist[8]
+                alist = item['link'].split("/")
+                item['posted'] = alist[4] + '-' + alist[5]
         return item
-
+                
     def parse(self, response):
         links = getlinks()
         links.reverse()
