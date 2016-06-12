@@ -134,6 +134,7 @@ public class HistoryListAdapter extends BaseAdapter {
                             intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
                         }
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         intent.setClass(appContext, DetailActivity.class);
                         appContext.startActivity(intent);
                     } else if (videoUrl.equals("") && !isYixi) {
@@ -148,6 +149,7 @@ public class HistoryListAdapter extends BaseAdapter {
                             intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());
                         }
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         intent.setClass(appContext, WebDetailActivity.class);
                         appContext.startActivity(intent);
                     }

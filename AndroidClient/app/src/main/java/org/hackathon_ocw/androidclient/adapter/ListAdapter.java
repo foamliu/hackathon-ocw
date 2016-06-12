@@ -159,13 +159,13 @@ public class ListAdapter extends BaseAdapter {
                     //Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
                     //Show subpage with videoUrl
                     Intent intent = new Intent();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(Constants.KEY_ID, strItemId);
                     intent.putExtra(Constants.KEY_TITLE, strTitle);
                     intent.putExtra(Constants.KEY_DESCRIPTION, strDescription);
                     intent.putExtra(Constants.KEY_THUMB_URL, strThumbUrl);
                     intent.putExtra(Constants.KEY_VIDEOURL, strVideoUrl);
-
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     intent.setClass(appContext, DownloadListActivity.class);
                     appContext.startActivity(intent);
                 }
@@ -226,7 +226,7 @@ public class ListAdapter extends BaseAdapter {
                             String link = jsonObject.getString("url").replace("\\", "");
 
                             Intent intent = new Intent();
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                             intent.putExtra(Constants.KEY_ID, ListAdapter.this.getIdByPosition(positionYixi));
                             intent.putExtra(Constants.KEY_TITLE, ListAdapter.this.getTitleByPosition(positionYixi));
                             intent.putExtra(Constants.KEY_DESCRIPTION, ListAdapter.this.getDescriptionByPosition(positionYixi));
@@ -234,6 +234,8 @@ public class ListAdapter extends BaseAdapter {
                             intent.putExtra(Constants.KEY_VIDEOURL, link);
 
                             intent.setClass(appContext, DownloadListActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             appContext.startActivity(intent);
                         } catch (Exception e) {
                             e.printStackTrace();
