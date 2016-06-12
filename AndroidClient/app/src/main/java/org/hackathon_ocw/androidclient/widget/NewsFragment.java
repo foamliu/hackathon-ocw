@@ -163,7 +163,7 @@ public class NewsFragment extends Fragment
                         }
 
                         intent.setClass(getActivity(), DetailActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } else if (mListAdapter.getVideoUrlByPosition(position).equals("") && !isYixi) {
                         //Show subpage with Webview
@@ -178,7 +178,7 @@ public class NewsFragment extends Fragment
                         }
 
                         intent.setClass(getActivity(), WebDetailActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
                     //Send post to server

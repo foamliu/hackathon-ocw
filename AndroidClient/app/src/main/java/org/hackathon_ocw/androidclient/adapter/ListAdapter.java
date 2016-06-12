@@ -165,7 +165,7 @@ public class ListAdapter extends BaseAdapter {
                     intent.putExtra(Constants.KEY_THUMB_URL, strThumbUrl);
                     intent.putExtra(Constants.KEY_VIDEOURL, strVideoUrl);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.setClass(appContext, DownloadListActivity.class);
                     appContext.startActivity(intent);
                 }
@@ -235,7 +235,7 @@ public class ListAdapter extends BaseAdapter {
 
                             intent.setClass(appContext, DownloadListActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             appContext.startActivity(intent);
                         } catch (Exception e) {
                             e.printStackTrace();
