@@ -33,7 +33,7 @@ items = json.load(items_file, encoding='utf-8')
 i = 1;
 if (len(items) > 0) : i = items[len(items) - 1]['item_id'] + 1
 
-client = MongoClient('192.168.0.1', 27017);
+client = MongoClient('192.168.56.101', 27017);
 db = client['jiekodb'];
 courses = db['course']
 
