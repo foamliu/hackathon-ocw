@@ -93,18 +93,10 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         sendScreenImageName();
     }
 
-    @SuppressWarnings("ConstantConditions")
     public void detailToolBarInit(){
-        Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
-        setSupportActionBar(detailToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
-
-        TextView titleToolBar = (TextView) findViewById(R.id.titleToolBar);
-        titleToolBar.setText("学啥");
     }
 
     // A method to find height of the status bar

@@ -120,10 +120,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     }
 
     private void detailToolBarInit() {
-        Toolbar detailToolbar = (Toolbar) findViewById(R.id.detailToolbar);
-        setSupportActionBar(detailToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        detailToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
