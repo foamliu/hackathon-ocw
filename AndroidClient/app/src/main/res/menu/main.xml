@@ -5,10 +5,14 @@
         android:id="@+id/history"
         android:orderInCategory="100"
         android:title="历史记录"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_clock_64dp"
+        app:showAsAction="never"
+        />
     <item
         android:id="@+id/download"
         android:orderInCategory="100"
         android:title="下载列表"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_download_64dp"
+        app:showAsAction="never"
+        />
 </menu>

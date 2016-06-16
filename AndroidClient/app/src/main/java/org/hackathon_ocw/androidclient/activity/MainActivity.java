@@ -41,6 +41,9 @@ import org.hackathon_ocw.androidclient.widget.NewsFragment;
 import org.hackathon_ocw.androidclient.wxapi.WXEntryActivity;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 
 public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -58,7 +61,6 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         ImageView topHead = (ImageView) findViewById(R.id.top_head);
         ImageView btnExpand = (ImageView) findViewById(R.id.icon_expand);
-        ImageView menu = (ImageView) findViewById(R.id.top_more);
 
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
@@ -69,20 +71,14 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 }
             }
         });
-        menu.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
-                popupMenu.setOnMenuItemClickListener(MainActivity.this);
-                popupMenu.inflate(R.menu.main);
-                popupMenu.show();
-            }
-        });
+
         btnExpand.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
             }
         });
 
+        addListenerOnMenuButton();
 
         if (checkNetworkStatus()) {
             UserProfile.init(this);
@@ -91,6 +87,37 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
             CustomApplication application = (CustomApplication) getApplication();
             mTracker = application.getDefaultTracker();
         }
+    }
+
+    private void addListenerOnMenuButton() {
+        ImageView menu = (ImageView) findViewById(R.id.menuBtn);
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
+                //Use reflect to solve the issue that icon can't show in android 3.0+
+                try {
+                    Field[] fields = popupMenu.getClass().getDeclaredFields();
+                    for (Field field : fields) {
+                        if ("mPopup".equals(field.getName())) {
+                            field.setAccessible(true);
+                            Object menuPopupHelper = field.get(popupMenu);
+                            Class<?> classPopupHelper = Class.forName(menuPopupHelper
+                                    .getClass().getName());
+                            Method setForceIcons = classPopupHelper.getMethod(
+                                    "setForceShowIcon", boolean.class);
+                            setForceIcons.invoke(menuPopupHelper, true);
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                popupMenu.setOnMenuItemClickListener(MainActivity.this);
+                popupMenu.inflate(R.menu.main);
+                popupMenu.show();
+            }
+        });
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
