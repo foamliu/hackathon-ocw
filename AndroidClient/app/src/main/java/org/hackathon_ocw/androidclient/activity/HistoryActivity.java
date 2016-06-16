@@ -11,18 +11,26 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.adapter.HistoryListAdapter;
+import org.hackathon_ocw.androidclient.util.CustomApplication;
 import org.hackathon_ocw.androidclient.util.SystemBarTintManager;
 
 public class HistoryActivity extends AppCompatActivity {
 
     private HistoryListAdapter historyListAdapter;
     private final static String TAG = "HistoryActivity";
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CustomApplication application = (CustomApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -35,6 +43,9 @@ public class HistoryActivity extends AppCompatActivity {
         ListView historyList = (ListView) findViewById(R.id.history_list);
         historyListAdapter = new HistoryListAdapter(this);
         historyList.setAdapter(historyListAdapter);
+
+        //Google Analytics tracker
+        sendScreenImageName();
     }
 
     @Override
@@ -78,6 +89,16 @@ public class HistoryActivity extends AppCompatActivity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    //Google Analytics
+    private void sendScreenImageName() {
+        String name = TAG;
+        // [START screen_view_hit]
+        //Log.i(TAG, "Setting screen name: " + name);
+        mTracker.setScreenName("Screen~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        // [END screen_view_hit]
     }
 
 }

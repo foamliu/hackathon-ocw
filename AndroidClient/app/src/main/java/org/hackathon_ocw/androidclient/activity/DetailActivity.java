@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.ShapeDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +31,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
@@ -83,8 +86,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
     private Uri uri;
     private ViewPager viewPager;
-    private PopupWindow popWindow;
-    private InputMethodManager imm;
     private EditText editText;
     private Bitmap videoImage;
 
@@ -108,7 +109,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_detail);
 
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, true);
@@ -128,14 +129,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         TextView titleDetail = (TextView) findViewById(R.id.titleDetail);
         titleDetail.setText(title);
 
-        RelativeLayout videoLayout = (RelativeLayout) findViewById(R.id.videoLayout);
-        if(Utils.isTablet(this.getApplicationContext())) {
-            videoLayout.getLayoutParams().height = 1000;
-        }
-        else{
-            videoLayout.getLayoutParams().height = 460;
-        }
-
         getVideoImage(videoUrl);
 
         videoInit();
@@ -144,7 +137,12 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         addListenerOnShareButton();
 
         addListenerOnCommentButton();
-        addListenerOnViewCommentButton();
+        addListenerOnSendCommentButton();
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        RelativeLayout videoLayout = (RelativeLayout) findViewById(R.id.videoLayout);
+        videoLayout.getLayoutParams().height = metrics.widthPixels * 9 / 16;
 
         //Google Analytics tracker
         sendScreenImageName();
@@ -167,8 +165,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         videoLayout.seekTo(position);
     }
 
-
-    private void viewPagerInit(){
+    private void viewPagerInit() {
         viewPager = (ViewPager) findViewById(R.id.detailPager);
         viewPager.setAdapter(new PageFragmentAdapter(getSupportFragmentManager(),
                 DetailActivity.this));
@@ -180,20 +177,19 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    private void detailToolBarInit(){
+    private void detailToolBarInit() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
     }
 
-    private void videoInit(){
-        videoLayout = (FullscreenVideoLayout)findViewById(R.id.videoView);
+    private void videoInit() {
+        videoLayout = (FullscreenVideoLayout) findViewById(R.id.videoView);
         videoLayout.setActivity(this);
         videoLayout.setShouldAutoplay(true);
-        try{
+        try {
             videoLayout.setVideoURI(uri);
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
             Log.e("videoLayout", e.toString());
         }
@@ -222,16 +218,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         videoLayout.resize();
-    }
-
-    // A method to find height of the status bar
-    private int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     private void addListenerOnBackButton() {
@@ -276,8 +262,8 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         });
     }
 
-    public boolean onMenuItemClick(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.shareWXSession:
                 WXShare(true);
                 return true;
@@ -289,10 +275,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         }
     }
 
-    private void WXShare(boolean isTimelineCb){
-        //WXVideoObject videoObject = new WXVideoObject();
-        //videoObject.videoUrl = uri.toString();
-
+    private void WXShare(boolean isTimelineCb) {
         WXWebpageObject webpageObject = new WXWebpageObject();
         webpageObject.webpageUrl = uri.toString();
 
@@ -303,7 +286,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         if (videoImage != null) {
             videoImage.getHeight();
             Bitmap thumb = Bitmap.createScaledBitmap(videoImage, 150, 120, true);
-            //videoImage.recycle();
             msg.thumbData = Utils.bmpToByteArray(thumb);
         }
 
@@ -312,112 +294,31 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         req.message = msg;
         req.scene = isTimelineCb ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         api.sendReq(req);
-
-    }
-
-    private void addListenerOnViewCommentButton(){
-        //Change view
-        Button viewComment = (Button)findViewById(R.id.ViewCommentBtn);
-        viewComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(1, true);
-            }
-        });
     }
 
     private String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 
-    private void addListenerOnCommentButton(){
-        editText = (EditText)findViewById(R.id.EditComment);
-        if(Utils.isTablet(this.getApplicationContext())) {
-            editText.getLayoutParams().width = metrics.widthPixels - 200;
-        }
+    private void addListenerOnCommentButton() {
+        editText = (EditText) findViewById(R.id.EditComment);
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    commentShowPopup(v);
-                    editText.clearFocus();
-                    popUpInputMethodWindow();
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                 }
             }
         });
     }
 
     @Override
-    public void onBackPressed(){
-        if(popWindow != null && popWindow.isShowing()) {
-            popWindow.dismiss();
-        }
-        else {
-            super.onBackPressed();
-        }
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
-    private void commentShowPopup(final View parent){
-
-        if(popWindow == null)
-        {
-            LayoutInflater layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-            View view = layoutInflater.inflate(R.layout.comment_popwindow, null);
-            popWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, 80);
-        }
-        else
-        {
-            popWindow.update();
-        }
-        //popWindow.setAnimationStyle(R.style.pop);
-        EditText writeCommentPopWin = (EditText) popWindow.getContentView().findViewById(R.id.WriteCommentPopWin);
-        if(Utils.isTablet(this.getApplicationContext())) {
-            writeCommentPopWin.getLayoutParams().width = metrics.widthPixels - 200;
-        }
-        popWindow.setBackgroundDrawable(new ShapeDrawable());
-        popWindow.setFocusable(true);
-        popWindow.setOutsideTouchable(true);
-        popWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
-        addListenerOnSendCommentButton();
-
-        popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                popDownInputMethodWindow(parent);
-            }
-        });
-
-        popWindow.setTouchInterceptor(new View.OnTouchListener() {
-            public boolean onTouch(View view, MotionEvent event) {
-                return false;
-            }
-        });
-    }
-
-    private void popUpInputMethodWindow(){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                imm = (InputMethodManager) editText.getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-        }, 0);
-    }
-
-    private void popDownInputMethodWindow(final View view){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                imm = (InputMethodManager) editText.getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        }, 0);
-    }
-
-    private void addListenerOnSendCommentButton(){
-        ImageButton sendCommentBtn = (ImageButton)popWindow.getContentView().findViewById(R.id.SendBtn);
-        sendCommentBtn.setColorFilter(Color.parseColor("#64B5F6"));
+    private void addListenerOnSendCommentButton() {
+        Button sendCommentBtn = (Button) findViewById(R.id.SendCommentBtn);
         sendCommentBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Get item_id
@@ -426,10 +327,9 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 //Get author_id
                 int author_id = Integer.valueOf(UserProfile.getInstance().getUserId());
                 String author_name;
-                if(UserProfile.getInstance().getNickname() != null) {
+                if (UserProfile.getInstance().getNickname() != null) {
                     author_name = UserProfile.getInstance().getNickname();
-                }
-                else {
+                } else {
                     author_name = "匿名用户";
                 }
                 int like = 0;
@@ -441,7 +341,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 String currentTimeStr = simpleDateFormat.format(currentTime.getTime());
 
                 //Get text
-                EditText editText = (EditText)popWindow.getContentView().findViewById(R.id.WriteCommentPopWin);
+                EditText editText = (EditText) findViewById(R.id.EditComment);
                 String comment = editText.getText().toString();
 
                 //Get current timeline
@@ -454,8 +354,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
                 JSONObject jsonObject = new JSONObject();
-                try
-                {
+                try {
                     jsonObject.put("item_id", item_id);
                     jsonObject.put("author_id", author_id);
                     jsonObject.put("author_name", author_name);
@@ -463,11 +362,10 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                     jsonObject.put("text", comment);
                     jsonObject.put("timeline", timeline);
                     jsonObject.put("like", like);
-                }catch (Exception e)
-                {
-                    Log.e("Json Error",e.toString());
+                } catch (Exception e) {
+                    Log.e("Json Error", e.toString());
                 }
-                JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST,httpurl, jsonObject,
+                JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, httpurl, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -479,8 +377,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Error.Response", error.toString());
                     }
-                })
-                {
+                }) {
                     @Override
                     public Map<String, String> getHeaders() {
                         HashMap<String, String> headers = new HashMap<>();
@@ -494,27 +391,28 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
                 //Update the comment list
 
-                HashMap<String, String>map = new HashMap<String, String>();
+                HashMap<String, String> map = new HashMap<String, String>();
                 map.put("commentId", String.valueOf(item_id));
                 map.put("userName", author_name);
                 map.put("commentTime", currentTimeStr);
                 map.put("comment", comment);
                 map.put("timeline", String.valueOf(timeline));
                 map.put("like", String.valueOf(like));
-                if(UserProfile.getInstance().getHeadimgurl() != null)
-                {
+                if (UserProfile.getInstance().getHeadimgurl() != null) {
                     map.put("headimgurl", UserProfile.getInstance().getHeadimgurl());
                 }
 
-                PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter)viewPager.getAdapter();
+                PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter) viewPager.getAdapter();
                 pageFragmentAdapter.getTabComment().mCommentAdapter.AddComments(map);
 
-                popWindow.dismiss();
+                // 清理
+                viewPager.setCurrentItem(1, true);
+                InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                editText.setText("");
             }
         });
-
     }
-
 
     //Google Analytics
     private void sendScreenImageName() {

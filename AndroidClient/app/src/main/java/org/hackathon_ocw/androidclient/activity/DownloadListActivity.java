@@ -18,6 +18,7 @@ import com.golshadi.majid.core.DownloadManagerPro;
 import com.golshadi.majid.core.enums.TaskStates;
 import com.golshadi.majid.report.ReportStructure;
 import com.golshadi.majid.report.listener.DownloadManagerListener;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import org.hackathon_ocw.androidclient.util.CustomApplication;
@@ -37,13 +38,14 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     private DownloadManagerPro downloadManager;
     private DownloadListAdapter downloadListAdapter;
     private final static String TAG = "DownloadListActivity";
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         CustomApplication application = (CustomApplication) getApplication();
-        Tracker mTracker = application.getDefaultTracker();
+        mTracker = application.getDefaultTracker();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -55,6 +57,9 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         ListView downloadList = (ListView) findViewById(R.id.download_list);
         downloadListAdapter = new DownloadListAdapter(this, downloadManager);
         downloadList.setAdapter(downloadListAdapter);
+
+        //Google Analytics tracker
+        sendScreenImageName();
     }
 
     @Override
@@ -254,5 +259,15 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //Google Analytics
+    private void sendScreenImageName() {
+        String name = TAG;
+        // [START screen_view_hit]
+        //Log.i(TAG, "Setting screen name: " + name);
+        mTracker.setScreenName("Screen~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        // [END screen_view_hit]
     }
 }

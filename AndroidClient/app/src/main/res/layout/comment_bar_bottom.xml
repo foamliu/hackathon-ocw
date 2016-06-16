@@ -38,12 +38,12 @@
                 android:layout_marginRight="60dp"/>
 
             <Button
-                android:id="@+id/ViewCommentBtn"
+                android:id="@+id/SendCommentBtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/ic_chat_black_18dp"
+                android:background="@drawable/ic_send_black_32dp"
                 android:alpha="0.5"/>
 
         </android.support.v7.widget.Toolbar>
