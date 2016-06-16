@@ -165,4 +165,12 @@ public class StorageUtils {
         }
 
     }
+
+    public static boolean isDownloaded(long itemId) {
+        File f = new File(FILE_ROOT, itemId + ".mp4");
+        if (f.exists()) {
+            return true;
+        }
+        return false;
+    }
 }

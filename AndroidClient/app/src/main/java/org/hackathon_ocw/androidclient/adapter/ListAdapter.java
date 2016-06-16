@@ -3,6 +3,7 @@ package org.hackathon_ocw.androidclient.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.activity.DownloadListActivity;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.ImageLoader;
+import org.hackathon_ocw.androidclient.util.StorageUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -137,7 +139,7 @@ public class ListAdapter extends BaseAdapter {
         if (strSchool.length() > 12)
             strSchool = strSchool.substring(0, 12) + "..";
         String strDuration = course.get(Constants.KEY_DURATION);
-        if (strDuration == null ) {
+        if (strDuration == null) {
             strDuration = "";
         }
         final String strThumbUrl = course.get(Constants.KEY_THUMB_URL);
@@ -150,28 +152,33 @@ public class ListAdapter extends BaseAdapter {
 
         imageLoader.DisplayImage(strThumbUrl, thumb_image);
 
-        if (strVideoUrl != null && !strVideoUrl.trim().equals(""))
-        {
-            downloadBtn.setVisibility(View.VISIBLE);
-            downloadBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
-                    //Show subpage with videoUrl
-                    Intent intent = new Intent();
-                    intent.putExtra(Constants.KEY_ID, strItemId);
-                    intent.putExtra(Constants.KEY_TITLE, strTitle);
-                    intent.putExtra(Constants.KEY_DESCRIPTION, strDescription);
-                    intent.putExtra(Constants.KEY_THUMB_URL, strThumbUrl);
-                    intent.putExtra(Constants.KEY_VIDEOURL, strVideoUrl);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.setClass(appContext, DownloadListActivity.class);
-                    appContext.startActivity(intent);
-                }
-            });
-        }
-        else if (strWebUrl.contains("yixi")) {
+        if (strVideoUrl != null && !strVideoUrl.trim().equals("")) {
+            if (StorageUtils.isDownloaded(Long.valueOf(strItemId))) {
+                String uri = "@drawable/ic_correct_32dp";
+                int imageResource = vi.getResources().getIdentifier(uri, null, null);
+                Drawable res = vi.getResources().getDrawable(imageResource);
+                downloadBtn.setImageDrawable(res);
+            } else {
+                downloadBtn.setVisibility(View.VISIBLE);
+                downloadBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(MainActivity.Self, "加入下载列表: " + strVideoUrl, Toast.LENGTH_SHORT).show();
+                        //Show subpage with videoUrl
+                        Intent intent = new Intent();
+                        intent.putExtra(Constants.KEY_ID, strItemId);
+                        intent.putExtra(Constants.KEY_TITLE, strTitle);
+                        intent.putExtra(Constants.KEY_DESCRIPTION, strDescription);
+                        intent.putExtra(Constants.KEY_THUMB_URL, strThumbUrl);
+                        intent.putExtra(Constants.KEY_VIDEOURL, strVideoUrl);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setClass(appContext, DownloadListActivity.class);
+                        appContext.startActivity(intent);
+                    }
+                });
+            }
+        } else if (strWebUrl.contains("yixi")) {
             downloadBtn.setVisibility(View.VISIBLE);
             downloadBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -180,8 +187,7 @@ public class ListAdapter extends BaseAdapter {
                     positionYixi = iPosition;
                 }
             });
-        }
-        else {
+        } else {
             downloadBtn.setVisibility(View.INVISIBLE);
         }
 
