@@ -14,19 +14,14 @@ import android.os.Message;
  */
 public class Downloader implements Runnable  {
 
-    private final download_complete caller;
+    private final OnDownloadCompleteListener caller;
 
-    public interface download_complete
-    {
-        void onDataLoaded(String data);
-    }
-
-    public Downloader(download_complete caller) {
+    public Downloader(OnDownloadCompleteListener caller) {
         this.caller = caller;
     }
 
     private String link;
-    public void download_data_from_link(String link)
+    public void startDownload(String link)
     {
         this.link = link;
         Thread t = new Thread(this);
@@ -34,7 +29,7 @@ public class Downloader implements Runnable  {
     }
 
     public void run() {
-        //	caller.onDataLoaded(download(this.link));
+        //	caller.onDataLoadComplete(download(this.link));
         threadMsg(download(this.link));
 
     }
@@ -57,7 +52,7 @@ public class Downloader implements Runnable  {
 
             String Response = msg.getData().getString("message");
 
-            caller.onDataLoaded(Response);
+            caller.onDataLoadComplete(Response);
 
         }
     };

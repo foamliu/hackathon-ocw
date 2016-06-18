@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.adapter.CommentAdapter;
 import org.hackathon_ocw.androidclient.util.Downloader;
+import org.hackathon_ocw.androidclient.util.OnDownloadCompleteListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import java.util.HashMap;
  * Created by dianyang on 2016/3/14.
  */
 
-public class TabComment extends Fragment implements Downloader.download_complete {
+public class TabComment extends Fragment implements OnDownloadCompleteListener {
 
     public ListView mCommentView;
     public CommentAdapter mCommentAdapter;
@@ -55,7 +56,7 @@ public class TabComment extends Fragment implements Downloader.download_complete
         String courseid = b.getString("id");
 
         final Downloader download_data = new Downloader(this);
-        download_data.download_data_from_link(getCommentUrl + courseid + "/Comments");
+        download_data.startDownload(getCommentUrl + courseid + "/Comments");
 
         mCommentView = (ListView) inflatedView.findViewById(R.id.commentList);
         mCommentAdapter = new CommentAdapter(getActivity(), commentList);
@@ -65,7 +66,7 @@ public class TabComment extends Fragment implements Downloader.download_complete
     }
 
     @Override
-    public void onDataLoaded(String data) {
+    public void onDataLoadComplete(String data) {
         try {
             JSONArray data_array=new JSONArray(data);
             //JSONObject object = new JSONObject(data);
