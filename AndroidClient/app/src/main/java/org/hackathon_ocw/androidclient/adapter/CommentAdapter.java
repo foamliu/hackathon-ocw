@@ -76,7 +76,7 @@ public class CommentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (convertView == null) {
-            vi = inflater.inflate(R.layout.comment, null);
+            vi = inflater.inflate(R.layout.comment, parent);
         }
 
         //Username, UserImage, Comments, Timestamp, Like
