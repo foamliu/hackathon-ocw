@@ -3,7 +3,8 @@
     android:background="@color/activity_bg_color"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_title_bar_style">
     <RelativeLayout android:id="@+id/title_bar" style="@style/main_title_bar_style">
         <FrameLayout android:id="@+id/back_button_container"
             android:paddingLeft="10.0dip"
