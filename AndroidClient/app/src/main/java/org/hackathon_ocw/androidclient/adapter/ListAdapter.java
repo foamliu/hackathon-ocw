@@ -154,10 +154,15 @@ public class ListAdapter extends BaseAdapter {
 
         if (strVideoUrl != null && !strVideoUrl.trim().equals("")) {
             if (StorageUtils.isDownloaded(Long.valueOf(strItemId))) {
-                String uri = "@drawable/ic_correct_32dp";
-                int imageResource = vi.getResources().getIdentifier(uri, null, null);
-                Drawable res = vi.getResources().getDrawable(imageResource);
-                downloadBtn.setImageDrawable(res);
+                downloadBtn.setImageResource(R.drawable.ic_correct_32dp);
+                downloadBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setClass(appContext, DownloadListActivity.class);
+                        appContext.startActivity(intent);
+                    }
+                });
             } else {
                 downloadBtn.setVisibility(View.VISIBLE);
                 downloadBtn.setOnClickListener(new View.OnClickListener() {

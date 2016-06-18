@@ -2,6 +2,7 @@ package org.hackathon_ocw.androidclient.util;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -15,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 
 import org.hackathon_ocw.androidclient.R;
@@ -23,6 +25,7 @@ import org.hackathon_ocw.androidclient.R;
  * Created by dianyang on 2016/2/29.
  */
 public class ImageLoader {
+    private final static String TAG = "ImageLoader";
     final MemoryCache memoryCache=new MemoryCache();
     final FileCache fileCache;
     private final Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
@@ -76,7 +79,7 @@ public class ImageLoader {
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.w(TAG, e.getMessage());
         }
         //Drawable d = Drawable.createFromStream(i, "src");
         return BitmapFactory.decodeByteArray(data, 0, data.length);

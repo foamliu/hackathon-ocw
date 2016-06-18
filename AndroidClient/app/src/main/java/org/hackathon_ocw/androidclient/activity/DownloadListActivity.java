@@ -144,16 +144,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         shareBtn.setVisibility(View.GONE);
     }
 
-    // A method to find height of the status bar
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
     private void downloadManagerInit() {
 
         if (!StorageUtils.isSDCardPresent()) {
@@ -176,7 +166,7 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
         StorageUtils.verifyStoragePermissions(this);
 
         this.downloadManager = new DownloadManagerPro(this.getApplicationContext());
-        downloadManager.init("xuesha", 6, this);
+        downloadManager.init("xuesha", 1, this);
     }
 
     @Override

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingTop="10dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
             android:layout_width="120dip"
             android:layout_height="80dip" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/title"
@@ -29,7 +29,7 @@
         android:textColor="@color/black"
         android:textSize="15sp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/thumbnail"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/fileSize"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
             android:paddingLeft="5dp"
@@ -49,31 +49,40 @@
 
         <TextView
             android:id="@+id/progress"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:layout_toRightOf="@+id/fileSize"
             android:paddingLeft="5dp"
             android:text="75.00%"
             android:textColor="@color/grey"
             android:textSize="12sp"/>
 
-        <ImageButton
-            android:id="@+id/btn_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="right"
-            android:paddingLeft="5dp"
-            android:src="@drawable/ic_play_48dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/progress"
+            >
+            <ImageButton
+                android:id="@+id/btn_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btn_delete"
+                android:background="@color/white"
+                android:gravity="right"
+                android:paddingLeft="5dp"
+                android:src="@drawable/ic_play_32dp"
+                />
 
-        <ImageButton
-            android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="right"
-            android:paddingLeft="10dp"
-            android:src="@drawable/ic_delete_48dp"/>
-
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="10dp"
+                android:src="@drawable/ic_delete_32dp"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>
