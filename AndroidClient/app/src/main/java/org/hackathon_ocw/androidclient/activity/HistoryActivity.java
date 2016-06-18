@@ -17,7 +17,6 @@ import com.google.android.gms.analytics.Tracker;
 import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.adapter.HistoryListAdapter;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
-import org.hackathon_ocw.androidclient.util.SystemBarTintManager;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -62,10 +61,6 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void detailToolBarInit() {
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
-
         Button backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override

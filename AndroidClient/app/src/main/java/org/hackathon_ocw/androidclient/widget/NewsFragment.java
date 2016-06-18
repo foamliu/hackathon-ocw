@@ -7,7 +7,6 @@ package org.hackathon_ocw.androidclient.widget;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -30,16 +29,17 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import org.hackathon_ocw.androidclient.domain.Course;
-import org.hackathon_ocw.androidclient.util.NetworkThread;
 import org.hackathon_ocw.androidclient.R;
-import org.hackathon_ocw.androidclient.domain.UserProfile;
-import org.hackathon_ocw.androidclient.activity.WebDetailActivity;
 import org.hackathon_ocw.androidclient.activity.DetailActivity;
+import org.hackathon_ocw.androidclient.activity.WebDetailActivity;
 import org.hackathon_ocw.androidclient.adapter.ListAdapter;
+import org.hackathon_ocw.androidclient.domain.Course;
+import org.hackathon_ocw.androidclient.domain.UserProfile;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
 import org.hackathon_ocw.androidclient.util.Downloader;
+import org.hackathon_ocw.androidclient.util.NetworkThread;
+import org.hackathon_ocw.androidclient.util.OnDownloadCompleteListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +52,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NewsFragment extends Fragment
-        implements Downloader.download_complete {
+        implements OnDownloadCompleteListener {
 
     private Tracker mTracker;
     private static final String ARG_POSITION = "position";
@@ -221,11 +221,11 @@ public class NewsFragment extends Fragment
         //Toast.makeText(getActivity(), "玩命加载中...", Toast.LENGTH_SHORT).show();
         courseList.clear();
         Downloader downloader = new Downloader(NewsFragment.this);
-        downloader.download_data_from_link(getUrl());
+        downloader.startDownload(getUrl());
     }
 
     @Override
-    public void onDataLoaded(String data) {
+    public void onDataLoadComplete(String data) {
         try {
             JSONObject object = new JSONObject(data);
             JSONArray data_array = object.getJSONArray("courses");

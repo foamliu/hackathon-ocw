@@ -5,38 +5,23 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.drawable.ShapeDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
-//import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -56,26 +41,24 @@ import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import org.hackathon_ocw.androidclient.R;
+import org.hackathon_ocw.androidclient.adapter.PageFragmentAdapter;
+import org.hackathon_ocw.androidclient.domain.UserProfile;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
-import org.hackathon_ocw.androidclient.widget.FullscreenVideoLayout;
-import org.hackathon_ocw.androidclient.adapter.PageFragmentAdapter;
-import org.hackathon_ocw.androidclient.R;
-import org.hackathon_ocw.androidclient.util.SystemBarTintManager;
-import org.hackathon_ocw.androidclient.domain.UserProfile;
 import org.hackathon_ocw.androidclient.util.Utils;
+import org.hackathon_ocw.androidclient.widget.FullscreenVideoLayout;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
 
 public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -123,8 +106,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         UserProfile.getInstance().setHeadimgurl(intent.getStringExtra("headimgurl"));
         UserProfile.getInstance().setUserId(intent.getStringExtra("userid"));
         String videoUrl = intent.getStringExtra("videoImg");
-
-        detailToolBarInit();
 
         TextView titleDetail = (TextView) findViewById(R.id.titleDetail);
         titleDetail.setText(title);
@@ -175,12 +156,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-    }
-
-    private void detailToolBarInit() {
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
     }
 
     private void videoInit() {

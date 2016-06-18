@@ -30,27 +30,42 @@ public class Constants {
 
     public static final List<String> catalogs = new ArrayList<>();
 
-    public static final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E", Locale.CHINA);
+    public static final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm E", Locale.CHINA);
 
     static {
         catalogs.add("推荐");
         catalogs.add("TED");
+        catalogs.add("经济");
+        catalogs.add("心理");
+        catalogs.add("文学");
+        catalogs.add("艺术");
+        catalogs.add("演讲");
+        catalogs.add("管理");
+        catalogs.add("法律");
+        catalogs.add("历史");
+        catalogs.add("社会");
+        catalogs.add("哲学");
+        catalogs.add("媒体");
+        catalogs.add("医学");
+        catalogs.add("地球科学");
+        catalogs.add("电子");
         catalogs.add("互联网");
+        catalogs.add("InfoQ");
+        catalogs.add("计算机");
         catalogs.add("数学");
         catalogs.add("生物");
         catalogs.add("物理");
         catalogs.add("化学");
-        catalogs.add("心理");
-        catalogs.add("InfoQ");
-        catalogs.add("一席");
-        catalogs.add("电子");
-        catalogs.add("历史");
-        catalogs.add("社会");
-        catalogs.add("计算机");
-        catalogs.add("纪录片");
         catalogs.add("环境");
-        catalogs.add("哲学");
+        catalogs.add("一席");
+        catalogs.add("纪录片");
+        catalogs.add("食物");
+        catalogs.add("国立台湾大学公开课");
         catalogs.add("技能");
+        catalogs.add("航空航天");
+        catalogs.add("天文");
+        catalogs.add("科幻");
+        catalogs.add("传播");
 
         DateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
     }

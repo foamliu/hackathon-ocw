@@ -7,20 +7,15 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -31,7 +26,6 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.hackathon_ocw.androidclient.R;
-import org.hackathon_ocw.androidclient.util.SystemBarTintManager;
 import org.hackathon_ocw.androidclient.domain.UserProfile;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
@@ -45,17 +39,9 @@ import java.lang.reflect.Method;
 public class WebDetailActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private IWXAPI api;
-    private TextView titleDetail;
-
-    private PopupWindow popWindow;
-    private InputMethodManager imm;
-    private EditText editText;
-
     private String webUri;
     private String title;
-
     private Tracker mTracker;
-
     private WebView browser= null;
 
     @Override
@@ -82,8 +68,6 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
         userProfile.setHeadimgurl(intent.getStringExtra("headimgurl"));
         userProfile.setUserId(intent.getStringExtra("userid"));
 
-        detailToolBarInit();
-
         addListenerOnBackButton();
         addListenerOnShareButton();
 
@@ -91,22 +75,6 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
 
         //Google Analytics tracker
         sendScreenImageName();
-    }
-
-    public void detailToolBarInit(){
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
-    }
-
-    // A method to find height of the status bar
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     public void addListenerOnBackButton() {
@@ -165,9 +133,6 @@ public class WebDetailActivity extends AppCompatActivity implements PopupMenu.On
     }
 
     public void WXShare(boolean isTimelineCb){
-        //WXVideoObject videoObject = new WXVideoObject();
-        //videoObject.videoUrl = uri.toString();
-
         WXWebpageObject webpageObject = new WXWebpageObject();
         webpageObject.webpageUrl = webUri;
 

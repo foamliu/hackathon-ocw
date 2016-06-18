@@ -76,7 +76,7 @@ public class CommentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (convertView == null) {
-            vi = inflater.inflate(R.layout.comment, null);
+            vi = inflater.inflate(R.layout.comment, parent);
         }
 
         //Username, UserImage, Comments, Timestamp, Like
@@ -98,7 +98,7 @@ public class CommentAdapter extends BaseAdapter {
         addListenerOnLikeButton(vi, comments);
 
         userName.setText(comments != null ? comments.get(TabComment.KEY_USERNAME) : "");
-        comment.setText(comments.get(TabComment.KEY_COMMENT));
+        comment.setText(comments != null ? comments.get(TabComment.KEY_COMMENT) : "");
         like.setText(comments.get(TabComment.KEY_LIKE));
         String headimgurl = comments.get(TabComment.KEY_USERIMAGE);
 
