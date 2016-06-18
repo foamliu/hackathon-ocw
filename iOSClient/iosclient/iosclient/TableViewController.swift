@@ -204,13 +204,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         
         cell.nameLabel.text = courses[indexPath.row].valueForKey("title") as? String
         cell.descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
-        cell.sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
-        if(courses[indexPath.row].valueForKey("duration") as? String == ""){
-            cell.durationLabel.text = "--:--"
-        }
-        else{
-            cell.durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
-        }
+        //cell.sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
+        //cell.durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
         
         let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
         cell.courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
