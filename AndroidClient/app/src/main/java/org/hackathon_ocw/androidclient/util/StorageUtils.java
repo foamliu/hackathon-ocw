@@ -35,7 +35,7 @@ public class StorageUtils {
 
     public static long getAvailableStorage() {
 
-        String storageDirectory = null;
+        String storageDirectory;
         storageDirectory = Environment.getExternalStorageDirectory().toString();
 
         try {

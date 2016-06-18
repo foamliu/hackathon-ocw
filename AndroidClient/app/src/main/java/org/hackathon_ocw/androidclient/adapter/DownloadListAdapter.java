@@ -164,10 +164,12 @@ public class DownloadListAdapter extends BaseAdapter {
                 try {
                     downloadManager.pauseDownload(taskId);
                 } catch (Exception ex) {
+                    Log.w(TAG, ex.getMessage());
                 }
                 try {
                     downloadManager.delete(taskId, true);
                 } catch (Exception ex) {
+                    Log.w(TAG, ex.getMessage());
                 }
                 StorageUtils.delete(itemId);
                 delete(itemId);
@@ -295,7 +297,7 @@ public class DownloadListAdapter extends BaseAdapter {
 
     private int getPos(long taskId) {
         int pos = -1;
-        HashMap<String, String> item = null;
+        HashMap<String, String> item;
         for (int i = 0; i < dataList.size(); i++) {
             item = dataList.get(i);
             String strTaskId = item.get("taskId");

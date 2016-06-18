@@ -1,7 +1,5 @@
 package org.hackathon_ocw.androidclient.domain;
 
-import java.util.Date;
-
 /**
  * Created by Foam on 2016/6/1.
  */
