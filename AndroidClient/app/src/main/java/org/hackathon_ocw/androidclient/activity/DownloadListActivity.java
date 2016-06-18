@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,14 +24,12 @@ import org.hackathon_ocw.androidclient.util.CustomApplication;
 import org.hackathon_ocw.androidclient.adapter.DownloadListAdapter;
 import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.util.StorageUtils;
-import org.hackathon_ocw.androidclient.util.SystemBarTintManager;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Timer;
 
 public class DownloadListActivity extends AppCompatActivity implements DownloadManagerListener {
     private DownloadManagerPro downloadManager;
@@ -125,10 +122,6 @@ public class DownloadListActivity extends AppCompatActivity implements DownloadM
     }
 
     private void detailToolBarInit() {
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
-
         Button backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
