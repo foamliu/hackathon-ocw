@@ -1,9 +1,9 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  iosclient
 //
-//  Created by 典 杨 on 16/3/30.
-//  Copyright © 2016年 典 杨. All rights reserved.
+//  Created by 星群 on 16/6/19.
+//  Copyright © 2016年 星群. All rights reserved.
 //
 
 import UIKit
