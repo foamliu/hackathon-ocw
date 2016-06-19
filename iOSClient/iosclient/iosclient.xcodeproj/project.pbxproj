@@ -29,7 +29,7 @@
 		76CC485F1CCC706F007E2F99 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC485C1CCC706F007E2F99 /* TagListView.swift */; };
 		76CC48601CCC706F007E2F99 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CC485D1CCC706F007E2F99 /* TagView.swift */; };
 		76DD389B1CABC24300622A4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389A1CABC24300622A4A /* AppDelegate.swift */; };
-		76DD389D1CABC24300622A4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389C1CABC24300622A4A /* ViewController.swift */; };
+		76DD389D1CABC24300622A4A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD389C1CABC24300622A4A /* MainViewController.swift */; };
 		76DD38A21CABC24300622A4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76DD38A11CABC24300622A4A /* Assets.xcassets */; };
 		76DD38C91CABC3FE00622A4A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38C81CABC3FE00622A4A /* TableViewController.swift */; };
 		76DD38CB1CABC4E500622A4A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38CA1CABC4E500622A4A /* TableViewCell.swift */; };
@@ -89,7 +89,7 @@
 		76CC485D1CCC706F007E2F99 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		76DD38971CABC24300622A4A /* iosclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76DD389A1CABC24300622A4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		76DD389C1CABC24300622A4A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		76DD389C1CABC24300622A4A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		76DD38A11CABC24300622A4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76DD38A61CABC24300622A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76DD38AB1CABC24300622A4A /* iosclientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosclientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,7 +148,7 @@
 		671BC6F31D162E4300A0DF25 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				76DD389C1CABC24300622A4A /* ViewController.swift */,
+				76DD389C1CABC24300622A4A /* MainViewController.swift */,
 				76DD38CC1CABC54000622A4A /* DetailViewController.swift */,
 				766489D91CC8DFAA0047DD5F /* WebViewController.swift */,
 				76DD38C81CABC3FE00622A4A /* TableViewController.swift */,
@@ -458,7 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */,
-				76DD389D1CABC24300622A4A /* ViewController.swift in Sources */,
+				76DD389D1CABC24300622A4A /* MainViewController.swift in Sources */,
 				76FE57071CBB3DC10070B751 /* CommentsViewCell.swift in Sources */,
 				76DD38D11CABCDD900622A4A /* Course.swift in Sources */,
 				76DD38CB1CABC4E500622A4A /* TableViewCell.swift in Sources */,
