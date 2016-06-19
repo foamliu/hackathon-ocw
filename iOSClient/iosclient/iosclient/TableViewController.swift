@@ -2,15 +2,15 @@
 //  TableViewController.swift
 //  iosclient
 //
-//  Created by 典 杨 on 16/3/30.
-//  Copyright © 2016年 典 杨. All rights reserved.
+//  Created by 杨典 on 16/3/30.
+//  Copyright © 2016年 星群. All rights reserved.
 //
 
 import UIKit
 import Alamofire
 import SDWebImage
 
-class TableViewController: UITableViewController, UISearchBarDelegate, TableViewCellDelegate, UIPopoverPresentationControllerDelegate, NSURLConnectionDataDelegate {
+class TableViewController: UITableViewController, UISearchBarDelegate,  UIPopoverPresentationControllerDelegate, NSURLConnectionDataDelegate {
     
     var courses: NSMutableArray = []
     var data = NSMutableData()
@@ -200,24 +200,24 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell") as! TableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell") as! MainTableViewCell
         
-        cell.nameLabel.text = courses[indexPath.row].valueForKey("title") as? String
-        cell.descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
+        //cell.lblTitle.text = courses[indexPath.row].valueForKey("title") as? String
+        //cell.descriptionLabel.text = courses[indexPath.row].valueForKey("description") as? String
         //cell.sourceLabel.text = courses[indexPath.row].valueForKey("source") as? String
         //cell.durationLabel.text = courses[indexPath.row].valueForKey("duration") as? String
         
-        let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
-        cell.courseImageView.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
+        //let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
+        //cell.imgThumbnail.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
         
-        if (indexPath.row == self.courses.count - 1){
-            self.tableView.tableFooterView = self.infiniteScrollingView
-            loadMore()
-        }
+        //if (indexPath.row == self.courses.count - 1){
+         //   self.tableView.tableFooterView = self.infiniteScrollingView
+        //    loadMore()
+        //}
         
-        if cell.buttonDelegate == nil {
-            cell.buttonDelegate = self
-        }
+        //if cell.buttonDelegate == nil {
+        //    cell.buttonDelegate = self
+        //}
         
         return cell
     }
@@ -270,7 +270,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         tableView.endUpdates()
     }
     
-    func cellTapped(cell: TableViewCell) {
+    func cellTapped(cell: MainTableViewCell) {
         //self.showAlertForRow(tableView.indexPathForCell(cell)!.row)
         //print(tableView.indexPathForCell(cell)!.row)
         
@@ -288,8 +288,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
         let popVC = (storyboard?.instantiateViewControllerWithIdentifier("Popover"))! as! PopoverViewController
         popVC.modalPresentationStyle = UIModalPresentationStyle.Popover
         popVC.popoverPresentationController?.delegate = self
-        popVC.popoverPresentationController?.sourceView = cell.dislikeButton
-        popVC.popoverPresentationController?.sourceRect = cell.dislikeButton.bounds
+        //popVC.popoverPresentationController?.sourceView = cell.dislikeButton
+        //popVC.popoverPresentationController?.sourceRect = cell.dislikeButton.bounds
         popVC.popoverPresentationController?.permittedArrowDirections = .Up
         popVC.preferredContentSize = CGSizeMake(400, 150)
         self.presentViewController(popVC, animated: true, completion: nil)
@@ -307,7 +307,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate, TableView
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as! TableViewCell
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as! MainTableViewCell
         let nameLabel = currentCell.viewWithTag(100) as? UILabel
         let courseImageView = currentCell.viewWithTag(102) as? UIImageView
         selectedTitle = nameLabel?.text

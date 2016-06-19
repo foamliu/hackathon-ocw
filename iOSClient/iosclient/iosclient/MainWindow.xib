@@ -3,12 +3,11 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="iosclient" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="iosclient">
             <connections>
+                <outlet property="tableView" destination="4VT-Lf-ibM" id="xBh-0X-wrt"/>
                 <outlet property="view" destination="iN0-l3-epB" id="qlp-X7-h4d"/>
             </connections>
         </placeholder>
@@ -16,7 +15,19 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4VT-Lf-ibM">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="4VT-Lf-ibM" secondAttribute="bottom" id="0Am-4z-HrM"/>
+                <constraint firstAttribute="trailing" secondItem="4VT-Lf-ibM" secondAttribute="trailing" id="G3T-lp-heu"/>
+                <constraint firstItem="4VT-Lf-ibM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ghj-ek-473"/>
+                <constraint firstItem="4VT-Lf-ibM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="h9h-wZ-t5t"/>
+            </constraints>
         </view>
     </objects>
 </document>
