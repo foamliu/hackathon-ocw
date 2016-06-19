@@ -14,8 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        WXApi.registerApp("wx9b493c5b54472578")
+        
         // Override point for customization after application launch.
+        WXApi.registerApp("wx9b493c5b54472578")
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let mainViewController = ViewController(nibName: "ViewController", bundle: nil)
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
         // [START tracker_swift]
         // Configure tracker from GoogleService-Info.plist.
