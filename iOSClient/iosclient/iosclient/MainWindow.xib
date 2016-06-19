@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4VT-Lf-ibM">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4VT-Lf-ibM">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -24,8 +24,12 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="4VT-Lf-ibM" secondAttribute="bottom" id="0Am-4z-HrM"/>
+                <constraint firstAttribute="trailing" secondItem="4VT-Lf-ibM" secondAttribute="trailing" constant="5" id="6YA-Sq-sC9"/>
                 <constraint firstAttribute="trailing" secondItem="4VT-Lf-ibM" secondAttribute="trailing" id="G3T-lp-heu"/>
                 <constraint firstItem="4VT-Lf-ibM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ghj-ek-473"/>
+                <constraint firstAttribute="bottom" secondItem="4VT-Lf-ibM" secondAttribute="bottom" constant="5" id="Rad-cm-MKB"/>
+                <constraint firstItem="4VT-Lf-ibM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="Tp7-qN-L43"/>
+                <constraint firstItem="4VT-Lf-ibM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="bQt-aj-orM"/>
                 <constraint firstItem="4VT-Lf-ibM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="h9h-wZ-t5t"/>
             </constraints>
         </view>

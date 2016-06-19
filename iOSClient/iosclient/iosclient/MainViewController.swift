@@ -26,12 +26,23 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         if(isInternetConnected == true){
             getInitId()
         }
+        
+        tableView.frame         =   CGRectMake(0, 50, 320, 200);
+        tableView.delegate      =   self
+        tableView.dataSource    =   self
+        
+        //tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        self.view.addSubview(tableView)
 
         self.title = "学啥"
 
         // Register custom cell
         let nib = UINib(nibName:"vwTblCell", bundle:nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "CourseCell")
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+        
+        tableView.estimatedRowHeight = 90.0
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     func checkInternetConnection(){
@@ -144,9 +155,15 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell: MainTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("CourseCell") as! MainTableViewCell
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         
-        cell.lblTitle.text = courses[indexPath.row].valueForKey("title") as? String
+        (cell as! MainTableViewCell).lblTitle.text = courses[indexPath.row].valueForKey("title") as? String
+        
+        let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
+        (cell as! MainTableViewCell).imgThumbnail.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
+        
+        (cell as! MainTableViewCell).lblSource.text = courses[indexPath.row].valueForKey("school") as? String
+        (cell as! MainTableViewCell).lblDuration.text = courses[indexPath.row].valueForKey("duration") as? String
         
         return cell
     }

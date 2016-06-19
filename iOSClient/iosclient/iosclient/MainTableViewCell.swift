@@ -12,8 +12,8 @@ class MainTableViewCell: UITableViewCell {
     
     @IBOutlet var lblTitle: UILabel!
     @IBOutlet var imgThumbnail: UIImageView!
-    //@IBOutlet var lblSource: UILabel!
-    //@IBOutlet var lblDuration: UILabel!
+    @IBOutlet var lblSource: UILabel!
+    @IBOutlet var lblDuration: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
