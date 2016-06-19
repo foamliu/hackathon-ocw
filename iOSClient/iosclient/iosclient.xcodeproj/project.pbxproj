@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		671BC6F21D162D0500A0DF25 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F11D162D0500A0DF25 /* ViewController.xib */; };
+		671BC6F21D162D0500A0DF25 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F11D162D0500A0DF25 /* MainWindow.xib */; };
 		7610B0841CB5FD810076AA0B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7610B0831CB5FD810076AA0B /* User.swift */; };
 		761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D481CB4B1FE00819982 /* MenuController.swift */; };
 		7634A9DB1CC8AA2200BFED99 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7634A9DA1CC8AA2200BFED99 /* SearchViewController.swift */; };
@@ -59,7 +59,7 @@
 
 /* Begin PBXFileReference section */
 		332EE69B9F4A644FA76F6A86 /* Pods_iosclient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosclient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		671BC6F11D162D0500A0DF25 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		671BC6F11D162D0500A0DF25 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		73BE1F9DB3C562D681D5A208 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7610B0831CB5FD810076AA0B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosclient-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -255,7 +255,7 @@
 				76DD38A11CABC24300622A4A /* Assets.xcassets */,
 				767229E31CC5F4EE00FB5BF5 /* GoogleService-Info.plist */,
 				76DD38A61CABC24300622A4A /* Info.plist */,
-				671BC6F11D162D0500A0DF25 /* ViewController.xib */,
+				671BC6F11D162D0500A0DF25 /* MainWindow.xib */,
 			);
 			path = iosclient;
 			sourceTree = "<group>";
@@ -341,7 +341,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "典 杨";
+				ORGANIZATIONNAME = "星群";
 				TargetAttributes = {
 					76DD38961CABC24300622A4A = {
 						CreatedOnToolsVersion = 7.3;
@@ -384,7 +384,7 @@
 			files = (
 				767229E41CC5F4EE00FB5BF5 /* GoogleService-Info.plist in Resources */,
 				76DD38A21CABC24300622A4A /* Assets.xcassets in Resources */,
-				671BC6F21D162D0500A0DF25 /* ViewController.xib in Resources */,
+				671BC6F21D162D0500A0DF25 /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

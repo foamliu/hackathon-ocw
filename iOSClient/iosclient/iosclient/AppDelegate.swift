@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         WXApi.registerApp("wx9b493c5b54472578")
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        let mainViewController = ViewController(nibName: "ViewController", bundle: nil)
+        let mainViewController = ViewController(nibName: "MainWindow", bundle: nil)
         let navigationController = UINavigationController(rootViewController: mainViewController)
         
         window?.rootViewController = navigationController
