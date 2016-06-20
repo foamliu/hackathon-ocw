@@ -2,26 +2,24 @@
 //  DetailViewController.swift
 //  iosclient
 //
-//  Created by 典 杨 on 16/3/30.
-//  Copyright © 2016年 典 杨. All rights reserved.
+//  Created by 杨典 on 16/3/30.
+//  Copyright © 2016年 星群. All rights reserved.
 //
 
 import UIKit
 import AVKit
 import AVFoundation
-import Cosmos
 import Foundation
 
 class DetailViewController: UIViewController {
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var descriptionView: UIView!
-    @IBOutlet weak var commentView: UIView!
-    @IBOutlet weak var sendBtn: UIButton!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var commentToolbar: UIToolbar!
-    @IBOutlet weak var commentTextfield: UITextField!
-    @IBOutlet weak var ratingBar: CosmosView!
+    //@IBOutlet weak var segmentedControl: UISegmentedControl!
+    //@IBOutlet weak var descriptionView: UIView!
+    //@IBOutlet weak var commentView: UIView!
+    //@IBOutlet weak var sendBtn: UIButton!
+    //@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var commentToolbar: UIToolbar!
+    //@IBOutlet weak var commentTextfield: UITextField!
     
     var courseId: Int!
     var courseTitle: String!
@@ -42,11 +40,10 @@ class DetailViewController: UIViewController {
             self.title = courseTitle
         }
         playVideo()
-        ratingBar.didTouchCosmos = didTouchCosmos
         
         //segmentControl
-        descriptionView.hidden = false
-        commentView.hidden = true
+        //descriptionView.hidden = false
+        //commentView.hidden = true
         
         //Pass values
         if(courseDescription != nil){
@@ -88,47 +85,8 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func didTouchCosmos(rating: Double){
-        let rate: Int = Int(rating)
-        sendSelectedCourse(courseId, rating: rate)
-        notifyUser("谢谢您的评分", message: "", timeToDissapear: 2)
-        
-    }
-    
-    func sendSelectedCourse(courseId: Int, rating: Int){
-        var courseSelected = [String: AnyObject]()
-        courseSelected["user_id"] = User.sharedManager.userid
-        courseSelected["item_id"] = courseId
-        courseSelected["pref"] = rating
-        
-        let url = "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Preferences"
-        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do{
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(courseSelected, options: [])
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-                guard error == nil && data != nil else {
-                    print("error=\(error)")
-                    return
-                }
-                
-                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
-                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                    print("response = \(response)")
-                }
-                
-                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                print("responseString = \(responseString)")
-            }
-            task.resume()
-        } catch _{
-            print("Error json")
-        }
-    }
-    
+ 
+   
     func notifyUser(title: String, message: String, timeToDissapear: Int) -> Void
     {
         alert = UIAlertController(title: title,message: message,preferredStyle: UIAlertControllerStyle.Alert)
@@ -193,18 +151,18 @@ class DetailViewController: UIViewController {
         sendVideo(courseTitle, description: courseDescription, image: courseImage, url: courseVideoUrl, inScene: WXSceneSession)
     }
     
-    @IBAction func indexChanged(sender: UISegmentedControl) {
-        switch self.segmentedControl.selectedSegmentIndex{
-            case 0:
-                descriptionView.hidden = false
-                commentView.hidden = true
-            case 1:
-                descriptionView.hidden = true
-                commentView.hidden = false
-            default:
-                break
-        }
-    }
+    //@IBAction func indexChanged(sender: UISegmentedControl) {
+    //    switch self.segmentedControl.selectedSegmentIndex{
+    //        case 0:
+    //            descriptionView.hidden = false
+    //            commentView.hidden = true
+    //        case 1:
+    //            descriptionView.hidden = true
+    //            commentView.hidden = false
+    //        default:
+    //            break
+    //    }
+    //}
     
     func keyboardWillChange(notification: NSNotification) {
         let dict = NSDictionary(dictionary: notification.userInfo!);
@@ -212,26 +170,26 @@ class DetailViewController: UIViewController {
         let ty = keyboardFrame.origin.y - view.frame.height;
         let duration = dict[UIKeyboardAnimationDurationUserInfoKey] as! Double;
         UIView.animateWithDuration(duration, animations: { () -> Void in
-            self.commentToolbar.transform = CGAffineTransformMakeTranslation(0, ty);
+            //self.commentToolbar.transform = CGAffineTransformMakeTranslation(0, ty);
         });
     }
     
     
-    @IBAction func sendBtnClicked(sender: UIButton) {
-        commentTextfield.resignFirstResponder()
-        if commentTextfield.text != "" {
-            let dict = NSMutableDictionary()
-            dict.setValue(courseId, forKey: "item_id")
-            dict.setValue(commentTextfield.text, forKey: "text")
-            dict.setValue(Int(self.player.currentTime().value), forKey: "timeline")
-            dict.setValue(getCurrentTime(), forKey: "posted")
-            commentTextfield.text = ""
+    //@IBAction func sendBtnClicked(sender: UIButton) {
+    //    commentTextfield.resignFirstResponder()
+    //    if commentTextfield.text != "" {
+    //       let dict = NSMutableDictionary()
+    //        dict.setValue(courseId, forKey: "item_id")
+    //        dict.setValue(commentTextfield.text, forKey: "text")
+    //        dict.setValue(Int(self.player.currentTime().value), forKey: "timeline")
+    //        dict.setValue(getCurrentTime(), forKey: "posted")
+    //        commentTextfield.text = ""
             
             //Update the comment to commentField
-            NSNotificationCenter.defaultCenter().postNotificationName("newCommentNotification", object: nil, userInfo: ["newComment": dict])
-        }
-        
-    }
+    //        NSNotificationCenter.defaultCenter().postNotificationName("newCommentNotification", object: nil, userInfo: ["newComment": dict])
+    //    }
+    //
+    //}
     
     func getCurrentTime() -> String{
         let currentTime = NSDate()

@@ -18,6 +18,12 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     var isInternetConnected = true
     var clearCourses : Bool = false
+    
+    var selectedCourseId: Int!
+    var selectedTitle: String!
+    var selectedVideoUrl: String?
+    var selectedDescription: String!
+    var selectedLink: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,6 +176,69 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("You selected cell #\(indexPath.row)!")
+        
+        selectedTitle = courses[indexPath.row].valueForKey("title") as? String
+        selectedDescription = courses[indexPath.row].valueForKey("description") as? String
+        selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
+        selectedCourseId = courses[indexPath.row].valueForKey("item_id") as? Int
+        selectedLink = courses[indexPath.row].valueForKey("link") as? String
+        
+        //Send request to server
+        sendSelectedCourse(selectedCourseId)
+        
+        //if((selectedLink?.containsString("yixi")) == true){
+        //    parseYixiCourse(selectedLink!);
+        //}
+        
+        if(selectedVideoUrl == "" || selectedVideoUrl == nil){
+            //Pass values
+            showWebDetail()
+        }
+        else{
+            showDetail()
+        }
+    }
+    
+    func sendSelectedCourse(courseId: Int){
+        var courseSelected = [String: AnyObject]()
+        courseSelected["user_id"] = User.sharedManager.userid
+        courseSelected["item_id"] = courseId
+        courseSelected["pref"] = 3
+        
+        let url = "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Preferences"
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(courseSelected, options: [])
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                guard error == nil && data != nil else {
+                    print("error=\(error)")
+                    return
+                }
+                
+                if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(response)")
+                }
+                
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("responseString = \(responseString)")
+            }
+            task.resume()
+        } catch _{
+            print("Error json")
+        }
+    }
+    
+    func showWebDetail() {
+        
+    }
+    
+    func showDetail() {
+        let secondViewController = DetailViewController(nibName: "DetailWindow", bundle: nil)
+        self.presentViewController(secondViewController, animated: true, completion: nil)
     }
 
 
