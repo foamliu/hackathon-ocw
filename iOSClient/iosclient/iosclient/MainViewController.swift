@@ -237,7 +237,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     func showDetail() {
-        let viewController = DetailViewController(nibName: "DetailWindow", bundle: nil)
+        //let viewController = DetailViewController(nibName: "DetailWindow", bundle: nil)
+        let viewController = DetailViewController(nibName: nil, bundle: nil)
         viewController.courseId = selectedCourseId
         viewController.courseTitle = selectedTitle
         viewController.courseDescription = selectedDescription

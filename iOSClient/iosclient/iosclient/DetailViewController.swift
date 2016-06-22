@@ -14,7 +14,7 @@ import Foundation
 class DetailViewController: UIViewController {
     
     //@IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var descriptionView: UILabel!
+    //@IBOutlet weak var descriptionView: UILabel!
     //@IBOutlet weak var commentView: UIView!
     //@IBOutlet weak var sendBtn: UIButton!
     //@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -41,7 +41,7 @@ class DetailViewController: UIViewController {
         }
         playVideo()
         
-        descriptionView.text = courseDescription
+        //descriptionView.text = courseDescription
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -97,10 +97,13 @@ class DetailViewController: UIViewController {
             player = AVPlayer(URL: videoURL!)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
-            playerViewController.view.frame = CGRectMake(0, 110, screenSize.width, 260)
-            self.addChildViewController(playerViewController)
+            //playerViewController.view.frame = CGRectMake(0, 110, screenSize.width, 260)
+            playerViewController.view.frame = CGRectMake(0, 0, screenSize.width, screenSize.height)
             self.view.addSubview(playerViewController.view)
-            playerViewController.player!.play()
+            self.addChildViewController(playerViewController)
+            player.play()
+            
+
         }
     }
     
@@ -149,15 +152,15 @@ class DetailViewController: UIViewController {
     //    }
     //}
     
-    func keyboardWillChange(notification: NSNotification) {
-        let dict = NSDictionary(dictionary: notification.userInfo!);
-        let keyboardFrame = dict[UIKeyboardFrameEndUserInfoKey]!.CGRectValue();
-        let ty = keyboardFrame.origin.y - view.frame.height;
-        let duration = dict[UIKeyboardAnimationDurationUserInfoKey] as! Double;
-        UIView.animateWithDuration(duration, animations: { () -> Void in
-            //self.commentToolbar.transform = CGAffineTransformMakeTranslation(0, ty);
-        });
-    }
+//    func keyboardWillChange(notification: NSNotification) {
+//        let dict = NSDictionary(dictionary: notification.userInfo!);
+//        let keyboardFrame = dict[UIKeyboardFrameEndUserInfoKey]!.CGRectValue();
+//        let ty = keyboardFrame.origin.y - view.frame.height;
+//        let duration = dict[UIKeyboardAnimationDurationUserInfoKey] as! Double;
+//        UIView.animateWithDuration(duration, animations: { () -> Void in
+//            //self.commentToolbar.transform = CGAffineTransformMakeTranslation(0, ty);
+//        });
+//    }
     
     
     //@IBAction func sendBtnClicked(sender: UIButton) {
