@@ -177,10 +177,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("You selected cell #\(indexPath.row)!")
         
+        selectedCourseId = courses[indexPath.row].valueForKey("item_id") as? Int
         selectedTitle = courses[indexPath.row].valueForKey("title") as? String
         selectedDescription = courses[indexPath.row].valueForKey("description") as? String
         selectedVideoUrl = courses[indexPath.row].valueForKey("courselink") as? String
-        selectedCourseId = courses[indexPath.row].valueForKey("item_id") as? Int
         selectedLink = courses[indexPath.row].valueForKey("link") as? String
         
         //Send request to server
@@ -237,8 +237,13 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     func showDetail() {
-        let secondViewController = DetailViewController(nibName: "DetailWindow", bundle: nil)
-        self.presentViewController(secondViewController, animated: true, completion: nil)
+        let viewController = DetailViewController(nibName: "DetailWindow", bundle: nil)
+        viewController.courseId = selectedCourseId
+        viewController.courseTitle = selectedTitle
+        viewController.courseDescription = selectedDescription
+        viewController.courseVideoUrl = selectedVideoUrl
+        viewController.courseLink = selectedLink
+        self.presentViewController(viewController, animated: true, completion: nil)
     }
 
 

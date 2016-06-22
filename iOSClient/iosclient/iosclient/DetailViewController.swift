@@ -14,7 +14,7 @@ import Foundation
 class DetailViewController: UIViewController {
     
     //@IBOutlet weak var segmentedControl: UISegmentedControl!
-    //@IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var descriptionView: UILabel!
     //@IBOutlet weak var commentView: UIView!
     //@IBOutlet weak var sendBtn: UIButton!
     //@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -41,22 +41,7 @@ class DetailViewController: UIViewController {
         }
         playVideo()
         
-        //segmentControl
-        //descriptionView.hidden = false
-        //commentView.hidden = true
-        
-        ////Pass values
-        //if(courseDescription != nil){
-        //    NSNotificationCenter.defaultCenter().postNotificationName("descriptionNotification", object: nil, userInfo: ["description" : courseDescription])
-        //}
-        //if(courseId != nil){
-        //    NSNotificationCenter.defaultCenter().postNotificationName("courseIdNotification", object: nil, userInfo: ["courseId" : courseId])
-        //}
-        
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
-        
-        //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        //view.addGestureRecognizer(tap)
+        descriptionView.text = courseDescription
     }
     
     override func viewWillAppear(animated: Bool) {
