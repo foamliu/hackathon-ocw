@@ -10,7 +10,7 @@ import UIKit
 
 class WebViewController: UIViewController {
     
-    @IBOutlet weak var webView: UIWebView!
+    var webView: UIWebView!
     
     var courseId: Int!
     var courseTitle: String!
@@ -36,6 +36,11 @@ class WebViewController: UIViewController {
     }
     
     func showWebView(){
+        if (webView == nil) {
+            let screenSize : CGRect = UIScreen.mainScreen().bounds;
+            webView = UIWebView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+            self.view.addSubview(webView)
+        }
         webView.loadRequest(NSURLRequest(URL: NSURL(string: courseLink)!))
     }
     

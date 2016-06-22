@@ -233,7 +233,12 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     func showWebDetail() {
-        
+        let viewController = WebViewController(nibName: nil, bundle: nil)
+        viewController.courseId = selectedCourseId
+        viewController.courseTitle = selectedTitle
+        viewController.courseDescription = selectedDescription
+        viewController.courseLink = selectedLink
+        self.presentViewController(viewController, animated: true, completion: nil)
     }
     
     func showDetail() {
