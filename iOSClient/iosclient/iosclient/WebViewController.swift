@@ -20,19 +20,25 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (courseTitle.characters.count > 10){
-            let trimCourseTitle = courseTitle.stringByReplacingCharactersInRange(courseTitle.startIndex.advancedBy(10)..<courseTitle.endIndex, withString: "...")
-            self.title = trimCourseTitle
-        }
-        else{
-            self.title = courseTitle
-        }
+        self.title = "学啥"
+
+        let newBackButton = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Bordered, target: self, action: #selector(WebViewController.back(_:)))
+        self.navigationItem.leftBarButtonItem = newBackButton;
+        
         showWebView();
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func back(sender: UIBarButtonItem) {
+        if(self.webView.canGoBack) {
+            self.webView.goBack()
+        } else {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func showWebView(){

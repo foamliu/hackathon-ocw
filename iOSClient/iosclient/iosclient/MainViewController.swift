@@ -256,7 +256,9 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         viewController.courseTitle = selectedTitle
         viewController.courseDescription = selectedDescription
         viewController.courseLink = selectedLink
-        self.presentViewController(viewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        self.presentViewController(navigationController, animated: true, completion: nil)
+        
     }
     
     func showDetail() {
