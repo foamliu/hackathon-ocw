@@ -7,4 +7,5 @@ pod 'Alamofire', '~> 3.0'
 pod 'SDWebImage', '~> 3.7'
 pod 'Google/Analytics'
 pod 'Cosmos', '~> 1.2'
+pod 'PageMenu'
 end

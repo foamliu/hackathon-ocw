@@ -17,6 +17,7 @@ PODS:
   - GoogleSymbolUtilities (1.1.0)
   - GoogleUtilities (1.2.0):
     - GoogleSymbolUtilities (~> 1.0)
+  - PageMenu (1.2.9)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
@@ -25,6 +26,7 @@ DEPENDENCIES:
   - Alamofire (~> 3.0)
   - Cosmos (~> 1.2)
   - Google/Analytics
+  - PageMenu
   - SDWebImage (~> 3.7)
 
 SPEC CHECKSUMS:
@@ -36,8 +38,9 @@ SPEC CHECKSUMS:
   GoogleNetworkingUtilities: ec1e9911aca811eb18b7144394fee6168b607785
   GoogleSymbolUtilities: eb3965ea12710569c7b80db198a39e39b18613f7
   GoogleUtilities: 85f8ad6b251544286a97163133d042ec95f889c5
+  PageMenu: ba19ff267f7a19e444e93c20a7847b78954a7011
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
 
-PODFILE CHECKSUM: d7eae8fabcc015e381e8f2ab66285f64b550ca4e
+PODFILE CHECKSUM: 8d9e03353da2f37cc003f969c8cdf42e6e5af1bb
 
 COCOAPODS: 1.0.1

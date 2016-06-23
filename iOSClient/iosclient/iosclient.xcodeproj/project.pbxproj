@@ -39,6 +39,8 @@
 		76DD38D11CABCDD900622A4A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DD38D01CABCDD900622A4A /* Course.swift */; };
 		76FE57051CB77A810070B751 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FE57041CB77A810070B751 /* Comment.swift */; };
 		76FE57071CBB3DC10070B751 /* CommentsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FE57061CBB3DC10070B751 /* CommentsViewCell.swift */; };
+		8AA1FE4A1D1BA890003F51F3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1FE491D1BA890003F51F3 /* BaseViewController.swift */; };
+		8AA1FE4C1D1BAD40003F51F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1FE4B1D1BAD40003F51F3 /* Constants.swift */; };
 		F68B040992C4A509A8874E36 /* Pods_iosclient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 332EE69B9F4A644FA76F6A86 /* Pods_iosclient.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +106,8 @@
 		76DD38D01CABCDD900622A4A /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		76FE57041CB77A810070B751 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		76FE57061CBB3DC10070B751 /* CommentsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewCell.swift; sourceTree = "<group>"; };
+		8AA1FE491D1BA890003F51F3 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../BaseViewController.swift; sourceTree = "<group>"; };
+		8AA1FE4B1D1BAD40003F51F3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8BCCD51174E1C07A3C3A6B5D /* Pods-iosclient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosclient.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosclient/Pods-iosclient.release.xcconfig"; sourceTree = "<group>"; };
 		ED1E3F32B904D5948E1CE8D7 /* Pods-iosclient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosclient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosclient/Pods-iosclient.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +159,7 @@
 				671BC6F11D162D0500A0DF25 /* MainWindow.xib */,
 				671BC6F91D18227800A0DF25 /* DetailWindow.xib */,
 				671BC6F71D169C4000A0DF25 /* vwTblCell.xib */,
+				8AA1FE491D1BA890003F51F3 /* BaseViewController.swift */,
 				76DD38CA1CABC4E500622A4A /* MainTableViewCell.swift */,
 				76DD389C1CABC24300622A4A /* MainViewController.swift */,
 				76DD38CC1CABC54000622A4A /* DetailViewController.swift */,
@@ -165,6 +170,7 @@
 				7664756C1CB6AC0E00DA808B /* DescriptionViewController.swift */,
 				767E722D1CB7419300CEBA6C /* CommentViewController.swift */,
 				766489DB1CCB3ADE0047DD5F /* PopoverViewController.swift */,
+				8AA1FE4B1D1BAD40003F51F3 /* Constants.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -471,6 +477,7 @@
 				76DD38D11CABCDD900622A4A /* Course.swift in Sources */,
 				76DD38CB1CABC4E500622A4A /* MainTableViewCell.swift in Sources */,
 				76DD38CD1CABC54000622A4A /* DetailViewController.swift in Sources */,
+				8AA1FE4C1D1BAD40003F51F3 /* Constants.swift in Sources */,
 				7678BECC1CACC5480083125D /* LoadMoreTableFooterView.swift in Sources */,
 				76AFFDB61CB4F087006232CA /* SWRevealViewController.m in Sources */,
 				767229E21CC50E4400FB5BF5 /* Reachability.swift in Sources */,
@@ -478,6 +485,7 @@
 				76CC485E1CCC706F007E2F99 /* CloseButton.swift in Sources */,
 				76CC48601CCC706F007E2F99 /* TagView.swift in Sources */,
 				7634A9DB1CC8AA2200BFED99 /* SearchViewController.swift in Sources */,
+				8AA1FE4A1D1BA890003F51F3 /* BaseViewController.swift in Sources */,
 				76FE57051CB77A810070B751 /* Comment.swift in Sources */,
 				766489DA1CC8DFAA0047DD5F /* WebViewController.swift in Sources */,
 				767E722E1CB7419300CEBA6C /* CommentViewController.swift in Sources */,

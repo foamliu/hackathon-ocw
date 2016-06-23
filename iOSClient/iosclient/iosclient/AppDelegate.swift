@@ -19,10 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         WXApi.registerApp("wx9b493c5b54472578")
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        let mainViewController = MainViewController(nibName: "MainWindow", bundle: nil)
-        let navigationController = UINavigationController(rootViewController: mainViewController)
+        let baseViewController = BaseViewController(nibName: nil, bundle: nil)
+        //let navigationController = UINavigationController(rootViewController: baseViewController)
         
-        window?.rootViewController = navigationController
+        window?.rootViewController = baseViewController
         window?.makeKeyAndVisible()
         
         // [START tracker_swift]

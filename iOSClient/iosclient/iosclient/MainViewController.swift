@@ -39,9 +39,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         //tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        self.view.addSubview(tableView)
-
-        self.title = "学啥"
+        self.view.addSubview(tableView)        
 
         // Register custom cell
         let nib = UINib(nibName:"vwTblCell", bundle:nil)
@@ -125,7 +123,17 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     func jsonParsingFromUrl(){
-        Alamofire.request(.GET, "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates").responseJSON { response in
+        
+        var url : String = ""
+        if self.title == "推荐" {
+            url = "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates"
+        } else {
+            url = "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates/tag/" + self.title!
+        }
+        url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        
+        Alamofire.request(.GET, url).responseJSON { response in
             if response.result.isSuccess {
                 self.startParsingCourses(response.result.value!["courses"] as! NSArray)
             }
