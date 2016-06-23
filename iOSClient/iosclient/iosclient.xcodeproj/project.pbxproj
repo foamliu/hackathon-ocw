@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		670FE3901D1C38520037D125 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 670FE38F1D1C38520037D125 /* Images.xcassets */; };
 		671BC6F21D162D0500A0DF25 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F11D162D0500A0DF25 /* MainWindow.xib */; };
 		671BC6F81D169C4000A0DF25 /* vwTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F71D169C4000A0DF25 /* vwTblCell.xib */; };
 		671BC6FA1D18227800A0DF25 /* DetailWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F91D18227800A0DF25 /* DetailWindow.xib */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		332EE69B9F4A644FA76F6A86 /* Pods_iosclient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosclient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		670FE38F1D1C38520037D125 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		671BC6F11D162D0500A0DF25 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		671BC6F71D169C4000A0DF25 /* vwTblCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = vwTblCell.xib; sourceTree = "<group>"; };
 		671BC6F91D18227800A0DF25 /* DetailWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailWindow.xib; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				76DD38A11CABC24300622A4A /* Assets.xcassets */,
 				767229E31CC5F4EE00FB5BF5 /* GoogleService-Info.plist */,
 				76DD38A61CABC24300622A4A /* Info.plist */,
+				670FE38F1D1C38520037D125 /* Images.xcassets */,
 			);
 			path = iosclient;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				671BC6FA1D18227800A0DF25 /* DetailWindow.xib in Resources */,
 				767229E41CC5F4EE00FB5BF5 /* GoogleService-Info.plist in Resources */,
 				76DD38A21CABC24300622A4A /* Assets.xcassets in Resources */,
+				670FE3901D1C38520037D125 /* Images.xcassets in Resources */,
 				671BC6F21D162D0500A0DF25 /* MainWindow.xib in Resources */,
 				671BC6F81D169C4000A0DF25 /* vwTblCell.xib in Resources */,
 			);
