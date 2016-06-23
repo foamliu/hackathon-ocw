@@ -22,8 +22,8 @@ class CommentViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getCourseItem:", name: "courseIdNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "newComment:", name: "newCommentNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentViewController.getCourseItem(_:)), name: "courseIdNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentViewController.newComment(_:)), name: "newCommentNotification", object: nil)
         //load comments
         
         
@@ -54,8 +54,7 @@ class CommentViewController: UITableViewController {
         }
         
         if let likeLabel = cell.viewWithTag(203) as? UILabel {
-            likeLabel.text = String(comments[indexPath.row].valueForKey("like")!) as? String
-        }
+            likeLabel.text = String(comments[indexPath.row].valueForKey("like")!)         }
         
         if let userImageView = cell.viewWithTag(200) as? UIImageView {
             if(comments[indexPath.row].valueForKey("headimgurl") != nil){

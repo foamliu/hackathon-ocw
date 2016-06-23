@@ -16,7 +16,7 @@ class DescriptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handler:", name: "descriptionNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DescriptionViewController.handler(_:)), name: "descriptionNotification", object: nil)
     }
     
     override func didReceiveMemoryWarning() {

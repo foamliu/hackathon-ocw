@@ -35,11 +35,11 @@ class BaseViewController: UIViewController {
         
         // Customize page menu to your liking (optional) or use default settings by sending nil for 'options' in the init
         // Example:
-        let parameters: [CAPSPageMenuOption] = [
-            .MenuItemSeparatorWidth(4.3),
-            .UseMenuLikeSegmentedControl(true),
-            .MenuItemSeparatorPercentageHeight(0.1)
-        ]
+//        let parameters: [CAPSPageMenuOption] = [
+//            .MenuItemSeparatorWidth(4.3),
+//            .UseMenuLikeSegmentedControl(true),
+//            .MenuItemSeparatorPercentageHeight(0.1)
+//        ]
         
         // Initialize page menu with controller array, frame, and optional parameters
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: nil)

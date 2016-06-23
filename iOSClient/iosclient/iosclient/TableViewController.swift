@@ -49,7 +49,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate,  UIPopove
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
@@ -57,14 +57,14 @@ class TableViewController: UITableViewController, UISearchBarDelegate,  UIPopove
         self.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         
         self.customRefreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
-        self.customRefreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.customRefreshControl.addTarget(self, action: #selector(TableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(customRefreshControl)
         
         self.setupInfiniteScrollingView()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "search:", name: "newSearchNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "searchByTags:", name: "newSearchByTagNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "deleteRow:", name: "deleteRowNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableViewController.search(_:)), name: "newSearchNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableViewController.searchByTags(_:)), name: "newSearchByTagNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableViewController.deleteRow(_:)), name: "deleteRowNotification", object: nil)
     }
     
     func checkInternetConnection(){
@@ -387,7 +387,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate,  UIPopove
     
     func search(notif: NSNotification){
         let keywords: String = notif.userInfo!["newSearch"] as! String
-        let keywordsUTF8: String = keywords.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        let keywordsUTF8: String = keywords.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         //Send to server
         let url = "http://jieko.cc/items/search/" + keywordsUTF8
         clearCourses = true
@@ -401,8 +401,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate,  UIPopove
     
     func searchByTags(notif: NSNotification){
         let keywords: String = notif.userInfo!["newSearchByTag"] as! String
-        let keywordsUTF8: String = keywords.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        //Send to server
+        let keywordsUTF8: String = keywords.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!        //Send to server
         let url = "http://jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates/tag/" + keywordsUTF8
         clearCourses = true
         Alamofire.request(.GET, url).responseJSON { response in

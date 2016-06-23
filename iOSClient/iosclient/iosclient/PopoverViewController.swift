@@ -24,7 +24,7 @@ class PopoverViewController: UIViewController, TagListViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getDislikeCourse:", name: "newDislikeNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PopoverViewController.getDislikeCourse(_:)), name: "newDislikeNotification", object: nil)
         dislikeButtonInit();
         dislikeTagsInit();
     }

@@ -20,7 +20,7 @@ class MenuController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onRecviceWX_CODE_Notification:", name: "WX_CODE", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuController.onRecviceWX_CODE_Notification(_:)), name: "WX_CODE", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
