@@ -33,13 +33,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             getInitId()
         }
         
-        tableView.frame         =   CGRectMake(0, 50, 320, 200);
         tableView.delegate      =   self
         tableView.dataSource    =   self
         
-        //tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
-        self.view.addSubview(tableView)        
+        self.view.addSubview(tableView)
 
         // Register custom cell
         let nib = UINib(nibName:"vwTblCell", bundle:nil)
@@ -131,7 +128,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             url = "http://api.jieko.cc/user/" + String(User.sharedManager.userid!) + "/Candidates/tag/" + self.title!
         }
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        
         
         Alamofire.request(.GET, url).responseJSON { response in
             if response.result.isSuccess {
@@ -250,7 +246,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     func showDetail() {
-        //let viewController = DetailViewController(nibName: "DetailWindow", bundle: nil)
         let viewController = DetailViewController(nibName: nil, bundle: nil)
         viewController.courseId = selectedCourseId
         viewController.courseTitle = selectedTitle
