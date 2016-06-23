@@ -73,8 +73,8 @@ class LoadMoreTableFooterView: UIView {
             statusLabel.text = NSLocalizedString("加载中...", comment: "")
             statusLabel.frame = CGRectMake(0, 20, self.frame.size.width, 20)
             activityView.startAnimating()
-        default:
-            statusLabel.text = ""
+        //default:
+        //    statusLabel.text = ""
         }
         state = aState
     }

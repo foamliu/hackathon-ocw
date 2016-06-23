@@ -22,7 +22,7 @@ class WebViewController: UIViewController {
         super.viewDidLoad()
         self.title = "学啥"
 
-        let newBackButton = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Bordered, target: self, action: #selector(WebViewController.back(_:)))
+        let newBackButton = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(WebViewController.back(_:)))
         self.navigationItem.leftBarButtonItem = newBackButton;
         
         showWebView();

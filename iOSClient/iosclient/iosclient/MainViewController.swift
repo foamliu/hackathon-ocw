@@ -30,7 +30,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         checkInternetConnection()
         
         if(isInternetConnected == true){
-            getInitId()
+            self.getInitId()
+            self.jsonParsingFromUrl()
         }
         
         tableView.delegate      =   self
@@ -87,7 +88,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             User.sharedManager.userid = userid
         }catch let error as NSError{
             print(error)
-            getInitFromServer()
+            self.getInitFromServer()
         }
     }
     
@@ -115,7 +116,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String: Int]
                     User.sharedManager.userid = result!["userid"]
-                    self.jsonParsingFromUrl()
+                    //self.jsonParsingFromUrl()
                 } catch let error as NSError {
                     print(error)
                 }
