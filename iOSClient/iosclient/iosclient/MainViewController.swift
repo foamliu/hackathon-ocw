@@ -44,6 +44,14 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         tableView.estimatedRowHeight = 90.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let tableViewController = UITableViewController()
+        tableViewController.tableView = self.tableView;
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
+        refreshControl.addTarget(self, action: #selector(MainViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        tableViewController.refreshControl = refreshControl;
     }
     
     func checkInternetConnection(){
@@ -143,14 +151,20 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         }
         if (data.count > 1){
             for i in 0...(data.count - 1){
-                courses.addObject(data.objectAtIndex(i))
+                courses.insertObject(data.objectAtIndex(i), atIndex: 0)
             }
         }
         dispatch_async(dispatch_get_main_queue(), {
             
             // DO SOMETHING ON THE MAINTHREAD
             self.tableView.reloadData()
+            //self.refreshControl.endRefreshing()
         })
+    }
+    
+    func refresh(refreshControl: UIRefreshControl){
+        jsonParsingFromUrl()
+        refreshControl.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
