@@ -18,34 +18,30 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         self.title = "学啥"
 
-        // Do any additional setup after loading the view.
-        // Array to keep track of controllers in page menu
+        // This is the default value of edgesForExtendedLayout
+        self.edgesForExtendedLayout = .None
+        // The default for this is false
+        self.extendedLayoutIncludesOpaqueBars = true;
+
         var controllerArray : [UIViewController] = []
         
         for c in Constants.catalogs {
-            // Create variables for all view controllers you want to put in the
-            // page menu, initialize them, and add each to the controller array.
-            // (Can be any UIViewController subclass)
-            // Make sure the title property of all view controllers is set
-            // Example:
             let controller = MainViewController(nibName: "MainWindow", bundle: nil)
             controller.title = c
             controllerArray.append(controller)
         }
         
-        // Customize page menu to your liking (optional) or use default settings by sending nil for 'options' in the init
-        // Example:
-//        let parameters: [CAPSPageMenuOption] = [
-//            .MenuItemSeparatorWidth(4.3),
-//            .UseMenuLikeSegmentedControl(true),
-//            .MenuItemSeparatorPercentageHeight(0.1)
-//        ]
+        let parameters: [CAPSPageMenuOption] = [
+            .AddBottomMenuHairline(true),
+            .ScrollMenuBackgroundColor (UIColor(red:0.867, green:0.867, blue:0.867, alpha:1)),
+            .SelectedMenuItemLabelColor (UIColor.blueColor()),
+            .UnselectedMenuItemLabelColor (UIColor.darkGrayColor()),
+            .SelectionIndicatorHeight (0.0),
+            .MenuMargin(10.0)
+        ]
         
-        // Initialize page menu with controller array, frame, and optional parameters
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: nil)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         
-        // Lastly add page menu as subview of base view controller view
-        // or use pageMenu controller in you view hierachy as desired
         self.view.addSubview(pageMenu!.view)
     }
 
@@ -53,16 +49,4 @@ class BaseViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

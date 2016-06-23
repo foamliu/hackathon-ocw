@@ -18,11 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         // Override point for customization after application launch.
         WXApi.registerApp("wx9b493c5b54472578")
         
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.8, green: 0.2, blue: 0.2, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let baseViewController = BaseViewController(nibName: nil, bundle: nil)
-        //let navigationController = UINavigationController(rootViewController: baseViewController)
+        let navigationController = UINavigationController(rootViewController: baseViewController)
         
-        window?.rootViewController = baseViewController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
         // [START tracker_swift]
