@@ -185,7 +185,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         (cell as! MainTableViewCell).lblTitle.text = courses[indexPath.row].valueForKey("title") as? String
         
         let URLString:NSURL = NSURL(string: courses[indexPath.row].valueForKey("piclink") as! String)!
-        (cell as! MainTableViewCell).imgThumbnail.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "default.jpg"))
+        (cell as! MainTableViewCell).imgThumbnail.sd_setImageWithURL(URLString, placeholderImage: UIImage(named: "placeholder.png"))
         
         (cell as! MainTableViewCell).lblSource.text = courses[indexPath.row].valueForKey("school") as? String
         (cell as! MainTableViewCell).lblDuration.text = courses[indexPath.row].valueForKey("duration") as? String

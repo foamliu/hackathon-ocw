@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         // Override point for customization after application launch.
         WXApi.registerApp("wx9b493c5b54472578")
         
-        UINavigationBar.appearance().barTintColor = UIColor(red: 0.8, green: 0.2, blue: 0.2, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.750, green: 0.055, blue: 0.082, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
