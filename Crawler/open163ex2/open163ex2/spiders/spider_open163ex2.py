@@ -12,6 +12,9 @@ import json
 from open163ex2.items import Open163Ex2Item
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def getlinks():
     inputfile = open('open163ex2/links.json','r')
@@ -23,43 +26,45 @@ def getlinks():
     inputfile.close()
     return links
 
-def getout():
-    out = []
-    inputfile = open('out.json','r')
-    lines = inputfile.readlines()
-    inputfile.close()
-    for line in lines:
-        out.append(json.loads(line))
-    return out
-
 def cleanse(alist):
-    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ') if alist else u''
+    return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''
 
-def downloaded(link):
-    out = getout()
-    for js in out:
-        if js['link'] == link:
-            return True
-    return False
-    
 class Open163Ex2Spider(scrapy.Spider):
     name = 'open163ex2'
     allowed_domains = ["open.163.com"]
     start_urls = ["http://c.open.163.com/search/search.htm?query=#/search/video"]
+    out = []
 
     def __init__(self):
         scrapy.Spider.__init__(self)
 
         self.main = webdriver.Firefox()
         self.detail = webdriver.Firefox()
+        self.detail.set_page_load_timeout(1)
 
     def __del__(self):
         self.main.close()
         self.detail.close()
     
+    def getout(self):
+        if len(self.out) == 0:
+            inputfile = open('out.json','r')
+            lines = inputfile.readlines()
+            inputfile.close()
+            for line in lines:
+                out.append(json.loads(line))
+        return self.out
+
+    def downloaded(self, link):
+        out = getout()
+        for js in out:
+            if js['link'] == link:
+                return True
+        return False
+        
     def downloadOne(self, link):
         print 'one: '+link
-        isdownloaded = downloaded(link)
+        isdownloaded = self.downloaded(link)
         print 'is downloaded: {0}'.format(isdownloaded)
 
         if not isdownloaded:
@@ -68,27 +73,46 @@ class Open163Ex2Spider(scrapy.Spider):
             return item 
     
     def downloadList(self, link):
-        self.detail.get(link)
-        time.sleep(2)
-        
+        try:
+            self.detail.get(link)
+            time.sleep(2)
+        except Exception as err:
+            pass
+            
         try:
             more = self.detail.find_element_by_xpath('/html/body/div[8]/div[1]/div[1]/div[2]')
             ActionChains(self.detail).move_to_element(more).click().perform()
             time.sleep(5)
         except Exception as err:
-            print(err)
+            pass
         
         hxs = scrapy.Selector(text = self.detail.page_source)
         
-        for info in hxs.xpath('//td[@class="u-ctitle"]'):
-            alist = info.xpath('a/@href').extract()
-            if alist:
+        title = cleanse(hxs.xpath('/html/body/div[6]/div/span[2]/text()').extract())
+        if title and title != '':
+            item = Open163Ex2Item()
+            item['link'] = link
+            item['title'] = title
+            item['description'] = cleanse(hxs.xpath('/html/body/div[7]/div/div/p[3]/text()').extract())
+            item['piclink'] = cleanse(hxs.xpath('/html/body/div[7]/div/img/@src').extract())
+            item['instructor'] = cleanse(hxs.xpath('/html/body/div[8]/div[2]/div[1]/div/div/h6[1]/span/text()').extract())
+            
+            items = []
+
+            for info in hxs.xpath('//td[@class="u-ctitle"]'):
+                t1 = cleanse(info.xpath('text()').extract())
+                t2 = cleanse(info.xpath('a/text()').extract())
+                alist = info.xpath('a/@href').extract()
                 alink = alist[0]
-                
-                if alink.startswith('http://open.163.com/movie/'):
-                    print('list: ' + alink)
-                    item = self.downloadOne(alink)
-                    yield item
+                course = {}
+                course['link'] = alink
+                course['title'] = t1 + t2
+                if course not in items:
+                    items.append(course)
+            
+            #item['items'] = json.dumps(items, ensure_ascii=False)
+            item['items'] = items
+            yield item
 
     def download(self, link):
         self.main.get(link)
@@ -104,11 +128,11 @@ class Open163Ex2Spider(scrapy.Spider):
                 if llist:
                     link = llist[0]
                     #print(link)
-                    if link.startswith('http://open.163.com/movie/'):
-                        item = self.downloadOne(link)
-                        yield item
+                    #if link.startswith('http://open.163.com/movie/'):
+                    #    item = self.downloadOne(link)
+                    #    yield item
                         
-                    if link.startswith('http://open.163.com/special/'):
+                    if link.startswith('http://open.163.com/special/') and not self.downloaded(link):
                         alist = self.downloadList(link)
                         for item in alist:
                             yield item
