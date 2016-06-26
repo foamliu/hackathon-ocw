@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4VT-Lf-ibM">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4VT-Lf-ibM">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -32,6 +32,14 @@
                 <constraint firstItem="4VT-Lf-ibM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="bQt-aj-orM"/>
                 <constraint firstItem="4VT-Lf-ibM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="h9h-wZ-t5t"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6YA-Sq-sC9"/>
+                    <exclude reference="Rad-cm-MKB"/>
+                    <exclude reference="Tp7-qN-L43"/>
+                    <exclude reference="bQt-aj-orM"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>

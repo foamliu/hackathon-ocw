@@ -10,7 +10,6 @@
 		670FE3901D1C38520037D125 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 670FE38F1D1C38520037D125 /* Images.xcassets */; };
 		671BC6F21D162D0500A0DF25 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F11D162D0500A0DF25 /* MainWindow.xib */; };
 		671BC6F81D169C4000A0DF25 /* vwTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F71D169C4000A0DF25 /* vwTblCell.xib */; };
-		671BC6FA1D18227800A0DF25 /* DetailWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671BC6F91D18227800A0DF25 /* DetailWindow.xib */; };
 		7610B0841CB5FD810076AA0B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7610B0831CB5FD810076AA0B /* User.swift */; };
 		761E6D491CB4B1FE00819982 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761E6D481CB4B1FE00819982 /* MenuController.swift */; };
 		7634A9DB1CC8AA2200BFED99 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7634A9DA1CC8AA2200BFED99 /* SearchViewController.swift */; };
@@ -67,7 +66,6 @@
 		670FE38F1D1C38520037D125 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		671BC6F11D162D0500A0DF25 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		671BC6F71D169C4000A0DF25 /* vwTblCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = vwTblCell.xib; sourceTree = "<group>"; };
-		671BC6F91D18227800A0DF25 /* DetailWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailWindow.xib; sourceTree = "<group>"; };
 		73BE1F9DB3C562D681D5A208 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7610B0831CB5FD810076AA0B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		761E6D451CB4AA1800819982 /* iosclient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosclient-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				671BC6F11D162D0500A0DF25 /* MainWindow.xib */,
-				671BC6F91D18227800A0DF25 /* DetailWindow.xib */,
 				671BC6F71D169C4000A0DF25 /* vwTblCell.xib */,
 				8AA1FE491D1BA890003F51F3 /* BaseViewController.swift */,
 				76DD38CA1CABC4E500622A4A /* MainTableViewCell.swift */,
@@ -397,7 +394,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				671BC6FA1D18227800A0DF25 /* DetailWindow.xib in Resources */,
 				767229E41CC5F4EE00FB5BF5 /* GoogleService-Info.plist in Resources */,
 				76DD38A21CABC24300622A4A /* Assets.xcassets in Resources */,
 				670FE3901D1C38520037D125 /* Images.xcassets in Resources */,

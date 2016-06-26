@@ -20,9 +20,10 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "学啥"
+        //self.title = "学啥"
+        self.edgesForExtendedLayout = .All
 
-        let newBackButton = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(WebViewController.back(_:)))
+        let newBackButton = UIBarButtonItem(title: "<返回", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(WebViewController.back(_:)))
         self.navigationItem.leftBarButtonItem = newBackButton;
         
         showWebView();
