@@ -17,11 +17,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "学啥"
-
-        // This is the default value of edgesForExtendedLayout
         self.edgesForExtendedLayout = .None
-        // The default for this is false
-        self.extendedLayoutIncludesOpaqueBars = true;
 
         var controllerArray : [UIViewController] = []
         

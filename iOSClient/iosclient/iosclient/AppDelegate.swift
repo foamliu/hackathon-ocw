@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
@@ -18,16 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         // Override point for customization after application launch.
         WXApi.registerApp("wx9b493c5b54472578")
         
-        UINavigationBar.appearance().barTintColor = UIColor(red: 0.750, green: 0.055, blue: 0.082, alpha: 1.0)
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        //UINavigationBar.appearance().barTintColor = UIColor(red: 0.750, green: 0.055, blue: 0.082, alpha: 1.0)
+        //UINavigationBar.appearance().tintColor = UIColor.blueColor()
+        //UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let baseViewController = BaseViewController(nibName: nil, bundle: nil)
-        let navigationController = UINavigationController(rootViewController: baseViewController)
-        
-        window?.rootViewController = navigationController
+        //let navigationController = UINavigationController(rootViewController: baseViewController)
+
+        window?.rootViewController = baseViewController
         window?.makeKeyAndVisible()
+        
+        application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+        self.window!.clipsToBounds = true
+        self.window!.frame =  CGRectMake(0,20,self.window!.frame.size.width,self.window!.frame.size.height-20);
         
         // [START tracker_swift]
         // Configure tracker from GoogleService-Info.plist.
