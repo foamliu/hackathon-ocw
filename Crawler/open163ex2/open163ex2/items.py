@@ -10,11 +10,11 @@ import scrapy
 
 class Open163Ex2Item(scrapy.Item):
     # define the fields for your item here like:
-    title = scrapy.Field()        #名称
-    description = scrapy.Field()  #简介
-    piclink = scrapy.Field()      #图片地址
-    instructor = scrapy.Field()   #讲师
-    link = scrapy.Field()
+    coursetitle = scrapy.Field()        #名称
+    coursedescription = scrapy.Field()  #简介
+    coursepiclink = scrapy.Field()      #图片地址
+    courseinstructor = scrapy.Field()   #讲师
+    courselink = scrapy.Field()
     items = scrapy.Field()
 
 

@@ -40,7 +40,7 @@ class Open163Ex2Spider(scrapy.Spider):
 
         self.main = webdriver.Firefox()
         self.detail = webdriver.Firefox()
-        self.detail.set_page_load_timeout(1)
+        self.detail.set_page_load_timeout(2)
 
     def __del__(self):
         self.main.close()
@@ -52,12 +52,11 @@ class Open163Ex2Spider(scrapy.Spider):
             lines = inputfile.readlines()
             inputfile.close()
             for line in lines:
-                out.append(json.loads(line))
+                self.out.append(json.loads(line))
         return self.out
 
     def downloaded(self, link):
-        out = getout()
-        for js in out:
+        for js in self.getout():
             if js['link'] == link:
                 return True
         return False
@@ -74,10 +73,11 @@ class Open163Ex2Spider(scrapy.Spider):
     
     def downloadList(self, link):
         try:
+            print("downloading: " + link)
             self.detail.get(link)
             time.sleep(2)
         except Exception as err:
-            pass
+            return
             
         try:
             more = self.detail.find_element_by_xpath('/html/body/div[8]/div[1]/div[1]/div[2]')
@@ -91,11 +91,11 @@ class Open163Ex2Spider(scrapy.Spider):
         title = cleanse(hxs.xpath('/html/body/div[6]/div/span[2]/text()').extract())
         if title and title != '':
             item = Open163Ex2Item()
-            item['link'] = link
-            item['title'] = title
-            item['description'] = cleanse(hxs.xpath('/html/body/div[7]/div/div/p[3]/text()').extract())
-            item['piclink'] = cleanse(hxs.xpath('/html/body/div[7]/div/img/@src').extract())
-            item['instructor'] = cleanse(hxs.xpath('/html/body/div[8]/div[2]/div[1]/div/div/h6[1]/span/text()').extract())
+            item['courselink'] = link
+            item['coursetitle'] = title
+            item['coursedescription'] = cleanse(hxs.xpath('/html/body/div[7]/div/div/p[3]/text()').extract())
+            item['coursepiclink'] = cleanse(hxs.xpath('/html/body/div[7]/div/img/@src').extract())
+            item['courseinstructor'] = cleanse(hxs.xpath('/html/body/div[8]/div[2]/div[1]/div/div/h6[1]/span/text()').extract())
             
             items = []
 
@@ -109,8 +109,7 @@ class Open163Ex2Spider(scrapy.Spider):
                 course['title'] = t1 + t2
                 if course not in items:
                     items.append(course)
-            
-            #item['items'] = json.dumps(items, ensure_ascii=False)
+
             item['items'] = items
             yield item
 
@@ -122,7 +121,6 @@ class Open163Ex2Spider(scrapy.Spider):
 
             hxs = scrapy.Selector(text = self.main.page_source)
             # 第一种常见格式
-            #//*[@id="j-resultbox"]/div/div/div/div[1]/div[1]/div[2]/
             for info in hxs.xpath('//div[@class="cnt"]'):
                 llist = info.xpath('a[@class="img"]/@href').extract()
                 if llist:
@@ -132,10 +130,13 @@ class Open163Ex2Spider(scrapy.Spider):
                     #    item = self.downloadOne(link)
                     #    yield item
                         
-                    if link.startswith('http://open.163.com/special/') and not self.downloaded(link):
-                        alist = self.downloadList(link)
-                        for item in alist:
-                            yield item
+                    if link.startswith('http://open.163.com/special/'):
+                        try:
+                            alist = self.downloadList(link)
+                            for item in alist:
+                                yield item
+                        except Exception as err:
+                            print(err)
             # 第二种常见格式
             # TODO
             
@@ -145,23 +146,18 @@ class Open163Ex2Spider(scrapy.Spider):
                 break
 
             try:
-                #next.click()
                 ActionChains(self.main).move_to_element(next).click().perform()
                 time.sleep(5)
             except KeyboardInterrupt:
                 sys.exit(0)
             except Exception as err:
-                break
+                pass
         
     def parse(self, response):
         links = getlinks()
 
         for link in links:
-                
-            try:
-                items = self.download(link)
-                for item in items:
-                    yield item
-            except Exception as err:
-                print(err)
-                break
+            items = self.download(link)
+            for item in items:
+                yield item
+
