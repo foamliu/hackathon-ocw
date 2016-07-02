@@ -39,6 +39,7 @@ import org.joda.time.format.DateTimeParser
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormatterBuilder
 import org.joda.time.format.DateTimeFormat
+import java.security.MessageDigest
 
 object Application {
 
@@ -134,7 +135,6 @@ object Application {
     val lines = Source.fromFile(course_file)("UTF-8").getLines
     
     lines.foreach(line => {
-      Logger.warn(line)
       courses.append(Json.parse(line).as[Course])
       
       }) 
@@ -403,9 +403,12 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
   }
   
   def getCourseByItemHash(hash: String) = Action {
+    
     val courses = Application.getCourses()
     Logger.warn(String.valueOf(courses.size))
-    Ok("OK")
+    val filtered = courses.filter { c => c.items.filter { i => MessageDigest.getInstance("MD5").digest(i.link.getBytes).map("%02X" format _).mkString == hash.toUpperCase }.size > 0 }
+    val json: JsValue = Json.obj("courses" -> filtered)
+    Ok(Json.stringify(json))
   }
 }
 
