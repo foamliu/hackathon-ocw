@@ -51,7 +51,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         let refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string:  "下拉刷新")
-        refreshControl.addTarget(self, action: #selector(MainViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(MainViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         tableViewController.refreshControl = refreshControl;
     }
     
@@ -116,7 +116,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String: Int]
                     User.sharedManager.userid = result!["userid"]
-                    //self.jsonParsingFromUrl()
                 } catch let error as NSError {
                     print(error)
                 }
@@ -163,7 +162,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         })
     }
     
-    func refresh(refreshControl: UIRefreshControl){
+    func handleRefresh(refreshControl: UIRefreshControl){
         jsonParsingFromUrl()
         refreshControl.endRefreshing()
     }
