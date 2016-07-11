@@ -59,7 +59,6 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
         ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
         ImageView topHead = (ImageView) findViewById(R.id.top_head);
-        ImageView btnExpand = (ImageView) findViewById(R.id.icon_expand);
 
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
@@ -68,12 +67,6 @@ public class MainActivity extends FragmentActivity implements PopupMenu.OnMenuIt
                 if (!UserProfile.getInstance().isLogin()) {
                     UserProfile.getInstance().WXLogin();
                 }
-            }
-        });
-
-        btnExpand.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
             }
         });
 

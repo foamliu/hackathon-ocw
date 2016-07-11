@@ -8,6 +8,7 @@
     <RelativeLayout
         android:id="@+id/title_bar"
         style="@style/main_title_bar_style">
+
         <FrameLayout
             android:id="@+id/top_head_container"
             android:layout_width="wrap_content"
@@ -60,43 +61,18 @@
         </FrameLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/category_layout"
-        android:layout_width="fill_parent"
+    <org.hackathon_ocw.androidclient.widget.CategoryTabStrip
+        android:id="@+id/category_strip"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/top_category_height"
         android:layout_below="@id/title_bar"
-        android:background="@drawable/bg_category_bar">
-
-        <ImageView
-            android:id="@+id/icon_expand"
-            android:layout_width="@dimen/top_category_height"
-            android:layout_height="@dimen/top_category_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/app_name"
-            android:scaleType="center"
-            android:src="@drawable/ic_category_expand" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/top_category_height"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/icon_expand">
-
-            <org.hackathon_ocw.androidclient.widget.CategoryTabStrip
-                android:id="@+id/category_strip"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/top_category_height"
-                android:clipToPadding="false"
-                android:paddingLeft="6.0dip"
-                android:paddingRight="6.0dip" />
-        </LinearLayout>
-    </RelativeLayout>
+        android:clipToPadding="false"
+        android:paddingLeft="6.0dip"
+        android:paddingRight="6.0dip" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/category_layout" />
+        android:layout_below="@id/category_strip" />
 </RelativeLayout>
