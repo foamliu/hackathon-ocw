@@ -75,20 +75,22 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     func getInitId(){
-        //使用deviceid换取userid
-        User.sharedManager.deviceid = UIDevice.currentDevice().identifierForVendor!.UUIDString
-        //检查本地userProfile文件
-        let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
-        let documentsDirectoryPath = NSURL(string: documentsDirectoryPathString)!
-        let filePath = String(documentsDirectoryPath.URLByAppendingPathComponent("userProfile.json"))
-        do{
-            let fileContent = try NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
-            let json = try NSJSONSerialization.JSONObjectWithData(fileContent.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
-            let userid = json["_id"] as! Int
-            User.sharedManager.userid = userid
-        }catch let error as NSError{
-            print(error)
-            self.getInitFromServer()
+        if (User.sharedManager.userid == 0) {
+            //使用deviceid换取userid
+            User.sharedManager.deviceid = UIDevice.currentDevice().identifierForVendor!.UUIDString
+            //检查本地userProfile文件
+            let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+            let documentsDirectoryPath = NSURL(string: documentsDirectoryPathString)!
+            let filePath = String(documentsDirectoryPath.URLByAppendingPathComponent("userProfile.json"))
+            do{
+                let fileContent = try NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
+                let json = try NSJSONSerialization.JSONObjectWithData(fileContent.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
+                let userid = json["userid"] as! Int
+                User.sharedManager.userid = userid
+            }catch let error as NSError{
+                print(error)
+                self.getInitFromServer()
+            }
         }
     }
     
@@ -116,6 +118,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String: Int]
                     User.sharedManager.userid = result!["userid"]
+                    self.writeJsonToFile()
+                    self.jsonParsingFromUrl()
                 } catch let error as NSError {
                     print(error)
                 }
@@ -124,6 +128,25 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             task.resume()
         } catch _{
             print("Error json")
+        }
+    }
+    
+    func writeJsonToFile(){
+        do{
+            var json = [String: AnyObject]()
+            json["userid"] = User.sharedManager.userid
+            json["deviceid"] = User.sharedManager.deviceid
+            let text = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+        
+            let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+            let documentsDirectoryPath = NSURL(string: documentsDirectoryPathString)!
+            let filePath = String(documentsDirectoryPath.URLByAppendingPathComponent("userProfile.json"))
+            //try text.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding)
+            
+            let fileManager = NSFileManager.defaultManager()
+            fileManager.createFileAtPath(filePath, contents: text, attributes: nil)
+        } catch {
+            print(error)
         }
     }
     
