@@ -41,6 +41,7 @@ for item in items:
             item['posted'] = item['posted'].replace('年','-').replace('月','-').replace('日','')
         else:
             alist = item['posted'].split(" ")
-            item['posted'] = alist[0] + '-' + getMonth(alist[1]) + '-' + alist[2]
+            if len(alist) > 1:
+                item['posted'] = alist[0] + '-' + getMonth(alist[1]) + '-' + alist[2]
 
 json.dump(items, output_file, indent=4, ensure_ascii=False, sort_keys=True)

@@ -109,16 +109,14 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         TextView titleDetail = (TextView) findViewById(R.id.titleDetail);
         titleDetail.setText(title);
+        TextView tabDescription = (TextView) findViewById(R.id.tabDescription);
+        tabDescription.setText(description);
 
         getVideoImage(videoUrl);
 
         videoInit();
-        viewPagerInit();
         addListenerOnBackButton();
         addListenerOnShareButton();
-
-        addListenerOnCommentButton();
-        addListenerOnSendCommentButton();
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -144,18 +142,6 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         int position = UserProfile.getInstance().getPosition(Long.valueOf(courseId));
         videoLayout.seekTo(position);
-    }
-
-    private void viewPagerInit() {
-        viewPager = (ViewPager) findViewById(R.id.detailPager);
-        viewPager.setAdapter(new PageFragmentAdapter(getSupportFragmentManager(),
-                DetailActivity.this));
-
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.detailTabs);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
     private void videoInit() {
@@ -275,118 +261,9 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 
-    private void addListenerOnCommentButton() {
-        editText = (EditText) findViewById(R.id.EditComment);
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                }
-            }
-        });
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    private void addListenerOnSendCommentButton() {
-        Button sendCommentBtn = (Button) findViewById(R.id.SendCommentBtn);
-        sendCommentBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //Get item_id
-                int item_id = Integer.valueOf(courseId);
-
-                //Get author_id
-                int author_id = Integer.valueOf(UserProfile.getInstance().getUserId());
-                String author_name;
-                if (UserProfile.getInstance().getNickname() != null) {
-                    author_name = UserProfile.getInstance().getNickname();
-                } else {
-                    author_name = "匿名用户";
-                }
-                int like = 0;
-
-                //Get post time
-                Calendar currentTime = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
-                simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                String currentTimeStr = simpleDateFormat.format(currentTime.getTime());
-
-                //Get text
-                EditText editText = (EditText) findViewById(R.id.EditComment);
-                String comment = editText.getText().toString();
-
-                //Get current timeline
-                int timeline = videoLayout.getCurrentPosition() / 1000;
-
-                //Get Url
-                String httpurl = "http://jieko.cc/item/" + courseId + "/Comments";
-
-                //Send a POST message
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("item_id", item_id);
-                    jsonObject.put("author_id", author_id);
-                    jsonObject.put("author_name", author_name);
-                    jsonObject.put("posted", currentTimeStr);
-                    jsonObject.put("text", comment);
-                    jsonObject.put("timeline", timeline);
-                    jsonObject.put("like", like);
-                } catch (Exception e) {
-                    Log.e("Json Error", e.toString());
-                }
-                JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, httpurl, jsonObject,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d("Response", response.toString());
-
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.toString());
-                    }
-                }) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        HashMap<String, String> headers = new HashMap<>();
-                        headers.put("Accept", "application/json");
-                        headers.put("Content-Type", "application/json; charset=UTF-8");
-
-                        return headers;
-                    }
-                };
-                requestQueue.add(jsonRequest);
-
-                //Update the comment list
-
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("commentId", String.valueOf(item_id));
-                map.put("userName", author_name);
-                map.put("commentTime", currentTimeStr);
-                map.put("comment", comment);
-                map.put("timeline", String.valueOf(timeline));
-                map.put("like", String.valueOf(like));
-                if (UserProfile.getInstance().getHeadimgurl() != null) {
-                    map.put("headimgurl", UserProfile.getInstance().getHeadimgurl());
-                }
-
-                PageFragmentAdapter pageFragmentAdapter = (PageFragmentAdapter) viewPager.getAdapter();
-                pageFragmentAdapter.getTabComment().mCommentAdapter.AddComments(map);
-
-                // 清理
-                viewPager.setCurrentItem(1, true);
-                InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Service.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                editText.setText("");
-            }
-        });
     }
 
     //Google Analytics

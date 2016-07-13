@@ -12,6 +12,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from guokr.items import GuokrItem
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def cleanse(alist):
     return alist[0].strip().encode('utf-8').replace('"', '“').replace('\n', '').replace('\t', '    ').replace('\\', '“') if alist else u''

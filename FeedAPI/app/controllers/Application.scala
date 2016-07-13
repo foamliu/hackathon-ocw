@@ -39,19 +39,22 @@ import org.joda.time.format.DateTimeParser
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormatterBuilder
 import org.joda.time.format.DateTimeFormat
+import java.security.MessageDigest
 
 object Application {
 
   private val howMany = 20 // 每次推荐多少条
   private val n = 2 // Nearest N User Neighborhood
   private val item_file = "app/assets/jsons/items.json"
+  private val course_file = "app/assets/jsons/courses.json"
 
   // MongoDB 相关参数
   private val mongoHost = Play.current.configuration.getString("mongodb.ip")
   private val mongoPort = Play.current.configuration.getInt("mongodb.port")
   private val mongoDBName = Play.current.configuration.getString("mongodb.db")
 
-  private var courses: Seq[Course] = null // 课程列表
+  private var items: Seq[Item] = null // 课程列表
+  private var courses: Seq[Course] = null
   private var recommender: Recommender = null // 推荐器
   private var tags: Seq[(String, Int)] = null // 标签列表
   private var rates: Seq[Rating] = null
@@ -62,6 +65,13 @@ object Application {
   def courseRepo = new backend.CourseRepo(reactiveMongoApi)
   def ratingRepo = new backend.RatingRepo(reactiveMongoApi)
 
+  private def getItems(): Seq[Item] = {
+    if (items == null) {
+      items = loadItems
+    }
+    items
+  }
+  
   private def getCourses(): Seq[Course] = {
     if (courses == null) {
       courses = loadCourses
@@ -104,26 +114,38 @@ object Application {
     visited
   }
 
-  private def loadCourses(): Seq[Course] = {
+  private def loadItems(): Seq[Item] = {
     try {
       val futureCourses: Future[JsArray] = courseRepo.list().map(courses => Json.arr(courses))
       val courses: JsArray = Await.result(futureCourses, Duration.Inf)
       //Logger.info("HEAD: " + courses.head.toString())
-      courses.head.as[Seq[Course]].filter(_.enabled)
+      courses.head.as[Seq[Item]].filter(_.enabled)
     } catch {
       case e: Exception =>
         Logger.warn(e.getMessage)
         val source: String = Source.fromFile(item_file)("UTF-8").getLines.mkString
         val json: JsValue = Json.parse(source)
-        json.as[Seq[Course]].filter(_.enabled)
+        json.as[Seq[Item]].filter(_.enabled)
     }
+  }
+  
+  private def loadCourses(): Seq[Course] = {
+    var courses = new collection.mutable.ListBuffer[Course]();
+
+    val lines = Source.fromFile(course_file)("UTF-8").getLines
+    
+    lines.foreach(line => {
+      courses.append(Json.parse(line).as[Course])
+      
+      }) 
+    courses.toSeq
   }
 
   /*
      * 得到二元组列表: 标签 -> 出现次数。
      */
   private def calculateTags(): Seq[(String, Int)] = {
-    val items: Seq[Course] = getCourses
+    val items: Seq[Item] = getItems
 
     val allTags = scala.collection.mutable.Map[String, Int]() //所有标签
     for (item <- items) {
@@ -157,7 +179,7 @@ object Application {
   private def calculateRanks(): Seq[(Long, Double)] = {
     val allRanks = scala.collection.mutable.Map[Long, Double]()
     try {
-      for (item <- getCourses.filter(_.enabled)) {
+      for (item <- getItems.filter(_.enabled)) {
         val id: Long = item.itemID
         val clicks: Int = getRates.filter(_.item_id == id).map(r => r.user_id).distinct.length
         val parsers  = Array( 
@@ -210,8 +232,8 @@ object Application {
     new GenericBooleanPrefUserBasedRecommender(model, neighborhood, similarity)
   }
 
-  private def search(keyword: String): Seq[Course] = {
-    getCourses().filter(_.title.contains(keyword)).take(howMany)
+  private def search(keyword: String): Seq[Item] = {
+    getItems().filter(_.title.contains(keyword)).take(howMany)
   }
 
   /*
@@ -240,9 +262,9 @@ object Application {
   /*
      * 目前推荐栏会调用服务器这个方法。
      */
-  private def getCandidates(userID: Long): Seq[Course] = {
+  private def getCandidates(userID: Long): Seq[Item] = {
 
-    val items: Seq[Course] = getCourses
+    val items: Seq[Item] = getItems
     var itemIDs: Seq[Long] = recommend(userID)
     try {
       if (itemIDs.size == 0) {
@@ -263,15 +285,15 @@ object Application {
         e.printStackTrace()
     }
     
-    var candidates: Seq[Course] = items.filter(i => itemIDs.contains(i.itemID))
+    var candidates: Seq[Item] = items.filter(i => itemIDs.contains(i.itemID))
     candidates
   }
 
   /*
      * 目前基于标签的推荐实际上是随机得出的。
      */
-  private def getCandidatesByTag(userID: Long, tag: String): Seq[Course] = {
-    val items: Seq[Course] = getCourses
+  private def getCandidatesByTag(userID: Long, tag: String): Seq[Item] = {
+    val items: Seq[Item] = getItems
     scala.util.Random.shuffle(items.filter(_.tags.contains(tag))).take(howMany)
   }
 
@@ -299,7 +321,7 @@ object Application {
       //刷新推荐器
       recommender = createNewRecommender
       //刷新课程列表
-      courses = loadCourses
+      items = loadItems
       rates = loadRates
       ranks = calculateRanks
       visited = calculateVisited
@@ -332,7 +354,7 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
      */
   def getCandidates(userID: Long) = Action {
     //Logger.debug(userID toString)
-    val candidates: Seq[Course] = Application.getCandidates(userID)
+    val candidates: Seq[Item] = Application.getCandidates(userID)
     val json: JsValue = Json.obj("courses" -> candidates)
     Ok(Json.stringify(json))
   }
@@ -341,7 +363,7 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
      * 基于标签进行推荐。
      */
   def getCandidatesByTag(id: Long, tag: String) = Action {
-    val candidates: Seq[Course] = Application.getCandidatesByTag(id, tag)
+    val candidates: Seq[Item] = Application.getCandidatesByTag(id, tag)
     val json: JsValue = Json.obj("courses" -> candidates)
     Ok(Json.stringify(json))
   }
@@ -350,7 +372,7 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
      * 搜索标题中带有指定关键字的公开课。
      */
   def search(keyword: String) = Action {
-    val candidates: Seq[Course] = Application.search(keyword)
+    val candidates: Seq[Item] = Application.search(keyword)
     val json: JsValue = Json.obj("courses" -> candidates)
     Ok(Json.stringify(json))
   }
@@ -378,6 +400,15 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
         Logger.warn(jsonString);
         Ok("Ok")
       }
+  }
+  
+  def getCourseByItemHash(hash: String) = Action {
+    
+    val courses = Application.getCourses()
+    Logger.warn(String.valueOf(courses.size))
+    val filtered = courses.filter { c => c.items.filter { i => MessageDigest.getInstance("MD5").digest(i.link.getBytes).map("%02X" format _).mkString == hash.toUpperCase }.size > 0 }
+    val json: JsValue = Json.obj("courses" -> filtered)
+    Ok(Json.stringify(json))
   }
 }
 
