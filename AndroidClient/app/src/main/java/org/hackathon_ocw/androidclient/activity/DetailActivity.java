@@ -161,19 +161,28 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private void onRetrievedCourseInfo(JSONObject resp) {
         try {
             JSONArray courses = resp.getJSONArray("courses");
-            JSONObject info = (JSONObject) courses.get(0);
-            String coursetitle = info.getString("courseinstructor");
-            String coursedescription = info.getString("coursedescription");
-            String courseinstructor = info.getString("courseinstructor");
-            JSONArray items = info.getJSONArray("items");
+            if (courses.length() > 0) {
+                JSONObject info = (JSONObject) courses.get(0);
+                //final String coursetitle = info.getString("courseinstructor");
+                final String coursedescription = info.getString("coursedescription");
+                final String instructor = info.getString("courseinstructor");
+                final JSONArray items = info.getJSONArray("items");
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //stuff that updates ui
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //stuff that updates ui
+                        StringBuilder newDesc = new StringBuilder();
+                        newDesc.append(String.format("讲师： %s\n\n", instructor));
+                        newDesc.append(String.format("课程介绍： %s\n\n", coursedescription));
+                        newDesc.append(String.format("本集内容： %s\n", description));
+                        TextView tabDescription = (TextView) findViewById(R.id.tabDescription);
+                        tabDescription.setText(newDesc.toString());
 
-                }
-            });
+
+                    }
+                });
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
