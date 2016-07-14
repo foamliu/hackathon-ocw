@@ -157,6 +157,7 @@ public class NewsFragment extends Fragment
                         intent.putExtra("description", description);
                         intent.putExtra("videoImg", thumbUrl);
                         intent.putExtra("userid", userId);
+                        intent.putExtra("link", webUrl);
                         if (UserProfile.getInstance().getNickname() != null) {
                             intent.putExtra("nickname", UserProfile.getInstance().getNickname());
                             intent.putExtra("headimgurl", UserProfile.getInstance().getHeadimgurl());

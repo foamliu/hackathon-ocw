@@ -48,11 +48,15 @@ import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
 import org.hackathon_ocw.androidclient.util.Utils;
 import org.hackathon_ocw.androidclient.widget.FullscreenVideoLayout;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -106,6 +110,8 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         UserProfile.getInstance().setHeadimgurl(intent.getStringExtra("headimgurl"));
         UserProfile.getInstance().setUserId(intent.getStringExtra("userid"));
         String videoUrl = intent.getStringExtra("videoImg");
+        String link = intent.getStringExtra("link");
+        startRetrievingCourseInfo(link);
 
         TextView titleDetail = (TextView) findViewById(R.id.titleDetail);
         titleDetail.setText(title);
@@ -126,6 +132,55 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         //Google Analytics tracker
         sendScreenImageName();
     }
+
+    private void startRetrievingCourseInfo(String link)
+    {
+        String hash = Utils.md5(link);
+        String url = "http://api.jieko.cc/course/item/" + hash;
+
+        RequestQueue queue = Volley.newRequestQueue(this.getApplicationContext());
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        Log.d("Response", response.toString());
+                        onRetrievedCourseInfo(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        );
+        queue.add(getRequest);
+    }
+
+    private void onRetrievedCourseInfo(JSONObject resp) {
+        try {
+            JSONArray courses = resp.getJSONArray("courses");
+            JSONObject info = (JSONObject) courses.get(0);
+            String coursetitle = info.getString("courseinstructor");
+            String coursedescription = info.getString("coursedescription");
+            String courseinstructor = info.getString("courseinstructor");
+            JSONArray items = info.getJSONArray("items");
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //stuff that updates ui
+
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     protected void onPause() {
