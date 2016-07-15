@@ -128,7 +128,7 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
         TextView tabDescription = (TextView) findViewById(R.id.description);
         tabDescription.setText(description);
 
-        this.adapter = new ItemAdapter(itemList);
+        this.adapter = new ItemAdapter(this.getApplicationContext(), itemList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -202,9 +202,11 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                                 JSONObject jsonItem = items.getJSONObject(i);
                                 String title = jsonItem.getString("title");
                                 String link = jsonItem.getString("link");
+                                String piclink = jsonItem.getString("piclink");
                                 Item item = new Item();
                                 item.setTitle(title);
                                 item.setWebUrl(link);
+                                item.setPiclink(piclink);
                                 itemList.add(item);
                             } catch (JSONException e) {
                                 e.printStackTrace();

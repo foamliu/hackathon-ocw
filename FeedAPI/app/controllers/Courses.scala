@@ -22,7 +22,7 @@ object CourseItem {
             Json.obj(
                 "title" -> c.title,
                 "link" -> c.link,
-                "picklink" -> c.piclink)
+                "piclink" -> c.piclink)
     }
     
     implicit val courseReads: Reads[CourseItem] = (
