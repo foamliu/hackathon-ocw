@@ -13,19 +13,21 @@ import play.api.libs.json.Reads.functorReads
 import play.api.libs.json.Writes
 
 
-case class CourseItem(title: String, link: String)
+case class CourseItem(title: String, link: String, var piclink: String)
 
 object CourseItem {
 
     implicit val courseReads: Reads[CourseItem] = (
         (JsPath \\ "title").read[String] and
-        (JsPath \\ "link").read[String])(CourseItem.apply _)
+        (JsPath \\ "link").read[String] and
+        (JsPath \\ "piclink").read[String])(CourseItem.apply _)
 
     implicit val courseWrites = new Writes[CourseItem] {
         def writes(c: CourseItem): JsValue =
             Json.obj(
                 "title" -> c.title,
-                "link" -> c.link)
+                "link" -> c.link,
+                "picklink" -> c.piclink)
     }
 }
 

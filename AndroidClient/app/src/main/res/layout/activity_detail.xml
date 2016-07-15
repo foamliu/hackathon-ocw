@@ -41,8 +41,14 @@
                 android:layout_marginTop="15dp" />
         </RelativeLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
         <TextView
-            android:id="@+id/tabDescription"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -51,6 +57,7 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:scrollbars="vertical"/>
+
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

@@ -130,12 +130,20 @@ object Application {
   }
   
   private def loadCourses(): Seq[Course] = {
+    val items = Application.getItems()
     var courses = new collection.mutable.ListBuffer[Course]();
 
     val lines = Source.fromFile(course_file)("UTF-8").getLines
     
     lines.foreach(line => {
-      courses.append(Json.parse(line).as[Course])
+      val course = Json.parse(line).as[Course]
+      for (item <- course.items) {
+        val list = items.filter { it => it.link == item.link }
+        if (list.size > 0) {
+          item.piclink = list.head.piclink
+        }
+      }
+      courses.append(course)
       
       }) 
     courses.toSeq
@@ -402,11 +410,18 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
       }
   }
   
-  def getCourseByItemHash(hash: String) = Action {
-    
+  def getCourseByItemHash(hash: String) = Action {    
     val courses = Application.getCourses()
     Logger.warn(String.valueOf(courses.size))
     val filtered = courses.filter { c => c.items.filter { i => MessageDigest.getInstance("MD5").digest(i.link.getBytes).map("%02X" format _).mkString == hash.toUpperCase }.size > 0 }
+    val json: JsValue = Json.obj("courses" -> filtered)
+    Ok(Json.stringify(json))
+  }
+  
+  def getItemByHash(hash: String) = Action {    
+    val items = Application.getItems()
+    Logger.warn(String.valueOf(items.size))
+    val filtered = items.filter { i =>  MessageDigest.getInstance("MD5").digest(i.link.getBytes).map("%02X" format _).mkString == hash.toUpperCase }
     val json: JsValue = Json.obj("courses" -> filtered)
     Ok(Json.stringify(json))
   }

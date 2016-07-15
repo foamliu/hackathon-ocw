@@ -19,7 +19,7 @@ import com.golshadi.majid.core.DownloadManagerPro;
 import com.golshadi.majid.core.enums.TaskStates;
 import com.golshadi.majid.report.ReportStructure;
 
-import org.hackathon_ocw.androidclient.domain.Course;
+import org.hackathon_ocw.androidclient.domain.Item;
 import org.hackathon_ocw.androidclient.util.ImageLoader;
 import org.hackathon_ocw.androidclient.util.NetworkThread;
 import org.hackathon_ocw.androidclient.R;
@@ -143,9 +143,9 @@ public class DownloadListAdapter extends BaseAdapter {
                 intent.setClass(appContext, DetailActivity.class);
                 appContext.startActivity(intent);
 
-                Course course = new Course(itemId,strTitle,description,thumbUrl,videoUrl,webUrl);
+                Item item = new Item(itemId,strTitle,description,thumbUrl,videoUrl,webUrl);
                 //Send post to server
-                Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), course, 3);
+                Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), item, 3);
                 new Thread(networkTask).start();
             }
         });

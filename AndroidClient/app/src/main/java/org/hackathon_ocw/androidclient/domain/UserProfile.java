@@ -214,7 +214,7 @@ public class UserProfile {
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject obj = jArray.getJSONObject(i);
                         HistoryEntry entry = new HistoryEntry();
-                        entry.course = parseCourse(obj.getJSONObject("course"));
+                        entry.item = parseCourse(obj.getJSONObject("item"));
                         entry.position = obj.getInt("position");
                         entry.watchedTime = obj.getString("watchedTime");
                         history.add(entry);
@@ -241,8 +241,8 @@ public class UserProfile {
         }
     }
 
-    private Course parseCourse(JSONObject obj) {
-        Course c = new Course();
+    private Item parseCourse(JSONObject obj) {
+        Item c = new Item();
         try {
             c.itemid = obj.getInt("itemid");
             c.title = obj.getString("title");
@@ -256,7 +256,7 @@ public class UserProfile {
         return c;
     }
 
-    private JSONObject genCourse(Course c) {
+    private JSONObject genCourse(Item c) {
         JSONObject obj = new JSONObject();
         try {
             obj.put("itemid", c.getItemid());
@@ -421,7 +421,7 @@ public class UserProfile {
             JSONArray historyArray = new JSONArray();
             for (HistoryEntry he : history) {
                 JSONObject jsonEntry = new JSONObject();
-                jsonEntry.put("course", genCourse(he.course));
+                jsonEntry.put("item", genCourse(he.item));
                 jsonEntry.put("watchedTime", he.watchedTime);
                 jsonEntry.put("position", he.position);
                 historyArray.put(jsonEntry);
@@ -502,7 +502,7 @@ public class UserProfile {
     }
 
     public void addHistoryEntry(HistoryEntry he) {
-        long itemId = he.course.getItemid();
+        long itemId = he.item.getItemid();
         if (contains(itemId)) {
             setEntry(itemId, he.position, he.watchedTime);
         }
@@ -516,7 +516,7 @@ public class UserProfile {
 
     public void setPosition(long courseId, int position) {
         for (HistoryEntry entry : history) {
-            if (entry.course.itemid == courseId) {
+            if (entry.item.itemid == courseId) {
                 entry.position = position;
                 JSONObject jsonObject = getJSONObject();
                 this.setLocal(jsonObject);
@@ -527,7 +527,7 @@ public class UserProfile {
 
     private boolean contains(long itemId) {
         for (HistoryEntry entry : history) {
-            if (entry.course.getItemid() == itemId) {
+            if (entry.item.getItemid() == itemId) {
                 return true;
             }
         }
@@ -536,7 +536,7 @@ public class UserProfile {
 
     private void setEntry(long itemId, int position, String watchedTime) {
         for (HistoryEntry entry : history) {
-            if (entry.course.getItemid() == itemId) {
+            if (entry.item.getItemid() == itemId) {
                 entry.position = position;
                 entry.watchedTime = watchedTime;
             }
@@ -545,7 +545,7 @@ public class UserProfile {
 
     public int getPosition(long courseId) {
         for (HistoryEntry entry : history) {
-            if (entry.course.itemid == courseId) {
+            if (entry.item.itemid == courseId) {
                 return entry.position;
             }
         }

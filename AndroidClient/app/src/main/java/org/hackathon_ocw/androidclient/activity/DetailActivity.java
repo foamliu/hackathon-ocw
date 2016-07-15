@@ -11,6 +11,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
@@ -42,7 +45,9 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import org.hackathon_ocw.androidclient.R;
+import org.hackathon_ocw.androidclient.adapter.ItemAdapter;
 import org.hackathon_ocw.androidclient.adapter.PageFragmentAdapter;
+import org.hackathon_ocw.androidclient.domain.Item;
 import org.hackathon_ocw.androidclient.domain.UserProfile;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
@@ -58,8 +63,10 @@ import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -79,6 +86,9 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
     private String courseId;
     private String description;
     private String title;
+
+    private ItemAdapter adapter;
+    private List<Item> itemList = new ArrayList<>();
 
     private Tracker mTracker;
 
@@ -115,8 +125,15 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
 
         TextView titleDetail = (TextView) findViewById(R.id.titleDetail);
         titleDetail.setText(title);
-        TextView tabDescription = (TextView) findViewById(R.id.tabDescription);
+        TextView tabDescription = (TextView) findViewById(R.id.description);
         tabDescription.setText(description);
+
+        this.adapter = new ItemAdapter(itemList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
 
         getVideoImage(videoUrl);
 
@@ -176,10 +193,25 @@ public class DetailActivity extends AppCompatActivity implements PopupMenu.OnMen
                         newDesc.append(String.format("讲师： %s\n\n", instructor));
                         newDesc.append(String.format("课程介绍： %s\n\n", coursedescription));
                         newDesc.append(String.format("本集内容： %s\n", description));
-                        TextView tabDescription = (TextView) findViewById(R.id.tabDescription);
+                        TextView tabDescription = (TextView) findViewById(R.id.description);
                         tabDescription.setText(newDesc.toString());
 
+                        itemList.clear();
+                        for (int i=0; i<items.length(); i++) {
+                            try {
+                                JSONObject jsonItem = items.getJSONObject(i);
+                                String title = jsonItem.getString("title");
+                                String link = jsonItem.getString("link");
+                                Item item = new Item();
+                                item.setTitle(title);
+                                item.setWebUrl(link);
+                                itemList.add(item);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }

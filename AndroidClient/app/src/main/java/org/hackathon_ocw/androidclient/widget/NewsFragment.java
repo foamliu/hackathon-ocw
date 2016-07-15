@@ -33,7 +33,7 @@ import org.hackathon_ocw.androidclient.R;
 import org.hackathon_ocw.androidclient.activity.DetailActivity;
 import org.hackathon_ocw.androidclient.activity.WebDetailActivity;
 import org.hackathon_ocw.androidclient.adapter.ListAdapter;
-import org.hackathon_ocw.androidclient.domain.Course;
+import org.hackathon_ocw.androidclient.domain.Item;
 import org.hackathon_ocw.androidclient.domain.UserProfile;
 import org.hackathon_ocw.androidclient.util.Constants;
 import org.hackathon_ocw.androidclient.util.CustomApplication;
@@ -183,8 +183,8 @@ public class NewsFragment extends Fragment
                         startActivity(intent);
                     }
                     //Send post to server
-                    Course course = new Course(itemId,title,description,thumbUrl,videoUrl,webUrl);
-                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), course, 3);
+                    Item item = new Item(itemId,title,description,thumbUrl,videoUrl,webUrl);
+                    Runnable networkTask = new NetworkThread(UserProfile.getInstance().getUserId(), item, 3);
                     new Thread(networkTask).start();
                 } catch (Exception e) {
                     e.printStackTrace();

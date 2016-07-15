@@ -3,7 +3,7 @@ package org.hackathon_ocw.androidclient.domain;
 /**
  * Created by dianyang on 2016/2/28.
  */
-public class Course {
+public class Item {
     long itemid;
     String title;
     String description;
@@ -11,11 +11,11 @@ public class Course {
     String courselink;
     String webUrl;
 
-    public Course() {
+    public Item() {
 
     }
 
-    public Course(long id, String title, String desc, String piclink, String courselink, String webUrl) {
+    public Item(long id, String title, String desc, String piclink, String courselink, String webUrl) {
         this.itemid = id;
         this.title = title;
         this.description = desc;

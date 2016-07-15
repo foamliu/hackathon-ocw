@@ -88,19 +88,19 @@ public class HistoryListAdapter extends BaseAdapter {
 
         final HistoryEntry entry = dataList.get(position);
 
-        final long itemId = entry.course.getItemid();
-        final String strTitle = entry.course.getTitle();
-        final String description = entry.course.getDescription();
-        final String thumbUrl = entry.course.getPiclink();
-        final String videoUrl = entry.course.getCourselink();
-        final String webUrl = entry.course.getWebUrl();
+        final long itemId = entry.item.getItemid();
+        final String strTitle = entry.item.getTitle();
+        final String description = entry.item.getDescription();
+        final String thumbUrl = entry.item.getPiclink();
+        final String videoUrl = entry.item.getCourselink();
+        final String webUrl = entry.item.getWebUrl();
         final String userId = UserProfile.getInstance().getUserId();
 
         ImageView thumbImage = (ImageView) vi.findViewById(R.id.pic_link);
         TextView title = (TextView) vi.findViewById(R.id.title);
         TextView watchedTime = (TextView) vi.findViewById(R.id.watchedTime);
 
-        imageLoader.DisplayImage(entry.course.getPiclink(), thumbImage);
+        imageLoader.DisplayImage(entry.item.getPiclink(), thumbImage);
         title.setText(strTitle);
         watchedTime.setText(entry.watchedTime);
 
@@ -217,11 +217,11 @@ public class HistoryListAdapter extends BaseAdapter {
                             //Show subpage with videoUrl
                             Intent intent = new Intent();
                             HistoryEntry entry = dataList.get(positionYixi);
-                            intent.putExtra("id", String.valueOf(entry.course.getItemid()));
-                            intent.putExtra("title", entry.course.getTitle());
+                            intent.putExtra("id", String.valueOf(entry.item.getItemid()));
+                            intent.putExtra("title", entry.item.getTitle());
                             intent.putExtra("videoUrl", link);
-                            intent.putExtra("description", entry.course.getDescription());
-                            intent.putExtra("videoImg", entry.course.getPiclink());
+                            intent.putExtra("description", entry.item.getDescription());
+                            intent.putExtra("videoImg", entry.item.getPiclink());
                             intent.putExtra("userid", UserProfile.getInstance().getUserId());
                             if (UserProfile.getInstance().getNickname() != null) {
                                 intent.putExtra("nickname", UserProfile.getInstance().getNickname());

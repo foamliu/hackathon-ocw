@@ -2,7 +2,7 @@ package org.hackathon_ocw.androidclient.util;
 
 import android.util.Log;
 
-import org.hackathon_ocw.androidclient.domain.Course;
+import org.hackathon_ocw.androidclient.domain.Item;
 import org.hackathon_ocw.androidclient.domain.HistoryEntry;
 import org.hackathon_ocw.androidclient.domain.UserProfile;
 
@@ -22,30 +22,30 @@ public class NetworkThread implements Runnable{
     static final String postUrl = "http://api.jieko.cc/user/";
 
     private float rating = 5;
-    private final Course course;
+    private final Item item;
 
     private final String userid;
 
-    public NetworkThread(String userid, Course course, float rating)
+    public NetworkThread(String userid, Item item, float rating)
     {
         this.userid = userid;
-        this.course = course;
+        this.item = item;
         this.rating = rating;
     }
 
     @Override
     public void run() {
         try {
-            setLocal(course);
-            SendPostRequest(Long.valueOf(userid), course.getItemid(), rating);
+            setLocal(item);
+            SendPostRequest(Long.valueOf(userid), item.getItemid(), rating);
         } catch (Exception e) {
             //Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setLocal(Course course) {
+    private void setLocal(Item item) {
         HistoryEntry he = new HistoryEntry();
-        he.course = course;
+        he.item = item;
         String timeString = Constants.DateFormat.format(new Date());
         he.watchedTime = timeString;
         UserProfile.getInstance().addHistoryEntry(he);
