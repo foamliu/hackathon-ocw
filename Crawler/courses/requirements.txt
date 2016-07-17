@@ -1,0 +1,4 @@
+PyVirtualDisplay==0.2
+selenium==2.53.5
+Scrapy==1.1.0
+pymongo==3.3.0

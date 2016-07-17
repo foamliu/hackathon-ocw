@@ -1,0 +1,14 @@
+---
+version: '2'
+services:
+  mongo:
+    image: tutum/mongodb:3.2
+    environment:
+      - MONGODB_PASS=monpassw0rd
+      - MONGODB_DATABASE=xue
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+    volumes:
+      - ./data:/data/db
+    privileged: true
