@@ -1,0 +1,11 @@
+.idea/
+.DS_Store
+*.pyc
+*.pyo
+.cache
+build
+dist
+*egg-info
+.eggs
+test_output
+.gradle/
